@@ -1,440 +1,939 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunday City — Trading Card Tracker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#24103d">
+<title>Sunday City — Trading Card Tracker</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{box-sizing:border-box}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #fff;
-      background:
-        radial-gradient(circle at top, #4b1f70 0%, #1b0b2c 45%, #090611 100%);
-    }
+:root{
+--bg:#100819;
+--panel:rgba(42,20,65,.82);
+--line:rgba(255,255,255,.16);
+--text:#fff;
+--muted:#c9bdd4;
+--gold:#d9b77a;
+--purple:#8b3fd1;
+--purple2:#b56bea;
+}
 
-    .app {
-      width: 100%;
-      max-width: 700px;
-      margin: auto;
-      padding: 28px 18px 50px;
-    }
+body{
+margin:0;
+min-height:100vh;
+color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background:
+radial-gradient(circle at 15% 0%,rgba(161,77,209,.30),transparent 35%),
+radial-gradient(circle at 90% 25%,rgba(216,183,122,.16),transparent 30%),
+linear-gradient(160deg,#281044 0%,#140a20 48%,#09050d 100%);
+}
 
-    .brand {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+button,input,select{font:inherit}
+button{cursor:pointer}
 
-    .cards-icon {
-      font-size: 48px;
-      margin-bottom: 8px;
-    }
+.shell{
+width:min(100%,980px);
+margin:0 auto;
+padding:24px 16px 48px;
+}
 
-    .eyebrow {
-      color: #d7a8ff;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+.hero{
+text-align:center;
+padding:30px 12px 22px;
+}
 
-    h1 {
-      margin: 8px 0;
-      font-size: clamp(36px, 10vw, 64px);
-      line-height: .95;
-      background: linear-gradient(90deg, #fff, #d9b4ff, #ffd77a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.logo{
+width:72px;
+height:72px;
+margin:0 auto 16px;
+display:grid;
+place-items:center;
+border-radius:18px;
+background:linear-gradient(145deg,#f5e7c7,#9d73c7);
+color:#2b163d;
+font-size:34px;
+box-shadow:0 14px 40px rgba(0,0,0,.35);
+}
 
-    .subtitle {
-      color: #d8cce3;
-      font-size: 16px;
-      line-height: 1.5;
-    }
+.eyebrow{
+letter-spacing:.38em;
+font-weight:700;
+font-size:13px;
+color:var(--gold);
+}
 
-    .panel {
-      padding: 24px;
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 24px;
-      background: rgba(255,255,255,.07);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
+h1{
+margin:10px 0 12px;
+font-family:Georgia,serif;
+font-size:clamp(44px,9vw,78px);
+line-height:.9;
+}
 
-    label {
-      display: block;
-      margin-bottom: 9px;
-      font-weight: 700;
-    }
+.subtitle{
+color:var(--muted);
+font-size:18px;
+max-width:650px;
+margin:0 auto;
+line-height:1.5;
+}
 
-    .hint {
-      color: #a99ab7;
-      font-size: 13px;
-      margin: 8px 0 18px;
-    }
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:28px;
+box-shadow:0 25px 80px rgba(0,0,0,.28);
+backdrop-filter:blur(18px);
+}
 
-    .tag-row {
-      display: flex;
-      gap: 10px;
-    }
+.welcome{
+max-width:650px;
+margin:16px auto;
+padding:28px;
+}
 
-    input {
-      width: 100%;
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.2);
-      background: rgba(0,0,0,.25);
-      color: white;
-      font-size: 16px;
-      outline: none;
-    }
+.welcome h2{margin:0 0 8px}
 
-    input:focus {
-      border-color: #c778ff;
-      box-shadow: 0 0 0 3px rgba(199,120,255,.15);
-    }
+.welcome p{
+color:var(--muted);
+line-height:1.5;
+}
 
-    button {
-      width: 100%;
-      margin-top: 14px;
-      padding: 16px;
-      border: 0;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 800;
-      color: white;
-      background: linear-gradient(135deg, #9b42d5, #6330a8);
-      cursor: pointer;
-    }
+label{
+display:block;
+color:#eee;
+font-weight:700;
+margin:20px 0 8px;
+}
 
-    button:disabled {
-      opacity: .4;
-      cursor: not-allowed;
-    }
+input,select{
+width:100%;
+border:1px solid var(--line);
+background:rgba(0,0,0,.22);
+color:#fff;
+border-radius:15px;
+padding:15px 16px;
+outline:none;
+}
 
-    .dashboard {
-      display: none;
-      margin-top: 25px;
-    }
+input:focus,select:focus{
+border-color:var(--purple2);
+box-shadow:0 0 0 3px rgba(181,107,234,.15);
+}
 
-    .welcome {
-      margin-bottom: 20px;
-    }
+.primary{
+width:100%;
+margin-top:16px;
+border:0;
+border-radius:15px;
+padding:15px 18px;
+color:white;
+font-weight:800;
+background:linear-gradient(135deg,#7130a7,#a54fd0);
+box-shadow:0 12px 30px rgba(139,63,209,.28);
+}
 
-    .welcome h2 {
-      margin: 0 0 5px;
-    }
+.fine{
+text-align:center;
+color:#a99caf;
+font-size:13px;
+margin-top:18px;
+}
 
-    .tag-display {
-      color: #d7a8ff;
-    }
+.hidden{display:none!important}
 
-    .progress-box {
-      padding: 18px;
-      margin-bottom: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.08);
-    }
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+padding:14px 16px;
+margin-bottom:18px;
+}
 
-    .progress-top {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
+.brand{
+font-weight:900;
+letter-spacing:.05em;
+}
 
-    .bar {
-      height: 10px;
-      border-radius: 99px;
-      background: rgba(255,255,255,.1);
-      overflow: hidden;
-    }
+.tag{
+color:var(--gold);
+font-size:13px;
+}
 
-    .bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #a94ee0, #ffd16a);
-      transition: width .3s;
-    }
+.ghost{
+border:1px solid var(--line);
+background:rgba(255,255,255,.05);
+color:#fff;
+padding:10px 14px;
+border-radius:12px;
+}
 
-    .categories {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-bottom:18px;
+}
 
-    .category {
-      padding: 18px 14px;
-      min-height: 110px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.07);
-      cursor: pointer;
-      transition: transform .2s, border-color .2s;
-    }
+.stat{
+padding:18px;
+text-align:center;
+}
 
-    .category:hover {
-      transform: translateY(-2px);
-      border-color: #b967e8;
-    }
+.stat strong{
+display:block;
+font-size:28px;
+}
 
-    .category-name {
-      font-weight: 800;
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
+.stat span{
+color:var(--muted);
+font-size:12px;
+text-transform:uppercase;
+letter-spacing:.08em;
+}
 
-    .count {
-      font-size: 25px;
-      font-weight: 900;
-    }
+.controls{
+padding:18px;
+margin-bottom:18px;
+}
 
-    .change {
-      margin-top: 20px;
-      background: rgba(255,255,255,.1);
-    }
+.controls-grid{
+display:grid;
+grid-template-columns:1.4fr 1fr 1fr;
+gap:10px;
+}
 
-    .note {
-      margin-top: 22px;
-      text-align: center;
-      color: #9689a5;
-      font-size: 12px;
-    }
+.collection-head{
+display:flex;
+justify-content:space-between;
+align-items:end;
+gap:10px;
+margin:8px 0 12px;
+}
 
-    @media (max-width: 480px) {
-      .app {
-        padding: 22px 14px 40px;
-      }
+.collection-head h2{
+margin:0;
+font-family:Georgia,serif;
+}
 
-      .panel {
-        padding: 18px;
-      }
+.count{color:var(--muted)}
 
-      .categories {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+}
+
+.card-item{
+overflow:hidden;
+position:relative;
+}
+
+.card-art{
+min-height:220px;
+padding:20px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+background:
+radial-gradient(circle at 80% 20%,rgba(255,255,255,.28),transparent 20%),
+linear-gradient(145deg,#5a2d78,#1a1027);
+}
+
+.rarity{
+align-self:flex-start;
+border:1px solid rgba(255,255,255,.35);
+padding:6px 9px;
+border-radius:999px;
+font-size:11px;
+font-weight:800;
+}
+
+.card-symbol{
+font-size:64px;
+text-align:center;
+filter:drop-shadow(0 8px 12px rgba(0,0,0,.35));
+}
+
+.card-name{
+font-family:Georgia,serif;
+font-size:25px;
+font-weight:700;
+}
+
+.card-body{padding:16px}
+
+.card-meta{
+display:flex;
+justify-content:space-between;
+color:var(--muted);
+font-size:13px;
+margin-bottom:14px;
+}
+
+.owned{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+
+.stepper{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.stepper button{
+width:34px;
+height:34px;
+border-radius:10px;
+border:1px solid var(--line);
+background:rgba(255,255,255,.06);
+color:#fff;
+}
+
+.empty{
+grid-column:1/-1;
+padding:35px;
+text-align:center;
+color:var(--muted);
+}
+
+.footer{
+text-align:center;
+color:#8f8297;
+font-size:12px;
+margin-top:30px;
+line-height:1.5;
+}
+
+@media(max-width:760px){
+.stats{grid-template-columns:repeat(2,1fr)}
+.controls-grid{grid-template-columns:1fr}
+.grid{grid-template-columns:1fr}
+.shell{
+padding-left:12px;
+padding-right:12px;
+}
+.welcome{padding:22px}
+}
+</style>
 </head>
 
 <body>
 
-  <main class="app">
+<main class="shell">
 
-    <header class="brand">
-      <div class="cards-icon">🃏</div>
-      <div class="eyebrow">Sunday City</div>
-      <h1>Trading Card Tracker</h1>
-      <div class="subtitle">
-        Suis ta collection de cartes<br>
-        <strong>Luxury Life</strong> dans Sunday City.
-      </div>
-    </header>
+<section id="welcomeScreen">
 
-    <section class="panel" id="tagScreen">
+<div class="hero">
 
-      <label for="playerTag">
-        🎮 Ton Sunday City Player Tag
-      </label>
+<div class="logo">🃏</div>
 
-      <div class="hint">
-        Entre ton tag Sunday City pour accéder à ton suivi de collection.
-      </div>
+<div class="eyebrow">SUNDAY CITY</div>
 
-      <input
-        id="playerTag"
-        type="text"
-        placeholder="@ton-tag"
-        autocomplete="off"
-      >
+<h1>
+Trading Card<br>
+Tracker
+</h1>
 
-      <button id="continueBtn" disabled>
-        CONTINUER →
-      </button>
+<p class="subtitle">
+Track your <strong>Luxury Life</strong> trading card collection in Sunday City.
+</p>
 
-      <div class="note">
-        Application fan-made de suivi de Trading Cards.
-        <br>
-        Non officielle et non affiliée à Sunday City.
-      </div>
+</div>
 
-    </section>
 
-    <section class="dashboard" id="dashboard">
+<div class="card welcome">
 
-      <div class="panel">
+<h2>🎮 Your Sunday City Player Tag</h2>
 
-        <div class="welcome">
-          <h2>Ma collection 🃏</h2>
-          <div class="tag-display" id="savedTag"></div>
-        </div>
+<p>
+Enter your Sunday City tag to access your personal collection tracker.
+</p>
 
-        <div class="progress-box">
+<label for="playerTag">
+Sunday City Player Tag
+</label>
 
-          <div class="progress-top">
-            <span>Progression</span>
-            <span id="progressText">0 / 12</span>
-          </div>
+<input
+id="playerTag"
+type="text"
+placeholder="@your-tag"
+autocomplete="off"
+>
 
-          <div class="bar">
-            <div class="bar-fill" id="progressBar"></div>
-          </div>
+<button
+class="primary"
+id="continueBtn"
+>
+CONTINUE →
+</button>
 
-        </div>
+<div class="fine">
+Fan-made Trading Card tracker.
+Not official and not affiliated with Sunday City.
+</div>
 
-        <div class="categories" id="categories"></div>
+</div>
 
-        <button class="change" id="changeTag">
-          CHANGER DE TAG
-        </button>
+</section>
 
-      </div>
 
-    </section>
+<section id="appScreen" class="hidden">
 
-  </main>
+<div class="card topbar">
+
+<div>
+
+<div class="brand">
+SUNDAY CITY · LUXURY LIFE
+</div>
+
+<div
+class="tag"
+id="tagDisplay">
+</div>
+
+</div>
+
+<button
+class="ghost"
+id="changeTagBtn">
+Change tag
+</button>
+
+</div>
+
+
+<div class="stats">
+
+<div class="card stat">
+<strong id="ownedStat">0</strong>
+<span>Cards owned</span>
+</div>
+
+<div class="card stat">
+<strong id="uniqueStat">0</strong>
+<span>Unique cards</span>
+</div>
+
+<div class="card stat">
+<strong id="totalStat">0</strong>
+<span>Total cards</span>
+</div>
+
+<div class="card stat">
+<strong id="completionStat">0%</strong>
+<span>Collection</span>
+</div>
+
+</div>
+
+
+<div class="card controls">
+
+<div class="controls-grid">
+
+<input
+id="search"
+type="search"
+placeholder="Search cards..."
+>
+
+<select id="rarityFilter">
+
+<option value="all">
+All rarities
+</option>
+
+<option value="Common">
+Common
+</option>
+
+<option value="Rare">
+Rare
+</option>
+
+<option value="Epic">
+Epic
+</option>
+
+<option value="Legendary">
+Legendary
+</option>
+
+</select>
+
+
+<select id="ownedFilter">
+
+<option value="all">
+All cards
+</option>
+
+<option value="owned">
+Owned only
+</option>
+
+<option value="missing">
+Missing only
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="collection-head">
+
+<h2>Your Collection</h2>
+
+<div
+class="count"
+id="resultCount">
+</div>
+
+</div>
+
+
+<div
+id="cardGrid"
+class="grid">
+</div>
+
+
+<div class="footer">
+
+Fan-made Sunday City Trading Card tracker.
+<br>
+Your collection is saved locally on this device.
+
+</div>
+
+</section>
+
+</main>
+
 
 <script>
 
-const categories = [
-  "Shopping Chic",
-  "High-End Auctions",
-  "Boarding School",
-  "Horse Racing",
-  "Fancy Paws",
-  "VIP Party",
-  "Money",
-  "Casino Night",
-  "Island Vacation",
-  "Deck Days",
-  "Golf Club",
-  "Dream Cars"
+const CARDS = [
+
+{
+id:"ll-01",
+name:"Luxury Life",
+rarity:"Legendary",
+symbol:"💎"
+},
+
+{
+id:"ll-02",
+name:"Penthouse",
+rarity:"Epic",
+symbol:"🏙️"
+},
+
+{
+id:"ll-03",
+name:"Private Jet",
+rarity:"Epic",
+symbol:"✈️"
+},
+
+{
+id:"ll-04",
+name:"Supercar",
+rarity:"Rare",
+symbol:"🏎️"
+},
+
+{
+id:"ll-05",
+name:"Designer Look",
+rarity:"Rare",
+symbol:"👗"
+},
+
+{
+id:"ll-06",
+name:"Luxury Watch",
+rarity:"Rare",
+symbol:"⌚"
+},
+
+{
+id:"ll-07",
+name:"Champagne Night",
+rarity:"Common",
+symbol:"🥂"
+},
+
+{
+id:"ll-08",
+name:"City Lights",
+rarity:"Common",
+symbol:"🌃"
+},
+
+{
+id:"ll-09",
+name:"Rooftop Party",
+rarity:"Common",
+symbol:"🎉"
+}
+
 ];
 
-const tagInput = document.getElementById("playerTag");
-const continueBtn = document.getElementById("continueBtn");
-const tagScreen = document.getElementById("tagScreen");
-const dashboard = document.getElementById("dashboard");
-const savedTag = document.getElementById("savedTag");
-const categoriesContainer = document.getElementById("categories");
-const progressText = document.getElementById("progressText");
-const progressBar = document.getElementById("progressBar");
-const changeTag = document.getElementById("changeTag");
 
-let collection = {};
+const TAG_KEY =
+"sundayCityPlayerTag";
 
-categories.forEach(category => {
-  collection[category] = 0;
-});
+const COLLECTION_KEY =
+"sundayCityLuxuryLifeCollection";
 
-tagInput.addEventListener("input", () => {
-  continueBtn.disabled = tagInput.value.trim().length === 0;
-});
 
-continueBtn.addEventListener("click", () => {
+const $ =
+id => document.getElementById(id);
 
-  const tag = tagInput.value.trim();
 
-  if (!tag) return;
+let collection =
+JSON.parse(
+localStorage.getItem(COLLECTION_KEY) || "{}"
+);
 
-  localStorage.setItem("sundayCityTag", tag);
-  localStorage.setItem("collection", JSON.stringify(collection));
 
-  showDashboard(tag);
-});
+function save(){
 
-function showDashboard(tag) {
+localStorage.setItem(
+COLLECTION_KEY,
+JSON.stringify(collection)
+);
 
-  tagScreen.style.display = "none";
-  dashboard.style.display = "block";
-
-  savedTag.textContent = "@" + tag.replace(/^@/, "");
-
-  renderCategories();
 }
 
-function renderCategories() {
 
-  categoriesContainer.innerHTML = "";
+function showApp(){
 
-  let completed = 0;
+const tag =
+localStorage.getItem(TAG_KEY);
 
-  categories.forEach(category => {
+if(!tag)return;
 
-    const count = collection[category] || 0;
+$("welcomeScreen")
+.classList.add("hidden");
 
-    if (count > 0) {
-      completed++;
-    }
+$("appScreen")
+.classList.remove("hidden");
 
-    const card = document.createElement("div");
-    card.className = "category";
+$("tagDisplay")
+.textContent=tag;
 
-    card.innerHTML = `
-      <div class="category-name">${category}</div>
-      <div class="count">${count} / 12</div>
-    `;
+render();
 
-    card.addEventListener("click", () => {
-
-      collection[category] =
-        collection[category] < 12
-          ? collection[category] + 1
-          : 0;
-
-      localStorage.setItem(
-        "collection",
-        JSON.stringify(collection)
-      );
-
-      renderCategories();
-    });
-
-    categoriesContainer.appendChild(card);
-
-  });
-
-  const percentage =
-    Math.round((completed / categories.length) * 100);
-
-  progressText.textContent =
-    `${completed} / 12`;
-
-  progressBar.style.width =
-    percentage + "%";
 }
 
-changeTag.addEventListener("click", () => {
 
-  localStorage.removeItem("sundayCityTag");
+$("continueBtn")
+.addEventListener("click",()=>{
 
-  dashboard.style.display = "none";
-  tagScreen.style.display = "block";
+let tag =
+$("playerTag").value.trim();
 
-  tagInput.value = "";
-  continueBtn.disabled = true;
+if(!tag){
+
+$("playerTag").focus();
+
+return;
+
+}
+
+if(!tag.startsWith("@"))
+tag="@"+tag;
+
+localStorage.setItem(
+TAG_KEY,
+tag
+);
+
+showApp();
+
 });
 
-const existingTag =
-  localStorage.getItem("sundayCityTag");
 
-const existingCollection =
-  localStorage.getItem("collection");
+$("playerTag")
+.addEventListener("keydown",e=>{
 
-if (existingCollection) {
-  collection = JSON.parse(existingCollection);
+if(e.key==="Enter")
+$("continueBtn").click();
+
+});
+
+
+$("changeTagBtn")
+.addEventListener("click",()=>{
+
+localStorage.removeItem(TAG_KEY);
+
+$("appScreen")
+.classList.add("hidden");
+
+$("welcomeScreen")
+.classList.remove("hidden");
+
+$("playerTag").value="";
+
+$("playerTag").focus();
+
+});
+
+
+[
+"search",
+"rarityFilter",
+"ownedFilter"
+].forEach(id=>{
+
+$(id).addEventListener(
+"input",
+render
+);
+
+$(id).addEventListener(
+"change",
+render
+);
+
+});
+
+
+function setOwned(id,delta){
+
+collection[id] =
+Math.max(
+0,
+(collection[id] || 0)+delta
+);
+
+if(collection[id]===0)
+delete collection[id];
+
+save();
+
+render();
+
 }
 
-if (existingTag) {
-  showDashboard(existingTag);
+
+function render(){
+
+const query =
+$("search")
+.value
+.toLowerCase()
+.trim();
+
+const rarity =
+$("rarityFilter")
+.value;
+
+const ownedFilter =
+$("ownedFilter")
+.value;
+
+
+const filtered =
+CARDS.filter(card=>{
+
+const owned =
+collection[card.id] || 0;
+
+return (
+
+!query ||
+card.name
+.toLowerCase()
+.includes(query)
+
+) && (
+
+rarity==="all" ||
+card.rarity===rarity
+
+) && (
+
+ownedFilter==="all" ||
+
+(
+ownedFilter==="owned" &&
+owned>0
+)
+
+||
+
+(
+ownedFilter==="missing" &&
+owned===0
+)
+
+);
+
+});
+
+
+const grid =
+$("cardGrid");
+
+grid.innerHTML="";
+
+
+if(!filtered.length){
+
+grid.innerHTML =
+'<div class="card empty">No cards match your search.</div>';
+
+}else{
+
+filtered.forEach(card=>{
+
+const owned =
+collection[card.id] || 0;
+
+const article =
+document.createElement("article");
+
+article.className =
+"card card-item";
+
+
+article.innerHTML = `
+
+<div class="card-art">
+
+<div class="rarity">
+${card.rarity}
+</div>
+
+<div class="card-symbol">
+${card.symbol}
+</div>
+
+<div class="card-name">
+${card.name}
+</div>
+
+</div>
+
+
+<div class="card-body">
+
+<div class="card-meta">
+
+<span>
+${card.id.toUpperCase()}
+</span>
+
+<span>
+Luxury Life
+</span>
+
+</div>
+
+
+<div class="owned">
+
+<strong>
+${owned} owned
+</strong>
+
+<div class="stepper">
+
+<button aria-label="Remove one">
+−
+</button>
+
+<button aria-label="Add one">
++
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+
+const buttons =
+article.querySelectorAll("button");
+
+
+buttons[0]
+.addEventListener(
+"click",
+()=>setOwned(card.id,-1)
+);
+
+
+buttons[1]
+.addEventListener(
+"click",
+()=>setOwned(card.id,1)
+);
+
+
+grid.appendChild(article);
+
+});
+
 }
+
+
+const ownedCopies =
+Object.values(collection)
+.reduce(
+(a,b)=>a+b,
+0
+);
+
+
+const uniqueOwned =
+CARDS.filter(
+c=>(collection[c.id] || 0)>0
+).length;
+
+
+$("ownedStat")
+.textContent=ownedCopies;
+
+$("uniqueStat")
+.textContent=uniqueOwned;
+
+$("totalStat")
+.textContent=CARDS.length;
+
+$("completionStat")
+.textContent=
+Math.round(
+uniqueOwned / CARDS.length * 100
+)+"%";
+
+
+$("resultCount")
+.textContent =
+`${filtered.length} card${filtered.length===1?"":"s"}`;
+
+}
+
+
+showApp();
 
 </script>
 
