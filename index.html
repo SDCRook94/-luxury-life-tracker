@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
@@ -29,10 +30,15 @@ body {
     Arial,
     sans-serif;
 
-  color: #ffffff;
+  color: white;
 
   background:
-    radial-gradient(circle at top, #522080 0%, #21102f 35%, #090611 75%);
+    radial-gradient(
+      circle at top,
+      #54217f 0%,
+      #261037 35%,
+      #08050d 78%
+    );
 
   background-attachment: fixed;
 }
@@ -56,11 +62,19 @@ button {
   margin: auto;
 }
 
+
+/* =========================
+   HEADER
+========================= */
+
 header {
-  padding: 28px 0 20px;
+  padding: 22px 0;
   border-bottom: 1px solid rgba(255,255,255,.12);
-  background: rgba(8,5,14,.75);
+
+  background: rgba(8,5,14,.78);
+
   backdrop-filter: blur(15px);
+
   position: sticky;
   top: 0;
   z-index: 20;
@@ -76,128 +90,225 @@ header {
 .logo {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 13px;
 }
 
 .logo-card {
-  width: 48px;
-  height: 68px;
+  width: 45px;
+  height: 62px;
+
   border-radius: 8px;
-  background: linear-gradient(135deg,#eee,#ddd);
-  color: #24102f;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #d9d9d9
+    );
+
+  color: #25102f;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.35);
+
+  font-size: 26px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
 }
 
 .logo h1 {
   margin: 0;
-  font-size: 21px;
+  font-size: 19px;
 }
 
 .logo p {
   margin: 4px 0 0;
+
   color: #bcaeca;
-  font-size: 13px;
+
+  font-size: 12px;
 }
 
 nav {
   display: flex;
-  gap: 8px;
+  gap: 7px;
   flex-wrap: wrap;
 }
 
 .nav-btn {
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.14);
+
   background: rgba(255,255,255,.06);
+
   color: white;
-  padding: 10px 15px;
-  border-radius: 12px;
+
+  padding: 9px 13px;
+
+  border-radius: 11px;
 }
 
 .nav-btn:hover {
   background: rgba(255,255,255,.12);
 }
 
+
+/* =========================
+   HERO
+========================= */
+
 .hero {
   text-align: center;
-  padding: 55px 0 35px;
+
+  padding:
+    55px 0
+    35px;
 }
 
 .hero small {
   letter-spacing: 7px;
-  color: #d9a8ff;
-  font-weight: 700;
+
+  color: #dbaaff;
+
+  font-weight: 800;
 }
 
 .hero h2 {
-  margin: 15px auto;
+  margin: 16px auto;
+
   max-width: 850px;
-  font-size: clamp(42px, 8vw, 76px);
+
+  font-size:
+    clamp(42px, 8vw, 76px);
+
   line-height: .98;
-  background: linear-gradient(90deg,#fff,#e6baff);
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #e5b8ff
+    );
+
   -webkit-background-clip: text;
+
   color: transparent;
 }
 
 .hero p {
   max-width: 650px;
+
   margin: 20px auto;
+
   color: #c8b9d0;
+
   font-size: 18px;
+
   line-height: 1.6;
 }
 
+
+/* =========================
+   PANELS
+========================= */
+
 .card-panel {
-  background: rgba(255,255,255,.055);
-  border: 1px solid rgba(255,255,255,.13);
+  background:
+    rgba(255,255,255,.055);
+
+  border:
+    1px solid
+    rgba(255,255,255,.13);
+
   border-radius: 22px;
+
   padding: 25px;
-  box-shadow: 0 20px 70px rgba(0,0,0,.25);
+
+  box-shadow:
+    0 20px 70px
+    rgba(0,0,0,.25);
+
   backdrop-filter: blur(15px);
+
   margin-bottom: 25px;
 }
 
 .card-panel h3 {
   margin-top: 0;
+
   font-size: 24px;
 }
 
+
+/* =========================
+   AUTH
+========================= */
+
 .auth {
   max-width: 520px;
-  margin: 20px auto 60px;
+
+  margin:
+    20px auto
+    60px;
 }
 
 input,
 select {
   width: 100%;
+
   padding: 15px 16px;
+
   margin: 7px 0;
+
   color: white;
-  background: rgba(10,5,20,.75);
-  border: 1px solid rgba(255,255,255,.18);
+
+  background:
+    rgba(10,5,20,.75);
+
+  border:
+    1px solid
+    rgba(255,255,255,.18);
+
   border-radius: 13px;
+
   outline: none;
 }
 
 input:focus,
 select:focus {
   border-color: #b66cff;
-  box-shadow: 0 0 0 3px rgba(182,108,255,.15);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(182,108,255,.15);
 }
 
 .primary {
   width: 100%;
+
   border: 0;
+
   margin-top: 10px;
+
   padding: 15px;
+
   border-radius: 13px;
+
   color: white;
+
   font-weight: 800;
-  background: linear-gradient(135deg,#7b2cbf,#b44cff);
-  box-shadow: 0 10px 25px rgba(140,50,210,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      #7b2cbf,
+      #b44cff
+    );
+
+  box-shadow:
+    0 10px 25px
+    rgba(140,50,210,.25);
 }
 
 .primary:hover {
@@ -205,41 +316,75 @@ select:focus {
 }
 
 .secondary {
-  border: 1px solid rgba(255,255,255,.18);
+  border:
+    1px solid
+    rgba(255,255,255,.18);
+
   padding: 11px 15px;
+
   border-radius: 11px;
+
   color: white;
-  background: rgba(255,255,255,.07);
+
+  background:
+    rgba(255,255,255,.07);
+}
+
+.secondary:hover {
+  background:
+    rgba(255,255,255,.12);
 }
 
 .danger {
-  border: 1px solid rgba(255,80,100,.4);
+  border:
+    1px solid
+    rgba(255,80,100,.4);
+
   color: #ff9da9;
+
   padding: 11px 15px;
+
   border-radius: 11px;
-  background: rgba(255,50,70,.08);
+
+  background:
+    rgba(255,50,70,.08);
 }
 
 .switch {
   text-align: center;
+
   color: #bcaeca;
+
   margin-top: 18px;
 }
 
 .switch button {
   border: 0;
+
   background: none;
+
   color: #d69aff;
+
   font-weight: 700;
 }
 
 .message {
   margin-top: 14px;
+
   padding: 12px;
+
   border-radius: 12px;
-  background: rgba(255,255,255,.07);
+
+  background:
+    rgba(255,255,255,.07);
+
   color: #d9cce0;
 }
+
+
+/* =========================
+   DASHBOARD
+========================= */
 
 .dashboard {
   padding-bottom: 80px;
@@ -247,14 +392,19 @@ select:focus {
 
 .profile-bar {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   gap: 15px;
+
   flex-wrap: wrap;
 }
 
 .username {
   font-size: 24px;
+
   font-weight: 800;
 }
 
@@ -262,122 +412,206 @@ select:focus {
   color: #a99cad;
 }
 
+
+/* =========================
+   TRADING CARDS
+========================= */
+
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(180px,1fr)
+    );
+
   gap: 18px;
 }
 
 .trading-card {
   min-height: 270px;
-  padding: 15px;
-  border-radius: 18px;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.025));
-  border: 1px solid rgba(255,255,255,.15);
-  position: relative;
-  overflow: hidden;
-}
 
-.trading-card::before {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  background: linear-gradient(
-    120deg,
-    transparent 35%,
-    rgba(255,255,255,.15),
-    transparent 65%
-  );
-  transform: rotate(20deg);
-  pointer-events: none;
+  padding: 15px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.11),
+      rgba(255,255,255,.025)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
+  position: relative;
+
+  overflow: hidden;
 }
 
 .card-art {
   height: 150px;
+
   border-radius: 13px;
+
   background:
-    radial-gradient(circle at 30% 25%,#ffdcff,#7e36a8 45%,#160a22);
+    radial-gradient(
+      circle at 30% 25%,
+      #ffdcff,
+      #7e36a8 45%,
+      #160a22
+    );
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   font-size: 55px;
+
   margin-bottom: 13px;
 }
 
 .trading-card h4 {
   margin: 5px 0;
+
   font-size: 17px;
 }
 
 .rarity {
   display: inline-block;
+
   padding: 5px 9px;
+
   border-radius: 999px;
+
   font-size: 11px;
+
   font-weight: 800;
+
   text-transform: uppercase;
-  background: rgba(255,255,255,.1);
+
+  background:
+    rgba(255,255,255,.1);
+
   color: #e4b9ff;
 }
 
 .quantity {
   margin-top: 8px;
+
   color: #bcaeca;
+
   font-size: 13px;
 }
 
+
+/* =========================
+   TRADING
+========================= */
+
 .trade-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap: 22px;
 }
 
 .trade-request {
-  border: 1px solid rgba(255,255,255,.12);
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
   border-radius: 15px;
+
   padding: 16px;
+
   margin-bottom: 12px;
-  background: rgba(0,0,0,.18);
+
+  background:
+    rgba(0,0,0,.18);
 }
 
 .trade-request strong {
   display: block;
+
   margin-bottom: 7px;
 }
 
 .trade-actions {
   display: flex;
+
   gap: 8px;
+
   margin-top: 12px;
 }
 
+
+/* =========================
+   PLAYERS
+========================= */
+
 .player {
   padding: 14px;
+
   margin: 8px 0;
+
   border-radius: 13px;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.1);
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid
+    rgba(255,255,255,.1);
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   gap: 10px;
 }
 
 .empty {
   padding: 25px;
+
   text-align: center;
+
   color: #9d91a3;
 }
 
+
+/* =========================
+   FOOTER
+========================= */
+
 footer {
   text-align: center;
+
   color: #766d7d;
-  padding: 35px 0 60px;
+
+  padding:
+    35px 0
+    60px;
+
   font-size: 13px;
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:750px) {
+
   .trade-layout {
     grid-template-columns: 1fr;
   }
@@ -395,72 +629,136 @@ footer {
   }
 
   .cards-grid {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
+
 }
 
 @media(max-width:430px) {
+
   .cards-grid {
     grid-template-columns: 1fr;
   }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
 <header>
+
   <div class="container header-inner">
 
     <div class="logo">
-      <div class="logo-card">🃏</div>
-      <div>
-        <h1>Sunday City Trading Cards</h1>
-        <p>Luxury Life • Community Trading</p>
+
+      <div class="logo-card">
+        🃏
       </div>
+
+      <div>
+
+        <h1>
+          Sunday City Trading Cards
+        </h1>
+
+        <p>
+          Luxury Life • Community Trading
+        </p>
+
+      </div>
+
     </div>
 
+
     <nav id="mainNav" class="hidden">
-      <button class="nav-btn" onclick="showSection('collection')">
+
+      <button
+        class="nav-btn"
+        onclick="showSection('collection')"
+      >
         Collection
       </button>
 
-      <button class="nav-btn" onclick="showSection('trading')">
+      <button
+        class="nav-btn"
+        onclick="showSection('trading')"
+      >
         Trading
       </button>
 
-      <button class="nav-btn" onclick="showSection('players')">
+      <button
+        class="nav-btn"
+        onclick="showSection('players')"
+      >
         Players
       </button>
 
-      <button class="nav-btn" onclick="logout()">
+      <button
+        class="nav-btn"
+        onclick="logout()"
+      >
         Logout
       </button>
+
     </nav>
 
   </div>
+
 </header>
+
+
 
 <main class="container">
 
+
+<!-- =====================================
+     WELCOME
+===================================== -->
+
 <section id="welcome">
 
-  <div class="hero">
-    <small>SUNDAY CITY</small>
 
-    <h2>Trading Card Community</h2>
+  <div class="hero">
+
+    <small>
+      SUNDAY CITY
+    </small>
+
+    <h2>
+      Trading Card Community
+    </h2>
 
     <p>
       Collect your favorite Sunday City cards,
-      meet other players and trade cards with the community.
+      meet other players and trade cards
+      with the community.
     </p>
+
   </div>
+
+
+
+  <!-- LOGIN / SIGNUP -->
 
   <div class="card-panel auth">
 
+
+    <!-- LOGIN -->
+
     <div id="loginBox">
 
-      <h3>Welcome back 👋</h3>
+      <h3>
+        Welcome back 👋
+      </h3>
 
       <input
         id="loginEmail"
@@ -476,28 +774,50 @@ footer {
         autocomplete="current-password"
       >
 
-      <button class="primary" onclick="login()">
+      <button
+        class="primary"
+        onclick="login()"
+      >
         LOG IN
       </button>
 
+
       <div class="switch">
+
         Don't have an account?
-        <button onclick="showSignup()">Create one</button>
+
+        <button
+          onclick="showSignup()"
+        >
+          Create one
+        </button>
+
       </div>
 
     </div>
 
 
-    <div id="signupBox" class="hidden">
 
-      <h3>Create your player account 🎮</h3>
+    <!-- SIGNUP -->
+
+    <div
+      id="signupBox"
+      class="hidden"
+    >
+
+      <h3>
+        Create your player account 🎮
+      </h3>
+
 
       <input
         id="signupUsername"
         type="text"
-        placeholder="Player username"
+        placeholder="Player Tag"
         maxlength="30"
+        autocomplete="nickname"
       >
+
 
       <input
         id="signupEmail"
@@ -506,6 +826,7 @@ footer {
         autocomplete="email"
       >
 
+
       <input
         id="signupPassword"
         type="password"
@@ -513,43 +834,89 @@ footer {
         autocomplete="new-password"
       >
 
-      <button class="primary" onclick="signup()">
+
+      <button
+        class="primary"
+        onclick="signup()"
+      >
         CREATE ACCOUNT
       </button>
 
+
       <div class="switch">
+
         Already have an account?
-        <button onclick="showLogin()">Log in</button>
+
+        <button
+          onclick="showLogin()"
+        >
+          Log in
+        </button>
+
       </div>
 
     </div>
 
-    <div id="authMessage" class="message hidden"></div>
+
+    <div
+      id="authMessage"
+      class="message hidden"
+    ></div>
 
   </div>
 
 </section>
 
 
-<section id="dashboard" class="dashboard hidden">
+
+<!-- =====================================
+     DASHBOARD
+===================================== -->
+
+<section
+  id="dashboard"
+  class="dashboard hidden"
+>
+
+
+  <!-- PROFILE -->
 
   <div class="card-panel">
 
     <div class="profile-bar">
 
-      <div>
-        <div class="muted">Player</div>
-        <div id="currentUsername" class="username"></div>
-      </div>
 
       <div>
-        <button class="secondary" onclick="showSection('collection')">
+
+        <div class="muted">
+          Player Tag
+        </div>
+
+        <div
+          id="currentUsername"
+          class="username"
+        ></div>
+
+      </div>
+
+
+      <div>
+
+        <button
+          class="secondary"
+          onclick="showSection('collection')"
+        >
           My Collection
         </button>
 
-        <button class="secondary" onclick="showSection('trading')">
+
+        <button
+          class="secondary"
+          onclick="showSection('trading')"
+        >
           Trade
         </button>
+
       </div>
 
     </div>
@@ -557,101 +924,171 @@ footer {
   </div>
 
 
-  <!-- COLLECTION -->
 
-  <div id="collection" class="card-panel">
+  <!-- ===================================
+       COLLECTION
+  ==================================== -->
 
-    <h3>🃏 My Collection</h3>
+  <div
+    id="collection"
+    class="card-panel"
+  >
+
+    <h3>
+      🃏 My Collection
+    </h3>
 
     <p class="muted">
       Your Sunday City Trading Cards.
     </p>
 
-    <div id="collectionGrid" class="cards-grid"></div>
+    <div
+      id="collectionGrid"
+      class="cards-grid"
+    ></div>
 
   </div>
 
 
-  <!-- TRADING -->
 
-  <div id="trading" class="trade-layout">
+  <!-- ===================================
+       TRADING
+  ==================================== -->
+
+  <div
+    id="trading"
+    class="trade-layout"
+  >
+
+
+    <!-- CREATE TRADE -->
 
     <div class="card-panel">
 
-      <h3>🔄 Create a Trade</h3>
+      <h3>
+        🔄 Create a Trade
+      </h3>
 
       <p class="muted">
-        Choose another player and offer one of your cards.
+        Choose another player and offer
+        one of your cards.
       </p>
+
 
       <input
         id="tradeUsername"
-        placeholder="Other player's username"
+        placeholder="Other player's Player Tag"
       >
 
+
       <select id="offerCard">
-        <option value="">Choose a card to offer</option>
+
+        <option value="">
+          Choose a card to offer
+        </option>
+
       </select>
+
 
       <select id="requestCard">
-        <option value="">Choose the card you want</option>
+
+        <option value="">
+          Choose the card you want
+        </option>
+
       </select>
 
-      <button class="primary" onclick="createTrade()">
+
+      <button
+        class="primary"
+        onclick="createTrade()"
+      >
         SEND TRADE REQUEST
       </button>
 
-      <div id="tradeMessage" class="message hidden"></div>
+
+      <div
+        id="tradeMessage"
+        class="message hidden"
+      ></div>
 
     </div>
 
+
+
+    <!-- INCOMING TRADES -->
 
     <div class="card-panel">
 
-      <h3>📨 Incoming Trades</h3>
+      <h3>
+        📨 Incoming Trades
+      </h3>
 
-      <div id="incomingTrades"></div>
+      <div
+        id="incomingTrades"
+      ></div>
 
     </div>
 
   </div>
 
 
-  <!-- PLAYERS -->
 
-  <div id="players" class="card-panel">
+  <!-- ===================================
+       PLAYERS
+  ==================================== -->
 
-    <h3>👥 Community Players</h3>
+  <div
+    id="players"
+    class="card-panel"
+  >
+
+    <h3>
+      👥 Community Players
+    </h3>
 
     <p class="muted">
-      Find other collectors and trade with them.
+      Find other collectors and trade
+      with them.
     </p>
 
-    <div id="playersList"></div>
+
+    <div
+      id="playersList"
+    ></div>
 
   </div>
+
 
 </section>
 
 </main>
 
 
+
 <footer>
-  Sunday City Trading Cards • Fan-made community project
+
+  Sunday City Trading Cards
+  •
+  Fan-made community project
+
 </footer>
+
 
 
 <script>
 
-/* =========================================================
-   SUPABASE CONNECTION
-   ========================================================= */
+
+/* ==========================================
+   SUPABASE
+========================================== */
 
 const SUPABASE_URL =
   "https://rxuopmnehdngmdsgkhvr.supabase.co";
 
 const SUPABASE_KEY =
   "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
+
 
 const db =
   window.supabase.createClient(
@@ -660,41 +1097,52 @@ const db =
   );
 
 
-/* =========================================================
-   GLOBAL STATE
-   ========================================================= */
+
+/* ==========================================
+   GLOBAL VARIABLES
+========================================== */
 
 let currentUser = null;
+
 let currentProfile = null;
+
 let allCards = [];
 
 
-/* =========================================================
-   START APP
-   ========================================================= */
 
-document.addEventListener("DOMContentLoaded", async () => {
+/* ==========================================
+   START
+========================================== */
 
-  const {
-    data: {
-      session
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await db.auth.getSession();
+
+
+    if (session) {
+
+      currentUser =
+        session.user;
+
+      await loadProfile();
+
     }
-  } = await db.auth.getSession();
-
-  if (session) {
-
-    currentUser = session.user;
-
-    await loadProfile();
 
   }
+);
 
-});
 
 
-/* =========================================================
-   AUTH UI
-   ========================================================= */
+/* ==========================================
+   LOGIN / SIGNUP UI
+========================================== */
 
 function showSignup() {
 
@@ -702,13 +1150,16 @@ function showSignup() {
     .getElementById("loginBox")
     .classList.add("hidden");
 
+
   document
     .getElementById("signupBox")
     .classList.remove("hidden");
 
+
   clearMessage();
 
 }
+
 
 
 function showLogin() {
@@ -717,70 +1168,98 @@ function showLogin() {
     .getElementById("signupBox")
     .classList.add("hidden");
 
+
   document
     .getElementById("loginBox")
     .classList.remove("hidden");
+
 
   clearMessage();
 
 }
 
 
-function showMessage(text, error = false) {
+
+function showMessage(
+  text,
+  error = false
+) {
 
   const box =
-    document.getElementById("authMessage");
+    document.getElementById(
+      "authMessage"
+    );
 
-  box.textContent = text;
 
-  box.classList.remove("hidden");
+  box.textContent =
+    text;
 
-  if (error) {
 
-    box.style.color = "#ff9da9";
+  box.classList.remove(
+    "hidden"
+  );
 
-  } else {
 
-    box.style.color = "#d8ffed";
-
-  }
+  box.style.color =
+    error
+      ? "#ff9da9"
+      : "#d8ffed";
 
 }
+
 
 
 function clearMessage() {
 
   document
-    .getElementById("authMessage")
-    .classList.add("hidden");
+    .getElementById(
+      "authMessage"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
    SIGN UP
-   ========================================================= */
+========================================== */
 
 async function signup() {
 
   const username =
     document
-      .getElementById("signupUsername")
+      .getElementById(
+        "signupUsername"
+      )
       .value
       .trim();
+
 
   const email =
     document
-      .getElementById("signupEmail")
+      .getElementById(
+        "signupEmail"
+      )
       .value
       .trim();
 
+
   const password =
     document
-      .getElementById("signupPassword")
+      .getElementById(
+        "signupPassword"
+      )
       .value;
 
-  if (!username || !email || !password) {
+
+  if (
+    !username ||
+    !email ||
+    !password
+  ) {
 
     showMessage(
       "Please complete all fields.",
@@ -791,7 +1270,24 @@ async function signup() {
 
   }
 
-  if (password.length < 6) {
+
+  if (
+    username.length < 3
+  ) {
+
+    showMessage(
+      "Player Tag must contain at least 3 characters.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  if (
+    password.length < 6
+  ) {
 
     showMessage(
       "Password must contain at least 6 characters.",
@@ -803,26 +1299,33 @@ async function signup() {
   }
 
 
-  showMessage("Creating your account...");
+  showMessage(
+    "Creating your account..."
+  );
 
 
   const {
     data,
     error
-  } = await db.auth.signUp({
+  } =
+    await db.auth.signUp({
 
-    email,
-    password,
+      email: email,
 
-    options: {
+      password: password,
 
-      data: {
-        username: username
+      options: {
+
+        data: {
+
+          username:
+            username
+
+        }
+
       }
 
-    }
-
-  });
+    });
 
 
   if (error) {
@@ -849,13 +1352,9 @@ async function signup() {
   }
 
 
-  currentUser = data.user;
+  currentUser =
+    data.user;
 
-
-  /*
-    If email confirmation is disabled,
-    we already have a session.
-  */
 
   if (data.session) {
 
@@ -864,9 +1363,12 @@ async function signup() {
       username
     );
 
+
     await loadProfile();
 
-  } else {
+  }
+
+  else {
 
     showMessage(
       "Account created! Check your email to confirm your account, then log in."
@@ -877,25 +1379,34 @@ async function signup() {
 }
 
 
-/* =========================================================
+
+/* ==========================================
    LOGIN
-   ========================================================= */
+========================================== */
 
 async function login() {
 
   const email =
     document
-      .getElementById("loginEmail")
+      .getElementById(
+        "loginEmail"
+      )
       .value
       .trim();
 
+
   const password =
     document
-      .getElementById("loginPassword")
+      .getElementById(
+        "loginPassword"
+      )
       .value;
 
 
-  if (!email || !password) {
+  if (
+    !email ||
+    !password
+  ) {
 
     showMessage(
       "Please enter your email and password.",
@@ -907,18 +1418,22 @@ async function login() {
   }
 
 
-  showMessage("Logging in...");
+  showMessage(
+    "Logging in..."
+  );
 
 
   const {
     data,
     error
-  } = await db.auth.signInWithPassword({
+  } =
+    await db.auth.signInWithPassword({
 
-    email,
-    password
+      email: email,
 
-  });
+      password: password
+
+    });
 
 
   if (error) {
@@ -933,16 +1448,19 @@ async function login() {
   }
 
 
-  currentUser = data.user;
+  currentUser =
+    data.user;
+
 
   await loadProfile();
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
    CREATE PROFILE
-   ========================================================= */
+========================================== */
 
 async function createProfile(
   userId,
@@ -950,27 +1468,50 @@ async function createProfile(
 ) {
 
   const {
+    data,
     error
-  } = await db
-    .from("profiles")
-    .insert({
+  } =
+    await db
+      .from("profiles")
+      .insert({
 
-      id: userId,
-      username: username
+        id:
+          userId,
 
-    });
+        username:
+          username
+
+      })
+      .select()
+      .maybeSingle();
 
 
-  if (error) {
-
-    /*
-      Profile may already exist.
-      We don't want to stop the application.
-    */
+  if (
+    error &&
+    !error.message.includes(
+      "duplicate"
+    )
+  ) {
 
     console.log(
-      "Profile insert:",
+      "Profile error:",
       error.message
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Give the new player
+    starter cards.
+  */
+
+  if (data) {
+
+    await giveStarterCards(
+      userId
     );
 
   }
@@ -978,28 +1519,100 @@ async function createProfile(
 }
 
 
-/* =========================================================
+
+/* ==========================================
+   STARTER CARDS
+========================================== */
+
+async function giveStarterCards(
+  userId
+) {
+
+  const {
+    data: cards
+  } =
+    await db
+      .from("cards")
+      .select("id")
+      .limit(4);
+
+
+  if (
+    !cards ||
+    cards.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  for (
+    const card of cards
+  ) {
+
+    await db
+      .from("user_cards")
+      .upsert(
+        {
+
+          user_id:
+            userId,
+
+          card_id:
+            card.id,
+
+          quantity:
+            1
+
+        },
+
+        {
+
+          onConflict:
+            "user_id,card_id"
+
+        }
+      );
+
+  }
+
+}
+
+
+
+/* ==========================================
    LOAD PROFILE
-   ========================================================= */
+========================================== */
 
 async function loadProfile() {
 
-  if (!currentUser) return;
+  if (!currentUser) {
+
+    return;
+
+  }
 
 
   const {
     data,
     error
-  } = await db
-    .from("profiles")
-    .select("*")
-    .eq("id", currentUser.id)
-    .maybeSingle();
+  } =
+    await db
+      .from("profiles")
+      .select("*")
+      .eq(
+        "id",
+        currentUser.id
+      )
+      .maybeSingle();
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     return;
 
@@ -1008,14 +1621,16 @@ async function loadProfile() {
 
   if (!data) {
 
-    /*
-      If the profile does not exist,
-      create one from the auth metadata.
-    */
-
     const username =
-      currentUser.user_metadata?.username
-      || "Player" + currentUser.id.slice(0,6);
+      currentUser
+        .user_metadata
+        ?.username
+      ||
+      "Player" +
+      currentUser.id.slice(
+        0,
+        6
+      );
 
 
     await createProfile(
@@ -1028,16 +1643,22 @@ async function loadProfile() {
       await db
         .from("profiles")
         .select("*")
-        .eq("id", currentUser.id)
+        .eq(
+          "id",
+          currentUser.id
+        )
         .maybeSingle();
 
 
     currentProfile =
       result.data;
 
-  } else {
+  }
 
-    currentProfile = data;
+  else {
+
+    currentProfile =
+      data;
 
   }
 
@@ -1047,30 +1668,52 @@ async function loadProfile() {
 }
 
 
-/* =========================================================
+
+/* ==========================================
    DASHBOARD
-   ========================================================= */
+========================================== */
 
 async function showDashboard() {
 
   document
-    .getElementById("welcome")
-    .classList.add("hidden");
-
-  document
-    .getElementById("dashboard")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("mainNav")
-    .classList.remove("hidden");
+    .getElementById(
+      "welcome"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 
   document
-    .getElementById("currentUsername")
+    .getElementById(
+      "dashboard"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "mainNav"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "currentUsername"
+    )
     .textContent =
       "@" +
-      (currentProfile?.username || "Player");
+      (
+        currentProfile
+          ?.username
+        ||
+        "Player"
+      );
 
 
   await loadCards();
@@ -1084,31 +1727,36 @@ async function showDashboard() {
 }
 
 
-/* =========================================================
+
+/* ==========================================
    LOAD CARDS
-   ========================================================= */
+========================================== */
 
 async function loadCards() {
 
   const {
     data,
     error
-  } = await db
-    .from("cards")
-    .select("*")
-    .order("id");
+  } =
+    await db
+      .from("cards")
+      .select("*")
+      .order("id");
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     return;
 
   }
 
 
-  allCards = data || [];
+  allCards =
+    data || [];
 
 
   populateCardSelectors();
@@ -1116,292 +1764,422 @@ async function loadCards() {
 }
 
 
-/* =========================================================
+
+/* ==========================================
    CARD SELECTORS
-   ========================================================= */
+========================================== */
 
 function populateCardSelectors() {
 
   const offer =
-    document.getElementById("offerCard");
+    document.getElementById(
+      "offerCard"
+    );
+
 
   const request =
-    document.getElementById("requestCard");
+    document.getElementById(
+      "requestCard"
+    );
 
 
   offer.innerHTML =
-    `<option value="">Choose a card to offer</option>`;
+    `
+      <option value="">
+        Choose a card to offer
+      </option>
+    `;
+
 
   request.innerHTML =
-    `<option value="">Choose the card you want</option>`;
+    `
+      <option value="">
+        Choose the card you want
+      </option>
+    `;
 
 
-  allCards.forEach(card => {
+  allCards.forEach(
+    card => {
 
-    const option1 =
-      document.createElement("option");
-
-    option1.value = card.id;
-
-    option1.textContent =
-      `${card.name} — ${card.rarity}`;
-
-    offer.appendChild(option1);
+      const option1 =
+        document.createElement(
+          "option"
+        );
 
 
-    const option2 =
-      document.createElement("option");
+      option1.value =
+        card.id;
 
-    option2.value = card.id;
 
-    option2.textContent =
-      `${card.name} — ${card.rarity}`;
+      option1.textContent =
+        `${card.name} — ${card.rarity}`;
 
-    request.appendChild(option2);
 
-  });
+      offer.appendChild(
+        option1
+      );
+
+
+      const option2 =
+        document.createElement(
+          "option"
+        );
+
+
+      option2.value =
+        card.id;
+
+
+      option2.textContent =
+        `${card.name} — ${card.rarity}`;
+
+
+      request.appendChild(
+        option2
+      );
+
+    }
+  );
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
    LOAD COLLECTION
-   ========================================================= */
+========================================== */
 
 async function loadCollection() {
 
   const {
     data,
     error
-  } = await db
-    .from("user_cards")
-    .select(`
-      id,
-      quantity,
-      cards (
+  } =
+    await db
+      .from("user_cards")
+      .select(`
         id,
-        name,
-        rarity,
-        image_url,
-        description
+        quantity,
+        cards (
+          id,
+          name,
+          rarity,
+          image_url,
+          description
+        )
+      `)
+      .eq(
+        "user_id",
+        currentUser.id
       )
-    `)
-    .eq("user_id", currentUser.id)
-    .order("id");
+      .order("id");
 
 
   const grid =
-    document.getElementById("collectionGrid");
+    document.getElementById(
+      "collectionGrid"
+    );
 
 
-  grid.innerHTML = "";
+  grid.innerHTML =
+    "";
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
+
 
     grid.innerHTML =
-      `<div class="empty">
-        Could not load your collection.
-      </div>`;
+      `
+        <div class="empty">
+          Could not load your collection.
+        </div>
+      `;
+
 
     return;
 
   }
 
 
-  if (!data || data.length === 0) {
+  if (
+    !data ||
+    data.length === 0
+  ) {
 
     grid.innerHTML =
-      `<div class="empty">
-        Your collection is empty.
-        <br><br>
-        Your starter cards will appear here.
-      </div>`;
+      `
+        <div class="empty">
+          Your collection is empty.
+          <br><br>
+          Starter cards will appear here.
+        </div>
+      `;
+
 
     return;
 
   }
 
 
-  data.forEach(item => {
+  data.forEach(
+    item => {
 
-    if (!item.cards) return;
+      if (!item.cards) {
 
+        return;
 
-    const card =
-      document.createElement("div");
-
-    card.className =
-      "trading-card";
+      }
 
 
-    card.innerHTML = `
-
-      <div class="card-art">
-        🃏
-      </div>
-
-      <span class="rarity">
-        ${escapeHtml(item.cards.rarity)}
-      </span>
-
-      <h4>
-        ${escapeHtml(item.cards.name)}
-      </h4>
-
-      <div class="quantity">
-        Quantity: ${item.quantity}
-      </div>
-
-    `;
+      const card =
+        document.createElement(
+          "div"
+        );
 
 
-    grid.appendChild(card);
+      card.className =
+        "trading-card";
 
-  });
+
+      card.innerHTML =
+        `
+
+          <div class="card-art">
+            🃏
+          </div>
+
+          <span class="rarity">
+            ${escapeHtml(
+              item.cards.rarity
+            )}
+          </span>
+
+          <h4>
+            ${escapeHtml(
+              item.cards.name
+            )}
+          </h4>
+
+          <div class="quantity">
+            Quantity:
+            ${item.quantity}
+          </div>
+
+        `;
+
+
+      grid.appendChild(
+        card
+      );
+
+    }
+  );
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
    LOAD PLAYERS
-   ========================================================= */
+========================================== */
 
 async function loadPlayers() {
 
   const {
     data,
     error
-  } = await db
-    .from("profiles")
-    .select("id, username, created_at")
-    .neq("id", currentUser.id)
-    .order("username");
+  } =
+    await db
+      .from("profiles")
+      .select(
+        "id, username, created_at"
+      )
+      .neq(
+        "id",
+        currentUser.id
+      )
+      .order(
+        "username"
+      );
 
 
   const list =
-    document.getElementById("playersList");
+    document.getElementById(
+      "playersList"
+    );
 
 
-  list.innerHTML = "";
+  list.innerHTML =
+    "";
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     return;
 
   }
 
 
-  if (!data || data.length === 0) {
+  if (
+    !data ||
+    data.length === 0
+  ) {
 
     list.innerHTML =
-      `<div class="empty">
-        No other players yet.
-      </div>`;
+      `
+        <div class="empty">
+          No other players yet.
+        </div>
+      `;
+
 
     return;
 
   }
 
 
-  data.forEach(player => {
+  data.forEach(
+    player => {
 
-    const row =
-      document.createElement("div");
-
-    row.className =
-      "player";
-
-
-    row.innerHTML = `
-
-      <div>
-        <strong>
-          @${escapeHtml(player.username)}
-        </strong>
-
-        <div class="muted">
-          Sunday City Collector
-        </div>
-      </div>
-
-      <button
-        class="secondary"
-        onclick="selectPlayer('${escapeAttribute(player.username)}')"
-      >
-        Trade
-      </button>
-
-    `;
+      const row =
+        document.createElement(
+          "div"
+        );
 
 
-    list.appendChild(row);
+      row.className =
+        "player";
 
-  });
+
+      row.innerHTML =
+        `
+
+          <div>
+
+            <strong>
+              @${escapeHtml(
+                player.username
+              )}
+            </strong>
+
+            <div class="muted">
+              Sunday City Collector
+            </div>
+
+          </div>
+
+
+          <button
+            class="secondary"
+            onclick="selectPlayer('${escapeAttribute(player.username)}')"
+          >
+            Trade
+          </button>
+
+        `;
+
+
+      list.appendChild(
+        row
+      );
+
+    }
+  );
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
    SELECT PLAYER
-   ========================================================= */
+========================================== */
 
-function selectPlayer(username) {
+function selectPlayer(
+  username
+) {
 
-  showSection("trading");
+  showSection(
+    "trading"
+  );
 
 
   document
-    .getElementById("tradeUsername")
-    .value = username;
+    .getElementById(
+      "tradeUsername"
+    )
+    .value =
+      username;
 
 
   document
-    .getElementById("tradeUsername")
+    .getElementById(
+      "tradeUsername"
+    )
     .focus();
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
    CREATE TRADE
-   ========================================================= */
+========================================== */
 
 async function createTrade() {
 
   const username =
     document
-      .getElementById("tradeUsername")
+      .getElementById(
+        "tradeUsername"
+      )
       .value
       .trim();
 
+
   const offeredCard =
     document
-      .getElementById("offerCard")
+      .getElementById(
+        "offerCard"
+      )
       .value;
+
 
   const requestedCard =
     document
-      .getElementById("requestCard")
+      .getElementById(
+        "requestCard"
+      )
       .value;
 
 
   const message =
-    document.getElementById("tradeMessage");
+    document.getElementById(
+      "tradeMessage"
+    );
 
 
-  message.classList.remove("hidden");
+  message.classList.remove(
+    "hidden"
+  );
 
 
-  if (!username || !offeredCard || !requestedCard) {
+  if (
+    !username ||
+    !offeredCard ||
+    !requestedCard
+  ) {
 
     message.textContent =
-      "Please choose a player and both cards.";
+      "Please choose a Player Tag and both cards.";
 
     return;
 
@@ -1425,45 +2203,58 @@ async function createTrade() {
     "Creating trade request...";
 
 
-  /*
-    Find receiver.
-  */
-
   const {
     data: receiver,
     error: receiverError
-  } = await db
-    .from("profiles")
-    .select("id, username")
-    .eq("username", username)
-    .maybeSingle();
+  } =
+    await db
+      .from("profiles")
+      .select(
+        "id, username"
+      )
+      .eq(
+        "username",
+        username
+      )
+      .maybeSingle();
 
 
-  if (receiverError || !receiver) {
+  if (
+    receiverError ||
+    !receiver
+  ) {
 
     message.textContent =
-      "Player not found.";
+      "Player Tag not found.";
 
     return;
 
   }
 
 
-  /*
-    Make sure the sender owns the offered card.
-  */
-
   const {
     data: ownership
-  } = await db
-    .from("user_cards")
-    .select("quantity")
-    .eq("user_id", currentUser.id)
-    .eq("card_id", offeredCard)
-    .maybeSingle();
+  } =
+    await db
+      .from("user_cards")
+      .select(
+        "quantity"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .eq(
+        "card_id",
+        offeredCard
+      )
+      .maybeSingle();
 
 
-  if (!ownership || ownership.quantity < 1) {
+  if (
+    !ownership ||
+    ownership.quantity < 1
+  ) {
 
     message.textContent =
       "You do not own that card.";
@@ -1473,36 +2264,44 @@ async function createTrade() {
   }
 
 
-  /*
-    Create request.
-  */
-
   const {
     error
-  } = await db
-    .from("trade_requests")
-    .insert({
+  } =
+    await db
+      .from("trade_requests")
+      .insert({
 
-      sender_id: currentUser.id,
+        sender_id:
+          currentUser.id,
 
-      receiver_id: receiver.id,
+        receiver_id:
+          receiver.id,
 
-      offered_card_id:
-        Number(offeredCard),
+        offered_card_id:
+          Number(
+            offeredCard
+          ),
 
-      requested_card_id:
-        Number(requestedCard),
+        requested_card_id:
+          Number(
+            requestedCard
+          ),
 
-      offered_quantity: 1,
+        offered_quantity:
+          1,
 
-      requested_quantity: 1
+        requested_quantity:
+          1
 
-    });
+      });
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
+
 
     message.textContent =
       error.message;
@@ -1517,202 +2316,268 @@ async function createTrade() {
 
 
   document
-    .getElementById("tradeUsername")
-    .value = "";
+    .getElementById(
+      "tradeUsername"
+    )
+    .value =
+      "";
 
 }
 
 
-/* =========================================================
-   LOAD INCOMING TRADES
-   ========================================================= */
+
+/* ==========================================
+   INCOMING TRADES
+========================================== */
 
 async function loadIncomingTrades() {
 
   const {
     data,
     error
-  } = await db
-    .from("trade_requests")
-    .select(`
-      id,
-      status,
-      offered_quantity,
-      requested_quantity,
-      created_at,
-      sender_id,
-      receiver_id,
-      offered_card_id,
-      requested_card_id,
-      profiles!trade_requests_sender_id_fkey (
-        username
-      ),
-      offered_card:cards!trade_requests_offered_card_id_fkey (
-        name,
-        rarity
-      ),
-      requested_card:cards!trade_requests_requested_card_id_fkey (
-        name,
-        rarity
+  } =
+    await db
+      .from("trade_requests")
+      .select(`
+        id,
+        status,
+        offered_quantity,
+        requested_quantity,
+        created_at,
+        sender_id,
+        receiver_id,
+        offered_card_id,
+        requested_card_id,
+        profiles!trade_requests_sender_id_fkey (
+          username
+        ),
+        offered_card:cards!trade_requests_offered_card_id_fkey (
+          name,
+          rarity
+        ),
+        requested_card:cards!trade_requests_requested_card_id_fkey (
+          name,
+          rarity
+        )
+      `)
+      .eq(
+        "receiver_id",
+        currentUser.id
       )
-    `)
-    .eq("receiver_id", currentUser.id)
-    .order("created_at", {
-      ascending: false
-    });
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
 
 
   const box =
-    document.getElementById("incomingTrades");
+    document.getElementById(
+      "incomingTrades"
+    );
 
 
-  box.innerHTML = "";
+  box.innerHTML =
+    "";
 
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
+
 
     box.innerHTML =
-      `<div class="empty">
-        Could not load trade requests.
-      </div>`;
+      `
+        <div class="empty">
+          Could not load trade requests.
+        </div>
+      `;
+
 
     return;
 
   }
 
 
-  if (!data || data.length === 0) {
+  if (
+    !data ||
+    data.length === 0
+  ) {
 
     box.innerHTML =
-      `<div class="empty">
-        No incoming trade requests.
-      </div>`;
+      `
+        <div class="empty">
+          No incoming trade requests.
+        </div>
+      `;
+
 
     return;
 
   }
 
 
-  data.forEach(trade => {
+  data.forEach(
+    trade => {
 
-    const item =
-      document.createElement("div");
-
-    item.className =
-      "trade-request";
-
-
-    const sender =
-      trade.profiles?.username
-      || "Unknown player";
+      const item =
+        document.createElement(
+          "div"
+        );
 
 
-    const offered =
-      trade.offered_card?.name
-      || "Unknown card";
+      item.className =
+        "trade-request";
 
 
-    const requested =
-      trade.requested_card?.name
-      || "Unknown card";
+      const sender =
+        trade.profiles?.username
+        ||
+        "Unknown Player";
 
 
-    let buttons = "";
+      const offered =
+        trade.offered_card?.name
+        ||
+        "Unknown Card";
 
 
-    if (trade.status === "pending") {
+      const requested =
+        trade.requested_card?.name
+        ||
+        "Unknown Card";
 
-      buttons = `
 
-        <div class="trade-actions">
+      let buttons =
+        "";
 
-          <button
-            class="primary"
-            onclick="acceptTrade(${trade.id})"
-          >
-            ACCEPT
-          </button>
 
-          <button
-            class="danger"
-            onclick="rejectTrade(${trade.id})"
-          >
-            REJECT
-          </button>
+      if (
+        trade.status ===
+        "pending"
+      ) {
 
-        </div>
+        buttons =
+          `
 
-      `;
+            <div class="trade-actions">
 
-    } else {
+              <button
+                class="primary"
+                onclick="acceptTrade(${trade.id})"
+              >
+                ACCEPT
+              </button>
 
-      buttons = `
-        <div class="muted">
-          Status: ${escapeHtml(trade.status)}
-        </div>
-      `;
+              <button
+                class="danger"
+                onclick="rejectTrade(${trade.id})"
+              >
+                REJECT
+              </button>
+
+            </div>
+
+          `;
+
+      }
+
+      else {
+
+        buttons =
+          `
+            <div class="muted">
+              Status:
+              ${escapeHtml(
+                trade.status
+              )}
+            </div>
+          `;
+
+      }
+
+
+      item.innerHTML =
+        `
+
+          <strong>
+            @${escapeHtml(
+              sender
+            )}
+            wants to trade
+          </strong>
+
+          <div class="muted">
+            They offer:
+            <b>
+              ${escapeHtml(
+                offered
+              )}
+            </b>
+          </div>
+
+          <div class="muted">
+            They want:
+            <b>
+              ${escapeHtml(
+                requested
+              )}
+            </b>
+          </div>
+
+          ${buttons}
+
+        `;
+
+
+      box.appendChild(
+        item
+      );
 
     }
-
-
-    item.innerHTML = `
-
-      <strong>
-        @${escapeHtml(sender)} wants to trade
-      </strong>
-
-      <div class="muted">
-        They offer:
-        <b>${escapeHtml(offered)}</b>
-      </div>
-
-      <div class="muted">
-        They want:
-        <b>${escapeHtml(requested)}</b>
-      </div>
-
-      ${buttons}
-
-    `;
-
-
-    box.appendChild(item);
-
-  });
+  );
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
    ACCEPT TRADE
-   ========================================================= */
+========================================== */
 
-async function acceptTrade(id) {
-
-  /*
-    The database currently stores trade requests.
-    The actual card transfer should be performed
-    server-side through a Supabase RPC function.
-
-    For now we mark the request accepted.
-  */
+async function acceptTrade(
+  id
+) {
 
   const {
     error
-  } = await db
-    .from("trade_requests")
-    .update({
-      status: "accepted"
-    })
-    .eq("id", id)
-    .eq("receiver_id", currentUser.id);
+  } =
+    await db
+      .from("trade_requests")
+      .update({
+
+        status:
+          "accepted"
+
+      })
+      .eq(
+        "id",
+        id
+      )
+      .eq(
+        "receiver_id",
+        currentUser.id
+      );
 
 
   if (error) {
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
     return;
 
@@ -1720,7 +2585,7 @@ async function acceptTrade(id) {
 
 
   alert(
-    "Trade accepted. Card transfer will be handled by the secure trading system."
+    "Trade accepted!"
   );
 
 
@@ -1729,26 +2594,41 @@ async function acceptTrade(id) {
 }
 
 
-/* =========================================================
-   REJECT TRADE
-   ========================================================= */
 
-async function rejectTrade(id) {
+/* ==========================================
+   REJECT TRADE
+========================================== */
+
+async function rejectTrade(
+  id
+) {
 
   const {
     error
-  } = await db
-    .from("trade_requests")
-    .update({
-      status: "rejected"
-    })
-    .eq("id", id)
-    .eq("receiver_id", currentUser.id);
+  } =
+    await db
+      .from("trade_requests")
+      .update({
+
+        status:
+          "rejected"
+
+      })
+      .eq(
+        "id",
+        id
+      )
+      .eq(
+        "receiver_id",
+        currentUser.id
+      );
 
 
   if (error) {
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
     return;
 
@@ -1760,113 +2640,171 @@ async function rejectTrade(id) {
 }
 
 
-/* =========================================================
+
+/* ==========================================
    NAVIGATION
-   ========================================================= */
+========================================== */
 
-function showSection(section) {
+function showSection(
+  section
+) {
 
-  if (section === "collection") {
-
-    document
-      .getElementById("collection")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  }
+  const element =
+    document.getElementById(
+      section
+    );
 
 
-  if (section === "trading") {
+  if (!element) {
 
-    document
-      .getElementById("trading")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
+    return;
 
   }
 
 
-  if (section === "players") {
+  element.scrollIntoView({
 
-    document
-      .getElementById("players")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
+    behavior:
+      "smooth",
 
-  }
+    block:
+      "start"
 
-}
-
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-async function logout() {
-
-  await db.auth.signOut();
-
-  currentUser = null;
-
-  currentProfile = null;
-
-  document
-    .getElementById("dashboard")
-    .classList.add("hidden");
-
-  document
-    .getElementById("mainNav")
-    .classList.add("hidden");
-
-  document
-    .getElementById("welcome")
-    .classList.remove("hidden");
-
-  showLogin();
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
   });
 
 }
 
 
-/* =========================================================
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+async function logout() {
+
+  await db.auth.signOut();
+
+
+  currentUser =
+    null;
+
+
+  currentProfile =
+    null;
+
+
+  document
+    .getElementById(
+      "dashboard"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "mainNav"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "welcome"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  showLogin();
+
+
+  window.scrollTo({
+
+    top: 0,
+
+    behavior:
+      "smooth"
+
+  });
+
+}
+
+
+
+/* ==========================================
    SECURITY HELPERS
-   ========================================================= */
+========================================== */
 
-function escapeHtml(value) {
+function escapeHtml(
+  value
+) {
 
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
-function escapeAttribute(value) {
 
-  return String(value ?? "")
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'");
+function escapeAttribute(
+  value
+) {
+
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    );
+
 }
 
 
-/* =========================================================
-   AUTH STATE LISTENER
-   ========================================================= */
+
+/* ==========================================
+   AUTH STATE
+========================================== */
 
 db.auth.onAuthStateChange(
-  async (event, session) => {
+  async (
+    event,
+    session
+  ) => {
 
-    if (session?.user) {
+    if (
+      session?.user
+    ) {
 
       currentUser =
         session.user;
