@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunday City — Trading Card Tracker</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at top, #4b1f70 0%, #1b0b2c 45%, #090611 100%);
+    }
+
+    .app {
+      width: 100%;
+      max-width: 700px;
+      margin: auto;
+      padding: 28px 18px 50px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .cards-icon {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    .eyebrow {
+      color: #d7a8ff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 8px 0;
+      font-size: clamp(36px, 10vw, 64px);
+      line-height: .95;
+      background: linear-gradient(90deg, #fff, #d9b4ff, #ffd77a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: #d8cce3;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .panel {
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 24px;
+      background: rgba(255,255,255,.07);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 9px;
+      font-weight: 700;
+    }
+
+    .hint {
+      color: #a99ab7;
+      font-size: 13px;
+      margin: 8px 0 18px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(0,0,0,.25);
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #c778ff;
+      box-shadow: 0 0 0 3px rgba(199,120,255,.15);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 16px;
+      border: 0;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+      background: linear-gradient(135deg, #9b42d5, #6330a8);
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    .dashboard {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .welcome {
+      margin-bottom: 20px;
+    }
+
+    .welcome h2 {
+      margin: 0 0 5px;
+    }
+
+    .tag-display {
+      color: #d7a8ff;
+    }
+
+    .progress-box {
+      padding: 18px;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.1);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #a94ee0, #ffd16a);
+      transition: width .3s;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .category {
+      padding: 18px 14px;
+      min-height: 110px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.07);
+      cursor: pointer;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .category:hover {
+      transform: translateY(-2px);
+      border-color: #b967e8;
+    }
+
+    .category-name {
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .count {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .change {
+      margin-top: 20px;
+      background: rgba(255,255,255,.1);
+    }
+
+    .note {
+      margin-top: 22px;
+      text-align: center;
+      color: #9689a5;
+      font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .app {
+        padding: 22px 14px 40px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .categories {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header class="brand">
+      <div class="cards-icon">🃏</div>
+      <div class="eyebrow">Sunday City</div>
+      <h1>Trading Card Tracker</h1>
+      <div class="subtitle">
+        Suis ta collection de cartes<br>
+        <strong>Luxury Life</strong> dans Sunday City.
+      </div>
+    </header>
+
+    <section class="panel" id="tagScreen">
+
+      <label for="playerTag">
+        🎮 Ton Sunday City Player Tag
+      </label>
+
+      <div class="hint">
+        Entre ton tag Sunday City pour accéder à ton suivi de collection.
+      </div>
+
+      <input
+        id="playerTag"
+        type="text"
+        placeholder="@ton-tag"
+        autocomplete="off"
+      >
+
+      <button id="continueBtn" disabled>
+        CONTINUER →
+      </button>
+
+      <div class="note">
+        Application fan-made de suivi de Trading Cards.
+        <br>
+        Non officielle et non affiliée à Sunday City.
+      </div>
+
+    </section>
+
+    <section class="dashboard" id="dashboard">
+
+      <div class="panel">
+
+        <div class="welcome">
+          <h2>Ma collection 🃏</h2>
+          <div class="tag-display" id="savedTag"></div>
+        </div>
+
+        <div class="progress-box">
+
+          <div class="progress-top">
+            <span>Progression</span>
+            <span id="progressText">0 / 12</span>
+          </div>
+
+          <div class="bar">
+            <div class="bar-fill" id="progressBar"></div>
+          </div>
+
+        </div>
+
+        <div class="categories" id="categories"></div>
+
+        <button class="change" id="changeTag">
+          CHANGER DE TAG
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+<script>
+
+const categories = [
+  "Shopping Chic",
+  "High-End Auctions",
+  "Boarding School",
+  "Horse Racing",
+  "Fancy Paws",
+  "VIP Party",
+  "Money",
+  "Casino Night",
+  "Island Vacation",
+  "Deck Days",
+  "Golf Club",
+  "Dream Cars"
+];
+
+const tagInput = document.getElementById("playerTag");
+const continueBtn = document.getElementById("continueBtn");
+const tagScreen = document.getElementById("tagScreen");
+const dashboard = document.getElementById("dashboard");
+const savedTag = document.getElementById("savedTag");
+const categoriesContainer = document.getElementById("categories");
+const progressText = document.getElementById("progressText");
+const progressBar = document.getElementById("progressBar");
+const changeTag = document.getElementById("changeTag");
+
+let collection = {};
+
+categories.forEach(category => {
+  collection[category] = 0;
+});
+
+tagInput.addEventListener("input", () => {
+  continueBtn.disabled = tagInput.value.trim().length === 0;
+});
+
+continueBtn.addEventListener("click", () => {
+
+  const tag = tagInput.value.trim();
+
+  if (!tag) return;
+
+  localStorage.setItem("sundayCityTag", tag);
+  localStorage.setItem("collection", JSON.stringify(collection));
+
+  showDashboard(tag);
+});
+
+function showDashboard(tag) {
+
+  tagScreen.style.display = "none";
+  dashboard.style.display = "block";
+
+  savedTag.textContent = "@" + tag.replace(/^@/, "");
+
+  renderCategories();
+}
+
+function renderCategories() {
+
+  categoriesContainer.innerHTML = "";
+
+  let completed = 0;
+
+  categories.forEach(category => {
+
+    const count = collection[category] || 0;
+
+    if (count > 0) {
+      completed++;
+    }
+
+    const card = document.createElement("div");
+    card.className = "category";
+
+    card.innerHTML = `
+      <div class="category-name">${category}</div>
+      <div class="count">${count} / 12</div>
+    `;
+
+    card.addEventListener("click", () => {
+
+      collection[category] =
+        collection[category] < 12
+          ? collection[category] + 1
+          : 0;
+
+      localStorage.setItem(
+        "collection",
+        JSON.stringify(collection)
+      );
+
+      renderCategories();
+    });
+
+    categoriesContainer.appendChild(card);
+
+  });
+
+  const percentage =
+    Math.round((completed / categories.length) * 100);
+
+  progressText.textContent =
+    `${completed} / 12`;
+
+  progressBar.style.width =
+    percentage + "%";
+}
+
+changeTag.addEventListener("click", () => {
+
+  localStorage.removeItem("sundayCityTag");
+
+  dashboard.style.display = "none";
+  tagScreen.style.display = "block";
+
+  tagInput.value = "";
+  continueBtn.disabled = true;
+});
+
+const existingTag =
+  localStorage.getItem("sundayCityTag");
+
+const existingCollection =
+  localStorage.getItem("collection");
+
+if (existingCollection) {
+  collection = JSON.parse(existingCollection);
+}
+
+if (existingTag) {
+  showDashboard(existingTag);
+}
+
+</script>
+
+</body>
+</html>
