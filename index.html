@@ -1,1809 +1,1763 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sunday City Trading Cards</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box}
 :root{
---bg:#100817;
---panel:#24122f;
---panel2:#321844;
---purple:#8d21ff;
---pink:#d33cff;
---text:#fff;
---muted:#bcaec5;
---green:#48df86;
+  --bg:#100719;
+  --bg2:#1c0b2c;
+  --panel:#241035;
+  --panel2:#321548;
+  --purple:#8b16ff;
+  --pink:#d62cff;
+  --text:#fff;
+  --muted:#b9a9c7;
+  --gold:#ffc928;
+  --green:#54e66e;
+  --red:#ff4d79;
 }
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:
-radial-gradient(circle at 15% 10%,#6d12c9 0,transparent 28%),
-radial-gradient(circle at 90% 20%,#b923d9 0,transparent 25%),
-linear-gradient(145deg,#0b0610,#1d0d29 55%,#09050d);
-color:#fff;
-min-height:100vh;
-overflow-x:hidden;
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  background:
+    radial-gradient(circle at 80% 15%,rgba(210,0,255,.22),transparent 28%),
+    radial-gradient(circle at 10% 45%,rgba(99,0,255,.22),transparent 30%),
+    linear-gradient(145deg,#08030d,#170920 50%,#0c0514);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
-button,input{font:inherit}
+
+body{min-height:100vh}
+
+button,input{
+  font:inherit;
+}
+
 button{cursor:pointer}
-.hidden{display:none!important}
-
-.topbar{
-position:sticky;
-top:0;
-z-index:100;
-padding:18px;
-background:rgba(12,6,17,.92);
-backdrop-filter:blur(18px);
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-.brand{text-align:center;font-size:27px;font-weight:900}
-.brand span{color:#d43cff}
-.subtitle{text-align:center;color:#bdaec7;font-size:12px;margin-top:4px}
-
-.auth{max-width:560px;margin:35px auto;padding:18px}
-.auth-card{
-background:
-radial-gradient(circle at 100% 0,#5c1a77 0,transparent 40%),
-linear-gradient(145deg,#321343,#170b21);
-border:1px solid rgba(255,255,255,.14);
-border-radius:28px;
-padding:28px 22px;
-box-shadow:0 30px 80px rgba(0,0,0,.4);
-}
-.auth-title{font-size:42px;font-weight:900;margin-bottom:10px}
-.auth-description{color:#c8b9d0;line-height:1.5;margin-bottom:24px}
-.auth-tabs{
-display:grid;
-grid-template-columns:1fr 1fr;
-background:#14091c;
-border-radius:18px;
-padding:5px;
-margin-bottom:20px;
-}
-.auth-tabs button{
-border:0;
-background:transparent;
-color:#9f91a8;
-padding:15px;
-border-radius:14px;
-font-weight:800;
-}
-.auth-tabs button.active{background:#4a3850;color:#fff}
-.form{display:flex;flex-direction:column;gap:16px}
-label{font-weight:800;font-size:14px}
-input{
-width:100%;
-margin-top:7px;
-padding:17px;
-border-radius:16px;
-border:1px solid rgba(255,255,255,.15);
-background:#0d0712;
-color:#fff;
-outline:none;
-}
-input:focus{
-border-color:#b72dff;
-box-shadow:0 0 0 3px rgba(183,45,255,.15);
-}
-.primary{
-border:0;
-border-radius:17px;
-padding:17px;
-color:#fff;
-font-size:17px;
-font-weight:900;
-background:linear-gradient(90deg,#7d16ff,#d338ff);
-}
-.primary:disabled{opacity:.6;cursor:not-allowed}
-.message{display:none;padding:13px;border-radius:14px;font-size:14px;margin-bottom:16px}
-.message.show{display:block}
-.message.error{background:#40152c;border:1px solid #a52e58;color:#ff9abb}
-.message.success{background:#123b2a;border:1px solid #31b873;color:#8affbc}
 
 .app{
-max-width:1100px;
-margin:auto;
-padding:18px;
-padding-bottom:110px;
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:105px;
 }
-.profile-strip{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:12px;
-background:linear-gradient(135deg,#351647,#21102d);
-border:1px solid rgba(255,255,255,.12);
-border-radius:22px;
-padding:16px;
-margin-bottom:18px;
+
+.header{
+  padding:28px 18px 24px;
+  text-align:center;
+  background:linear-gradient(135deg,#100817,#16061e,#100817);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
-.profile-info{display:flex;align-items:center;gap:12px}
+
+.logo{
+  margin:0;
+  font-size:clamp(34px,7vw,62px);
+  font-weight:900;
+  letter-spacing:-2px;
+}
+
+.logo span{
+  color:#d42cff;
+  text-shadow:0 0 20px rgba(210,44,255,.55);
+}
+
+.subtitle{
+  margin-top:8px;
+  color:#c5b7d1;
+  font-size:18px;
+}
+
+.auth-wrap{
+  padding:18px;
+}
+
+.auth-card,.panel{
+  background:rgba(29,10,43,.88);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:28px;
+  box-shadow:0 18px 50px rgba(0,0,0,.3);
+}
+
+.auth-card{
+  padding:18px;
+  max-width:760px;
+  margin:auto;
+}
+
+.tabs{
+  display:flex;
+  background:#120719;
+  border-radius:22px;
+  padding:5px;
+  margin-bottom:20px;
+}
+
+.tab{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#a99bb5;
+  padding:17px 10px;
+  border-radius:18px;
+  font-weight:800;
+}
+
+.tab.active{
+  background:#56415e;
+  color:#fff;
+}
+
+label{
+  display:block;
+  margin:18px 0 8px;
+  font-weight:800;
+  font-size:18px;
+}
+
+input{
+  width:100%;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:18px;
+  background:#100817;
+  color:#fff;
+  padding:17px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#b72dff;
+  box-shadow:0 0 0 3px rgba(183,45,255,.15);
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:20px;
+  padding:17px;
+  margin-top:22px;
+  color:white;
+  font-size:18px;
+  font-weight:900;
+  background:linear-gradient(90deg,#7717ff,#dc28ff);
+  box-shadow:0 8px 25px rgba(165,20,255,.25);
+}
+
+.message{
+  padding:14px 16px;
+  border-radius:16px;
+  margin:12px 0;
+  display:none;
+}
+
+.message.error{
+  display:block;
+  color:#ff9eb7;
+  background:rgba(255,45,105,.12);
+  border:1px solid rgba(255,45,105,.45);
+}
+
+.message.success{
+  display:block;
+  color:#8cffaa;
+  background:rgba(70,220,100,.1);
+  border:1px solid rgba(70,220,100,.35);
+}
+
+.hidden{display:none!important}
+
+.dashboard{
+  padding:18px;
+}
+
+.profile{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:18px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#32144a,#20102e);
+  border:1px solid rgba(255,255,255,.14);
+}
+
+.profile-left{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
 .avatar{
-width:50px;
-height:50px;
-border-radius:16px;
-display:grid;
-place-items:center;
-background:linear-gradient(135deg,#ffbe2e,#ff5baf);
-font-size:25px;
+  width:65px;
+  height:65px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  font-size:34px;
+  background:linear-gradient(135deg,#ffad54,#ff4fa1);
 }
-.profile-name{font-weight:900;font-size:17px}
-.profile-tag{color:#aa99b4;font-size:12px;margin-top:3px}
-.logout{
-border:1px solid rgba(255,255,255,.12);
-background:#30213a;
-color:#fff;
-padding:11px 14px;
-border-radius:13px;
-font-weight:800;
+
+.username{
+  font-size:25px;
+  font-weight:900;
+}
+
+.player-tag{
+  color:#bcaec8;
+  margin-top:3px;
+}
+
+.secondary{
+  border:1px solid rgba(255,255,255,.2);
+  background:#281536;
+  color:#fff;
+  border-radius:16px;
+  padding:13px 18px;
+  font-weight:800;
 }
 
 .stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-bottom:20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:18px 0;
 }
+
 .stat{
-background:rgba(42,21,52,.8);
-border:1px solid rgba(255,255,255,.1);
-border-radius:18px;
-padding:16px;
+  padding:18px 14px;
+  border-radius:22px;
+  background:rgba(42,18,57,.85);
+  border:1px solid rgba(255,255,255,.12);
 }
-.stat-value{font-size:25px;font-weight:900}
-.stat-label{color:#a999b0;font-size:11px;margin-top:4px}
 
-.hero{
-position:relative;
-overflow:hidden;
-border-radius:28px;
-padding:30px 22px;
-margin-bottom:22px;
-background:
-radial-gradient(circle at 90% 20%,#e03cff 0,transparent 25%),
-radial-gradient(circle at 10% 90%,#6c20ff 0,transparent 30%),
-linear-gradient(135deg,#41135c,#1b0b2a);
-border:1px solid rgba(255,255,255,.12);
+.stat strong{
+  display:block;
+  font-size:28px;
 }
-.hero h1{font-size:42px;line-height:1;font-weight:1000}
-.hero h1 span{color:#dc45ff}
-.hero p{color:#d1c1d8;max-width:650px;margin-top:12px;line-height:1.5}
-.hero-button{
-margin-top:20px;
-border:0;
-border-radius:16px;
-padding:14px 20px;
-background:#fff;
-color:#291132;
-font-weight:900;
-}
-.section-title{font-size:25px;font-weight:900;margin:25px 0 14px}
 
-.album-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:14px;
+.stat span{
+  display:block;
+  margin-top:5px;
+  color:#b9a9c7;
+  font-size:13px;
 }
-.album-card{
-position:relative;
-overflow:hidden;
-border:1px solid rgba(255,255,255,.13);
-border-radius:22px;
-padding:18px;
-min-height:150px;
-color:#fff;
-text-align:left;
-background:linear-gradient(145deg,var(--c1),var(--c2));
-box-shadow:0 15px 40px rgba(0,0,0,.25);
-transition:.15s;
-}
-.album-card:hover{transform:translateY(-2px)}
-.album-icon{font-size:35px}
-.album-name{font-weight:900;font-size:17px;margin-top:12px}
-.album-progress{
-margin-top:12px;
-height:8px;
-background:rgba(0,0,0,.3);
-border-radius:10px;
-overflow:hidden;
-}
-.album-progress span{display:block;height:100%;background:#fff;border-radius:10px}
-.album-count{font-size:12px;margin-top:6px;color:#eee}
 
-.collection-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:12px;
-margin-bottom:15px;
+.page-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:25px 0 15px;
 }
-.collection-title{font-size:32px;font-weight:1000}
-.back-btn{
-border:1px solid rgba(255,255,255,.13);
-background:#2b1935;
-color:#fff;
-padding:11px 14px;
-border-radius:14px;
-font-weight:800;
+
+.page-title h2{
+  margin:0;
+  font-size:34px;
 }
-.album-tabs{
-display:flex;
-gap:8px;
-overflow-x:auto;
-padding-bottom:12px;
-margin-bottom:18px;
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
 }
-.album-tab{
-flex:0 0 auto;
-border:1px solid rgba(255,255,255,.1);
-background:#25132f;
-color:#bcaec5;
-padding:10px 14px;
-border-radius:14px;
-font-weight:800;
+
+.category{
+  position:relative;
+  min-height:150px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:24px;
+  padding:20px;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,39,223,.35),transparent 30%),
+    linear-gradient(145deg,#35104e,#1e0c2c);
+  overflow:hidden;
 }
-.album-tab.active{
-background:linear-gradient(90deg,#8a21ff,#c839ff);
-color:#fff;
+
+.category h3{
+  margin:0 0 9px;
+  font-size:21px;
 }
-.album-banner{
-position:relative;
-overflow:hidden;
-border-radius:25px;
-padding:23px;
-margin-bottom:18px;
-background:linear-gradient(135deg,var(--c1),var(--c2));
+
+.category p{
+  margin:0;
+  color:#baa9c5;
 }
-.album-banner h2{font-size:29px;font-weight:1000}
-.album-banner p{color:#eee;margin-top:5px}
-.progress-row{
-margin-top:18px;
-display:flex;
-align-items:center;
-gap:10px;
-}
+
 .progress{
-flex:1;
-height:12px;
-background:rgba(0,0,0,.3);
-border-radius:20px;
-overflow:hidden;
+  height:9px;
+  background:#120819;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:18px;
 }
-.progress span{display:block;height:100%;background:#fff}
+
+.progress i{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#57e86c,#baff58);
+  border-radius:99px;
+}
+
+.category button{
+  width:100%;
+  margin-top:15px;
+  border:0;
+  border-radius:15px;
+  padding:11px;
+  color:white;
+  font-weight:800;
+  background:rgba(255,255,255,.1);
+}
+
+.cards-panel{
+  margin-top:20px;
+  padding:18px;
+}
+
+.back{
+  border:1px solid rgba(255,255,255,.16);
+  background:#271434;
+  color:white;
+  padding:10px 16px;
+  border-radius:15px;
+  font-weight:800;
+}
 
 .cards-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
 }
+
 .card{
-position:relative;
-min-height:250px;
-padding:10px;
-border-radius:20px;
-background:linear-gradient(160deg,#fff,#d7d7e0);
-box-shadow:0 14px 35px rgba(0,0,0,.35);
-transition:.15s;
+  position:relative;
+  min-height:190px;
+  border-radius:20px;
+  padding:10px;
+  background:linear-gradient(160deg,#0f8bc2,#086187);
+  border:4px solid #eaf8ff;
+  overflow:hidden;
+  transition:.18s;
 }
-.card.owned-card{
-box-shadow:
-0 0 0 3px #4bea8e,
-0 15px 35px rgba(0,0,0,.35);
+
+.card.gold{
+  background:linear-gradient(160deg,#ffbd22,#f07800);
+  border-color:#ffd95b;
 }
-.card-inner{
-height:100%;
-min-height:228px;
-border-radius:15px;
-overflow:hidden;
-display:flex;
-flex-direction:column;
-background:linear-gradient(160deg,#23b9ed,#1169a2);
-border:4px solid #fff;
+
+.card.owned{
+  box-shadow:0 0 0 3px #52e66a,0 0 22px rgba(82,230,106,.35);
 }
-.card-image{
-flex:1;
-display:grid;
-place-items:center;
-font-size:70px;
-background:
-radial-gradient(circle at 50% 30%,rgba(255,255,255,.25),transparent 40%),
-linear-gradient(180deg,#23b9ed,#1169a2);
+
+.card.wanted{
+  box-shadow:0 0 0 3px #ff46d8,0 0 22px rgba(255,70,216,.35);
 }
-.card-info{background:rgba(0,0,0,.25);padding:11px}
+
+.card.disabled{
+  opacity:.72;
+}
+
+.card-emoji{
+  height:115px;
+  display:grid;
+  place-items:center;
+  font-size:58px;
+  text-shadow:0 4px 12px rgba(0,0,0,.3);
+}
+
 .card-name{
-font-weight:1000;
-text-align:center;
-font-size:14px;
-min-height:34px;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-.rarity{
-text-align:center;
-color:#ff55df;
-font-size:13px;
-letter-spacing:2px;
-margin:3px 0 8px;
-}
-.owned-btn{
-width:100%;
-border:0;
-border-radius:11px;
-padding:9px;
-background:#29182f;
-color:#ddd;
-font-weight:900;
-}
-.owned-btn.owned{
-background:linear-gradient(90deg,#32c975,#53ef98);
-color:#082316;
+  text-align:center;
+  font-weight:900;
+  font-size:14px;
+  text-transform:uppercase;
+  line-height:1.1;
 }
 
-.trade-box{
-background:linear-gradient(145deg,#311440,#1b0c25);
-border:1px solid rgba(255,255,255,.12);
-border-radius:25px;
-padding:25px;
+.card-status{
+  position:absolute;
+  top:7px;
+  right:7px;
+  border-radius:10px;
+  padding:5px 7px;
+  font-size:10px;
+  font-weight:900;
+  background:rgba(0,0,0,.55);
 }
-.trade-box h2{font-size:30px;font-weight:1000}
-.trade-box p{color:#bbaec4;line-height:1.5;margin-top:8px}
 
-.nav{
-position:fixed;
-z-index:200;
-left:50%;
-transform:translateX(-50%);
-bottom:15px;
-width:min(600px,calc(100% - 28px));
-padding:7px;
-border-radius:22px;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:5px;
-background:rgba(22,10,29,.94);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.14);
-box-shadow:0 15px 50px rgba(0,0,0,.5);
+.gold-label{
+  color:#ffe48a;
 }
-.nav button{
-border:0;
-background:transparent;
-color:#9d91a6;
-border-radius:16px;
-padding:10px 5px;
-font-size:12px;
-font-weight:900;
-}
-.nav button.active{background:#382542;color:#fff}
-.nav-icon{display:block;font-size:21px;margin-bottom:3px}
 
-.loading{
-padding:40px;
-text-align:center;
-color:#c8b9d0;
+.card-actions{
+  display:flex;
+  gap:5px;
+  margin-top:8px;
+}
+
+.card-actions button{
+  flex:1;
+  border:0;
+  border-radius:9px;
+  padding:7px 3px;
+  background:rgba(0,0,0,.38);
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+}
+
+.card-actions button.active{
+  background:#54df68;
+  color:#07100a;
+}
+
+.card-actions button.want.active{
+  background:#ff43d7;
+  color:#fff;
+}
+
+.search{
+  margin:15px 0;
+}
+
+.trade-section{
+  margin-top:20px;
+}
+
+.trade-card{
+  padding:18px;
+  border-radius:23px;
+  background:linear-gradient(145deg,#2d123e,#170b22);
+  border:1px solid rgba(255,255,255,.12);
+  margin-bottom:14px;
+}
+
+.trade-player{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.trade-player strong{
+  font-size:19px;
+}
+
+.id-copy{
+  border:1px solid rgba(255,255,255,.15);
+  background:#261333;
+  color:#fff;
+  border-radius:12px;
+  padding:8px 11px;
+}
+
+.trade-cards{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:5px;
+}
+
+.mini-card{
+  min-width:115px;
+  padding:10px;
+  border-radius:14px;
+  background:#0d688d;
+  border:2px solid #eaf8ff;
+}
+
+.mini-card.gold{
+  display:none;
+}
+
+.mini-emoji{
+  text-align:center;
+  font-size:32px;
+}
+
+.mini-name{
+  font-size:11px;
+  font-weight:900;
+  text-align:center;
+  margin-top:5px;
+}
+
+.trade-filter{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  margin-bottom:14px;
+}
+
+.trade-filter button{
+  white-space:nowrap;
+  border:1px solid rgba(255,255,255,.15);
+  background:#24112f;
+  color:#c8b8d2;
+  padding:10px 14px;
+  border-radius:13px;
+}
+
+.trade-filter button.active{
+  background:#7131a1;
+  color:#fff;
 }
 
 .empty{
-padding:40px 20px;
-text-align:center;
-color:#bcaec5;
-background:rgba(20,8,28,.5);
-border-radius:20px;
+  text-align:center;
+  padding:35px 15px;
+  color:#b9a9c7;
 }
 
-@media(max-width:800px){
-.album-grid{grid-template-columns:repeat(2,1fr)}
-.cards-grid{grid-template-columns:repeat(2,1fr)}
-.hero h1{font-size:35px}
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:14px;
+  transform:translateX(-50%);
+  width:min(92%,700px);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  padding:7px;
+  border-radius:25px;
+  background:rgba(18,7,25,.93);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(18px);
+  z-index:50;
 }
 
-@media(max-width:480px){
-.app{padding:12px;padding-bottom:105px}
-.auth{margin:15px auto;padding:12px}
-.auth-card{padding:22px 16px}
-.auth-title{font-size:34px}
-.album-grid{gap:10px}
-.album-card{min-height:135px;padding:14px}
-.cards-grid{gap:9px}
-.card{min-height:220px;padding:7px;border-radius:16px}
-.card-inner{min-height:205px}
-.card-image{font-size:53px}
-.card-name{font-size:12px}
-.stats{gap:7px}
-.stat{padding:12px 9px}
-.stat-value{font-size:20px}
+.nav-btn{
+  border:0;
+  background:transparent;
+  color:#9d8ca9;
+  border-radius:19px;
+  padding:12px 8px;
+  font-weight:900;
+}
+
+.nav-btn.active{
+  background:#4b3158;
+  color:#fff;
+}
+
+.nav-icon{
+  display:block;
+  font-size:24px;
+  margin-bottom:4px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:grid;
+  place-items:center;
+  padding:18px;
+  z-index:100;
+}
+
+.modal-box{
+  width:min(100%,650px);
+  max-height:85vh;
+  overflow:auto;
+  border-radius:25px;
+  background:#1c0b29;
+  border:1px solid rgba(255,255,255,.18);
+  padding:20px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.modal-head h3{
+  margin:0;
+  font-size:24px;
+}
+
+.close{
+  border:0;
+  background:#35153f;
+  color:white;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+}
+
+.notice{
+  padding:14px;
+  background:rgba(255,202,42,.08);
+  border:1px solid rgba(255,202,42,.3);
+  border-radius:16px;
+  color:#ffe99a;
+  margin:14px 0;
+}
+
+@media(max-width:650px){
+  .profile{align-items:flex-start}
+  .profile .secondary{font-size:12px}
+  .category-grid{grid-template-columns:1fr}
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .card{min-height:175px}
+  .card-emoji{height:105px}
+}
+
+@media(max-width:390px){
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .card-name{font-size:12px}
 }
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
-<div class="brand">Sunday City <span>Trading Cards</span></div>
-<div class="subtitle">Collect • Track • Trade</div>
+<div class="app">
+
+<header class="header">
+  <h1 class="logo">Sunday City <span>Trading Cards</span></h1>
+  <div class="subtitle">Collect • Track • Trade</div>
 </header>
 
-<section id="authSection" class="auth">
-<div class="auth-card">
+<!-- AUTH -->
+<section id="authScreen" class="auth-wrap">
+  <div class="auth-card">
 
-<h1 class="auth-title">Welcome back</h1>
+    <div class="tabs">
+      <button id="loginTab" class="tab active">Log in</button>
+      <button id="signupTab" class="tab">Create account</button>
+    </div>
 
-<p class="auth-description">
-Build your collection, track your cards and trade with the community.
-</p>
+    <div id="authMessage" class="message"></div>
 
-<div class="auth-tabs">
-<button id="loginTab" class="active" type="button">Log in</button>
-<button id="signupTab" type="button">Create account</button>
-</div>
+    <form id="authForm">
 
-<div id="authMessage" class="message"></div>
+      <label>Player Username</label>
+      <input id="username" required autocomplete="username" placeholder="Rook">
 
-<div id="loginForm" class="form">
+      <label>Player Tag</label>
+      <input id="tag" required placeholder="18bc18">
 
-<label>
-Player Username
-<input id="loginUsername" type="text" autocomplete="username" placeholder="Ex. Rook">
-</label>
+      <label>Password</label>
+      <input id="password" type="password" required autocomplete="current-password">
 
-<label>
-Player Tag
-<input id="loginTag" type="text" placeholder="Ex. 18bc18">
-</label>
+      <button id="authButton" class="primary" type="submit">LOG IN</button>
 
-<label>
-Password
-<input id="loginPassword" type="password" autocomplete="current-password" placeholder="Password">
-</label>
+    </form>
 
-<button id="loginButton" class="primary" type="button">LOG IN</button>
-
-</div>
-
-<div id="signupForm" class="form hidden">
-
-<label>
-Player Username
-<input id="signupUsername" type="text" placeholder="Ex. Rook">
-</label>
-
-<label>
-Player Tag
-<input id="signupTag" type="text" placeholder="Ex. 18bc18">
-</label>
-
-<label>
-Password
-<input id="signupPassword" type="password" placeholder="Minimum 6 characters">
-</label>
-
-<button id="signupButton" class="primary" type="button">CREATE ACCOUNT</button>
-
-</div>
-
-</div>
+  </div>
 </section>
 
-<main id="app" class="app hidden">
+<!-- APP -->
+<section id="appScreen" class="hidden">
 
-<div class="profile-strip">
+  <main class="dashboard">
 
-<div class="profile-info">
+    <div class="profile">
+      <div class="profile-left">
+        <div class="avatar">👤</div>
+        <div>
+          <div id="profileName" class="username">Player</div>
+          <div id="profileTag" class="player-tag">#000000</div>
+        </div>
+      </div>
 
-<div class="avatar">👤</div>
+      <button id="logoutBtn" class="secondary">LOG OUT</button>
+    </div>
 
-<div>
-<div id="profileUsername" class="profile-name">Player</div>
-<div id="profileTag" class="profile-tag">#------</div>
-</div>
+    <div class="stats">
+      <div class="stat">
+        <strong id="ownedCount">0</strong>
+        <span>CARDS OWNED</span>
+      </div>
 
-</div>
+      <div class="stat">
+        <strong id="availableCount">0</strong>
+        <span>AVAILABLE CARDS</span>
+      </div>
 
-<button id="logoutButton" class="logout">LOG OUT</button>
+      <div class="stat">
+        <strong id="collectionPercent">0%</strong>
+        <span>COLLECTION</span>
+      </div>
+    </div>
 
-</div>
+    <div id="homePage">
 
-<div class="stats">
+      <div class="page-title">
+        <h2>Collection</h2>
+      </div>
 
-<div class="stat">
-<div id="statOwned" class="stat-value">0</div>
-<div class="stat-label">CARDS OWNED</div>
-</div>
+      <div id="categoryGrid" class="category-grid"></div>
 
-<div class="stat">
-<div id="statTotal" class="stat-value">0</div>
-<div class="stat-label">AVAILABLE CARDS</div>
-</div>
+    </div>
 
-<div class="stat">
-<div id="statPercent" class="stat-value">0%</div>
-<div class="stat-label">COLLECTION</div>
-</div>
+    <div id="categoryPage" class="hidden">
 
-</div>
+      <div class="page-title">
+        <h2 id="categoryTitle"></h2>
+        <button id="backCategories" class="back">← Retour</button>
+      </div>
 
-<section id="homeSection">
+      <div id="cardsPanel" class="cards-panel panel">
+        <div class="notice">
+          🟢 <b>Je possède</b> = carte dans ta collection.
+          <br>
+          🟣 <b>Je recherche</b> = carte que tu veux obtenir.
+          <br>
+          🟡 <b>Gold</b> = carte non échangeable.
+        </div>
 
-<div class="hero">
+        <div id="cardsGrid" class="cards-grid"></div>
+      </div>
 
-<h1>Complete your <span>collection.</span></h1>
+    </div>
 
-<p>
-Track every tradable card across all Sunday City albums and see exactly what you still need.
-</p>
+    <div id="tradePage" class="hidden">
 
-<button class="hero-button" onclick="navigate('collection')">
-VIEW COLLECTION
-</button>
+      <div class="page-title">
+        <h2>🔄 Trading</h2>
+      </div>
 
-</div>
+      <div class="panel cards-panel">
 
-<h2 class="section-title">Albums</h2>
+        <div class="notice">
+          Le Trading est accessible à tout le monde.
+          Tu peux montrer les cartes que tu possèdes et rechercher celles qu'il te manque.
+          Les cartes Gold ne peuvent jamais être proposées à l'échange.
+        </div>
 
-<div id="albumGrid" class="album-grid"></div>
+        <input
+          id="tradeSearch"
+          class="search"
+          placeholder="Rechercher une carte ou un Player ID..."
+        >
 
-</section>
+        <div id="tradeFilters" class="trade-filter"></div>
 
-<section id="collectionSection" class="hidden">
+        <div id="tradeList"></div>
 
-<div class="collection-header">
+      </div>
 
-<div class="collection-title">Collection</div>
+    </div>
 
-<button class="back-btn" onclick="navigate('home')">
-← Home
-</button>
+  </main>
 
-</div>
+  <nav class="bottom-nav">
+    <button id="homeNav" class="nav-btn active">
+      <span class="nav-icon">🏠</span>
+      Home
+    </button>
 
-<div id="albumTabs" class="album-tabs"></div>
+    <button id="collectionNav" class="nav-btn">
+      <span class="nav-icon">📖</span>
+      Collection
+    </button>
 
-<div id="albumBanner" class="album-banner"></div>
-
-<div id="cardsGrid" class="cards-grid"></div>
-
-</section>
-
-<section id="tradeSection" class="hidden">
-
-<div class="trade-box">
-
-<h2>🔄 Trading</h2>
-
-<p>
-Trading is the next step. Once your collection is filled, you will be able to find other players and exchange duplicate cards with them.
-</p>
-
-<br>
-
-<p>Your collection is saved to your player account.</p>
-
-</div>
+    <button id="tradeNav" class="nav-btn">
+      <span class="nav-icon">🔄</span>
+      Trade
+    </button>
+  </nav>
 
 </section>
 
-</main>
+<!-- CARD MODAL -->
+<div id="cardModal" class="modal hidden">
+  <div class="modal-box">
 
-<nav id="nav" class="nav hidden">
+    <div class="modal-head">
+      <h3 id="modalTitle"></h3>
+      <button id="closeModal" class="close">×</button>
+    </div>
 
-<button class="active" onclick="navigate('home',this)">
-<span class="nav-icon">🏠</span>
-Home
-</button>
+    <div id="modalContent"></div>
 
-<button onclick="navigate('collection',this)">
-<span class="nav-icon">📖</span>
-Collection
-</button>
+  </div>
+</div>
 
-<button onclick="navigate('trade',this)">
-<span class="nav-icon">🔄</span>
-Trade
-</button>
-
-</nav>
+</div>
 
 <script>
-
 /* =========================================================
    SUPABASE
 ========================================================= */
 
-const SUPABASE_URL =
-"https://rxuopmnehdngmdsgkhvr.supabase.co";
+const SUPABASE_URL = "https://rxuopmnehdngmdsgkhvr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
 
-const SUPABASE_ANON_KEY =
-"sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
-
-const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
-);
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 
 /* =========================================================
-   STATE
+   144 CARTES
+========================================================= */
+
+const C = (id,name,category,emoji,gold=false) => ({
+  id,
+  name,
+  category,
+  emoji,
+  tradable: !gold
+});
+
+const categories = [
+
+{
+  name:"Shopping Chic",
+  emoji:"🛍️",
+  cards:[
+    C("shopping-bags","Shopping Bags","Shopping Chic","🛍️"),
+    C("sale-tag","Sale Tag","Shopping Chic","🏷️"),
+    C("jewelry-pouch","Jewelry Pouch","Shopping Chic","👝"),
+    C("chic-top","Chic Top","Shopping Chic","👚"),
+    C("receipt","Receipt","Shopping Chic","🧾"),
+    C("fancy-mirror","Fancy Mirror","Shopping Chic","🪞"),
+    C("shoe-box","Shoe Box","Shopping Chic","👟"),
+    C("cash-wallet","Cash in a Wallet","Shopping Chic","👛"),
+    C("credit-card","Credit Card","Shopping Chic","💳"),
+    C("vintage-glasses","Vintage Glasses","Shopping Chic","🕶️"),
+    C("designer-handbag","Designer Handbag","Shopping Chic","👜"),
+    C("gold-watch","Gold Watch","Shopping Chic","⌚")
+  ]
+},
+
+{
+  name:"High-End Auctions",
+  emoji:"🔨",
+  cards:[
+    C("gavel","Gavel","High-End Auctions","🔨"),
+    C("number-paddle","Number Paddle","High-End Auctions","🏷️"),
+    C("rostrum","Rostrum","High-End Auctions","🎤"),
+    C("phone","Phone","High-End Auctions","📱"),
+    C("jewelers-glass","Jeweler's Glass","High-End Auctions","🔍"),
+    C("sold","Sold","High-End Auctions","✅"),
+    C("plate-armor","Plate Armor","High-End Auctions","🛡️"),
+    C("old-sword","Old Sword","High-End Auctions","⚔️"),
+    C("marble-bust","Marble Bust","High-End Auctions","🗿"),
+    C("vase","Vase","High-End Auctions","🏺"),
+    C("royal-relic","Royal Relic","High-End Auctions","🥚"),
+    C("diamond","Diamond","High-End Auctions","💎")
+  ]
+},
+
+{
+  name:"Boarding School",
+  emoji:"🎓",
+  cards:[
+    C("blazer-patch","Blazer Patch","Boarding School","🎓"),
+    C("skirt","Skirt","Boarding School","👗"),
+    C("silk-tie","Silk Tie","Boarding School","👔"),
+    C("sweater-vest","Sweater Vest","Boarding School","🧥"),
+    C("shorts","Shorts","Boarding School","🩳"),
+    C("headband","Headband","Boarding School","🎀"),
+    C("reading-glasses","Reading Glasses","Boarding School","👓"),
+    C("leather-satchel","Leather Satchel","Boarding School","💼"),
+    C("personal-locker","Personal Locker","Boarding School","🚪"),
+    C("iron-gates","Iron Gates","Boarding School","🚧"),
+    C("garden-fountain","Garden Fountain","Boarding School","⛲"),
+    C("crest","Crest","Boarding School","🏫")
+  ]
+},
+
+{
+  name:"Horse Racing",
+  emoji:"🏇",
+  cards:[
+    C("jockey-jacket","Jockey Jacket","Horse Racing","🏇"),
+    C("saddle-blanket","Saddle & Blanket","Horse Racing","🐎"),
+    C("cup","Cup","Horse Racing","🏆"),
+    C("horse-shoe","Horse Shoe","Horse Racing","🧲"),
+    C("starting-gate","Starting Gate","Horse Racing","🏁"),
+    C("betting-ticket","Betting Ticket","Horse Racing","🎟️"),
+    C("stop-watch","Stop Watch","Horse Racing","⏱️"),
+    C("finish-line","Finish Line","Horse Racing","🏁"),
+    C("award","Award","Horse Racing","🏅"),
+    C("jockey-boots","Jockey Boots","Horse Racing","🥾"),
+    C("jockey-helmet","Jockey Helmet","Horse Racing","⛑️"),
+    C("champion","Champion","Horse Racing","🐎")
+  ]
+},
+
+{
+  name:"Fancy Paws",
+  emoji:"🐾",
+  cards:[
+    C("dapper-gent","Dapper Gent","Fancy Paws","🐕"),
+    C("big-flex","Big Flex","Fancy Paws","🐶"),
+    C("cutie-pie","Cutie Pie","Fancy Paws","🐱"),
+    C("fluffy-guy","Fluffy Guy","Fancy Paws","🐰"),
+    C("munchie","Munchie","Fancy Paws","🐱"),
+    C("pretty-lady","Pretty Lady","Fancy Paws","🐈"),
+    C("guardian","Guardian","Fancy Paws","🐕"),
+    C("huntress","Huntress","Fancy Paws","🐴"),
+    C("rich-fella","Rich Fella","Fancy Paws","🐶"),
+    C("sunshine","Sunshine","Fancy Paws","🐈"),
+    C("style-icon","Style Icon","Fancy Paws","🐱"),
+    C("mini-boss","Mini Boss","Fancy Paws","👑",true)
+  ]
+},
+
+{
+  name:"VIP Party",
+  emoji:"🥂",
+  cards:[
+    C("guest-list","Guest List","VIP Party","📋"),
+    C("limo","Limo","VIP Party","🚘"),
+    C("cocoon-seat","Cocoon Seat","VIP Party","💺"),
+    C("spark-sticks","Spark Sticks","VIP Party","✨"),
+    C("shaker","Shaker","VIP Party","🍹"),
+    C("choco-berry","Choco Berry","VIP Party","🍫"),
+    C("glass-tower","Glass Tower","VIP Party","🥂"),
+    C("dj-deck","DJ Deck","VIP Party","🎧"),
+    C("neon-sign","Neon Sign","VIP Party","💜"),
+    C("vip-band","VIP Band","VIP Party","🎟️"),
+    C("vip-ticket","VIP Ticket","VIP Party","🎫"),
+    C("night-city","Night City","VIP Party","🌃",true)
+  ]
+},
+
+{
+  name:"Money",
+  emoji:"💰",
+  cards:[
+    C("piggy-bank","Piggy Bank","Money","🐷"),
+    C("bill","Bill","Money","💵"),
+    C("gold-coin","Gold Coin","Money","🪙"),
+    C("check-book","Check Book","Money","📕"),
+    C("pearl-scatter","Pearl Scatter","Money","💎"),
+    C("money-stack","Money Stack","Money","💵"),
+    C("platinum-bar","Platinum Bar","Money","🥈"),
+    C("atm","ATM","Money","🏧"),
+    C("stocks","Stocks","Money","📈"),
+    C("suitcase-money","Suitcase of Money","Money","💼"),
+    C("safe","Safe","Money","🔐",true),
+    C("bank-vault","Bank Vault","Money","🏦",true)
+  ]
+},
+
+{
+  name:"Casino Night",
+  emoji:"🎰",
+  cards:[
+    C("cards","Cards","Casino Night","🃏"),
+    C("chip-rake","Chip Rake","Casino Night","🪙"),
+    C("chips","Chips","Casino Night","🎰"),
+    C("dice","Dice","Casino Night","🎲"),
+    C("bow-tie","Bow Tie","Casino Night","🎀"),
+    C("bandit-slot","Bandit Slot","Casino Night","🎰"),
+    C("lucky-wheel","Lucky Wheel","Casino Night","🎡"),
+    C("blackjack","Blackjack","Casino Night","🂡"),
+    C("roulette","Roulette","Casino Night","🎯"),
+    C("slot-machine","Slot Machine","Casino Night","🎰"),
+    C("jackpot","Jackpot","Casino Night","💰",true),
+    C("trump-card","Trump Card","Casino Night","🃏",true)
+  ]
+},
+
+{
+  name:"Island Vacation",
+  emoji:"🏝️",
+  cards:[
+    C("flip-flops","Flip Flops","Island Vacation","🩴"),
+    C("luxury-shades","Luxury Shades","Island Vacation","🕶️"),
+    C("swim-fins","Swim Fins","Island Vacation","🤿"),
+    C("tropical-fruit","Tropical Fruit","Island Vacation","🥥"),
+    C("beach-hammock","Beach Hammock","Island Vacation","🏝️"),
+    C("plumeria","Plumeria","Island Vacation","🌺"),
+    C("floating-meal","Floating Meal","Island Vacation","🍱"),
+    C("sup","SUP","Island Vacation","🏄"),
+    C("sash-band-hat","Sash Band Hat","Island Vacation","👒"),
+    C("shells-on-sand","Shells on Sand","Island Vacation","🐚",true),
+    C("shaded-lounger","Shaded Lounger","Island Vacation","🏖️",true),
+    C("beach-bar","Beach Bar","Island Vacation","🍹",true)
+  ]
+},
+
+{
+  name:"Deck Days",
+  emoji:"⚓",
+  cards:[
+    C("anchor","Anchor","Deck Days","⚓"),
+    C("lifebuoy","Lifebuoy","Deck Days","🛟"),
+    C("sail","Sail","Deck Days","⛵"),
+    C("ship-bell","Ship Bell","Deck Days","🔔"),
+    C("oyster-plate","Oyster Plate","Deck Days","🦪"),
+    C("ocean-view","Ocean View","Deck Days","🌊"),
+    C("island-cocktail","Island Cocktail","Deck Days","🍹"),
+    C("day-bed","Day Bed","Deck Days","🛏️"),
+    C("snorkel-mask","Snorkel Mask","Deck Days","🤿"),
+    C("captain-cap","Captain Cap","Deck Days","🧢",true),
+    C("jet-ski","Jet Ski","Deck Days","🛥️",true),
+    C("luxury-yacht","Luxury Yacht","Deck Days","🛳️",true)
+  ]
+},
+
+{
+  name:"Golf Club",
+  emoji:"⛳",
+  cards:[
+    C("golf-ball","Golf Ball","Golf Club","⛳"),
+    C("golf-gloves","Golf Gloves","Golf Club","🧤"),
+    C("golf-visor","Golf Visor","Golf Club","🧢"),
+    C("golf-shoes","Golf Shoes","Golf Club","👟"),
+    C("polo-shirt","Polo Shirt","Golf Club","👕"),
+    C("range-finder","Range Finder","Golf Club","🔭"),
+    C("golf-brush","Golf Brush","Golf Club","🧹"),
+    C("golf-kit","Golf Kit","Golf Club","🏌️",true),
+    C("flagged-hole","Flagged Hole","Golf Club","🚩",true),
+    C("golf-cart","Golf Cart","Golf Club","🚗",true),
+    C("club-bag","Club Bag","Golf Club","🎒",true),
+    C("golf-cup","Golf Cup","Golf Club","🏆",true)
+  ]
+},
+
+{
+  name:"Dream Cars",
+  emoji:"🏎️",
+  cards:[
+    C("longhorn-continent","Longhorn Continent","Dream Cars","🚘"),
+    C("fukurou-millennium","Fukurou Millennium","Dream Cars","🏎️",true),
+    C("longhorn-wild","Longhorn Wild","Dream Cars","🚗",true),
+    C("rm-phantom","RM Phantom","Dream Cars","🚘",true),
+    C("rm-grandeur","RM Grandeur","Dream Cars","🚙",true),
+    C("longhorn-shark","Longhorn Shark","Dream Cars","🏎️",true),
+    C("buletti-inferno","Buletti Inferno","Dream Cars","🔥",true),
+    C("buletti-panaro","Buletti Panaro","Dream Cars","🏎️",true),
+    C("rm-g-rex","RM G-Rex","Dream Cars","🚙",true),
+    C("buletti-aldo","Buletti Aldo","Dream Cars","🏎️",true),
+    C("buletti-nera","Buletti Nera","Dream Cars","🚗",true),
+    C("espot-polygon","Espot Polygon","Dream Cars","🚘",true)
+  ]
+}
+
+];
+
+const allCards = categories.flatMap(c => c.cards);
+
+console.log("TOTAL CARTES:", allCards.length);
+
+
+/* =========================================================
+   ETAT
 ========================================================= */
 
 let currentUser = null;
-let currentProfile = null;
-let allCards = [];
-let ownedCards = new Set();
-let selectedAlbum = "Shopping Chic";
+let owned = new Set();
+let wanted = new Set();
+let currentCategory = null;
+let authMode = "login";
 
 
 /* =========================================================
-   ALBUMS
+   ELEMENTS
 ========================================================= */
 
-const ALBUM_ORDER = [
-"Shopping Chic",
-"High-End Auctions",
-"Boarding School",
-"Horse Racing",
-"Fancy Paws",
-"VIP Party",
-"Money",
-"Casino Night",
-"Island Vacation",
-"Deck Days",
-"Golf Club",
-"Dream Cars"
-];
+const authScreen = document.getElementById("authScreen");
+const appScreen = document.getElementById("appScreen");
+const authForm = document.getElementById("authForm");
+const authButton = document.getElementById("authButton");
+const authMessage = document.getElementById("authMessage");
 
-const ALBUM_ICONS = {
-"Shopping Chic":"🛍️",
-"High-End Auctions":"🏆",
-"Boarding School":"🎓",
-"Horse Racing":"🏇",
-"Fancy Paws":"🐾",
-"VIP Party":"🎉",
-"Money":"💰",
-"Casino Night":"🎰",
-"Island Vacation":"🏝️",
-"Deck Days":"⚓",
-"Golf Club":"⛳",
-"Dream Cars":"🚗"
-};
+const loginTab = document.getElementById("loginTab");
+const signupTab = document.getElementById("signupTab");
 
-const ALBUM_THEMES = {
-"Shopping Chic":["#ff42d0","#4b145f"],
-"High-End Auctions":["#ffd84a","#49320d"],
-"Boarding School":["#9f78ff","#26144d"],
-"Horse Racing":["#ff7b36","#542012"],
-"Fancy Paws":["#ff5b76","#4e1623"],
-"VIP Party":["#9f78ff","#26144d"],
-"Money":["#5aff8a","#124626"],
-"Casino Night":["#d52cff","#351044"],
-"Island Vacation":["#52e7ff","#103c55"],
-"Deck Days":["#4bd8ff","#123c55"],
-"Golf Club":["#ffca44","#50390c"],
-"Dream Cars":["#ff7b36","#542012"]
-};
+const usernameInput = document.getElementById("username");
+const tagInput = document.getElementById("tag");
+const passwordInput = document.getElementById("password");
+
+const categoryGrid = document.getElementById("categoryGrid");
+const categoryPage = document.getElementById("categoryPage");
+const homePage = document.getElementById("homePage");
+const categoryTitle = document.getElementById("categoryTitle");
+const cardsGrid = document.getElementById("cardsGrid");
+
+const ownedCount = document.getElementById("ownedCount");
+const availableCount = document.getElementById("availableCount");
+const collectionPercent = document.getElementById("collectionPercent");
+
+const profileName = document.getElementById("profileName");
+const profileTag = document.getElementById("profileTag");
+
+const tradePage = document.getElementById("tradePage");
+const tradeList = document.getElementById("tradeList");
+const tradeSearch = document.getElementById("tradeSearch");
+const tradeFilters = document.getElementById("tradeFilters");
 
 
 /* =========================================================
-   EMOJIS
+   UTILITAIRES
 ========================================================= */
-
-const CARD_EMOJIS = {
-
-"Shopping Bags":"🛍️",
-"Sale Tag":"🏷️",
-"Jewelry Pouch":"👝",
-"Chic Top":"👚",
-"Receipt":"🧾",
-"Fancy Mirror":"🪞",
-"Shoe Box":"👟",
-"Cash in a Wallet":"💵",
-"Credit Card":"💳",
-"Vintage Glasses":"🕶️",
-"Designer Handbag":"👜",
-"Gold Watch":"⌚",
-
-"Gavel":"🔨",
-"Number Paddle":"🔢",
-"Rostrum":"🎤",
-"Phone":"📱",
-"Jeweler's Glass":"🔍",
-"Sold":"🔨",
-"Plate Armor":"🛡️",
-"Old Sword":"⚔️",
-"Marble Bust":"🗿",
-"Vase":"🏺",
-"Royal Relic":"👑",
-"Diamond":"💎",
-
-"Blazer Patch":"🧥",
-"Skirt":"👗",
-"Silk Tie":"👔",
-"Sweater Vest":"🦺",
-"Shorts":"🩳",
-"Headband":"🎀",
-"Reading Glasses":"👓",
-"Leather Satchel":"💼",
-"Personal Locker":"🚪",
-"Iron Gates":"🏰",
-"Garden Fountain":"⛲",
-"Crest":"🏛️",
-
-"Jockey Jacket":"🏇",
-"Saddle & Blanket":"🐎",
-"Cup":"🏆",
-"Horse Shoe":"🐴",
-"Starting Gate":"🚪",
-"Betting Ticket":"🎟️",
-"Stop Watch":"⏱️",
-"Finish Line":"🏁",
-"Award":"🏆",
-"Jockey Boots":"🥾",
-"Jockey Helmet":"⛑️",
-"Champion":"👑",
-
-"Dapper Gent":"🤵",
-"Big Flex":"💪",
-"Cutie Pie":"🥧",
-"Fluffy Guy":"🐶",
-"Munchie":"🍔",
-"Pretty Lady":"👸",
-"Guardian":"🛡️",
-"Huntress":"🏹",
-"Rich Fella":"💰",
-"Sunshine":"☀️",
-"Style Icon":"✨",
-"Mini Boss":"👑",
-
-"Guest List":"📋",
-"Limo":"🚘",
-"Cocoon Seat":"💺",
-"Spark Sticks":"✨",
-"Shaker":"🍸",
-"Choco Berry":"🍓",
-"Glass Tower":"🥂",
-"DJ Deck":"🎧",
-"Neon Sign":"💡",
-"VIP Band":"🎟️",
-"VIP Ticket":"🎫",
-"Night City":"🌃",
-
-"Piggy Bank":"🐷",
-"Bill":"💵",
-"Gold Coin":"🪙",
-"Check Book":"📕",
-"Pearl Scatter":"🤍",
-"Money Stack":"💰",
-"Platinum Bar":"🥇",
-"ATM":"🏧",
-"Stocks":"📈",
-"Suitcase of Money":"💼",
-"Safe":"🔐",
-"Bank Vault":"🏦",
-
-"Cards":"🃏",
-"Chip Rake":"🎰",
-"Chips":"🔴",
-"Dice":"🎲",
-"Bow Tie":"🎀",
-"Bandit Slot":"🎰",
-"Lucky Wheel":"🎡",
-"Blackjack":"🃏",
-"Roulette":"🎡",
-"Slot Machine":"🎰",
-"Jackpot":"💰",
-"Trump Card":"🃏",
-
-"Flip Flops":"🩴",
-"Luxury Shades":"🕶️",
-"Swim Fins":"🤿",
-"Tropical Fruit":"🍍",
-"Beach Hammock":"🏖️",
-"Plumeria":"🌺",
-"Floating Meal":"🍹",
-"SUP":"🏄",
-"Sash Band Hat":"👒",
-"Shells on Sand":"🐚",
-"Shaded Lounger":"🏖️",
-"Beach Bar":"🍹",
-
-"Anchor":"⚓",
-"Lifebuoy":"🛟",
-"Sail":"⛵",
-"Ship Bell":"🔔",
-"Oyster Plate":"🦪",
-"Ocean View":"🌊",
-"Island Cocktail":"🍹",
-"Day Bed":"🛏️",
-"Snorkel Mask":"🤿",
-"Captain Cap":"🧢",
-"Jet Ski":"🚤",
-"Luxury Yacht":"🛥️",
-
-"Golf Ball":"⛳",
-"Golf Gloves":"🧤",
-"Golf Visor":"🧢",
-"Golf Shoes":"👟",
-"Polo Shirt":"👕",
-"Range Finder":"🔭",
-"Golf Brush":"🧹",
-"Golf Kit":"🏌️",
-"Flagged Hole":"🚩",
-"Golf Cart":"🚙",
-"Club Bag":"🏌️",
-"Golf Cup":"🏆",
-
-"Longhorn Continent":"🚗",
-"Fukurou Millenium":"🚘",
-"Longhorn Wild":"🏎️",
-"RM Phantom":"🚙",
-"RM Grandeur":"🚘",
-"Longhorn Shark":"🦈",
-"Buletti Inferno":"🔥",
-"Buletti Panaro":"🏎️",
-"RM G-Rex":"🦖",
-"Buletti Aldo":"🚗",
-"Buletti Nera":"🏎️",
-"Espot Polygon":"🚘"
-
-};
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function escapeHTML(value){
-return String(value ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-}
 
 function showMessage(text,type="error"){
-const box=document.getElementById("authMessage");
-box.textContent=text;
-box.className="message show "+type;
+  authMessage.textContent=text;
+  authMessage.className="message "+type;
 }
 
-function clearMessage(){
-const box=document.getElementById("authMessage");
-box.textContent="";
-box.className="message";
+function hideMessage(){
+  authMessage.className="message";
 }
 
-function showAuth(mode="login"){
-document.getElementById("authSection").classList.remove("hidden");
-document.getElementById("app").classList.add("hidden");
-document.getElementById("nav").classList.add("hidden");
-
-if(mode==="signup"){
-document.getElementById("signupTab").classList.add("active");
-document.getElementById("loginTab").classList.remove("active");
-document.getElementById("signupForm").classList.remove("hidden");
-document.getElementById("loginForm").classList.add("hidden");
-}else{
-document.getElementById("loginTab").classList.add("active");
-document.getElementById("signupTab").classList.remove("active");
-document.getElementById("loginForm").classList.remove("hidden");
-document.getElementById("signupForm").classList.add("hidden");
+function pseudoEmail(tag){
+  return String(tag).trim().toLowerCase().replace(/[^a-z0-9]/g,"")+"@sundaycitycards.app";
 }
 
-clearMessage();
+function escapeHtml(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function getCard(id){
+  return allCards.find(c=>c.id===id);
+}
+
+function getCategory(name){
+  return categories.find(c=>c.name===name);
+}
+
+function updateStats(){
+  const count=owned.size;
+  const tradableOwned=[...owned]
+    .map(id=>getCard(id))
+    .filter(Boolean)
+    .filter(c=>c.tradable)
+    .length;
+
+  ownedCount.textContent=count;
+  availableCount.textContent=tradableOwned;
+  collectionPercent.textContent=Math.round((count/allCards.length)*100)+"%";
 }
 
 
 /* =========================================================
-   AUTH TABS
+   AUTH
 ========================================================= */
 
-document.getElementById("loginTab").onclick=function(){
-showAuth("login");
+loginTab.onclick=()=>{
+  authMode="login";
+  loginTab.classList.add("active");
+  signupTab.classList.remove("active");
+  authButton.textContent="LOG IN";
+  hideMessage();
 };
 
-document.getElementById("signupTab").onclick=function(){
-showAuth("signup");
+signupTab.onclick=()=>{
+  authMode="signup";
+  signupTab.classList.add("active");
+  loginTab.classList.remove("active");
+  authButton.textContent="CREATE ACCOUNT";
+  hideMessage();
 };
 
+authForm.addEventListener("submit",async(e)=>{
+  e.preventDefault();
 
-/* =========================================================
-   SIGN UP
-========================================================= */
+  const username=usernameInput.value.trim();
+  const tag=tagInput.value.trim();
+  const password=passwordInput.value;
 
-async function signup(){
+  if(!username || !tag || !password){
+    showMessage("Remplis tous les champs.");
+    return;
+  }
 
-clearMessage();
+  authButton.disabled=true;
+  authButton.textContent="...";
 
-const username=document.getElementById("signupUsername").value.trim();
-const tag=document.getElementById("signupTag").value.trim();
-const password=document.getElementById("signupPassword").value;
+  const email=pseudoEmail(tag);
 
-if(!username || !tag || !password){
-showMessage("Please fill in every field.");
-return;
-}
+  try{
 
-if(password.length<6){
-showMessage("Password must contain at least 6 characters.");
-return;
-}
+    if(authMode==="signup"){
 
-const email=`${tag.toLowerCase()}@sundaycity.local`;
+      const {data,error}=await db.auth.signUp({
+        email,
+        password,
+        options:{
+          data:{
+            username,
+            player_tag:tag
+          }
+        }
+      });
 
-const button=document.getElementById("signupButton");
-button.disabled=true;
-button.textContent="CREATING...";
+      if(error) throw error;
 
-try{
+      if(data.session){
+        currentUser=data.user;
+        await loadUserData();
+        showApp();
+      }else{
+        showMessage(
+          "Compte créé. Si la confirmation email est activée dans Supabase, désactive-la pour ce système ou confirme le compte.",
+          "success"
+        );
+      }
 
-const result=await supabaseClient.auth.signUp({
-email:email,
-password:password,
-options:{
-data:{
-username:username,
-player_tag:tag
-}
-}
+    }else{
+
+      const {data,error}=await db.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if(error) throw error;
+
+      currentUser=data.user;
+      await loadUserData();
+      showApp();
+    }
+
+  }catch(err){
+    console.error(err);
+    showMessage(err.message || "Une erreur est survenue.");
+  }
+
+  authButton.disabled=false;
+  authButton.textContent=authMode==="login"?"LOG IN":"CREATE ACCOUNT";
 });
 
-if(result.error) throw result.error;
-
-currentUser=result.data.user;
-
-if(!currentUser){
-showMessage(
-"Account created. Please log in.",
-"success"
-);
-return;
-}
-
-/*
-  Profile creation is optional.
-  The website can work using auth metadata even
-  if the profiles table has no insert policy.
-*/
-try{
-await supabaseClient
-.from("profiles")
-.upsert({
-id:currentUser.id,
-username:username,
-player_tag:tag
-});
-}catch(profileError){
-console.warn("PROFILE UPSERT WARNING:",profileError);
-}
-
-if(result.data.session){
-
-await loadPlayerData();
-showApp();
-
-}else{
-
-showMessage(
-"Account created. Please log in.",
-"success"
-);
-
-showAuth("login");
-
-document.getElementById("loginUsername").value=username;
-document.getElementById("loginTag").value=tag;
-
-}
-
-}catch(error){
-
-console.error("SIGNUP ERROR:",error);
-
-showMessage(
-error.message || "Unable to create account."
-);
-
-}finally{
-
-button.disabled=false;
-button.textContent="CREATE ACCOUNT";
-
-}
-
-}
-
 
 /* =========================================================
-   LOGIN
+   CHARGEMENT UTILISATEUR
 ========================================================= */
 
-async function login(){
+async function loadUserData(){
 
-clearMessage();
+  if(!currentUser) return;
 
-const username=document.getElementById("loginUsername").value.trim();
-const tag=document.getElementById("loginTag").value.trim();
-const password=document.getElementById("loginPassword").value;
+  const {data,error}=await db
+    .from("user_cards")
+    .select("id,user_id,card_id")
+    .eq("user_id",currentUser.id);
 
-if(!username || !tag || !password){
-showMessage("Please fill in every field.");
-return;
-}
+  if(error){
+    console.error(error);
+    return;
+  }
 
-const email=`${tag.toLowerCase()}@sundaycity.local`;
+  owned.clear();
+  wanted.clear();
 
-const button=document.getElementById("loginButton");
-button.disabled=true;
-button.textContent="LOGGING IN...";
+  for(const row of data || []){
 
-try{
+    if(!row.card_id) continue;
 
-const result=await supabaseClient.auth.signInWithPassword({
-email:email,
-password:password
-});
+    if(String(row.card_id).startsWith("want:")){
+      wanted.add(String(row.card_id).substring(5));
+    }else{
+      owned.add(row.card_id);
+    }
+  }
 
-if(result.error) throw result.error;
+  const meta=currentUser.user_metadata || {};
 
-currentUser=result.data.user;
+  profileName.textContent=meta.username || "Player";
+  profileTag.textContent="#"+(meta.player_tag || currentUser.id.slice(0,6));
 
-await loadPlayerData();
-showApp();
-
-}catch(error){
-
-console.error("LOGIN ERROR:",error);
-
-showMessage(
-error.message ||
-"Incorrect username, tag or password."
-);
-
-}finally{
-
-button.disabled=false;
-button.textContent="LOG IN";
-
-}
-
+  updateStats();
 }
 
 
 /* =========================================================
-   LOAD PLAYER DATA
-========================================================= */
-
-async function loadPlayerData(){
-
-if(!currentUser) return;
-
-currentProfile={
-username:currentUser.user_metadata?.username || "Player",
-player_tag:currentUser.user_metadata?.player_tag || ""
-};
-
-/*
-  Try profiles table, but do not make the whole site
-  fail if the profiles RLS policy is not configured.
-*/
-try{
-
-const profileResult=await supabaseClient
-.from("profiles")
-.select("*")
-.eq("id",currentUser.id)
-.maybeSingle();
-
-if(profileResult.data){
-
-currentProfile={
-...currentProfile,
-...profileResult.data
-};
-
-}
-
-}catch(error){
-
-console.warn("PROFILE LOAD WARNING:",error);
-
-}
-
-await loadCardsFromSupabase();
-await loadOwnedCards();
-
-}
-
-
-/* =========================================================
-   LOAD REAL CARDS FROM SUPABASE
-   TABLE = public.Cards
-   Gold cards are excluded
-========================================================= */
-
-async function loadCardsFromSupabase(){
-
-try{
-
-const result=await supabaseClient
-.from("Cards")
-.select("id,Name,Album,Rarity")
-.order("id",{ascending:true});
-
-if(result.error) throw result.error;
-
-const rows=result.data || [];
-
-/*
-  We use the REAL card IDs from Supabase.
-  This is important because user_cards.card_id
-  must point to the actual Cards.id.
-*/
-allCards=rows
-.filter(row=>{
-const rarity=String(row.Rarity ?? "").trim().toLowerCase();
-return rarity!=="gold";
-})
-.map(row=>({
-
-id:Number(row.id),
-name:String(row.Name ?? ""),
-album:String(row.Album ?? ""),
-rarity:String(row.Rarity ?? "Normal"),
-number:Number(row.id)
-
-}))
-.filter(card=>
-ALBUM_ORDER.includes(card.album)
-);
-
-if(!allCards.length){
-
-throw new Error(
-"No tradable cards were found in public.Cards."
-);
-
-}
-
-}catch(error){
-
-console.error("LOAD CARDS ERROR:",error);
-
-allCards=[];
-
-showMessage(
-"Cards could not be loaded from Supabase. Check the Cards table and its RLS policy."
-);
-
-}
-
-}
-
-
-/* =========================================================
-   LOAD OWNED CARDS
-   TABLE = public.user_cards
-========================================================= */
-
-async function loadOwnedCards(){
-
-if(!currentUser) return;
-
-try{
-
-const result=await supabaseClient
-.from("user_cards")
-.select("card_id")
-.eq("user_id",currentUser.id);
-
-if(result.error) throw result.error;
-
-ownedCards=new Set(
-(result.data || []).map(row=>Number(row.card_id))
-);
-
-}catch(error){
-
-console.error("LOAD USER CARDS ERROR:",error);
-
-ownedCards=new Set();
-
-showMessage(
-"Your collection could not be loaded. Check the user_cards RLS policies in Supabase."
-);
-
-}
-
-}
-
-
-/* =========================================================
-   SHOW APP
+   AFFICHAGE APP
 ========================================================= */
 
 function showApp(){
-
-document.getElementById("authSection").classList.add("hidden");
-document.getElementById("app").classList.remove("hidden");
-document.getElementById("nav").classList.remove("hidden");
-
-updateProfileUI();
-renderAlbums();
-updateStats();
-
-if(
-!allCards.some(card=>card.album===selectedAlbum)
-){
-selectedAlbum=ALBUM_ORDER.find(album=>
-allCards.some(card=>card.album===album)
-)||ALBUM_ORDER[0];
+  authScreen.classList.add("hidden");
+  appScreen.classList.remove("hidden");
+  renderCategories();
+  goHome();
 }
 
+function showAuth(){
+  appScreen.classList.add("hidden");
+  authScreen.classList.remove("hidden");
 }
 
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-function updateProfileUI(){
-
-const username=currentProfile?.username || "Player";
-const tag=currentProfile?.player_tag || "";
-
-document.getElementById("profileUsername").textContent=username;
-document.getElementById("profileTag").textContent=
-tag ? "#"+tag : "";
-
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-function updateStats(){
-
-const total=allCards.length;
-
-const owned=allCards.filter(card=>
-ownedCards.has(card.id)
-).length;
-
-const percent=total
-?Math.round((owned/total)*100)
-:0;
-
-document.getElementById("statOwned").textContent=owned;
-document.getElementById("statTotal").textContent=total;
-document.getElementById("statPercent").textContent=percent+"%";
-
-}
-
-
-/* =========================================================
-   RENDER ALBUMS
-========================================================= */
-
-function renderAlbums(){
-
-const grid=document.getElementById("albumGrid");
-grid.innerHTML="";
-
-ALBUM_ORDER.forEach(album=>{
-
-const cards=allCards.filter(card=>card.album===album);
-
-if(!cards.length) return;
-
-const owned=cards.filter(card=>ownedCards.has(card.id)).length;
-
-const percent=Math.round((owned/cards.length)*100);
-
-const colors=ALBUM_THEMES[album] || ["#8d21ff","#321844"];
-
-const button=document.createElement("button");
-
-button.className="album-card";
-
-button.style.setProperty("--c1",colors[0]);
-button.style.setProperty("--c2",colors[1]);
-
-button.innerHTML=`
-
-<div class="album-icon">
-${ALBUM_ICONS[album] || "📚"}
-</div>
-
-<div class="album-name">
-${escapeHTML(album)}
-</div>
-
-<div class="album-progress">
-<span style="width:${percent}%"></span>
-</div>
-
-<div class="album-count">
-${owned}/${cards.length} collected
-</div>
-
-`;
-
-button.onclick=function(){
-
-selectedAlbum=album;
-
-navigate("collection");
-
-renderAlbumTabs();
-renderCollection(album);
-
+document.getElementById("logoutBtn").onclick=async()=>{
+  await db.auth.signOut();
+  currentUser=null;
+  owned.clear();
+  wanted.clear();
+  showAuth();
 };
 
-grid.appendChild(button);
-
+db.auth.onAuthStateChange(async(event,session)=>{
+  if(session && !currentUser){
+    currentUser=session.user;
+    await loadUserData();
+    showApp();
+  }
 });
 
-if(!grid.children.length){
 
-grid.innerHTML=`
-<div class="empty">
-No cards available.
-</div>
-`;
+/* =========================================================
+   CATEGORIES
+========================================================= */
 
-}
+function renderCategories(){
 
+  categoryGrid.innerHTML="";
+
+  for(const cat of categories){
+
+    const ownedInCategory=cat.cards.filter(c=>owned.has(c.id)).length;
+    const percent=Math.round((ownedInCategory/cat.cards.length)*100);
+
+    const div=document.createElement("div");
+    div.className="category";
+
+    div.innerHTML=`
+      <div style="font-size:38px;margin-bottom:8px">${cat.emoji}</div>
+      <h3>${escapeHtml(cat.name)}</h3>
+      <p>${ownedInCategory}/${cat.cards.length} cartes possédées</p>
+      <div class="progress">
+        <i style="width:${percent}%"></i>
+      </div>
+      <button>OUVRIR LA COLLECTION</button>
+    `;
+
+    div.querySelector("button").onclick=()=>{
+      openCategory(cat.name);
+    };
+
+    categoryGrid.appendChild(div);
+  }
 }
 
 
 /* =========================================================
-   ALBUM TABS
+   COLLECTION
 ========================================================= */
 
-function renderAlbumTabs(){
+function openCategory(name){
 
-const container=document.getElementById("albumTabs");
-container.innerHTML="";
+  currentCategory=name;
 
-ALBUM_ORDER.forEach(album=>{
+  homePage.classList.add("hidden");
+  tradePage.classList.add("hidden");
+  categoryPage.classList.remove("hidden");
 
-const cards=allCards.filter(card=>card.album===album);
+  categoryTitle.textContent=name;
 
-if(!cards.length) return;
+  renderCards(name);
+}
 
-const button=document.createElement("button");
+function renderCards(categoryName){
 
-button.className=
-"album-tab"+
-(album===selectedAlbum?" active":"");
+  const cat=getCategory(categoryName);
 
-button.textContent=
-(ALBUM_ICONS[album] || "📚")+" "+album;
+  if(!cat) return;
 
-button.onclick=function(){
+  cardsGrid.innerHTML="";
 
-selectedAlbum=album;
+  cat.cards.forEach(card=>{
 
-renderAlbumTabs();
-renderCollection(album);
+    const isOwned=owned.has(card.id);
+    const isWanted=wanted.has(card.id);
 
+    const div=document.createElement("div");
+
+    div.className=
+      "card"+
+      (card.gold?" gold":"")+
+      (isOwned?" owned":"")+
+      (isWanted?" wanted":"");
+
+    div.innerHTML=`
+      <div class="card-status">
+        ${card.gold
+          ? '<span class="gold-label">🟡 GOLD</span>'
+          : card.tradable
+            ? "🔄 ÉCHANGEABLE"
+            : ""}
+      </div>
+
+      <div class="card-emoji">${card.emoji}</div>
+
+      <div class="card-name">${escapeHtml(card.name)}</div>
+
+      <div class="card-actions">
+
+        <button class="${isOwned?"active":""}" data-owned>
+          ${isOwned?"✓ JE L'AI":"JE L'AI"}
+        </button>
+
+        ${
+          card.tradable
+          ? `<button class="want ${isWanted?"active":""}" data-wanted>
+              ${isWanted?"✓ RECHERCHÉE":"JE LA RECHERCHE"}
+             </button>`
+          : `<button disabled class="disabled">
+              🔒 NON ÉCHANGEABLE
+             </button>`
+        }
+
+      </div>
+    `;
+
+    div.querySelector("[data-owned]").onclick=async()=>{
+      await toggleOwned(card);
+    };
+
+    const wantedButton=div.querySelector("[data-wanted]");
+
+    if(wantedButton){
+      wantedButton.onclick=async()=>{
+        await toggleWanted(card);
+      };
+    }
+
+    cardsGrid.appendChild(div);
+  });
+}
+
+
+document.getElementById("backCategories").onclick=()=>{
+  goHome();
 };
 
-container.appendChild(button);
+function goHome(){
 
-});
+  currentCategory=null;
 
+  homePage.classList.remove("hidden");
+  categoryPage.classList.add("hidden");
+  tradePage.classList.add("hidden");
+
+  setNav("home");
+  renderCategories();
+}
+
+document.getElementById("homeNav").onclick=()=>{
+  goHome();
+};
+
+document.getElementById("collectionNav").onclick=()=>{
+  homePage.classList.remove("hidden");
+  categoryPage.classList.add("hidden");
+  tradePage.classList.add("hidden");
+
+  setNav("collection");
+  renderCategories();
+};
+
+function setNav(active){
+
+  document.querySelectorAll(".nav-btn").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  if(active==="home"){
+    document.getElementById("homeNav").classList.add("active");
+  }
+
+  if(active==="collection"){
+    document.getElementById("collectionNav").classList.add("active");
+  }
+
+  if(active==="trade"){
+    document.getElementById("tradeNav").classList.add("active");
+  }
 }
 
 
 /* =========================================================
-   RENDER COLLECTION
+   OWNED
 ========================================================= */
 
-function renderCollection(album){
+async function toggleOwned(card){
 
-selectedAlbum=album;
+  if(!currentUser) return;
 
-const cards=allCards.filter(card=>card.album===album);
+  const currentlyOwned=owned.has(card.id);
 
-const owned=cards.filter(card=>
-ownedCards.has(card.id)
-).length;
+  if(currentlyOwned){
 
-const percent=cards.length
-?Math.round((owned/cards.length)*100)
-:0;
+    const {error}=await db
+      .from("user_cards")
+      .delete()
+      .eq("user_id",currentUser.id)
+      .eq("card_id",card.id);
 
-const colors=
-ALBUM_THEMES[album] || ["#8d21ff","#321844"];
+    if(error){
+      console.error(error);
+      alert("Impossible de retirer cette carte.");
+      return;
+    }
 
-const banner=document.getElementById("albumBanner");
+    owned.delete(card.id);
 
-banner.style.setProperty("--c1",colors[0]);
-banner.style.setProperty("--c2",colors[1]);
+  }else{
 
-banner.innerHTML=`
+    const {error}=await db
+      .from("user_cards")
+      .insert({
+        user_id:currentUser.id,
+        card_id:card.id
+      });
 
-<h2>
-${ALBUM_ICONS[album] || "📚"}
-${escapeHTML(album)}
-</h2>
+    if(error){
+      console.error(error);
+      alert("Impossible d'ajouter cette carte.");
+      return;
+    }
 
-<p>
-${owned}/${cards.length} tradable cards collected
-</p>
+    owned.add(card.id);
 
-<div class="progress-row">
+  }
 
-<div class="progress">
-<span style="width:${percent}%"></span>
-</div>
-
-<strong>${percent}%</strong>
-
-</div>
-
-`;
-
-const grid=document.getElementById("cardsGrid");
-grid.innerHTML="";
-
-if(!cards.length){
-
-grid.innerHTML=`
-<div class="empty">
-No cards found for this album.
-</div>
-`;
-
-return;
-
-}
-
-cards.forEach(card=>{
-
-const isOwned=ownedCards.has(card.id);
-
-const element=document.createElement("div");
-
-element.className=
-"card"+(isOwned?" owned-card":"");
-
-element.innerHTML=`
-
-<div class="card-inner">
-
-<div class="card-image">
-${CARD_EMOJIS[card.name] || "🃏"}
-</div>
-
-<div class="card-info">
-
-<div class="card-name">
-${escapeHTML(card.name)}
-</div>
-
-<div class="rarity">
-${escapeHTML(card.rarity || "Normal")}
-</div>
-
-<button
-class="owned-btn ${isOwned?"owned":""}"
-onclick="toggleOwned(${card.id})">
-
-${isOwned?"✓ I HAVE IT":"＋ I NEED IT"}
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-grid.appendChild(element);
-
-});
-
+  updateStats();
+  renderCards(currentCategory);
+  renderCategories();
 }
 
 
 /* =========================================================
-   TOGGLE CARD
+   WANTED
+   On réutilise la colonne card_id avec "want:"
 ========================================================= */
 
-async function toggleOwned(cardId){
+async function toggleWanted(card){
 
-if(!currentUser){
+  if(!currentUser || !card.tradable) return;
 
-alert("Please log in first.");
-return;
+  const currentlyWanted=wanted.has(card.id);
+  const storedId="want:"+card.id;
 
-}
+  if(currentlyWanted){
 
-const card=allCards.find(c=>c.id===Number(cardId));
+    const {error}=await db
+      .from("user_cards")
+      .delete()
+      .eq("user_id",currentUser.id)
+      .eq("card_id",storedId);
 
-if(!card){
+    if(error){
+      console.error(error);
+      alert("Impossible de retirer la recherche.");
+      return;
+    }
 
-alert("Card not found.");
-return;
+    wanted.delete(card.id);
 
-}
+  }else{
 
-const currentlyOwned=ownedCards.has(Number(cardId));
-const newValue=!currentlyOwned;
+    const {error}=await db
+      .from("user_cards")
+      .insert({
+        user_id:currentUser.id,
+        card_id:storedId
+      });
 
-/* Optimistic UI */
+    if(error){
+      console.error(error);
+      alert("Impossible d'ajouter cette recherche.");
+      return;
+    }
 
-if(newValue){
-ownedCards.add(Number(cardId));
-}else{
-ownedCards.delete(Number(cardId));
-}
+    wanted.add(card.id);
+  }
 
-renderCollection(selectedAlbum);
-renderAlbums();
-updateStats();
-
-try{
-
-if(newValue){
-
-/*
-  INSERT INTO user_cards
-
-  user_id = authenticated Supabase user
-  card_id = REAL ID from public.Cards
-*/
-
-const result=await supabaseClient
-.from("user_cards")
-.insert({
-user_id:currentUser.id,
-card_id:String(cardId)
-});
-
-if(result.error) throw result.error;
-
-}else{
-
-/*
-  DELETE FROM user_cards
-*/
-
-const result=await supabaseClient
-.from("user_cards")
-.delete()
-.eq("user_id",currentUser.id)
-.eq("card_id",String(cardId));
-
-if(result.error) throw result.error;
-
-}
-
-}catch(error){
-
-console.error("SAVE CARD ERROR:",error);
-
-/* Roll back */
-
-if(newValue){
-ownedCards.delete(Number(cardId));
-}else{
-ownedCards.add(Number(cardId));
-}
-
-renderCollection(selectedAlbum);
-renderAlbums();
-updateStats();
-
-alert(
-"Could not save this card. Check the user_cards RLS policies in Supabase."
-);
-
-}
-
+  renderCards(currentCategory);
 }
 
 
 /* =========================================================
-   NAVIGATION
+   TRADING
 ========================================================= */
 
-function navigate(section,button){
+document.getElementById("tradeNav").onclick=async()=>{
+  homePage.classList.add("hidden");
+  categoryPage.classList.add("hidden");
+  tradePage.classList.remove("hidden");
 
-const sections=[
-"homeSection",
-"collectionSection",
-"tradeSection"
-];
+  setNav("trade");
 
-sections.forEach(id=>{
-document.getElementById(id).classList.add("hidden");
+  await renderTrading();
+};
+
+tradeSearch.addEventListener("input",()=>{
+  renderTrading();
 });
 
-const target=
-document.getElementById(section+"Section");
 
-if(target){
-target.classList.remove("hidden");
-}
+async function renderTrading(){
 
-document
-.querySelectorAll(".nav button")
-.forEach(btn=>btn.classList.remove("active"));
+  tradeList.innerHTML=`
+    <div class="empty">Chargement des joueurs...</div>
+  `;
 
-if(button){
+  const {data,error}=await db
+    .from("user_cards")
+    .select("user_id,card_id")
+    .not("card_id","like","want:%");
 
-button.classList.add("active");
+  if(error){
+    console.error(error);
 
-}else{
+    tradeList.innerHTML=`
+      <div class="empty">
+        Impossible de charger les échanges.<br><br>
+        Vérifie les politiques RLS de <b>user_cards</b>.
+      </div>
+    `;
 
-const buttons=document.querySelectorAll(".nav button");
+    return;
+  }
 
-if(section==="home")
-buttons[0]?.classList.add("active");
+  const players={};
 
-if(section==="collection")
-buttons[1]?.classList.add("active");
+  for(const row of data || []){
 
-if(section==="trade")
-buttons[2]?.classList.add("active");
+    if(!row.user_id || !row.card_id) continue;
 
-}
+    const card=getCard(row.card_id);
 
-if(section==="collection"){
+    if(!card || !card.tradable) continue;
 
-renderAlbumTabs();
-renderCollection(selectedAlbum);
+    if(!players[row.user_id]){
+      players[row.user_id]={
+        userId:row.user_id,
+        cards:[]
+      };
+    }
 
-}
+    players[row.user_id].cards.push(card);
+  }
 
+  const search=(tradeSearch.value||"").trim().toLowerCase();
+
+  const entries=Object.values(players).filter(player=>{
+
+    if(!search) return true;
+
+    if(player.userId.toLowerCase().includes(search)) return true;
+
+    return player.cards.some(c=>
+      c.name.toLowerCase().includes(search) ||
+      c.category.toLowerCase().includes(search)
+    );
+  });
+
+  if(!entries.length){
+
+    tradeList.innerHTML=`
+      <div class="empty">
+        Aucun joueur avec des cartes échangeables trouvé.
+      </div>
+    `;
+
+    return;
+  }
+
+  tradeList.innerHTML="";
+
+  for(const player of entries){
+
+    const div=document.createElement("div");
+    div.className="trade-card";
+
+    const cards=player.cards.slice(0,30);
+
+    div.innerHTML=`
+      <div class="trade-player">
+        <div>
+          <strong>👤 Joueur</strong>
+          <div class="player-tag">
+            ID : ${escapeHtml(player.userId)}
+          </div>
+        </div>
+
+        <button class="id-copy">
+          COPIER ID
+        </button>
+      </div>
+
+      <div class="trade-cards">
+        ${
+          cards.map(card=>`
+            <div class="mini-card">
+              <div class="mini-emoji">${card.emoji}</div>
+              <div class="mini-name">${escapeHtml(card.name)}</div>
+            </div>
+          `).join("")
+        }
+      </div>
+    `;
+
+    div.querySelector(".id-copy").onclick=async()=>{
+      try{
+        await navigator.clipboard.writeText(player.userId);
+        div.querySelector(".id-copy").textContent="COPIÉ ✓";
+        setTimeout(()=>{
+          div.querySelector(".id-copy").textContent="COPIER ID";
+        },1500);
+      }catch(e){
+        alert(player.userId);
+      }
+    };
+
+    tradeList.appendChild(div);
+  }
 }
 
 
 /* =========================================================
-   LOGOUT
+   MODAL
 ========================================================= */
 
-async function logout(){
+const cardModal=document.getElementById("cardModal");
 
-try{
-await supabaseClient.auth.signOut();
-}catch(error){
-console.error("LOGOUT ERROR:",error);
-}
+document.getElementById("closeModal").onclick=()=>{
+  cardModal.classList.add("hidden");
+};
 
-currentUser=null;
-currentProfile=null;
-ownedCards=new Set();
-allCards=[];
-
-document.getElementById("app").classList.add("hidden");
-document.getElementById("nav").classList.add("hidden");
-
-showAuth("login");
-
-}
-
-
-/* =========================================================
-   BUTTON EVENTS
-========================================================= */
-
-document
-.getElementById("loginButton")
-.addEventListener("click",login);
-
-document
-.getElementById("signupButton")
-.addEventListener("click",signup);
-
-document
-.getElementById("logoutButton")
-.addEventListener("click",logout);
-
-
-/* =========================================================
-   ENTER KEY
-========================================================= */
-
-document
-.getElementById("loginPassword")
-.addEventListener("keydown",function(event){
-
-if(event.key==="Enter") login();
-
-});
-
-document
-.getElementById("loginTag")
-.addEventListener("keydown",function(event){
-
-if(event.key==="Enter") login();
-
-});
-
-document
-.getElementById("signupPassword")
-.addEventListener("keydown",function(event){
-
-if(event.key==="Enter") signup();
-
+cardModal.addEventListener("click",e=>{
+  if(e.target===cardModal){
+    cardModal.classList.add("hidden");
+  }
 });
 
 
 /* =========================================================
-   INITIALIZATION
+   INITIALISATION
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded",async function(){
+(async()=>{
 
-try{
+  const {data}=await db.auth.getSession();
 
-const result=
-await supabaseClient.auth.getSession();
+  if(data.session){
 
-const session=result.data?.session;
+    currentUser=data.session.user;
 
-if(session){
+    await loadUserData();
 
-currentUser=session.user;
+    showApp();
 
-await loadPlayerData();
+  }else{
 
-if(allCards.length){
-showApp();
-}
+    showAuth();
 
-}
+  }
 
-}catch(error){
-
-console.error("SESSION ERROR:",error);
-
-}
-
-});
-
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-async function(event,session){
-
-if(event==="SIGNED_IN" && session){
-
-currentUser=session.user;
-
-await loadPlayerData();
-
-if(allCards.length){
-showApp();
-}
-
-}
-
-if(event==="SIGNED_OUT"){
-
-currentUser=null;
-currentProfile=null;
-ownedCards=new Set();
-
-}
-
-});
-
+})();
 </script>
 
 </body>
