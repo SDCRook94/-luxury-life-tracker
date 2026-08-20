@@ -427,45 +427,6 @@ button {
     font-weight:1000;
 }
 
-/* PACKS */
-
-.pack-grid {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-}
-
-.pack {
-    padding:20px;
-    text-align:center;
-    border-radius:25px;
-    background:linear-gradient(145deg,#301049,#180b25);
-    border:1px solid #ffffff1c;
-}
-
-.pack-icon {
-    font-size:65px;
-    filter:drop-shadow(0 10px 10px #0009);
-}
-
-.pack h3 {
-    margin:8px 0 5px;
-}
-
-.pack p {
-    margin:0 0 15px;
-    color:#bba9c4;
-    font-size:12px;
-}
-
-.pack button {
-    padding:11px 18px;
-    border-radius:13px;
-    color:#fff;
-    font-weight:900;
-    background:linear-gradient(90deg,#7920ff,#d92eff);
-}
-
 /* TRADE */
 
 .trade-box {
@@ -495,7 +456,7 @@ button {
     width:calc(100% - 28px);
     max-width:620px;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:7px;
     padding:9px;
     border-radius:25px;
@@ -538,56 +499,8 @@ button {
     font-weight:900;
 }
 
-/* MODAL */
-
-.modal {
-    position:fixed;
-    inset:0;
-    z-index:100;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:#050107cc;
-    backdrop-filter:blur(12px);
-}
-
-.modal.show {
-    display:flex;
-}
-
-.modal-box {
-    width:min(100%,520px);
-    padding:25px;
-    border-radius:30px;
-    background:linear-gradient(145deg,#35154a,#15091f);
-    border:1px solid #ffffff25;
-    box-shadow:0 30px 100px #000;
-    text-align:center;
-}
-
-.modal-box h2 {
-    margin-top:0;
-}
-
-.big-pack {
-    margin:20px 0;
-    font-size:110px;
-}
-
-.close {
-    float:right;
-    width:35px;
-    height:35px;
-    margin:0;
-    padding:0;
-    border-radius:50%;
-    background:#ffffff12;
-    color:#fff;
-    box-shadow:none;
-}
-
 @media (min-width:700px) {
+
     .album-grid {
         grid-template-columns:repeat(4,1fr);
     }
@@ -596,16 +509,13 @@ button {
         grid-template-columns:repeat(4,1fr);
     }
 
-    .pack-grid {
-        grid-template-columns:repeat(3,1fr);
-    }
-
     .hero {
         padding:45px;
     }
 }
 
 @media (max-width:420px) {
+
     .page {
         padding-left:12px;
         padding-right:12px;
@@ -625,6 +535,7 @@ button {
 <body>
 
 <header class="topbar">
+
     <div class="logo">
         Sunday City <span>Trading Cards</span>
     </div>
@@ -632,6 +543,7 @@ button {
     <div class="subtitle">
         Collect • Trade • Discover
     </div>
+
 </header>
 
 
@@ -739,9 +651,7 @@ button {
 
         <!-- SIGN UP -->
 
-        <div
-            id="signupForm"
-            class="hidden">
+        <div id="signupForm" class="hidden">
 
             <div class="field">
 
@@ -807,9 +717,7 @@ button {
 
     <!-- APP -->
 
-    <div
-        id="app"
-        class="hidden">
+    <div id="app" class="hidden">
 
 
         <!-- HOME -->
@@ -844,50 +752,25 @@ button {
                     </div>
 
                     <div class="player-tag">
-                        #<span id="profileTag">
-                            ------
-                        </span>
+                        #<span id="profileTag">------</span>
                     </div>
 
 
                     <div class="stats">
 
                         <div class="stat">
-
-                            <strong id="cardCount">
-                                0
-                            </strong>
-
-                            <small>
-                                Cards
-                            </small>
-
+                            <strong id="cardCount">0</strong>
+                            <small>Cards</small>
                         </div>
 
-
                         <div class="stat">
-
-                            <strong>
-                                0
-                            </strong>
-
-                            <small>
-                                Trades
-                            </small>
-
+                            <strong>0</strong>
+                            <small>Trades</small>
                         </div>
 
-
                         <div class="stat">
-
-                            <strong>
-                                0%
-                            </strong>
-
-                            <small>
-                                Complete
-                            </small>
-
+                            <strong>0%</strong>
+                            <small>Complete</small>
                         </div>
 
                     </div>
@@ -920,9 +803,7 @@ button {
                         class="album"
                         style="--glow:#ff42d0;--dark:#4b145f">
 
-                        <div class="album-art">
-                            🎓
-                        </div>
+                        <div class="album-art">🎓</div>
 
                         <h3>
                             Boarding School
@@ -943,9 +824,7 @@ button {
                         class="album"
                         style="--glow:#ffd84a;--dark:#49320d">
 
-                        <div class="album-art">
-                            🏇
-                        </div>
+                        <div class="album-art">🏇</div>
 
                         <h3>
                             Horse Racing
@@ -966,9 +845,7 @@ button {
                         class="album"
                         style="--glow:#ff7b36;--dark:#542012">
 
-                        <div class="album-art">
-                            🚗
-                        </div>
+                        <div class="album-art">🚗</div>
 
                         <h3>
                             Dream Cars
@@ -989,9 +866,7 @@ button {
                         class="album"
                         style="--glow:#52e7ff;--dark:#103c55">
 
-                        <div class="album-art">
-                            🏝️
-                        </div>
+                        <div class="album-art">🏝️</div>
 
                         <h3>
                             Island Vacation
@@ -1012,9 +887,7 @@ button {
                         class="album"
                         style="--glow:#5aff8a;--dark:#124626">
 
-                        <div class="album-art">
-                            💰
-                        </div>
+                        <div class="album-art">💰</div>
 
                         <h3>
                             Money
@@ -1035,9 +908,7 @@ button {
                         class="album"
                         style="--glow:#ff5b76;--dark:#4e1623">
 
-                        <div class="album-art">
-                            💎
-                        </div>
+                        <div class="album-art">💎</div>
 
                         <h3>
                             Luxury Life
@@ -1058,9 +929,7 @@ button {
                         class="album"
                         style="--glow:#9f78ff;--dark:#26144d">
 
-                        <div class="album-art">
-                            🎉
-                        </div>
+                        <div class="album-art">🎉</div>
 
                         <h3>
                             VIP Party
@@ -1081,9 +950,7 @@ button {
                         class="album"
                         style="--glow:#ffca44;--dark:#50390c">
 
-                        <div class="album-art">
-                            🏌️
-                        </div>
+                        <div class="album-art">🏌️</div>
 
                         <h3>
                             Golf Club
@@ -1128,14 +995,8 @@ button {
             <div class="collection-grid">
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        EPIC
-                    </span>
-
-                    <div class="card-art">
-                        🧥
-                    </div>
-
+                    <span class="rarity">EPIC</span>
+                    <div class="card-art">🧥</div>
                     <div class="card-name">
                         Blazer Patch
                     </div>
@@ -1143,14 +1004,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        EPIC
-                    </span>
-
-                    <div class="card-art">
-                        👗
-                    </div>
-
+                    <span class="rarity">EPIC</span>
+                    <div class="card-art">👗</div>
                     <div class="card-name">
                         School Skirt
                     </div>
@@ -1158,14 +1013,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        RARE
-                    </span>
-
-                    <div class="card-art">
-                        👔
-                    </div>
-
+                    <span class="rarity">RARE</span>
+                    <div class="card-art">👔</div>
                     <div class="card-name">
                         Silk Tie
                     </div>
@@ -1173,14 +1022,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        EPIC
-                    </span>
-
-                    <div class="card-art">
-                        🦺
-                    </div>
-
+                    <span class="rarity">EPIC</span>
+                    <div class="card-art">🦺</div>
                     <div class="card-name">
                         Sweater Vest
                     </div>
@@ -1188,14 +1031,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        RARE
-                    </span>
-
-                    <div class="card-art">
-                        🩳
-                    </div>
-
+                    <span class="rarity">RARE</span>
+                    <div class="card-art">🩳</div>
                     <div class="card-name">
                         School Shorts
                     </div>
@@ -1203,14 +1040,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        RARE
-                    </span>
-
-                    <div class="card-art">
-                        🧣
-                    </div>
-
+                    <span class="rarity">RARE</span>
+                    <div class="card-art">🧣</div>
                     <div class="card-name">
                         Headband
                     </div>
@@ -1218,14 +1049,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        COMMON
-                    </span>
-
-                    <div class="card-art">
-                        👓
-                    </div>
-
+                    <span class="rarity">COMMON</span>
+                    <div class="card-art">👓</div>
                     <div class="card-name">
                         Reading Glasses
                     </div>
@@ -1233,14 +1058,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        RARE
-                    </span>
-
-                    <div class="card-art">
-                        💼
-                    </div>
-
+                    <span class="rarity">RARE</span>
+                    <div class="card-art">💼</div>
                     <div class="card-name">
                         Leather Satchel
                     </div>
@@ -1248,14 +1067,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        EPIC
-                    </span>
-
-                    <div class="card-art">
-                        🚪
-                    </div>
-
+                    <span class="rarity">EPIC</span>
+                    <div class="card-art">🚪</div>
                     <div class="card-name">
                         Personal Locker
                     </div>
@@ -1263,14 +1076,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        LEGENDARY
-                    </span>
-
-                    <div class="card-art">
-                        🏛️
-                    </div>
-
+                    <span class="rarity">LEGENDARY</span>
+                    <div class="card-art">🏛️</div>
                     <div class="card-name">
                         School Crest
                     </div>
@@ -1278,14 +1085,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        EPIC
-                    </span>
-
-                    <div class="card-art">
-                        ⛲
-                    </div>
-
+                    <span class="rarity">EPIC</span>
+                    <div class="card-art">⛲</div>
                     <div class="card-name">
                         Garden Fountain
                     </div>
@@ -1293,14 +1094,8 @@ button {
 
 
                 <div class="trading-card">
-                    <span class="rarity">
-                        LEGENDARY
-                    </span>
-
-                    <div class="card-art">
-                        🏰
-                    </div>
-
+                    <span class="rarity">LEGENDARY</span>
+                    <div class="card-art">🏰</div>
                     <div class="card-name">
                         Iron Gates
                     </div>
@@ -1311,98 +1106,7 @@ button {
         </section>
 
 
-        <!-- PACKS -->
-
-        <section
-            id="packsSection"
-            class="section hidden">
-
-            <div class="section-title">
-
-                <h2>
-                    Chest Store
-                </h2>
-
-                <span>
-                    PACKS
-                </span>
-
-            </div>
-
-
-            <div class="pack-grid">
-
-                <div class="pack">
-
-                    <div class="pack-icon">
-                        🎁
-                    </div>
-
-                    <h3>
-                        Starter Pack
-                    </h3>
-
-                    <p>
-                        Contains 3 random cards.
-                    </p>
-
-                    <button
-                        onclick="openPack('Starter Pack')">
-                        OPEN
-                    </button>
-
-                </div>
-
-
-                <div class="pack">
-
-                    <div class="pack-icon">
-                        💜
-                    </div>
-
-                    <h3>
-                        Luxury Pack
-                    </h3>
-
-                    <p>
-                        Contains 5 cards with a rare guaranteed.
-                    </p>
-
-                    <button
-                        onclick="openPack('Luxury Pack')">
-                        OPEN
-                    </button>
-
-                </div>
-
-
-                <div class="pack">
-
-                    <div class="pack-icon">
-                        💎
-                    </div>
-
-                    <h3>
-                        Premium Pack
-                    </h3>
-
-                    <p>
-                        Contains 8 cards with an epic guaranteed.
-                    </p>
-
-                    <button
-                        onclick="openPack('Premium Pack')">
-                        OPEN
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- TRADING -->
+        <!-- TRADE -->
 
         <section
             id="tradeSection"
@@ -1477,18 +1181,6 @@ button {
 
 
     <button
-        onclick="navigate('packs',this)">
-
-        <span class="nav-icon">
-            🎁
-        </span>
-
-        Packs
-
-    </button>
-
-
-    <button
         onclick="navigate('trade',this)">
 
         <span class="nav-icon">
@@ -1500,43 +1192,6 @@ button {
     </button>
 
 </nav>
-
-
-<!-- MODAL -->
-
-<div
-    id="modal"
-    class="modal">
-
-    <div class="modal-box">
-
-        <button
-            class="close"
-            onclick="closeModal()">
-            ×
-        </button>
-
-        <h2 id="modalTitle">
-            Pack
-        </h2>
-
-        <div class="big-pack">
-            🎁
-        </div>
-
-        <p>
-            Your pack is ready!
-        </p>
-
-        <button
-            class="main-btn"
-            onclick="closeModal()">
-            OPEN PACK
-        </button>
-
-    </div>
-
-</div>
 
 
 <script>
@@ -1556,11 +1211,6 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_ANON_KEY
     );
-
-
-/* =========================================================
-   STATE
-========================================================= */
 
 let currentUser = null;
 let currentProfile = null;
@@ -1619,7 +1269,6 @@ function showMessage(text,type="error") {
     message.className =
         "message show " + type;
 }
-
 
 function hideMessage() {
 
@@ -1696,10 +1345,6 @@ async function login() {
 
     try {
 
-        /*
-         * Verify the player profile first.
-         */
-
         const profileResult =
             await supabaseClient
                 .from("profiles")
@@ -1721,11 +1366,6 @@ async function login() {
             );
         }
 
-        /*
-         * Create the same hidden email that was
-         * used during account creation.
-         */
-
         const authEmail =
             createAuthEmail(
                 username,
@@ -1736,13 +1376,12 @@ async function login() {
             await supabaseClient
                 .auth
                 .signInWithPassword({
-
                     email:authEmail,
                     password:password
-
                 });
 
         if (result.error) {
+
             throw new Error(
                 "Username, Player Tag or Password is incorrect."
             );
@@ -1822,10 +1461,6 @@ async function signup() {
 
     try {
 
-        /*
-         * Check whether Username + Tag already exists.
-         */
-
         const existing =
             await supabaseClient
                 .from("profiles")
@@ -1845,21 +1480,11 @@ async function signup() {
             );
         }
 
-
-        /*
-         * Hidden Auth email.
-         */
-
         const authEmail =
             createAuthEmail(
                 username,
                 tag
             );
-
-
-        /*
-         * Create Auth account.
-         */
 
         const result =
             await supabaseClient
@@ -1890,11 +1515,6 @@ async function signup() {
             );
         }
 
-
-        /*
-         * Confirm Email must remain OFF.
-         */
-
         if (!result.data.session) {
 
             throw new Error(
@@ -1902,14 +1522,8 @@ async function signup() {
             );
         }
 
-
         currentUser =
             result.data.user;
-
-
-        /*
-         * Save player profile.
-         */
 
         const profile =
             await supabaseClient
@@ -1928,7 +1542,6 @@ async function signup() {
         if (profile.error) {
             throw profile.error;
         }
-
 
         await loadProfile();
 
@@ -1972,26 +1585,7 @@ async function loadProfile() {
             throw result.error;
         }
 
-        if (!result.data) {
-
-            /*
-             * Fallback to Auth metadata.
-             */
-
-            const metadata =
-                currentUser.user_metadata || {};
-
-            document
-                .getElementById("profileUsername")
-                .textContent =
-                metadata.username || "Player";
-
-            document
-                .getElementById("profileTag")
-                .textContent =
-                metadata.player_tag || "------";
-
-        } else {
+        if (result.data) {
 
             currentProfile =
                 result.data;
@@ -2005,6 +1599,21 @@ async function loadProfile() {
                 .getElementById("profileTag")
                 .textContent =
                 currentProfile.player_tag || "------";
+
+        } else {
+
+            const metadata =
+                currentUser.user_metadata || {};
+
+            document
+                .getElementById("profileUsername")
+                .textContent =
+                metadata.username || "Player";
+
+            document
+                .getElementById("profileTag")
+                .textContent =
+                metadata.player_tag || "------";
         }
 
         showApp();
@@ -2062,9 +1671,6 @@ function navigate(section,button) {
         collection:
             document.getElementById("collectionSection"),
 
-        packs:
-            document.getElementById("packsSection"),
-
         trade:
             document.getElementById("tradeSection")
 
@@ -2080,7 +1686,6 @@ function navigate(section,button) {
         .classList
         .remove("hidden");
 
-
     if (button) {
 
         document
@@ -2092,32 +1697,6 @@ function navigate(section,button) {
 
         button.classList.add("active");
     }
-}
-
-
-/* =========================================================
-   PACK
-========================================================= */
-
-function openPack(name) {
-
-    document
-        .getElementById("modalTitle")
-        .textContent = name;
-
-    document
-        .getElementById("modal")
-        .classList
-        .add("show");
-}
-
-
-function closeModal() {
-
-    document
-        .getElementById("modal")
-        .classList
-        .remove("show");
 }
 
 
@@ -2201,10 +1780,6 @@ async function checkSession() {
 }
 
 
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
 supabaseClient
     .auth
     .onAuthStateChange(
@@ -2217,7 +1792,6 @@ supabaseClient
 
                 currentUser =
                     session.user;
-
             }
 
         }
