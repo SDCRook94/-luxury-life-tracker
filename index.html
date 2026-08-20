@@ -1,733 +1,1884 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#160b24">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Sunday City - Luxury Life Trading Card Tracker</title>
+<title>Sunday City Trading Cards</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    html {
-      scroll-behavior: smooth;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-      color: #ffffff;
-      background:
-        radial-gradient(circle at 50% 0%, #5b247a 0%, #28103f 34%, #100817 72%, #08050c 100%);
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    button,
-    input {
-      font: inherit;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
 
-    button {
-      cursor: pointer;
-    }
+  color: #ffffff;
 
-    .page {
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 28px 18px 60px;
-    }
+  background:
+    radial-gradient(circle at top, #522080 0%, #21102f 35%, #090611 75%);
 
-    .hero {
-      text-align: center;
-      padding: 22px 10px 28px;
-    }
+  background-attachment: fixed;
+}
 
-    .card-icon {
-      width: 78px;
-      height: 105px;
-      margin: 0 auto 22px;
-      border-radius: 9px;
-      border: 3px solid rgba(255,255,255,.75);
-      background:
-        linear-gradient(145deg, #eee7dc, #cfc5b8);
-      color: #24152f;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;
-      font-weight: 900;
-      box-shadow:
-        0 10px 35px rgba(0,0,0,.35),
-        0 0 35px rgba(196,110,255,.15);
-    }
+button,
+input,
+select {
+  font: inherit;
+}
 
-    .eyebrow {
-      letter-spacing: 8px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #e0a9ff;
-      margin-bottom: 12px;
-    }
+button {
+  cursor: pointer;
+}
 
-    h1 {
-      margin: 0;
-      font-size: clamp(42px, 11vw, 72px);
-      line-height: .95;
-      letter-spacing: -2px;
-      background: linear-gradient(90deg, #c58cff, #ffd3b4);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+.hidden {
+  display: none !important;
+}
 
-    .subtitle {
-      margin: 26px auto 0;
-      max-width: 520px;
-      font-size: 21px;
-      line-height: 1.45;
-      color: #eee4f5;
-    }
+.container {
+  width: min(1100px, calc(100% - 32px));
+  margin: auto;
+}
 
-    .subtitle strong {
-      color: #ffffff;
-    }
+header {
+  padding: 28px 0 20px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  background: rgba(8,5,14,.75);
+  backdrop-filter: blur(15px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
 
-    .panel {
-      margin-top: 22px;
-      padding: 25px;
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 28px;
-      background: rgba(31, 17, 48, .72);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 18px 50px rgba(0,0,0,.28);
-      backdrop-filter: blur(14px);
-    }
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-    .panel h2 {
-      margin: 0 0 10px;
-      font-size: 24px;
-    }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
-    .panel p {
-      margin: 0 0 20px;
-      color: #cfc2d7;
-      line-height: 1.5;
-      font-size: 16px;
-    }
+.logo-card {
+  width: 48px;
+  height: 68px;
+  border-radius: 8px;
+  background: linear-gradient(135deg,#eee,#ddd);
+  color: #24102f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.35);
+}
 
-    .input {
-      width: 100%;
-      height: 62px;
-      padding: 0 20px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.24);
-      outline: none;
-      background: rgba(8,4,14,.42);
-      color: #fff;
-      font-size: 18px;
-    }
+.logo h1 {
+  margin: 0;
+  font-size: 21px;
+}
 
-    .input::placeholder {
-      color: #9b91a3;
-    }
+.logo p {
+  margin: 4px 0 0;
+  color: #bcaeca;
+  font-size: 13px;
+}
 
-    .input:focus {
-      border-color: #b55cff;
-      box-shadow: 0 0 0 3px rgba(181,92,255,.15);
-    }
+nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
-    .primary {
-      width: 100%;
-      min-height: 60px;
-      margin-top: 16px;
-      border: 0;
-      border-radius: 18px;
-      color: white;
-      font-weight: 800;
-      font-size: 18px;
-      background: linear-gradient(135deg, #7130a8, #9d3de0);
-      box-shadow: 0 10px 25px rgba(125,42,181,.3);
-    }
+.nav-btn {
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 12px;
+}
 
-    .primary:active {
-      transform: scale(.99);
-    }
+.nav-btn:hover {
+  background: rgba(255,255,255,.12);
+}
 
-    .error {
-      margin-top: 10px;
-      color: #ff9d9d;
-      font-size: 14px;
-      display: none;
-    }
+.hero {
+  text-align: center;
+  padding: 55px 0 35px;
+}
 
-    .tracker {
-      display: none;
-    }
+.hero small {
+  letter-spacing: 7px;
+  color: #d9a8ff;
+  font-weight: 700;
+}
 
-    .tracker-header {
-      margin-top: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
+.hero h2 {
+  margin: 15px auto;
+  max-width: 850px;
+  font-size: clamp(42px, 8vw, 76px);
+  line-height: .98;
+  background: linear-gradient(90deg,#fff,#e6baff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
 
-    .tracker-title {
-      font-size: 26px;
-      font-weight: 800;
-    }
+.hero p {
+  max-width: 650px;
+  margin: 20px auto;
+  color: #c8b9d0;
+  font-size: 18px;
+  line-height: 1.6;
+}
 
-    .tag {
-      color: #d9a6ff;
-    }
+.card-panel {
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 22px;
+  padding: 25px;
+  box-shadow: 0 20px 70px rgba(0,0,0,.25);
+  backdrop-filter: blur(15px);
+  margin-bottom: 25px;
+}
 
-    .small-button {
-      border: 1px solid rgba(255,255,255,.2);
-      background: rgba(255,255,255,.07);
-      color: #fff;
-      border-radius: 13px;
-      padding: 10px 14px;
-      font-size: 14px;
-    }
+.card-panel h3 {
+  margin-top: 0;
+  font-size: 24px;
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
+.auth {
+  max-width: 520px;
+  margin: 20px auto 60px;
+}
 
-    .stat {
-      padding: 18px 12px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      text-align: center;
-    }
+input,
+select {
+  width: 100%;
+  padding: 15px 16px;
+  margin: 7px 0;
+  color: white;
+  background: rgba(10,5,20,.75);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 13px;
+  outline: none;
+}
 
-    .stat-number {
-      font-size: 25px;
-      font-weight: 800;
-    }
+input:focus,
+select:focus {
+  border-color: #b66cff;
+  box-shadow: 0 0 0 3px rgba(182,108,255,.15);
+}
 
-    .stat-label {
-      margin-top: 4px;
-      color: #aaa0b3;
-      font-size: 13px;
-    }
+.primary {
+  width: 100%;
+  border: 0;
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 13px;
+  color: white;
+  font-weight: 800;
+  background: linear-gradient(135deg,#7b2cbf,#b44cff);
+  box-shadow: 0 10px 25px rgba(140,50,210,.25);
+}
 
-    .collection {
-      margin-top: 24px;
-    }
+.primary:hover {
+  filter: brightness(1.1);
+}
 
-    .collection h2 {
-      font-size: 24px;
-      margin: 0 0 15px;
-    }
+.secondary {
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 11px 15px;
+  border-radius: 11px;
+  color: white;
+  background: rgba(255,255,255,.07);
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 13px;
-    }
+.danger {
+  border: 1px solid rgba(255,80,100,.4);
+  color: #ff9da9;
+  padding: 11px 15px;
+  border-radius: 11px;
+  background: rgba(255,50,70,.08);
+}
 
-    .trading-card {
-      position: relative;
-      min-height: 230px;
-      padding: 15px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.2);
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.2), transparent 30%),
-        linear-gradient(145deg, #4e176d, #1a0c28);
-      box-shadow: 0 10px 25px rgba(0,0,0,.25);
-    }
+.switch {
+  text-align: center;
+  color: #bcaeca;
+  margin-top: 18px;
+}
 
-    .trading-card::before {
-      content: "";
-      position: absolute;
-      inset: 5px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,214,165,.28);
-      pointer-events: none;
-    }
+.switch button {
+  border: 0;
+  background: none;
+  color: #d69aff;
+  font-weight: 700;
+}
 
-    .card-number {
-      position: relative;
-      color: #e2b4ff;
-      font-size: 12px;
-      font-weight: 700;
-    }
+.message {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.07);
+  color: #d9cce0;
+}
 
-    .card-symbol {
-      position: relative;
-      width: 76px;
-      height: 96px;
-      margin: 14px auto;
-      border-radius: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #f0e8db, #bfb5a8);
-      color: #26172f;
-      font-size: 38px;
-      font-weight: 900;
-      box-shadow: 0 7px 15px rgba(0,0,0,.3);
-    }
+.dashboard {
+  padding-bottom: 80px;
+}
 
-    .card-name {
-      position: relative;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 800;
-    }
+.profile-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
 
-    .card-rarity {
-      position: relative;
-      text-align: center;
-      margin-top: 5px;
-      font-size: 12px;
-      color: #d5c5df;
-    }
+.username {
+  font-size: 24px;
+  font-weight: 800;
+}
 
-    .owned-button {
-      position: relative;
-      width: 100%;
-      margin-top: 13px;
-      height: 39px;
-      border-radius: 11px;
-      border: 1px solid rgba(255,255,255,.18);
-      color: #fff;
-      background: rgba(255,255,255,.08);
-      font-weight: 700;
-    }
+.muted {
+  color: #a99cad;
+}
 
-    .owned-button.active {
-      background: linear-gradient(135deg, #7935a8, #ae4be7);
-      border-color: transparent;
-    }
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+  gap: 18px;
+}
 
-    .notice {
-      margin-top: 25px;
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      color: #bdb0c7;
-      font-size: 13px;
-      line-height: 1.5;
-      text-align: center;
-    }
+.trading-card {
+  min-height: 270px;
+  padding: 15px;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.025));
+  border: 1px solid rgba(255,255,255,.15);
+  position: relative;
+  overflow: hidden;
+}
 
-    footer {
-      margin-top: 35px;
-      text-align: center;
-      color: #8e8296;
-      font-size: 13px;
-      line-height: 1.6;
-    }
+.trading-card::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    120deg,
+    transparent 35%,
+    rgba(255,255,255,.15),
+    transparent 65%
+  );
+  transform: rotate(20deg);
+  pointer-events: none;
+}
 
-    @media (max-width: 480px) {
-      .page {
-        padding-left: 14px;
-        padding-right: 14px;
-      }
+.card-art {
+  height: 150px;
+  border-radius: 13px;
+  background:
+    radial-gradient(circle at 30% 25%,#ffdcff,#7e36a8 45%,#160a22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  margin-bottom: 13px;
+}
 
-      .panel {
-        padding: 20px;
-        border-radius: 24px;
-      }
+.trading-card h4 {
+  margin: 5px 0;
+  font-size: 17px;
+}
 
-      .cards {
-        grid-template-columns: 1fr 1fr;
-      }
+.rarity {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.1);
+  color: #e4b9ff;
+}
 
-      .trading-card {
-        min-height: 215px;
-        padding: 12px;
-      }
+.quantity {
+  margin-top: 8px;
+  color: #bcaeca;
+  font-size: 13px;
+}
 
-      .card-symbol {
-        width: 65px;
-        height: 82px;
-        font-size: 32px;
-      }
+.trade-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
 
-      .stats {
-        gap: 7px;
-      }
+.trade-request {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 15px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: rgba(0,0,0,.18);
+}
 
-      .stat {
-        padding: 15px 8px;
-      }
-    }
-  </style>
+.trade-request strong {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.trade-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.player {
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 13px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.empty {
+  padding: 25px;
+  text-align: center;
+  color: #9d91a3;
+}
+
+footer {
+  text-align: center;
+  color: #766d7d;
+  padding: 35px 0 60px;
+  font-size: 13px;
+}
+
+@media(max-width:750px) {
+  .trade-layout {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    position: relative;
+  }
+
+  .hero {
+    padding-top: 35px;
+  }
+
+  .card-panel {
+    padding: 18px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media(max-width:430px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <main class="page">
+<header>
+  <div class="container header-inner">
 
-    <section class="hero">
-      <div class="card-icon">J</div>
-
-      <div class="eyebrow">SUNDAY CITY</div>
-
-      <h1>
-        Trading Card<br>
-        Tracker
-      </h1>
-
-      <div class="subtitle">
-        Track your collection of
-        <strong>Luxury Life</strong>
-        cards in Sunday City.
+    <div class="logo">
+      <div class="logo-card">🃏</div>
+      <div>
+        <h1>Sunday City Trading Cards</h1>
+        <p>Luxury Life • Community Trading</p>
       </div>
-    </section>
+    </div>
+
+    <nav id="mainNav" class="hidden">
+      <button class="nav-btn" onclick="showSection('collection')">
+        Collection
+      </button>
+
+      <button class="nav-btn" onclick="showSection('trading')">
+        Trading
+      </button>
+
+      <button class="nav-btn" onclick="showSection('players')">
+        Players
+      </button>
+
+      <button class="nav-btn" onclick="logout()">
+        Logout
+      </button>
+    </nav>
+
+  </div>
+</header>
+
+<main class="container">
+
+<section id="welcome">
+
+  <div class="hero">
+    <small>SUNDAY CITY</small>
+
+    <h2>Trading Card Community</h2>
+
+    <p>
+      Collect your favorite Sunday City cards,
+      meet other players and trade cards with the community.
+    </p>
+  </div>
+
+  <div class="card-panel auth">
+
+    <div id="loginBox">
+
+      <h3>Welcome back 👋</h3>
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Email"
+        autocomplete="email"
+      >
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+      >
+
+      <button class="primary" onclick="login()">
+        LOG IN
+      </button>
+
+      <div class="switch">
+        Don't have an account?
+        <button onclick="showSignup()">Create one</button>
+      </div>
+
+    </div>
 
 
-    <!-- LOGIN / TAG SCREEN -->
+    <div id="signupBox" class="hidden">
 
-    <section class="panel" id="loginPanel">
+      <h3>Create your player account 🎮</h3>
 
-      <h2>🎮 Your Sunday City Player Tag</h2>
+      <input
+        id="signupUsername"
+        type="text"
+        placeholder="Player username"
+        maxlength="30"
+      >
 
-      <p>
-        Enter your Sunday City tag to access your collection tracker.
+      <input
+        id="signupEmail"
+        type="email"
+        placeholder="Email"
+        autocomplete="email"
+      >
+
+      <input
+        id="signupPassword"
+        type="password"
+        placeholder="Password (minimum 6 characters)"
+        autocomplete="new-password"
+      >
+
+      <button class="primary" onclick="signup()">
+        CREATE ACCOUNT
+      </button>
+
+      <div class="switch">
+        Already have an account?
+        <button onclick="showLogin()">Log in</button>
+      </div>
+
+    </div>
+
+    <div id="authMessage" class="message hidden"></div>
+
+  </div>
+
+</section>
+
+
+<section id="dashboard" class="dashboard hidden">
+
+  <div class="card-panel">
+
+    <div class="profile-bar">
+
+      <div>
+        <div class="muted">Player</div>
+        <div id="currentUsername" class="username"></div>
+      </div>
+
+      <div>
+        <button class="secondary" onclick="showSection('collection')">
+          My Collection
+        </button>
+
+        <button class="secondary" onclick="showSection('trading')">
+          Trade
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- COLLECTION -->
+
+  <div id="collection" class="card-panel">
+
+    <h3>🃏 My Collection</h3>
+
+    <p class="muted">
+      Your Sunday City Trading Cards.
+    </p>
+
+    <div id="collectionGrid" class="cards-grid"></div>
+
+  </div>
+
+
+  <!-- TRADING -->
+
+  <div id="trading" class="trade-layout">
+
+    <div class="card-panel">
+
+      <h3>🔄 Create a Trade</h3>
+
+      <p class="muted">
+        Choose another player and offer one of your cards.
       </p>
 
       <input
-        id="playerTag"
-        class="input"
-        type="text"
-        placeholder="@your-tag"
-        autocomplete="off"
+        id="tradeUsername"
+        placeholder="Other player's username"
       >
 
-      <button class="primary" id="continueButton">
-        CONTINUE →
+      <select id="offerCard">
+        <option value="">Choose a card to offer</option>
+      </select>
+
+      <select id="requestCard">
+        <option value="">Choose the card you want</option>
+      </select>
+
+      <button class="primary" onclick="createTrade()">
+        SEND TRADE REQUEST
       </button>
 
-      <div class="error" id="errorMessage">
-        Please enter your player tag.
-      </div>
+      <div id="tradeMessage" class="message hidden"></div>
 
-    </section>
+    </div>
 
 
-    <!-- TRACKER -->
+    <div class="card-panel">
 
-    <section class="tracker" id="tracker">
+      <h3>📨 Incoming Trades</h3>
 
-      <div class="panel">
+      <div id="incomingTrades"></div>
 
-        <div class="tracker-header">
+    </div>
 
-          <div class="tracker-title">
-            Your Collection
-          </div>
-
-          <button class="small-button" id="changeTag">
-            Change Tag
-          </button>
-
-        </div>
-
-        <div class="tag" id="displayTag">
-          @your-tag
-        </div>
+  </div>
 
 
-        <div class="stats">
+  <!-- PLAYERS -->
 
-          <div class="stat">
-            <div class="stat-number" id="ownedCount">0</div>
-            <div class="stat-label">Owned</div>
-          </div>
+  <div id="players" class="card-panel">
 
-          <div class="stat">
-            <div class="stat-number" id="totalCount">8</div>
-            <div class="stat-label">Total Cards</div>
-          </div>
+    <h3>👥 Community Players</h3>
 
-          <div class="stat">
-            <div class="stat-number" id="progressCount">0%</div>
-            <div class="stat-label">Complete</div>
-          </div>
+    <p class="muted">
+      Find other collectors and trade with them.
+    </p>
 
-        </div>
+    <div id="playersList"></div>
 
+  </div>
 
-        <div class="collection">
+</section>
 
-          <h2>Luxury Life Collection</h2>
-
-          <div class="cards" id="cards"></div>
-
-        </div>
+</main>
 
 
-        <div class="notice">
-          Your collection is saved automatically on this device.
-        </div>
-
-      </div>
-
-    </section>
+<footer>
+  Sunday City Trading Cards • Fan-made community project
+</footer>
 
 
-    <footer>
-      Fan-made Trading Card tracking application.<br>
-      Unofficial and not affiliated with Sunday City.
-    </footer>
+<script>
 
-  </main>
+/* =========================================================
+   SUPABASE CONNECTION
+   ========================================================= */
+
+const SUPABASE_URL =
+  "https://rxuopmnehdngmdsgkhvr.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
+
+const db =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-  <script>
-    const cards = [
-      {
-        id: 1,
-        name: "Luxury Life",
-        rarity: "Legendary",
-        symbol: "L"
-      },
-      {
-        id: 2,
-        name: "Sunday City",
-        rarity: "Epic",
-        symbol: "S"
-      },
-      {
-        id: 3,
-        name: "Royal",
-        rarity: "Epic",
-        symbol: "R"
-      },
-      {
-        id: 4,
-        name: "Diamond",
-        rarity: "Rare",
-        symbol: "D"
-      },
-      {
-        id: 5,
-        name: "Gold",
-        rarity: "Rare",
-        symbol: "G"
-      },
-      {
-        id: 6,
-        name: "Prestige",
-        rarity: "Rare",
-        symbol: "P"
-      },
-      {
-        id: 7,
-        name: "Elite",
-        rarity: "Uncommon",
-        symbol: "E"
-      },
-      {
-        id: 8,
-        name: "Classic",
-        rarity: "Common",
-        symbol: "C"
-      }
-    ];
+/* =========================================================
+   GLOBAL STATE
+   ========================================================= */
 
-    const loginPanel = document.getElementById("loginPanel");
-    const tracker = document.getElementById("tracker");
-    const playerTag = document.getElementById("playerTag");
-    const continueButton = document.getElementById("continueButton");
-    const changeTag = document.getElementById("changeTag");
-    const displayTag = document.getElementById("displayTag");
-    const errorMessage = document.getElementById("errorMessage");
-    const cardsContainer = document.getElementById("cards");
+let currentUser = null;
+let currentProfile = null;
+let allCards = [];
 
-    let ownedCards = JSON.parse(
-      localStorage.getItem("luxuryLifeOwnedCards") || "[]"
+
+/* =========================================================
+   START APP
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const {
+    data: {
+      session
+    }
+  } = await db.auth.getSession();
+
+  if (session) {
+
+    currentUser = session.user;
+
+    await loadProfile();
+
+  }
+
+});
+
+
+/* =========================================================
+   AUTH UI
+   ========================================================= */
+
+function showSignup() {
+
+  document
+    .getElementById("loginBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("signupBox")
+    .classList.remove("hidden");
+
+  clearMessage();
+
+}
+
+
+function showLogin() {
+
+  document
+    .getElementById("signupBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginBox")
+    .classList.remove("hidden");
+
+  clearMessage();
+
+}
+
+
+function showMessage(text, error = false) {
+
+  const box =
+    document.getElementById("authMessage");
+
+  box.textContent = text;
+
+  box.classList.remove("hidden");
+
+  if (error) {
+
+    box.style.color = "#ff9da9";
+
+  } else {
+
+    box.style.color = "#d8ffed";
+
+  }
+
+}
+
+
+function clearMessage() {
+
+  document
+    .getElementById("authMessage")
+    .classList.add("hidden");
+
+}
+
+
+/* =========================================================
+   SIGN UP
+   ========================================================= */
+
+async function signup() {
+
+  const username =
+    document
+      .getElementById("signupUsername")
+      .value
+      .trim();
+
+  const email =
+    document
+      .getElementById("signupEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("signupPassword")
+      .value;
+
+  if (!username || !email || !password) {
+
+    showMessage(
+      "Please complete all fields.",
+      true
     );
 
-    function saveCollection() {
-      localStorage.setItem(
-        "luxuryLifeOwnedCards",
-        JSON.stringify(ownedCards)
-      );
+    return;
+
+  }
+
+  if (password.length < 6) {
+
+    showMessage(
+      "Password must contain at least 6 characters.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  showMessage("Creating your account...");
+
+
+  const {
+    data,
+    error
+  } = await db.auth.signUp({
+
+    email,
+    password,
+
+    options: {
+
+      data: {
+        username: username
+      }
+
     }
 
-    function updateStats() {
-      const owned = ownedCards.length;
-      const total = cards.length;
-      const percentage = Math.round((owned / total) * 100);
+  });
 
-      document.getElementById("ownedCount").textContent = owned;
-      document.getElementById("totalCount").textContent = total;
-      document.getElementById("progressCount").textContent =
-        percentage + "%";
-    }
 
-    function renderCards() {
-      cardsContainer.innerHTML = "";
+  if (error) {
 
-      cards.forEach(card => {
+    showMessage(
+      error.message,
+      true
+    );
 
-        const isOwned = ownedCards.includes(card.id);
+    return;
 
-        const element = document.createElement("div");
+  }
 
-        element.className = "trading-card";
 
-        element.innerHTML = `
-          <div class="card-number">
-            CARD #${String(card.id).padStart(2, "0")}
-          </div>
+  if (!data.user) {
 
-          <div class="card-symbol">
-            ${card.symbol}
-          </div>
+    showMessage(
+      "Account could not be created.",
+      true
+    );
 
-          <div class="card-name">
-            ${card.name}
-          </div>
+    return;
 
-          <div class="card-rarity">
-            ${card.rarity}
-          </div>
+  }
+
+
+  currentUser = data.user;
+
+
+  /*
+    If email confirmation is disabled,
+    we already have a session.
+  */
+
+  if (data.session) {
+
+    await createProfile(
+      data.user.id,
+      username
+    );
+
+    await loadProfile();
+
+  } else {
+
+    showMessage(
+      "Account created! Check your email to confirm your account, then log in."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+async function login() {
+
+  const email =
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value;
+
+
+  if (!email || !password) {
+
+    showMessage(
+      "Please enter your email and password.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  showMessage("Logging in...");
+
+
+  const {
+    data,
+    error
+  } = await db.auth.signInWithPassword({
+
+    email,
+    password
+
+  });
+
+
+  if (error) {
+
+    showMessage(
+      error.message,
+      true
+    );
+
+    return;
+
+  }
+
+
+  currentUser = data.user;
+
+  await loadProfile();
+
+}
+
+
+/* =========================================================
+   CREATE PROFILE
+   ========================================================= */
+
+async function createProfile(
+  userId,
+  username
+) {
+
+  const {
+    error
+  } = await db
+    .from("profiles")
+    .insert({
+
+      id: userId,
+      username: username
+
+    });
+
+
+  if (error) {
+
+    /*
+      Profile may already exist.
+      We don't want to stop the application.
+    */
+
+    console.log(
+      "Profile insert:",
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD PROFILE
+   ========================================================= */
+
+async function loadProfile() {
+
+  if (!currentUser) return;
+
+
+  const {
+    data,
+    error
+  } = await db
+    .from("profiles")
+    .select("*")
+    .eq("id", currentUser.id)
+    .maybeSingle();
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  if (!data) {
+
+    /*
+      If the profile does not exist,
+      create one from the auth metadata.
+    */
+
+    const username =
+      currentUser.user_metadata?.username
+      || "Player" + currentUser.id.slice(0,6);
+
+
+    await createProfile(
+      currentUser.id,
+      username
+    );
+
+
+    const result =
+      await db
+        .from("profiles")
+        .select("*")
+        .eq("id", currentUser.id)
+        .maybeSingle();
+
+
+    currentProfile =
+      result.data;
+
+  } else {
+
+    currentProfile = data;
+
+  }
+
+
+  showDashboard();
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+async function showDashboard() {
+
+  document
+    .getElementById("welcome")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("mainNav")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("currentUsername")
+    .textContent =
+      "@" +
+      (currentProfile?.username || "Player");
+
+
+  await loadCards();
+
+  await loadCollection();
+
+  await loadPlayers();
+
+  await loadIncomingTrades();
+
+}
+
+
+/* =========================================================
+   LOAD CARDS
+   ========================================================= */
+
+async function loadCards() {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("cards")
+    .select("*")
+    .order("id");
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  allCards = data || [];
+
+
+  populateCardSelectors();
+
+}
+
+
+/* =========================================================
+   CARD SELECTORS
+   ========================================================= */
+
+function populateCardSelectors() {
+
+  const offer =
+    document.getElementById("offerCard");
+
+  const request =
+    document.getElementById("requestCard");
+
+
+  offer.innerHTML =
+    `<option value="">Choose a card to offer</option>`;
+
+  request.innerHTML =
+    `<option value="">Choose the card you want</option>`;
+
+
+  allCards.forEach(card => {
+
+    const option1 =
+      document.createElement("option");
+
+    option1.value = card.id;
+
+    option1.textContent =
+      `${card.name} — ${card.rarity}`;
+
+    offer.appendChild(option1);
+
+
+    const option2 =
+      document.createElement("option");
+
+    option2.value = card.id;
+
+    option2.textContent =
+      `${card.name} — ${card.rarity}`;
+
+    request.appendChild(option2);
+
+  });
+
+}
+
+
+/* =========================================================
+   LOAD COLLECTION
+   ========================================================= */
+
+async function loadCollection() {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("user_cards")
+    .select(`
+      id,
+      quantity,
+      cards (
+        id,
+        name,
+        rarity,
+        image_url,
+        description
+      )
+    `)
+    .eq("user_id", currentUser.id)
+    .order("id");
+
+
+  const grid =
+    document.getElementById("collectionGrid");
+
+
+  grid.innerHTML = "";
+
+
+  if (error) {
+
+    console.error(error);
+
+    grid.innerHTML =
+      `<div class="empty">
+        Could not load your collection.
+      </div>`;
+
+    return;
+
+  }
+
+
+  if (!data || data.length === 0) {
+
+    grid.innerHTML =
+      `<div class="empty">
+        Your collection is empty.
+        <br><br>
+        Your starter cards will appear here.
+      </div>`;
+
+    return;
+
+  }
+
+
+  data.forEach(item => {
+
+    if (!item.cards) return;
+
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "trading-card";
+
+
+    card.innerHTML = `
+
+      <div class="card-art">
+        🃏
+      </div>
+
+      <span class="rarity">
+        ${escapeHtml(item.cards.rarity)}
+      </span>
+
+      <h4>
+        ${escapeHtml(item.cards.name)}
+      </h4>
+
+      <div class="quantity">
+        Quantity: ${item.quantity}
+      </div>
+
+    `;
+
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================================
+   LOAD PLAYERS
+   ========================================================= */
+
+async function loadPlayers() {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("profiles")
+    .select("id, username, created_at")
+    .neq("id", currentUser.id)
+    .order("username");
+
+
+  const list =
+    document.getElementById("playersList");
+
+
+  list.innerHTML = "";
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  if (!data || data.length === 0) {
+
+    list.innerHTML =
+      `<div class="empty">
+        No other players yet.
+      </div>`;
+
+    return;
+
+  }
+
+
+  data.forEach(player => {
+
+    const row =
+      document.createElement("div");
+
+    row.className =
+      "player";
+
+
+    row.innerHTML = `
+
+      <div>
+        <strong>
+          @${escapeHtml(player.username)}
+        </strong>
+
+        <div class="muted">
+          Sunday City Collector
+        </div>
+      </div>
+
+      <button
+        class="secondary"
+        onclick="selectPlayer('${escapeAttribute(player.username)}')"
+      >
+        Trade
+      </button>
+
+    `;
+
+
+    list.appendChild(row);
+
+  });
+
+}
+
+
+/* =========================================================
+   SELECT PLAYER
+   ========================================================= */
+
+function selectPlayer(username) {
+
+  showSection("trading");
+
+
+  document
+    .getElementById("tradeUsername")
+    .value = username;
+
+
+  document
+    .getElementById("tradeUsername")
+    .focus();
+
+}
+
+
+/* =========================================================
+   CREATE TRADE
+   ========================================================= */
+
+async function createTrade() {
+
+  const username =
+    document
+      .getElementById("tradeUsername")
+      .value
+      .trim();
+
+  const offeredCard =
+    document
+      .getElementById("offerCard")
+      .value;
+
+  const requestedCard =
+    document
+      .getElementById("requestCard")
+      .value;
+
+
+  const message =
+    document.getElementById("tradeMessage");
+
+
+  message.classList.remove("hidden");
+
+
+  if (!username || !offeredCard || !requestedCard) {
+
+    message.textContent =
+      "Please choose a player and both cards.";
+
+    return;
+
+  }
+
+
+  if (
+    username.toLowerCase() ===
+    currentProfile.username.toLowerCase()
+  ) {
+
+    message.textContent =
+      "You cannot trade with yourself.";
+
+    return;
+
+  }
+
+
+  message.textContent =
+    "Creating trade request...";
+
+
+  /*
+    Find receiver.
+  */
+
+  const {
+    data: receiver,
+    error: receiverError
+  } = await db
+    .from("profiles")
+    .select("id, username")
+    .eq("username", username)
+    .maybeSingle();
+
+
+  if (receiverError || !receiver) {
+
+    message.textContent =
+      "Player not found.";
+
+    return;
+
+  }
+
+
+  /*
+    Make sure the sender owns the offered card.
+  */
+
+  const {
+    data: ownership
+  } = await db
+    .from("user_cards")
+    .select("quantity")
+    .eq("user_id", currentUser.id)
+    .eq("card_id", offeredCard)
+    .maybeSingle();
+
+
+  if (!ownership || ownership.quantity < 1) {
+
+    message.textContent =
+      "You do not own that card.";
+
+    return;
+
+  }
+
+
+  /*
+    Create request.
+  */
+
+  const {
+    error
+  } = await db
+    .from("trade_requests")
+    .insert({
+
+      sender_id: currentUser.id,
+
+      receiver_id: receiver.id,
+
+      offered_card_id:
+        Number(offeredCard),
+
+      requested_card_id:
+        Number(requestedCard),
+
+      offered_quantity: 1,
+
+      requested_quantity: 1
+
+    });
+
+
+  if (error) {
+
+    console.error(error);
+
+    message.textContent =
+      error.message;
+
+    return;
+
+  }
+
+
+  message.textContent =
+    "Trade request sent successfully!";
+
+
+  document
+    .getElementById("tradeUsername")
+    .value = "";
+
+}
+
+
+/* =========================================================
+   LOAD INCOMING TRADES
+   ========================================================= */
+
+async function loadIncomingTrades() {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("trade_requests")
+    .select(`
+      id,
+      status,
+      offered_quantity,
+      requested_quantity,
+      created_at,
+      sender_id,
+      receiver_id,
+      offered_card_id,
+      requested_card_id,
+      profiles!trade_requests_sender_id_fkey (
+        username
+      ),
+      offered_card:cards!trade_requests_offered_card_id_fkey (
+        name,
+        rarity
+      ),
+      requested_card:cards!trade_requests_requested_card_id_fkey (
+        name,
+        rarity
+      )
+    `)
+    .eq("receiver_id", currentUser.id)
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  const box =
+    document.getElementById("incomingTrades");
+
+
+  box.innerHTML = "";
+
+
+  if (error) {
+
+    console.error(error);
+
+    box.innerHTML =
+      `<div class="empty">
+        Could not load trade requests.
+      </div>`;
+
+    return;
+
+  }
+
+
+  if (!data || data.length === 0) {
+
+    box.innerHTML =
+      `<div class="empty">
+        No incoming trade requests.
+      </div>`;
+
+    return;
+
+  }
+
+
+  data.forEach(trade => {
+
+    const item =
+      document.createElement("div");
+
+    item.className =
+      "trade-request";
+
+
+    const sender =
+      trade.profiles?.username
+      || "Unknown player";
+
+
+    const offered =
+      trade.offered_card?.name
+      || "Unknown card";
+
+
+    const requested =
+      trade.requested_card?.name
+      || "Unknown card";
+
+
+    let buttons = "";
+
+
+    if (trade.status === "pending") {
+
+      buttons = `
+
+        <div class="trade-actions">
 
           <button
-            class="owned-button ${isOwned ? "active" : ""}"
-            data-id="${card.id}"
+            class="primary"
+            onclick="acceptTrade(${trade.id})"
           >
-            ${isOwned ? "✓ OWNED" : "MARK AS OWNED"}
+            ACCEPT
           </button>
-        `;
 
-        cardsContainer.appendChild(element);
-      });
+          <button
+            class="danger"
+            onclick="rejectTrade(${trade.id})"
+          >
+            REJECT
+          </button>
 
-      document.querySelectorAll(".owned-button").forEach(button => {
+        </div>
 
-        button.addEventListener("click", () => {
+      `;
 
-          const id = Number(button.dataset.id);
+    } else {
 
-          if (ownedCards.includes(id)) {
+      buttons = `
+        <div class="muted">
+          Status: ${escapeHtml(trade.status)}
+        </div>
+      `;
 
-            ownedCards = ownedCards.filter(cardId => cardId !== id);
-
-          } else {
-
-            ownedCards.push(id);
-
-          }
-
-          saveCollection();
-          renderCards();
-          updateStats();
-
-        });
-
-      });
     }
 
 
-    function showTracker(tag) {
+    item.innerHTML = `
 
-      const cleanTag = tag.trim();
+      <strong>
+        @${escapeHtml(sender)} wants to trade
+      </strong>
 
-      if (!cleanTag) {
+      <div class="muted">
+        They offer:
+        <b>${escapeHtml(offered)}</b>
+      </div>
 
-        errorMessage.style.display = "block";
-        return;
+      <div class="muted">
+        They want:
+        <b>${escapeHtml(requested)}</b>
+      </div>
 
-      }
+      ${buttons}
 
-      errorMessage.style.display = "none";
+    `;
 
-      const finalTag =
-        cleanTag.startsWith("@")
-          ? cleanTag
-          : "@" + cleanTag;
 
-      localStorage.setItem(
-        "luxuryLifePlayerTag",
-        finalTag
-      );
+    box.appendChild(item);
 
-      displayTag.textContent = finalTag;
+  });
 
-      loginPanel.style.display = "none";
-      tracker.style.display = "block";
+}
 
-      renderCards();
-      updateStats();
 
-      window.scrollTo({
-        top: 0,
+/* =========================================================
+   ACCEPT TRADE
+   ========================================================= */
+
+async function acceptTrade(id) {
+
+  /*
+    The database currently stores trade requests.
+    The actual card transfer should be performed
+    server-side through a Supabase RPC function.
+
+    For now we mark the request accepted.
+  */
+
+  const {
+    error
+  } = await db
+    .from("trade_requests")
+    .update({
+      status: "accepted"
+    })
+    .eq("id", id)
+    .eq("receiver_id", currentUser.id);
+
+
+  if (error) {
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  alert(
+    "Trade accepted. Card transfer will be handled by the secure trading system."
+  );
+
+
+  await loadIncomingTrades();
+
+}
+
+
+/* =========================================================
+   REJECT TRADE
+   ========================================================= */
+
+async function rejectTrade(id) {
+
+  const {
+    error
+  } = await db
+    .from("trade_requests")
+    .update({
+      status: "rejected"
+    })
+    .eq("id", id)
+    .eq("receiver_id", currentUser.id);
+
+
+  if (error) {
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  await loadIncomingTrades();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function showSection(section) {
+
+  if (section === "collection") {
+
+    document
+      .getElementById("collection")
+      .scrollIntoView({
         behavior: "smooth"
       });
-    }
+
+  }
 
 
-    continueButton.addEventListener("click", () => {
-      showTracker(playerTag.value);
-    });
+  if (section === "trading") {
 
-
-    playerTag.addEventListener("keydown", event => {
-
-      if (event.key === "Enter") {
-        showTracker(playerTag.value);
-      }
-
-    });
-
-
-    changeTag.addEventListener("click", () => {
-
-      tracker.style.display = "none";
-      loginPanel.style.display = "block";
-
-      playerTag.value =
-        localStorage.getItem("luxuryLifePlayerTag") || "";
-
-      window.scrollTo({
-        top: 0,
+    document
+      .getElementById("trading")
+      .scrollIntoView({
         behavior: "smooth"
       });
 
-    });
+  }
 
 
-    // Restore previous player tag
-    const savedTag =
-      localStorage.getItem("luxuryLifePlayerTag");
+  if (section === "players") {
 
-    if (savedTag) {
-      displayTag.textContent = savedTag;
-      loginPanel.style.display = "none";
-      tracker.style.display = "block";
-      renderCards();
-      updateStats();
+    document
+      .getElementById("players")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+async function logout() {
+
+  await db.auth.signOut();
+
+  currentUser = null;
+
+  currentProfile = null;
+
+  document
+    .getElementById("dashboard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("mainNav")
+    .classList.add("hidden");
+
+  document
+    .getElementById("welcome")
+    .classList.remove("hidden");
+
+  showLogin();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================================
+   SECURITY HELPERS
+   ========================================================= */
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+  return String(value ?? "")
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'");
+}
+
+
+/* =========================================================
+   AUTH STATE LISTENER
+   ========================================================= */
+
+db.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if (session?.user) {
+
+      currentUser =
+        session.user;
+
+      await loadProfile();
+
     }
 
-  </script>
+  }
+);
+
+</script>
 
 </body>
 </html>
