@@ -1,253 +1,241 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sunday City Trading Cards</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Luxury Life</title>
 
 <style>
 *{box-sizing:border-box}
+
 :root{
-  --bg:#100719;
-  --bg2:#1c0b2c;
-  --panel:#241035;
-  --panel2:#321548;
-  --purple:#8b16ff;
-  --pink:#d62cff;
-  --text:#fff;
-  --muted:#b9a9c7;
-  --gold:#ffc928;
-  --green:#54e66e;
-  --red:#ff4d79;
+  --bg:#f5f3f0;
+  --panel:#fff;
+  --soft:#f0ede9;
+  --text:#242321;
+  --muted:#817b74;
+  --accent:#756b63;
+  --green:#5f8b6b;
+  --purple:#8a718e;
+  --gold:#c99a3d;
+  --border:#e2ded9;
+  --shadow:0 10px 30px rgba(45,38,32,.07)
 }
 
 html,body{
   margin:0;
   padding:0;
   min-height:100%;
-  background:
-    radial-gradient(circle at 80% 15%,rgba(210,0,255,.22),transparent 28%),
-    radial-gradient(circle at 10% 45%,rgba(99,0,255,.22),transparent 30%),
-    linear-gradient(145deg,#08030d,#170920 50%,#0c0514);
+  background:var(--bg);
   color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
 }
 
 body{min-height:100vh}
 
-button,input{
-  font:inherit;
-}
-
+button,input{font:inherit}
 button{cursor:pointer}
 
 .app{
   width:100%;
-  max-width:1100px;
+  max-width:1080px;
   margin:auto;
   min-height:100vh;
-  padding-bottom:105px;
+  padding-bottom:105px
 }
 
 .header{
-  padding:28px 18px 24px;
+  padding:30px 18px 22px;
   text-align:center;
-  background:linear-gradient(135deg,#100817,#16061e,#100817);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(245,243,240,.94);
+  border-bottom:1px solid var(--border)
 }
 
 .logo{
   margin:0;
-  font-size:clamp(34px,7vw,62px);
-  font-weight:900;
-  letter-spacing:-2px;
+  font-size:clamp(30px,7vw,50px);
+  font-weight:800;
+  letter-spacing:-1.8px
 }
 
-.logo span{
-  color:#d42cff;
-  text-shadow:0 0 20px rgba(210,44,255,.55);
-}
+.logo span{color:var(--accent)}
 
 .subtitle{
-  margin-top:8px;
-  color:#c5b7d1;
-  font-size:18px;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:15px
 }
 
-.auth-wrap{
-  padding:18px;
-}
+.auth-wrap{padding:22px 18px}
 
 .auth-card,.panel{
-  background:rgba(29,10,43,.88);
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:28px;
-  box-shadow:0 18px 50px rgba(0,0,0,.3);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  box-shadow:var(--shadow)
 }
 
 .auth-card{
-  padding:18px;
-  max-width:760px;
-  margin:auto;
+  padding:20px;
+  max-width:700px;
+  margin:auto
 }
 
 .tabs{
   display:flex;
-  background:#120719;
-  border-radius:22px;
-  padding:5px;
-  margin-bottom:20px;
+  background:var(--soft);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:4px;
+  margin-bottom:20px
 }
 
 .tab{
   flex:1;
   border:0;
   background:transparent;
-  color:#a99bb5;
-  padding:17px 10px;
-  border-radius:18px;
-  font-weight:800;
+  color:var(--muted);
+  padding:13px 10px;
+  border-radius:13px;
+  font-weight:700
 }
 
 .tab.active{
-  background:#56415e;
-  color:#fff;
+  background:var(--text);
+  color:#fff
 }
 
 label{
   display:block;
-  margin:18px 0 8px;
-  font-weight:800;
-  font-size:18px;
+  margin:17px 0 7px;
+  font-weight:700;
+  font-size:15px
 }
 
 input{
   width:100%;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:18px;
-  background:#100817;
-  color:#fff;
-  padding:17px;
-  outline:none;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#fff;
+  color:var(--text);
+  padding:14px;
+  outline:none
 }
 
 input:focus{
-  border-color:#b72dff;
-  box-shadow:0 0 0 3px rgba(183,45,255,.15);
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(117,107,99,.12)
 }
 
 .primary{
   width:100%;
   border:0;
-  border-radius:20px;
-  padding:17px;
-  margin-top:22px;
-  color:white;
-  font-size:18px;
-  font-weight:900;
-  background:linear-gradient(90deg,#7717ff,#dc28ff);
-  box-shadow:0 8px 25px rgba(165,20,255,.25);
+  border-radius:14px;
+  padding:14px;
+  margin-top:20px;
+  color:#fff;
+  font-size:16px;
+  font-weight:800;
+  background:var(--text)
 }
 
 .message{
-  padding:14px 16px;
-  border-radius:16px;
+  padding:13px 15px;
+  border-radius:14px;
   margin:12px 0;
-  display:none;
+  display:none
 }
 
 .message.error{
   display:block;
-  color:#ff9eb7;
-  background:rgba(255,45,105,.12);
-  border:1px solid rgba(255,45,105,.45);
+  color:#9a4e5a;
+  background:#fff0f2;
+  border:1px solid #efd1d6
 }
 
 .message.success{
   display:block;
-  color:#8cffaa;
-  background:rgba(70,220,100,.1);
-  border:1px solid rgba(70,220,100,.35);
+  color:#4f775a;
+  background:#eef7f0;
+  border:1px solid #cfe4d3
 }
 
 .hidden{display:none!important}
 
-.dashboard{
-  padding:18px;
-}
+.dashboard{padding:18px}
 
 .profile{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:15px;
-  padding:18px;
-  border-radius:24px;
-  background:linear-gradient(135deg,#32144a,#20102e);
-  border:1px solid rgba(255,255,255,.14);
+  padding:17px;
+  border-radius:20px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow)
 }
 
 .profile-left{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:13px
 }
 
 .avatar{
-  width:65px;
-  height:65px;
-  border-radius:20px;
+  width:56px;
+  height:56px;
+  border-radius:17px;
   display:grid;
   place-items:center;
-  font-size:34px;
-  background:linear-gradient(135deg,#ffad54,#ff4fa1);
+  font-size:28px;
+  background:var(--soft)
 }
 
 .username{
-  font-size:25px;
-  font-weight:900;
+  font-size:21px;
+  font-weight:800
 }
 
 .player-tag{
-  color:#bcaec8;
-  margin-top:3px;
+  color:var(--muted);
+  margin-top:3px
 }
 
-.secondary{
-  border:1px solid rgba(255,255,255,.2);
-  background:#281536;
-  color:#fff;
-  border-radius:16px;
-  padding:13px 18px;
-  font-weight:800;
+.secondary,.back,.id-copy{
+  border:1px solid var(--border);
+  background:var(--soft);
+  color:var(--text);
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:700
 }
 
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin:18px 0;
+  gap:10px;
+  margin:16px 0
 }
 
 .stat{
-  padding:18px 14px;
-  border-radius:22px;
-  background:rgba(42,18,57,.85);
-  border:1px solid rgba(255,255,255,.12);
+  padding:15px 13px;
+  border-radius:17px;
+  background:var(--panel);
+  border:1px solid var(--border)
 }
 
 .stat strong{
   display:block;
-  font-size:28px;
+  font-size:25px
 }
 
 .stat span{
   display:block;
-  margin-top:5px;
-  color:#b9a9c7;
-  font-size:13px;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700
 }
 
 .page-title{
@@ -255,152 +243,153 @@ input:focus{
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin:25px 0 15px;
+  margin:25px 0 14px
 }
 
 .page-title h2{
   margin:0;
-  font-size:34px;
+  font-size:28px
 }
 
 .category-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  gap:12px
 }
 
 .category{
-  position:relative;
-  min-height:150px;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:24px;
-  padding:20px;
-  background:
-    radial-gradient(circle at 85% 15%,rgba(255,39,223,.35),transparent 30%),
-    linear-gradient(145deg,#35104e,#1e0c2c);
-  overflow:hidden;
+  min-height:145px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:17px;
+  background:var(--panel);
+  box-shadow:var(--shadow);
+  overflow:hidden
 }
 
 .category h3{
-  margin:0 0 9px;
-  font-size:21px;
+  margin:0 0 7px;
+  font-size:18px
 }
 
 .category p{
   margin:0;
-  color:#baa9c5;
+  color:var(--muted);
+  font-size:14px
 }
 
 .progress{
-  height:9px;
-  background:#120819;
+  height:7px;
+  background:var(--soft);
   border-radius:99px;
   overflow:hidden;
-  margin-top:18px;
+  margin-top:17px
 }
 
 .progress i{
   display:block;
   height:100%;
-  background:linear-gradient(90deg,#57e86c,#baff58);
-  border-radius:99px;
+  background:var(--accent);
+  border-radius:99px
 }
 
 .category button{
   width:100%;
-  margin-top:15px;
-  border:0;
-  border-radius:15px;
-  padding:11px;
-  color:white;
-  font-weight:800;
-  background:rgba(255,255,255,.1);
+  margin-top:13px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px;
+  color:var(--text);
+  font-weight:700;
+  background:var(--soft)
 }
 
 .cards-panel{
-  margin-top:20px;
-  padding:18px;
+  margin-top:18px;
+  padding:16px
 }
 
-.back{
-  border:1px solid rgba(255,255,255,.16);
-  background:#271434;
-  color:white;
-  padding:10px 16px;
-  border-radius:15px;
-  font-weight:800;
+.notice{
+  padding:13px;
+  background:var(--soft);
+  border:1px solid var(--border);
+  border-radius:14px;
+  color:var(--muted);
+  margin:12px 0;
+  line-height:1.55
 }
 
 .cards-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:18px;
+  gap:11px;
+  margin-top:16px
 }
 
 .card{
   position:relative;
   min-height:190px;
-  border-radius:20px;
-  padding:10px;
-  background:linear-gradient(160deg,#0f8bc2,#086187);
-  border:4px solid #eaf8ff;
-  overflow:hidden;
-  transition:.18s;
+  border-radius:18px;
+  padding:9px;
+  background:#f0eeeb;
+  border:2px solid #fff;
+  box-shadow:0 5px 16px rgba(45,38,32,.08);
+  overflow:hidden
 }
 
 .card.gold{
-  background:linear-gradient(160deg,#ffbd22,#f07800);
-  border-color:#ffd95b;
+  background:#f3ead5;
+  border-color:#ead7aa
 }
 
 .card.owned{
-  box-shadow:0 0 0 3px #52e66a,0 0 22px rgba(82,230,106,.35);
+  box-shadow:
+    0 0 0 2px var(--green),
+    0 7px 18px rgba(95,139,107,.12)
 }
 
 .card.wanted{
-  box-shadow:0 0 0 3px #ff46d8,0 0 22px rgba(255,70,216,.35);
+  box-shadow:
+    0 0 0 2px var(--purple),
+    0 7px 18px rgba(138,113,142,.12)
 }
 
-.card.disabled{
-  opacity:.72;
-}
+.card.disabled{opacity:.72}
 
 .card-emoji{
-  height:115px;
+  height:112px;
   display:grid;
   place-items:center;
-  font-size:58px;
-  text-shadow:0 4px 12px rgba(0,0,0,.3);
+  font-size:55px;
+  text-shadow:0 3px 8px rgba(0,0,0,.12)
 }
 
 .card-name{
   text-align:center;
-  font-weight:900;
-  font-size:14px;
+  font-weight:800;
+  font-size:13px;
   text-transform:uppercase;
-  line-height:1.1;
+  line-height:1.1
 }
 
 .card-status{
   position:absolute;
   top:7px;
   right:7px;
-  border-radius:10px;
-  padding:5px 7px;
-  font-size:10px;
-  font-weight:900;
-  background:rgba(0,0,0,.55);
+  border-radius:9px;
+  padding:4px 6px;
+  font-size:9px;
+  font-weight:800;
+  background:rgba(255,255,255,.88);
+  color:var(--text)
 }
 
-.gold-label{
-  color:#ffe48a;
-}
+.gold-label{color:#9b7429}
 
 .card-actions{
   display:flex;
   gap:5px;
-  margin-top:8px;
+  margin-top:8px
 }
 
 .card-actions button{
@@ -408,36 +397,31 @@ input:focus{
   border:0;
   border-radius:9px;
   padding:7px 3px;
-  background:rgba(0,0,0,.38);
-  color:#fff;
-  font-size:10px;
-  font-weight:900;
+  background:#e2ddd7;
+  color:var(--text);
+  font-size:9px;
+  font-weight:800
 }
 
 .card-actions button.active{
-  background:#54df68;
-  color:#07100a;
+  background:var(--green);
+  color:#fff
 }
 
 .card-actions button.want.active{
-  background:#ff43d7;
-  color:#fff;
+  background:var(--purple);
+  color:#fff
 }
 
-.search{
-  margin:15px 0;
-}
-
-.trade-section{
-  margin-top:20px;
-}
+.search{margin:15px 0}
 
 .trade-card{
-  padding:18px;
-  border-radius:23px;
-  background:linear-gradient(145deg,#2d123e,#170b22);
-  border:1px solid rgba(255,255,255,.12);
-  margin-bottom:14px;
+  padding:16px;
+  border-radius:18px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  margin-bottom:12px
 }
 
 .trade-player{
@@ -445,162 +429,144 @@ input:focus{
   align-items:center;
   justify-content:space-between;
   gap:10px;
-  margin-bottom:14px;
+  margin-bottom:13px
 }
 
-.trade-player strong{
-  font-size:19px;
-}
-
-.id-copy{
-  border:1px solid rgba(255,255,255,.15);
-  background:#261333;
-  color:#fff;
-  border-radius:12px;
-  padding:8px 11px;
-}
+.trade-player strong{font-size:17px}
 
 .trade-cards{
   display:flex;
   gap:8px;
   overflow-x:auto;
-  padding-bottom:5px;
+  padding-bottom:5px
 }
 
 .mini-card{
-  min-width:115px;
-  padding:10px;
-  border-radius:14px;
-  background:#0d688d;
-  border:2px solid #eaf8ff;
+  min-width:105px;
+  padding:9px;
+  border-radius:13px;
+  background:#f0eeeb;
+  border:1px solid var(--border)
 }
 
-.mini-card.gold{
-  display:none;
-}
+.mini-card.gold{display:none}
 
 .mini-emoji{
   text-align:center;
-  font-size:32px;
+  font-size:30px
 }
 
 .mini-name{
-  font-size:11px;
-  font-weight:900;
+  font-size:10px;
+  font-weight:800;
   text-align:center;
-  margin-top:5px;
+  margin-top:5px
 }
 
 .trade-filter{
   display:flex;
-  gap:8px;
+  gap:7px;
   overflow:auto;
-  margin-bottom:14px;
+  margin-bottom:13px
 }
 
 .trade-filter button{
   white-space:nowrap;
-  border:1px solid rgba(255,255,255,.15);
-  background:#24112f;
-  color:#c8b8d2;
-  padding:10px 14px;
-  border-radius:13px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--muted);
+  padding:9px 12px;
+  border-radius:11px
 }
 
 .trade-filter button.active{
-  background:#7131a1;
-  color:#fff;
+  background:var(--text);
+  color:#fff
 }
 
 .empty{
   text-align:center;
-  padding:35px 15px;
-  color:#b9a9c7;
+  padding:32px 15px;
+  color:var(--muted)
 }
 
 .bottom-nav{
   position:fixed;
   left:50%;
-  bottom:14px;
+  bottom:13px;
   transform:translateX(-50%);
-  width:min(92%,700px);
+  width:min(92%,680px);
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  padding:7px;
-  border-radius:25px;
-  background:rgba(18,7,25,.93);
-  border:1px solid rgba(255,255,255,.18);
-  backdrop-filter:blur(18px);
-  z-index:50;
+  padding:6px;
+  border-radius:20px;
+  background:rgba(255,255,255,.94);
+  border:1px solid var(--border);
+  box-shadow:0 12px 35px rgba(45,38,32,.12);
+  backdrop-filter:blur(16px);
+  z-index:50
 }
 
 .nav-btn{
   border:0;
   background:transparent;
-  color:#9d8ca9;
-  border-radius:19px;
-  padding:12px 8px;
-  font-weight:900;
+  color:var(--muted);
+  border-radius:15px;
+  padding:10px 8px;
+  font-weight:800
 }
 
 .nav-btn.active{
-  background:#4b3158;
-  color:#fff;
+  background:var(--text);
+  color:#fff
 }
 
 .nav-icon{
   display:block;
-  font-size:24px;
-  margin-bottom:4px;
+  font-size:21px;
+  margin-bottom:3px
 }
 
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.75);
+  background:rgba(35,31,27,.45);
   display:grid;
   place-items:center;
   padding:18px;
-  z-index:100;
+  z-index:100
 }
 
 .modal-box{
   width:min(100%,650px);
   max-height:85vh;
   overflow:auto;
-  border-radius:25px;
-  background:#1c0b29;
-  border:1px solid rgba(255,255,255,.18);
-  padding:20px;
+  border-radius:22px;
+  background:#fff;
+  border:1px solid var(--border);
+  padding:19px;
+  box-shadow:0 20px 60px rgba(0,0,0,.18)
 }
 
 .modal-head{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:center
 }
 
 .modal-head h3{
   margin:0;
-  font-size:24px;
+  font-size:22px
 }
 
 .close{
   border:0;
-  background:#35153f;
-  color:white;
-  width:40px;
-  height:40px;
+  background:var(--soft);
+  color:var(--text);
+  width:38px;
+  height:38px;
   border-radius:50%;
-}
-
-.notice{
-  padding:14px;
-  background:rgba(255,202,42,.08);
-  border:1px solid rgba(255,202,42,.3);
-  border-radius:16px;
-  color:#ffe99a;
-  margin:14px 0;
+  font-size:20px
 }
 
 @media(max-width:650px){
@@ -613,1152 +579,7 @@ input:focus{
 }
 
 @media(max-width:390px){
-  .cards-grid{grid-template-columns:repeat(2,1fr)}
   .card-name{font-size:12px}
 }
 </style>
 </head>
-
-<body>
-
-<div class="app">
-
-<header class="header">
-  <h1 class="logo">Sunday City <span>Trading Cards</span></h1>
-  <div class="subtitle">Collect • Track • Trade</div>
-</header>
-
-<!-- AUTH -->
-<section id="authScreen" class="auth-wrap">
-  <div class="auth-card">
-
-    <div class="tabs">
-      <button id="loginTab" class="tab active">Log in</button>
-      <button id="signupTab" class="tab">Create account</button>
-    </div>
-
-    <div id="authMessage" class="message"></div>
-
-    <form id="authForm">
-
-      <label>Player Username</label>
-      <input id="username" required autocomplete="username" placeholder="Rook">
-
-      <label>Player Tag</label>
-      <input id="tag" required placeholder="18bc18">
-
-      <label>Password</label>
-      <input id="password" type="password" required autocomplete="current-password">
-
-      <button id="authButton" class="primary" type="submit">LOG IN</button>
-
-    </form>
-
-  </div>
-</section>
-
-<!-- APP -->
-<section id="appScreen" class="hidden">
-
-  <main class="dashboard">
-
-    <div class="profile">
-      <div class="profile-left">
-        <div class="avatar">👤</div>
-        <div>
-          <div id="profileName" class="username">Player</div>
-          <div id="profileTag" class="player-tag">#000000</div>
-        </div>
-      </div>
-
-      <button id="logoutBtn" class="secondary">LOG OUT</button>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <strong id="ownedCount">0</strong>
-        <span>CARDS OWNED</span>
-      </div>
-
-      <div class="stat">
-        <strong id="availableCount">0</strong>
-        <span>AVAILABLE CARDS</span>
-      </div>
-
-      <div class="stat">
-        <strong id="collectionPercent">0%</strong>
-        <span>COLLECTION</span>
-      </div>
-    </div>
-
-    <div id="homePage">
-
-      <div class="page-title">
-        <h2>Collection</h2>
-      </div>
-
-      <div id="categoryGrid" class="category-grid"></div>
-
-    </div>
-
-    <div id="categoryPage" class="hidden">
-
-      <div class="page-title">
-        <h2 id="categoryTitle"></h2>
-        <button id="backCategories" class="back">← Retour</button>
-      </div>
-
-      <div id="cardsPanel" class="cards-panel panel">
-        <div class="notice">
-          🟢 <b>Je possède</b> = carte dans ta collection.
-          <br>
-          🟣 <b>Je recherche</b> = carte que tu veux obtenir.
-          <br>
-          🟡 <b>Gold</b> = carte non échangeable.
-        </div>
-
-        <div id="cardsGrid" class="cards-grid"></div>
-      </div>
-
-    </div>
-
-    <div id="tradePage" class="hidden">
-
-      <div class="page-title">
-        <h2>🔄 Trading</h2>
-      </div>
-
-      <div class="panel cards-panel">
-
-        <div class="notice">
-          Le Trading est accessible à tout le monde.
-          Tu peux montrer les cartes que tu possèdes et rechercher celles qu'il te manque.
-          Les cartes Gold ne peuvent jamais être proposées à l'échange.
-        </div>
-
-        <input
-          id="tradeSearch"
-          class="search"
-          placeholder="Rechercher une carte ou un Player ID..."
-        >
-
-        <div id="tradeFilters" class="trade-filter"></div>
-
-        <div id="tradeList"></div>
-
-      </div>
-
-    </div>
-
-  </main>
-
-  <nav class="bottom-nav">
-    <button id="homeNav" class="nav-btn active">
-      <span class="nav-icon">🏠</span>
-      Home
-    </button>
-
-    <button id="collectionNav" class="nav-btn">
-      <span class="nav-icon">📖</span>
-      Collection
-    </button>
-
-    <button id="tradeNav" class="nav-btn">
-      <span class="nav-icon">🔄</span>
-      Trade
-    </button>
-  </nav>
-
-</section>
-
-<!-- CARD MODAL -->
-<div id="cardModal" class="modal hidden">
-  <div class="modal-box">
-
-    <div class="modal-head">
-      <h3 id="modalTitle"></h3>
-      <button id="closeModal" class="close">×</button>
-    </div>
-
-    <div id="modalContent"></div>
-
-  </div>
-</div>
-
-</div>
-
-<script>
-/* =========================================================
-   SUPABASE
-========================================================= */
-
-const SUPABASE_URL = "https://rxuopmnehdngmdsgkhvr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
-
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-
-/* =========================================================
-   144 CARTES
-========================================================= */
-
-const C = (id,name,category,emoji,gold=false) => ({
-  id,
-  name,
-  category,
-  emoji,
-  tradable: !gold
-});
-
-const categories = [
-
-{
-  name:"Shopping Chic",
-  emoji:"🛍️",
-  cards:[
-    C("shopping-bags","Shopping Bags","Shopping Chic","🛍️"),
-    C("sale-tag","Sale Tag","Shopping Chic","🏷️"),
-    C("jewelry-pouch","Jewelry Pouch","Shopping Chic","👝"),
-    C("chic-top","Chic Top","Shopping Chic","👚"),
-    C("receipt","Receipt","Shopping Chic","🧾"),
-    C("fancy-mirror","Fancy Mirror","Shopping Chic","🪞"),
-    C("shoe-box","Shoe Box","Shopping Chic","👟"),
-    C("cash-wallet","Cash in a Wallet","Shopping Chic","👛"),
-    C("credit-card","Credit Card","Shopping Chic","💳"),
-    C("vintage-glasses","Vintage Glasses","Shopping Chic","🕶️"),
-    C("designer-handbag","Designer Handbag","Shopping Chic","👜"),
-    C("gold-watch","Gold Watch","Shopping Chic","⌚")
-  ]
-},
-
-{
-  name:"High-End Auctions",
-  emoji:"🔨",
-  cards:[
-    C("gavel","Gavel","High-End Auctions","🔨"),
-    C("number-paddle","Number Paddle","High-End Auctions","🏷️"),
-    C("rostrum","Rostrum","High-End Auctions","🎤"),
-    C("phone","Phone","High-End Auctions","📱"),
-    C("jewelers-glass","Jeweler's Glass","High-End Auctions","🔍"),
-    C("sold","Sold","High-End Auctions","✅"),
-    C("plate-armor","Plate Armor","High-End Auctions","🛡️"),
-    C("old-sword","Old Sword","High-End Auctions","⚔️"),
-    C("marble-bust","Marble Bust","High-End Auctions","🗿"),
-    C("vase","Vase","High-End Auctions","🏺"),
-    C("royal-relic","Royal Relic","High-End Auctions","🥚"),
-    C("diamond","Diamond","High-End Auctions","💎")
-  ]
-},
-
-{
-  name:"Boarding School",
-  emoji:"🎓",
-  cards:[
-    C("blazer-patch","Blazer Patch","Boarding School","🎓"),
-    C("skirt","Skirt","Boarding School","👗"),
-    C("silk-tie","Silk Tie","Boarding School","👔"),
-    C("sweater-vest","Sweater Vest","Boarding School","🧥"),
-    C("shorts","Shorts","Boarding School","🩳"),
-    C("headband","Headband","Boarding School","🎀"),
-    C("reading-glasses","Reading Glasses","Boarding School","👓"),
-    C("leather-satchel","Leather Satchel","Boarding School","💼"),
-    C("personal-locker","Personal Locker","Boarding School","🚪"),
-    C("iron-gates","Iron Gates","Boarding School","🚧"),
-    C("garden-fountain","Garden Fountain","Boarding School","⛲"),
-    C("crest","Crest","Boarding School","🏫")
-  ]
-},
-
-{
-  name:"Horse Racing",
-  emoji:"🏇",
-  cards:[
-    C("jockey-jacket","Jockey Jacket","Horse Racing","🏇"),
-    C("saddle-blanket","Saddle & Blanket","Horse Racing","🐎"),
-    C("cup","Cup","Horse Racing","🏆"),
-    C("horse-shoe","Horse Shoe","Horse Racing","🧲"),
-    C("starting-gate","Starting Gate","Horse Racing","🏁"),
-    C("betting-ticket","Betting Ticket","Horse Racing","🎟️"),
-    C("stop-watch","Stop Watch","Horse Racing","⏱️"),
-    C("finish-line","Finish Line","Horse Racing","🏁"),
-    C("award","Award","Horse Racing","🏅"),
-    C("jockey-boots","Jockey Boots","Horse Racing","🥾"),
-    C("jockey-helmet","Jockey Helmet","Horse Racing","⛑️"),
-    C("champion","Champion","Horse Racing","🐎")
-  ]
-},
-
-{
-  name:"Fancy Paws",
-  emoji:"🐾",
-  cards:[
-    C("dapper-gent","Dapper Gent","Fancy Paws","🐕"),
-    C("big-flex","Big Flex","Fancy Paws","🐶"),
-    C("cutie-pie","Cutie Pie","Fancy Paws","🐱"),
-    C("fluffy-guy","Fluffy Guy","Fancy Paws","🐰"),
-    C("munchie","Munchie","Fancy Paws","🐱"),
-    C("pretty-lady","Pretty Lady","Fancy Paws","🐈"),
-    C("guardian","Guardian","Fancy Paws","🐕"),
-    C("huntress","Huntress","Fancy Paws","🐴"),
-    C("rich-fella","Rich Fella","Fancy Paws","🐶"),
-    C("sunshine","Sunshine","Fancy Paws","🐈"),
-    C("style-icon","Style Icon","Fancy Paws","🐱"),
-    C("mini-boss","Mini Boss","Fancy Paws","👑",true)
-  ]
-},
-
-{
-  name:"VIP Party",
-  emoji:"🥂",
-  cards:[
-    C("guest-list","Guest List","VIP Party","📋"),
-    C("limo","Limo","VIP Party","🚘"),
-    C("cocoon-seat","Cocoon Seat","VIP Party","💺"),
-    C("spark-sticks","Spark Sticks","VIP Party","✨"),
-    C("shaker","Shaker","VIP Party","🍹"),
-    C("choco-berry","Choco Berry","VIP Party","🍫"),
-    C("glass-tower","Glass Tower","VIP Party","🥂"),
-    C("dj-deck","DJ Deck","VIP Party","🎧"),
-    C("neon-sign","Neon Sign","VIP Party","💜"),
-    C("vip-band","VIP Band","VIP Party","🎟️"),
-    C("vip-ticket","VIP Ticket","VIP Party","🎫"),
-    C("night-city","Night City","VIP Party","🌃",true)
-  ]
-},
-
-{
-  name:"Money",
-  emoji:"💰",
-  cards:[
-    C("piggy-bank","Piggy Bank","Money","🐷"),
-    C("bill","Bill","Money","💵"),
-    C("gold-coin","Gold Coin","Money","🪙"),
-    C("check-book","Check Book","Money","📕"),
-    C("pearl-scatter","Pearl Scatter","Money","💎"),
-    C("money-stack","Money Stack","Money","💵"),
-    C("platinum-bar","Platinum Bar","Money","🥈"),
-    C("atm","ATM","Money","🏧"),
-    C("stocks","Stocks","Money","📈"),
-    C("suitcase-money","Suitcase of Money","Money","💼"),
-    C("safe","Safe","Money","🔐",true),
-    C("bank-vault","Bank Vault","Money","🏦",true)
-  ]
-},
-
-{
-  name:"Casino Night",
-  emoji:"🎰",
-  cards:[
-    C("cards","Cards","Casino Night","🃏"),
-    C("chip-rake","Chip Rake","Casino Night","🪙"),
-    C("chips","Chips","Casino Night","🎰"),
-    C("dice","Dice","Casino Night","🎲"),
-    C("bow-tie","Bow Tie","Casino Night","🎀"),
-    C("bandit-slot","Bandit Slot","Casino Night","🎰"),
-    C("lucky-wheel","Lucky Wheel","Casino Night","🎡"),
-    C("blackjack","Blackjack","Casino Night","🂡"),
-    C("roulette","Roulette","Casino Night","🎯"),
-    C("slot-machine","Slot Machine","Casino Night","🎰"),
-    C("jackpot","Jackpot","Casino Night","💰",true),
-    C("trump-card","Trump Card","Casino Night","🃏",true)
-  ]
-},
-
-{
-  name:"Island Vacation",
-  emoji:"🏝️",
-  cards:[
-    C("flip-flops","Flip Flops","Island Vacation","🩴"),
-    C("luxury-shades","Luxury Shades","Island Vacation","🕶️"),
-    C("swim-fins","Swim Fins","Island Vacation","🤿"),
-    C("tropical-fruit","Tropical Fruit","Island Vacation","🥥"),
-    C("beach-hammock","Beach Hammock","Island Vacation","🏝️"),
-    C("plumeria","Plumeria","Island Vacation","🌺"),
-    C("floating-meal","Floating Meal","Island Vacation","🍱"),
-    C("sup","SUP","Island Vacation","🏄"),
-    C("sash-band-hat","Sash Band Hat","Island Vacation","👒"),
-    C("shells-on-sand","Shells on Sand","Island Vacation","🐚",true),
-    C("shaded-lounger","Shaded Lounger","Island Vacation","🏖️",true),
-    C("beach-bar","Beach Bar","Island Vacation","🍹",true)
-  ]
-},
-
-{
-  name:"Deck Days",
-  emoji:"⚓",
-  cards:[
-    C("anchor","Anchor","Deck Days","⚓"),
-    C("lifebuoy","Lifebuoy","Deck Days","🛟"),
-    C("sail","Sail","Deck Days","⛵"),
-    C("ship-bell","Ship Bell","Deck Days","🔔"),
-    C("oyster-plate","Oyster Plate","Deck Days","🦪"),
-    C("ocean-view","Ocean View","Deck Days","🌊"),
-    C("island-cocktail","Island Cocktail","Deck Days","🍹"),
-    C("day-bed","Day Bed","Deck Days","🛏️"),
-    C("snorkel-mask","Snorkel Mask","Deck Days","🤿"),
-    C("captain-cap","Captain Cap","Deck Days","🧢",true),
-    C("jet-ski","Jet Ski","Deck Days","🛥️",true),
-    C("luxury-yacht","Luxury Yacht","Deck Days","🛳️",true)
-  ]
-},
-
-{
-  name:"Golf Club",
-  emoji:"⛳",
-  cards:[
-    C("golf-ball","Golf Ball","Golf Club","⛳"),
-    C("golf-gloves","Golf Gloves","Golf Club","🧤"),
-    C("golf-visor","Golf Visor","Golf Club","🧢"),
-    C("golf-shoes","Golf Shoes","Golf Club","👟"),
-    C("polo-shirt","Polo Shirt","Golf Club","👕"),
-    C("range-finder","Range Finder","Golf Club","🔭"),
-    C("golf-brush","Golf Brush","Golf Club","🧹"),
-    C("golf-kit","Golf Kit","Golf Club","🏌️",true),
-    C("flagged-hole","Flagged Hole","Golf Club","🚩",true),
-    C("golf-cart","Golf Cart","Golf Club","🚗",true),
-    C("club-bag","Club Bag","Golf Club","🎒",true),
-    C("golf-cup","Golf Cup","Golf Club","🏆",true)
-  ]
-},
-
-{
-  name:"Dream Cars",
-  emoji:"🏎️",
-  cards:[
-    C("longhorn-continent","Longhorn Continent","Dream Cars","🚘"),
-    C("fukurou-millennium","Fukurou Millennium","Dream Cars","🏎️",true),
-    C("longhorn-wild","Longhorn Wild","Dream Cars","🚗",true),
-    C("rm-phantom","RM Phantom","Dream Cars","🚘",true),
-    C("rm-grandeur","RM Grandeur","Dream Cars","🚙",true),
-    C("longhorn-shark","Longhorn Shark","Dream Cars","🏎️",true),
-    C("buletti-inferno","Buletti Inferno","Dream Cars","🔥",true),
-    C("buletti-panaro","Buletti Panaro","Dream Cars","🏎️",true),
-    C("rm-g-rex","RM G-Rex","Dream Cars","🚙",true),
-    C("buletti-aldo","Buletti Aldo","Dream Cars","🏎️",true),
-    C("buletti-nera","Buletti Nera","Dream Cars","🚗",true),
-    C("espot-polygon","Espot Polygon","Dream Cars","🚘",true)
-  ]
-}
-
-];
-
-const allCards = categories.flatMap(c => c.cards);
-
-console.log("TOTAL CARTES:", allCards.length);
-
-
-/* =========================================================
-   ETAT
-========================================================= */
-
-let currentUser = null;
-let owned = new Set();
-let wanted = new Set();
-let currentCategory = null;
-let authMode = "login";
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const authScreen = document.getElementById("authScreen");
-const appScreen = document.getElementById("appScreen");
-const authForm = document.getElementById("authForm");
-const authButton = document.getElementById("authButton");
-const authMessage = document.getElementById("authMessage");
-
-const loginTab = document.getElementById("loginTab");
-const signupTab = document.getElementById("signupTab");
-
-const usernameInput = document.getElementById("username");
-const tagInput = document.getElementById("tag");
-const passwordInput = document.getElementById("password");
-
-const categoryGrid = document.getElementById("categoryGrid");
-const categoryPage = document.getElementById("categoryPage");
-const homePage = document.getElementById("homePage");
-const categoryTitle = document.getElementById("categoryTitle");
-const cardsGrid = document.getElementById("cardsGrid");
-
-const ownedCount = document.getElementById("ownedCount");
-const availableCount = document.getElementById("availableCount");
-const collectionPercent = document.getElementById("collectionPercent");
-
-const profileName = document.getElementById("profileName");
-const profileTag = document.getElementById("profileTag");
-
-const tradePage = document.getElementById("tradePage");
-const tradeList = document.getElementById("tradeList");
-const tradeSearch = document.getElementById("tradeSearch");
-const tradeFilters = document.getElementById("tradeFilters");
-
-
-/* =========================================================
-   UTILITAIRES
-========================================================= */
-
-function showMessage(text,type="error"){
-  authMessage.textContent=text;
-  authMessage.className="message "+type;
-}
-
-function hideMessage(){
-  authMessage.className="message";
-}
-
-function pseudoEmail(tag){
-  return String(tag).trim().toLowerCase().replace(/[^a-z0-9]/g,"")+"@sundaycitycards.app";
-}
-
-function escapeHtml(value){
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-function getCard(id){
-  return allCards.find(c=>c.id===id);
-}
-
-function getCategory(name){
-  return categories.find(c=>c.name===name);
-}
-
-function updateStats(){
-  const count=owned.size;
-  const tradableOwned=[...owned]
-    .map(id=>getCard(id))
-    .filter(Boolean)
-    .filter(c=>c.tradable)
-    .length;
-
-  ownedCount.textContent=count;
-  availableCount.textContent=tradableOwned;
-  collectionPercent.textContent=Math.round((count/allCards.length)*100)+"%";
-}
-
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-loginTab.onclick=()=>{
-  authMode="login";
-  loginTab.classList.add("active");
-  signupTab.classList.remove("active");
-  authButton.textContent="LOG IN";
-  hideMessage();
-};
-
-signupTab.onclick=()=>{
-  authMode="signup";
-  signupTab.classList.add("active");
-  loginTab.classList.remove("active");
-  authButton.textContent="CREATE ACCOUNT";
-  hideMessage();
-};
-
-authForm.addEventListener("submit",async(e)=>{
-  e.preventDefault();
-
-  const username=usernameInput.value.trim();
-  const tag=tagInput.value.trim();
-  const password=passwordInput.value;
-
-  if(!username || !tag || !password){
-    showMessage("Remplis tous les champs.");
-    return;
-  }
-
-  authButton.disabled=true;
-  authButton.textContent="...";
-
-  const email=pseudoEmail(tag);
-
-  try{
-
-    if(authMode==="signup"){
-
-      const {data,error}=await db.auth.signUp({
-        email,
-        password,
-        options:{
-          data:{
-            username,
-            player_tag:tag
-          }
-        }
-      });
-
-      if(error) throw error;
-
-      if(data.session){
-        currentUser=data.user;
-        await loadUserData();
-        showApp();
-      }else{
-        showMessage(
-          "Compte créé. Si la confirmation email est activée dans Supabase, désactive-la pour ce système ou confirme le compte.",
-          "success"
-        );
-      }
-
-    }else{
-
-      const {data,error}=await db.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if(error) throw error;
-
-      currentUser=data.user;
-      await loadUserData();
-      showApp();
-    }
-
-  }catch(err){
-    console.error(err);
-    showMessage(err.message || "Une erreur est survenue.");
-  }
-
-  authButton.disabled=false;
-  authButton.textContent=authMode==="login"?"LOG IN":"CREATE ACCOUNT";
-});
-
-
-/* =========================================================
-   CHARGEMENT UTILISATEUR
-========================================================= */
-
-async function loadUserData(){
-
-  if(!currentUser) return;
-
-  const {data,error}=await db
-    .from("user_cards")
-    .select("id,user_id,card_id")
-    .eq("user_id",currentUser.id);
-
-  if(error){
-    console.error(error);
-    return;
-  }
-
-  owned.clear();
-  wanted.clear();
-
-  for(const row of data || []){
-
-    if(!row.card_id) continue;
-
-    if(String(row.card_id).startsWith("want:")){
-      wanted.add(String(row.card_id).substring(5));
-    }else{
-      owned.add(row.card_id);
-    }
-  }
-
-  const meta=currentUser.user_metadata || {};
-
-  profileName.textContent=meta.username || "Player";
-  profileTag.textContent="#"+(meta.player_tag || currentUser.id.slice(0,6));
-
-  updateStats();
-}
-
-
-/* =========================================================
-   AFFICHAGE APP
-========================================================= */
-
-function showApp(){
-  authScreen.classList.add("hidden");
-  appScreen.classList.remove("hidden");
-  renderCategories();
-  goHome();
-}
-
-function showAuth(){
-  appScreen.classList.add("hidden");
-  authScreen.classList.remove("hidden");
-}
-
-document.getElementById("logoutBtn").onclick=async()=>{
-  await db.auth.signOut();
-  currentUser=null;
-  owned.clear();
-  wanted.clear();
-  showAuth();
-};
-
-db.auth.onAuthStateChange(async(event,session)=>{
-  if(session && !currentUser){
-    currentUser=session.user;
-    await loadUserData();
-    showApp();
-  }
-});
-
-
-/* =========================================================
-   CATEGORIES
-========================================================= */
-
-function renderCategories(){
-
-  categoryGrid.innerHTML="";
-
-  for(const cat of categories){
-
-    const ownedInCategory=cat.cards.filter(c=>owned.has(c.id)).length;
-    const percent=Math.round((ownedInCategory/cat.cards.length)*100);
-
-    const div=document.createElement("div");
-    div.className="category";
-
-    div.innerHTML=`
-      <div style="font-size:38px;margin-bottom:8px">${cat.emoji}</div>
-      <h3>${escapeHtml(cat.name)}</h3>
-      <p>${ownedInCategory}/${cat.cards.length} cartes possédées</p>
-      <div class="progress">
-        <i style="width:${percent}%"></i>
-      </div>
-      <button>OUVRIR LA COLLECTION</button>
-    `;
-
-    div.querySelector("button").onclick=()=>{
-      openCategory(cat.name);
-    };
-
-    categoryGrid.appendChild(div);
-  }
-}
-
-
-/* =========================================================
-   COLLECTION
-========================================================= */
-
-function openCategory(name){
-
-  currentCategory=name;
-
-  homePage.classList.add("hidden");
-  tradePage.classList.add("hidden");
-  categoryPage.classList.remove("hidden");
-
-  categoryTitle.textContent=name;
-
-  renderCards(name);
-}
-
-function renderCards(categoryName){
-
-  const cat=getCategory(categoryName);
-
-  if(!cat) return;
-
-  cardsGrid.innerHTML="";
-
-  cat.cards.forEach(card=>{
-
-    const isOwned=owned.has(card.id);
-    const isWanted=wanted.has(card.id);
-
-    const div=document.createElement("div");
-
-    div.className=
-      "card"+
-      (card.gold?" gold":"")+
-      (isOwned?" owned":"")+
-      (isWanted?" wanted":"");
-
-    div.innerHTML=`
-      <div class="card-status">
-        ${card.gold
-          ? '<span class="gold-label">🟡 GOLD</span>'
-          : card.tradable
-            ? "🔄 ÉCHANGEABLE"
-            : ""}
-      </div>
-
-      <div class="card-emoji">${card.emoji}</div>
-
-      <div class="card-name">${escapeHtml(card.name)}</div>
-
-      <div class="card-actions">
-
-        <button class="${isOwned?"active":""}" data-owned>
-          ${isOwned?"✓ JE L'AI":"JE L'AI"}
-        </button>
-
-        ${
-          card.tradable
-          ? `<button class="want ${isWanted?"active":""}" data-wanted>
-              ${isWanted?"✓ RECHERCHÉE":"JE LA RECHERCHE"}
-             </button>`
-          : `<button disabled class="disabled">
-              🔒 NON ÉCHANGEABLE
-             </button>`
-        }
-
-      </div>
-    `;
-
-    div.querySelector("[data-owned]").onclick=async()=>{
-      await toggleOwned(card);
-    };
-
-    const wantedButton=div.querySelector("[data-wanted]");
-
-    if(wantedButton){
-      wantedButton.onclick=async()=>{
-        await toggleWanted(card);
-      };
-    }
-
-    cardsGrid.appendChild(div);
-  });
-}
-
-
-document.getElementById("backCategories").onclick=()=>{
-  goHome();
-};
-
-function goHome(){
-
-  currentCategory=null;
-
-  homePage.classList.remove("hidden");
-  categoryPage.classList.add("hidden");
-  tradePage.classList.add("hidden");
-
-  setNav("home");
-  renderCategories();
-}
-
-document.getElementById("homeNav").onclick=()=>{
-  goHome();
-};
-
-document.getElementById("collectionNav").onclick=()=>{
-  homePage.classList.remove("hidden");
-  categoryPage.classList.add("hidden");
-  tradePage.classList.add("hidden");
-
-  setNav("collection");
-  renderCategories();
-};
-
-function setNav(active){
-
-  document.querySelectorAll(".nav-btn").forEach(b=>{
-    b.classList.remove("active");
-  });
-
-  if(active==="home"){
-    document.getElementById("homeNav").classList.add("active");
-  }
-
-  if(active==="collection"){
-    document.getElementById("collectionNav").classList.add("active");
-  }
-
-  if(active==="trade"){
-    document.getElementById("tradeNav").classList.add("active");
-  }
-}
-
-
-/* =========================================================
-   OWNED
-========================================================= */
-
-async function toggleOwned(card){
-
-  if(!currentUser) return;
-
-  const currentlyOwned=owned.has(card.id);
-
-  if(currentlyOwned){
-
-    const {error}=await db
-      .from("user_cards")
-      .delete()
-      .eq("user_id",currentUser.id)
-      .eq("card_id",card.id);
-
-    if(error){
-      console.error(error);
-      alert("Impossible de retirer cette carte.");
-      return;
-    }
-
-    owned.delete(card.id);
-
-  }else{
-
-    const {error}=await db
-      .from("user_cards")
-      .insert({
-        user_id:currentUser.id,
-        card_id:card.id
-      });
-
-    if(error){
-      console.error(error);
-      alert("Impossible d'ajouter cette carte.");
-      return;
-    }
-
-    owned.add(card.id);
-
-  }
-
-  updateStats();
-  renderCards(currentCategory);
-  renderCategories();
-}
-
-
-/* =========================================================
-   WANTED
-   On réutilise la colonne card_id avec "want:"
-========================================================= */
-
-async function toggleWanted(card){
-
-  if(!currentUser || !card.tradable) return;
-
-  const currentlyWanted=wanted.has(card.id);
-  const storedId="want:"+card.id;
-
-  if(currentlyWanted){
-
-    const {error}=await db
-      .from("user_cards")
-      .delete()
-      .eq("user_id",currentUser.id)
-      .eq("card_id",storedId);
-
-    if(error){
-      console.error(error);
-      alert("Impossible de retirer la recherche.");
-      return;
-    }
-
-    wanted.delete(card.id);
-
-  }else{
-
-    const {error}=await db
-      .from("user_cards")
-      .insert({
-        user_id:currentUser.id,
-        card_id:storedId
-      });
-
-    if(error){
-      console.error(error);
-      alert("Impossible d'ajouter cette recherche.");
-      return;
-    }
-
-    wanted.add(card.id);
-  }
-
-  renderCards(currentCategory);
-}
-
-
-/* =========================================================
-   TRADING
-========================================================= */
-
-document.getElementById("tradeNav").onclick=async()=>{
-  homePage.classList.add("hidden");
-  categoryPage.classList.add("hidden");
-  tradePage.classList.remove("hidden");
-
-  setNav("trade");
-
-  await renderTrading();
-};
-
-tradeSearch.addEventListener("input",()=>{
-  renderTrading();
-});
-
-
-async function renderTrading(){
-
-  tradeList.innerHTML=`
-    <div class="empty">Chargement des joueurs...</div>
-  `;
-
-  const {data,error}=await db
-    .from("user_cards")
-    .select("user_id,card_id")
-    .not("card_id","like","want:%");
-
-  if(error){
-    console.error(error);
-
-    tradeList.innerHTML=`
-      <div class="empty">
-        Impossible de charger les échanges.<br><br>
-        Vérifie les politiques RLS de <b>user_cards</b>.
-      </div>
-    `;
-
-    return;
-  }
-
-  const players={};
-
-  for(const row of data || []){
-
-    if(!row.user_id || !row.card_id) continue;
-
-    const card=getCard(row.card_id);
-
-    if(!card || !card.tradable) continue;
-
-    if(!players[row.user_id]){
-      players[row.user_id]={
-        userId:row.user_id,
-        cards:[]
-      };
-    }
-
-    players[row.user_id].cards.push(card);
-  }
-
-  const search=(tradeSearch.value||"").trim().toLowerCase();
-
-  const entries=Object.values(players).filter(player=>{
-
-    if(!search) return true;
-
-    if(player.userId.toLowerCase().includes(search)) return true;
-
-    return player.cards.some(c=>
-      c.name.toLowerCase().includes(search) ||
-      c.category.toLowerCase().includes(search)
-    );
-  });
-
-  if(!entries.length){
-
-    tradeList.innerHTML=`
-      <div class="empty">
-        Aucun joueur avec des cartes échangeables trouvé.
-      </div>
-    `;
-
-    return;
-  }
-
-  tradeList.innerHTML="";
-
-  for(const player of entries){
-
-    const div=document.createElement("div");
-    div.className="trade-card";
-
-    const cards=player.cards.slice(0,30);
-
-    div.innerHTML=`
-      <div class="trade-player">
-        <div>
-          <strong>👤 Joueur</strong>
-          <div class="player-tag">
-            ID : ${escapeHtml(player.userId)}
-          </div>
-        </div>
-
-        <button class="id-copy">
-          COPIER ID
-        </button>
-      </div>
-
-      <div class="trade-cards">
-        ${
-          cards.map(card=>`
-            <div class="mini-card">
-              <div class="mini-emoji">${card.emoji}</div>
-              <div class="mini-name">${escapeHtml(card.name)}</div>
-            </div>
-          `).join("")
-        }
-      </div>
-    `;
-
-    div.querySelector(".id-copy").onclick=async()=>{
-      try{
-        await navigator.clipboard.writeText(player.userId);
-        div.querySelector(".id-copy").textContent="COPIÉ ✓";
-        setTimeout(()=>{
-          div.querySelector(".id-copy").textContent="COPIER ID";
-        },1500);
-      }catch(e){
-        alert(player.userId);
-      }
-    };
-
-    tradeList.appendChild(div);
-  }
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-const cardModal=document.getElementById("cardModal");
-
-document.getElementById("closeModal").onclick=()=>{
-  cardModal.classList.add("hidden");
-};
-
-cardModal.addEventListener("click",e=>{
-  if(e.target===cardModal){
-    cardModal.classList.add("hidden");
-  }
-});
-
-
-/* =========================================================
-   INITIALISATION
-========================================================= */
-
-(async()=>{
-
-  const {data}=await db.auth.getSession();
-
-  if(data.session){
-
-    currentUser=data.session.user;
-
-    await loadUserData();
-
-    showApp();
-
-  }else{
-
-    showAuth();
-
-  }
-
-})();
-</script>
-
-</body>
-</html>
