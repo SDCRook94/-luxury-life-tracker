@@ -9,48 +9,819 @@
 
 <style>
 *{box-sizing:border-box}
-:root{--bg:#f5f3f0;--panel:#fff;--soft:#f0ede9;--text:#242321;--muted:#817b74;--accent:#756b63;--green:#5f8b6b;--purple:#8a718e;--border:#e2ded9;--shadow:0 10px 30px rgba(45,38,32,.07)}
-html,body{margin:0;padding:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-body{min-height:100vh}button,input{font:inherit}button{cursor:pointer}
-.app{width:100%;max-width:1080px;margin:auto;min-height:100vh;padding-bottom:105px}
-.header{padding:30px 18px 22px;text-align:center;background:rgba(245,243,240,.94);border-bottom:1px solid var(--border)}
-.logo{margin:0;font-size:clamp(30px,7vw,50px);font-weight:800;letter-spacing:-1.8px}.logo span{color:var(--accent)}
-.subtitle{margin-top:7px;color:var(--muted);font-size:15px}
-.auth-wrap{padding:22px 18px}.auth-card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow)}
-.auth-card{padding:20px;max-width:700px;margin:auto}
-.tabs{display:flex;background:var(--soft);border:1px solid var(--border);border-radius:16px;padding:4px;margin-bottom:20px}
-.tab{flex:1;border:0;background:transparent;color:var(--muted);padding:13px 10px;border-radius:13px;font-weight:700}.tab.active{background:var(--text);color:#fff}
-label{display:block;margin:17px 0 7px;font-weight:700;font-size:15px}
-input{width:100%;border:1px solid var(--border);border-radius:14px;background:#fff;color:var(--text);padding:14px;outline:none}
-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)}
-.primary{width:100%;border:0;border-radius:14px;padding:14px;margin-top:20px;color:#fff;font-size:16px;font-weight:800;background:var(--text)}
-.message{padding:13px 15px;border-radius:14px;margin:12px 0;display:none}.message.error{display:block;color:#9a4e5a;background:#fff0f2;border:1px solid #efd1d6}.message.success{display:block;color:#4f775a;background:#eef7f0;border:1px solid #cfe4d3}
-.hidden{display:none!important}.dashboard{padding:18px}
-.profile{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:17px;border-radius:20px;background:var(--panel);border:1px solid var(--border);box-shadow:var(--shadow)}
-.profile-left{display:flex;align-items:center;gap:13px}.avatar{width:56px;height:56px;border-radius:17px;display:grid;place-items:center;font-size:28px;background:var(--soft)}
-.username{font-size:21px;font-weight:800}.player-tag{color:var(--muted);margin-top:3px}
-.secondary,.back,.id-copy{border:1px solid var(--border);background:var(--soft);color:var(--text);border-radius:12px;padding:10px 14px;font-weight:700}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.stat{padding:15px 13px;border-radius:17px;background:var(--panel);border:1px solid var(--border)}.stat strong{display:block;font-size:25px}.stat span{display:block;margin-top:4px;color:var(--muted);font-size:11px;font-weight:700}
-.page-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:25px 0 14px}.page-title h2{margin:0;font-size:28px}
-.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.category{min-height:145px;border:1px solid var(--border);border-radius:19px;padding:17px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
-.category h3{margin:0 0 7px;font-size:18px}.category p{margin:0;color:var(--muted);font-size:14px}.progress{height:7px;background:var(--soft);border-radius:99px;overflow:hidden;margin-top:17px}.progress i{display:block;height:100%;background:var(--accent);border-radius:99px}
-.category button{width:100%;margin-top:13px;border:1px solid var(--border);border-radius:12px;padding:10px;color:var(--text);font-weight:700;background:var(--soft)}
-.cards-panel{margin-top:18px;padding:16px}.notice{padding:13px;background:var(--soft);border:1px solid var(--border);border-radius:14px;color:var(--muted);margin:12px 0;line-height:1.55}
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:16px}.card{position:relative;min-height:190px;border-radius:18px;padding:9px;background:#f0eeeb;border:2px solid #fff;box-shadow:0 5px 16px rgba(45,38,32,.08);overflow:hidden}
-.card.gold{background:#f3ead5;border-color:#ead7aa}.card.owned{box-shadow:0 0 0 2px var(--green),0 7px 18px rgba(95,139,107,.12)}.card.wanted{box-shadow:0 0 0 2px var(--purple),0 7px 18px rgba(138,113,142,.12)}.card.disabled{opacity:.72}
-.card-emoji{height:112px;display:grid;place-items:center;font-size:55px;text-shadow:0 3px 8px rgba(0,0,0,.12)}.card-name{text-align:center;font-weight:800;font-size:13px;text-transform:uppercase;line-height:1.1}
-.card-status{position:absolute;top:7px;right:7px;border-radius:9px;padding:4px 6px;font-size:9px;font-weight:800;background:rgba(255,255,255,.88);color:var(--text)}.gold-label{color:#9b7429}
-.card-actions{display:flex;gap:5px;margin-top:8px}.card-actions button{flex:1;border:0;border-radius:9px;padding:7px 3px;background:#e2ddd7;color:var(--text);font-size:9px;font-weight:800}.card-actions button.active{background:var(--green);color:#fff}.card-actions button.want.active{background:var(--purple);color:#fff}
-.search{margin:15px 0}.trade-card{padding:16px;border-radius:18px;background:var(--panel);border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:12px}
-.trade-player{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.trade-player strong{font-size:17px}.trade-cards{display:flex;gap:8px;overflow-x:auto;padding-bottom:5px}
-.mini-card{min-width:105px;padding:9px;border-radius:13px;background:#f0eeeb;border:1px solid var(--border)}.mini-card.gold{display:none}.mini-emoji{text-align:center;font-size:30px}.mini-name{font-size:10px;font-weight:800;text-align:center;margin-top:5px}
-.trade-filter{display:flex;gap:7px;overflow:auto;margin-bottom:13px}.trade-filter button{white-space:nowrap;border:1px solid var(--border);background:var(--panel);color:var(--muted);padding:9px 12px;border-radius:11px}.trade-filter button.active{background:var(--text);color:#fff}
-.empty{text-align:center;padding:32px 15px;color:var(--muted)}
-.bottom-nav{position:fixed;left:50%;bottom:13px;transform:translateX(-50%);width:min(92%,680px);display:grid;grid-template-columns:repeat(3,1fr);padding:6px;border-radius:20px;background:rgba(255,255,255,.94);border:1px solid var(--border);box-shadow:0 12px 35px rgba(45,38,32,.12);backdrop-filter:blur(16px);z-index:50}
-.nav-btn{border:0;background:transparent;color:var(--muted);border-radius:15px;padding:10px 8px;font-weight:800}.nav-btn.active{background:var(--text);color:#fff}.nav-icon{display:block;font-size:21px;margin-bottom:3px}
-.modal{position:fixed;inset:0;background:rgba(35,31,27,.45);display:grid;place-items:center;padding:18px;z-index:100}.modal-box{width:min(100%,650px);max-height:85vh;overflow:auto;border-radius:22px;background:#fff;border:1px solid var(--border);padding:19px;box-shadow:0 20px 60px rgba(0,0,0,.18)}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0;font-size:22px}.close{border:0;background:var(--soft);color:var(--text);width:38px;height:38px;border-radius:50%;font-size:20px}
-@media(max-width:650px){.profile{align-items:flex-start}.profile .secondary{font-size:12px}.category-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}.card{min-height:175px}.card-emoji{height:105px}}
-@media(max-width:390px){.card-name{font-size:12px}}
+
+:root{
+  --bg:#fffaf3;
+  --panel:#ffffff;
+  --panel-soft:#fff5eb;
+  --cream:#fffaf3;
+  --text:#3f4652;
+  --muted:#7d8792;
+
+  --teal:#62c9d1;
+  --teal-dark:#3faeb9;
+  --teal-soft:#dff6f6;
+
+  --lav:#b8a7e8;
+  --lav-soft:#eee9fb;
+
+  --coral:#f3a19a;
+  --coral-soft:#fde5e0;
+
+  --mint:#91d2ad;
+  --mint-soft:#e4f5eb;
+
+  --gold:#e7c66e;
+  --gold-soft:#fff3ca;
+
+  --border:#eee5da;
+
+  --shadow:0 12px 30px rgba(75,74,80,.08);
+  --shadow-lg:0 20px 55px rgba(75,74,80,.12)
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden
+}
+
+body:before,
+body:after{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  border-radius:50%;
+  filter:blur(8px);
+  pointer-events:none
+}
+
+body:before{
+  width:320px;
+  height:320px;
+  left:-150px;
+  top:80px;
+  background:rgba(98,201,209,.16)
+}
+
+body:after{
+  width:340px;
+  height:340px;
+  right:-170px;
+  bottom:120px;
+  background:rgba(184,167,232,.15)
+}
+
+button,
+input{
+  font:inherit
+}
+
+button{
+  cursor:pointer
+}
+
+.hidden{
+  display:none!important
+}
+
+.app{
+  width:100%;
+  max-width:1120px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:112px
+}
+
+.header{
+  position:relative;
+  padding:26px 18px 24px;
+  background:rgba(255,250,243,.84);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(238,229,218,.9);
+  text-align:center;
+  overflow:hidden
+}
+
+.header:before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  left:-90px;
+  top:-110px;
+  border-radius:50%;
+  background:rgba(98,201,209,.20)
+}
+
+.header:after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  right:-90px;
+  top:-100px;
+  border-radius:50%;
+  background:rgba(243,161,154,.16)
+}
+
+.logo{
+  position:relative;
+  margin:0;
+  font-size:clamp(29px,7vw,48px);
+  font-weight:900;
+  letter-spacing:-1.8px;
+  color:#48515c;
+  line-height:1.05
+}
+
+.logo span{
+  color:var(--teal-dark)
+}
+
+.subtitle{
+  position:relative;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.3px
+}
+
+.auth-wrap{
+  padding:28px 18px
+}
+
+.auth-card,
+.panel{
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--border);
+  border-radius:28px;
+  box-shadow:var(--shadow)
+}
+
+.auth-card{
+  padding:22px;
+  max-width:700px;
+  margin:auto;
+  box-shadow:var(--shadow-lg)
+}
+
+.tabs{
+  display:flex;
+  background:var(--panel-soft);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:4px;
+  margin-bottom:20px
+}
+
+.tab{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:13px 10px;
+  border-radius:13px;
+  font-weight:800
+}
+
+.tab.active{
+  background:var(--teal);
+  color:#fff;
+  box-shadow:0 7px 18px rgba(98,201,209,.24)
+}
+
+label{
+  display:block;
+  margin:17px 0 7px;
+  font-weight:800;
+  font-size:14px;
+  color:#59626e
+}
+
+input{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:#fff;
+  color:var(--text);
+  padding:14px;
+  outline:none;
+  transition:.2s
+}
+
+input::placeholder{
+  color:#a7adb4
+}
+
+input:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 4px rgba(98,201,209,.13)
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:15px;
+  margin-top:20px;
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--teal),#76d2c9);
+  box-shadow:0 10px 22px rgba(98,201,209,.24)
+}
+
+.primary:hover{
+  transform:translateY(-1px)
+}
+
+.message{
+  padding:13px 15px;
+  border-radius:15px;
+  margin:12px 0;
+  display:none
+}
+
+.message.error{
+  display:block;
+  color:#a0545b;
+  background:#fff0f0;
+  border:1px solid #f0d3d3
+}
+
+.message.success{
+  display:block;
+  color:#4d7b61;
+  background:var(--mint-soft);
+  border:1px solid #cbe6d4
+}
+
+.dashboard{
+  padding:18px
+}
+
+.profile{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:16px 18px;
+  border-radius:23px;
+  background:rgba(255,255,255,.9);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow)
+}
+
+.profile-left{
+  display:flex;
+  align-items:center;
+  gap:13px
+}
+
+.avatar{
+  width:58px;
+  height:58px;
+  border-radius:19px;
+  display:grid;
+  place-items:center;
+  font-size:28px;
+  background:linear-gradient(145deg,var(--teal-soft),#fff);
+  border:1px solid #d2eeee
+}
+
+.username{
+  font-size:20px;
+  font-weight:900
+}
+
+.player-tag{
+  color:var(--muted);
+  margin-top:3px;
+  font-size:13px
+}
+
+.secondary,
+.back,
+.id-copy{
+  border:1px solid var(--border);
+  background:var(--panel-soft);
+  color:#5b6470;
+  border-radius:13px;
+  padding:10px 14px;
+  font-weight:800
+}
+
+.secondary:hover,
+.back:hover,
+.id-copy:hover{
+  background:var(--teal-soft);
+  border-color:#c7e9e9
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:16px 0
+}
+
+.stat{
+  padding:17px 14px;
+  border-radius:19px;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  text-align:center
+}
+
+.stat strong{
+  display:block;
+  font-size:27px;
+  color:#4d5965
+}
+
+.stat span{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.5px
+}
+
+.page-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:26px 0 15px
+}
+
+.page-title h2{
+  margin:0;
+  font-size:29px;
+  letter-spacing:-.7px;
+  color:#48515c
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px
+}
+
+.category{
+  position:relative;
+  min-height:170px;
+  border:1px solid var(--border);
+  border-radius:23px;
+  padding:18px;
+  background:#fff;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  transition:.2s
+}
+
+.category:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 35px rgba(75,74,80,.12)
+}
+
+.category:after{
+  content:"";
+  position:absolute;
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  right:-40px;
+  top:-45px;
+  background:rgba(98,201,209,.10)
+}
+
+.category h3,
+.category p,
+.category .progress,
+.category button,
+.category>div:first-child{
+  position:relative;
+  z-index:1
+}
+
+.category h3{
+  margin:0 0 7px;
+  font-size:18px
+}
+
+.category p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:700
+}
+
+.progress{
+  height:8px;
+  background:#f2eee8;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:17px
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,var(--teal),var(--mint));
+  border-radius:99px
+}
+
+.category button{
+  width:100%;
+  margin-top:13px;
+  border:0;
+  border-radius:12px;
+  padding:10px;
+  color:#4f5964;
+  font-weight:900;
+  background:var(--teal-soft)
+}
+
+.cards-panel{
+  margin-top:18px;
+  padding:17px
+}
+
+.notice{
+  padding:14px 15px;
+  background:linear-gradient(135deg,#fffaf4,#fff);
+  border:1px solid var(--border);
+  border-radius:16px;
+  color:#727b86;
+  margin:12px 0;
+  line-height:1.6;
+  font-size:13px
+}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:16px
+}
+
+.card{
+  position:relative;
+  min-height:205px;
+  border-radius:21px;
+  padding:9px;
+  background:linear-gradient(160deg,#dff5f6,#f4fbfb);
+  border:2px solid #fff;
+  box-shadow:0 8px 18px rgba(75,74,80,.08);
+  overflow:hidden;
+  transition:.18s
+}
+
+.card:before{
+  content:"";
+  position:absolute;
+  width:95px;
+  height:95px;
+  border-radius:50%;
+  right:-28px;
+  bottom:-28px;
+  background:rgba(255,255,255,.38)
+}
+
+.card:hover{
+  transform:translateY(-2px)
+}
+
+.card.gold{
+  background:linear-gradient(160deg,#fff0bd,#fff8df);
+  border-color:#f5e8b9
+}
+
+.card.owned{
+  box-shadow:
+    0 0 0 2px var(--mint),
+    0 9px 20px rgba(145,210,173,.17)
+}
+
+.card.wanted{
+  box-shadow:
+    0 0 0 2px var(--lav),
+    0 9px 20px rgba(184,167,232,.17)
+}
+
+.card-emoji{
+  height:120px;
+  display:grid;
+  place-items:center;
+  font-size:58px;
+  text-shadow:0 4px 8px rgba(63,70,82,.10);
+  position:relative;
+  z-index:1
+}
+
+.card-name{
+  text-align:center;
+  font-weight:900;
+  font-size:12px;
+  line-height:1.15;
+  position:relative;
+  z-index:1;
+  color:#4d5661
+}
+
+.card-status{
+  position:absolute;
+  top:7px;
+  right:7px;
+  border-radius:10px;
+  padding:5px 7px;
+  font-size:8px;
+  font-weight:900;
+  background:rgba(255,255,255,.86);
+  color:#5c6671;
+  z-index:2
+}
+
+.gold-label{
+  color:#9a7928
+}
+
+.card-actions{
+  display:flex;
+  gap:5px;
+  margin-top:9px;
+  position:relative;
+  z-index:2
+}
+
+.card-actions button{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:8px 3px;
+  background:rgba(255,255,255,.76);
+  color:#59626c;
+  font-size:8px;
+  font-weight:900
+}
+
+.card-actions button.active{
+  background:var(--mint);
+  color:#fff
+}
+
+.card-actions button.want.active{
+  background:var(--lav);
+  color:#fff
+}
+
+.card-actions button:disabled{
+  opacity:.7
+}
+
+.search{
+  margin:15px 0
+}
+
+.trade-card{
+  padding:17px;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  margin-bottom:12px
+}
+
+.trade-player{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:13px
+}
+
+.trade-player strong{
+  font-size:17px
+}
+
+.trade-cards{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:5px
+}
+
+.mini-card{
+  min-width:108px;
+  padding:9px;
+  border-radius:14px;
+  background:var(--teal-soft);
+  border:1px solid #d0ecec
+}
+
+.mini-card.gold{
+  display:none
+}
+
+.mini-emoji{
+  text-align:center;
+  font-size:31px
+}
+
+.mini-name{
+  font-size:10px;
+  font-weight:900;
+  text-align:center;
+  margin-top:5px
+}
+
+.trade-filter{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  margin-bottom:13px
+}
+
+.trade-filter button{
+  white-space:nowrap;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--muted);
+  padding:9px 12px;
+  border-radius:11px
+}
+
+.trade-filter button.active{
+  background:var(--teal);
+  color:#fff;
+  border-color:var(--teal)
+}
+
+.empty{
+  text-align:center;
+  padding:34px 15px;
+  color:var(--muted)
+}
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:13px;
+  transform:translateX(-50%);
+  width:min(92%,700px);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  padding:6px;
+  border-radius:23px;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--border);
+  box-shadow:0 14px 38px rgba(75,74,80,.14);
+  backdrop-filter:blur(18px);
+  z-index:50
+}
+
+.nav-btn{
+  border:0;
+  background:transparent;
+  color:#8a919a;
+  border-radius:17px;
+  padding:10px 8px;
+  font-weight:900
+}
+
+.nav-btn.active{
+  background:var(--teal-soft);
+  color:#3faeb9
+}
+
+.nav-icon{
+  display:block;
+  font-size:21px;
+  margin-bottom:3px
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(58,60,67,.35);
+  display:grid;
+  place-items:center;
+  padding:18px;
+  z-index:100;
+  backdrop-filter:blur(5px)
+}
+
+.modal-box{
+  width:min(100%,650px);
+  max-height:85vh;
+  overflow:auto;
+  border-radius:24px;
+  background:#fff;
+  border:1px solid var(--border);
+  padding:19px;
+  box-shadow:0 25px 70px rgba(0,0,0,.16)
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.modal-head h3{
+  margin:0;
+  font-size:22px
+}
+
+.close{
+  border:0;
+  background:var(--panel-soft);
+  color:var(--text);
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  font-size:20px
+}
+
+@media(max-width:700px){
+  .dashboard{
+    padding:15px
+  }
+
+  .profile{
+    padding:14px
+  }
+
+  .category-grid{
+    grid-template-columns:1fr 1fr
+  }
+
+  .cards-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .card{
+    min-height:190px
+  }
+
+  .card-emoji{
+    height:108px
+  }
+}
+
+@media(max-width:480px){
+  .category-grid{
+    grid-template-columns:1fr
+  }
+
+  .stats{
+    gap:8px
+  }
+
+  .stat{
+    padding:14px 8px
+  }
+
+  .stat strong{
+    font-size:23px
+  }
+
+  .card-name{
+    font-size:11px
+  }
+
+  .card-actions button{
+    font-size:7.5px
+  }
+
+  .logo{
+    font-size:30px
+  }
+}
+
+@media(max-width:390px){
+  .card{
+    min-height:180px
+  }
+
+  .card-emoji{
+    height:102px;
+    font-size:52px
+  }
+}
 </style>
 </head>
 
@@ -60,9 +831,10 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)
 
 <header class="header">
   <h1 class="logo">Sunday City <span>Trading Cards</span></h1>
-  <div class="subtitle">Collect • Track • Trade</div>
+  <div class="subtitle">Collect · Track · Trade</div>
 </header>
 
+<!-- AUTH -->
 <section id="authScreen" class="auth-wrap">
   <div class="auth-card">
 
@@ -91,23 +863,28 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)
   </div>
 </section>
 
+<!-- APP -->
 <section id="appScreen" class="hidden">
 
   <main class="dashboard">
 
     <div class="profile">
       <div class="profile-left">
+
         <div class="avatar">👤</div>
+
         <div>
           <div id="profileName" class="username">Player</div>
           <div id="profileTag" class="player-tag">#000000</div>
         </div>
+
       </div>
 
       <button id="logoutBtn" class="secondary">LOG OUT</button>
     </div>
 
     <div class="stats">
+
       <div class="stat">
         <strong id="ownedCount">0</strong>
         <span>CARDS OWNED</span>
@@ -122,6 +899,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)
         <strong id="collectionPercent">0%</strong>
         <span>COLLECTION</span>
       </div>
+
     </div>
 
     <div id="homePage">
@@ -144,11 +922,20 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)
       <div id="cardsPanel" class="cards-panel panel">
 
         <div class="notice">
-          🟢 <b>Owned</b> = card is in your collection.
+
+          <span style="color:#6fbd92">●</span>
+          <b>Owned</b> = card is in your collection.
+
           <br>
-          🟣 <b>Wanted</b> = card you want to obtain.
+
+          <span style="color:#9d88d8">●</span>
+          <b>Wanted</b> = card you want to obtain.
+
           <br>
-          🟡 <b>Gold</b> = non-tradable card.
+
+          <span style="color:#d8b54f">●</span>
+          <b>Gold</b> = non-tradable card.
+
         </div>
 
         <div id="cardsGrid" class="cards-grid"></div>
@@ -160,7 +947,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)
     <div id="tradePage" class="hidden">
 
       <div class="page-title">
-        <h2>🔄 Trading</h2>
+        <h2>Trading</h2>
       </div>
 
       <div class="panel cards-panel">
@@ -208,6 +995,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)
 
 </section>
 
+<!-- CARD MODAL -->
 <div id="cardModal" class="modal hidden">
 
   <div class="modal-box">
@@ -231,18 +1019,31 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(117,107,99,.12)
    SUPABASE
 ========================================================= */
 
-const SUPABASE_URL = "https://rxuopmnehdngmdsgkhvr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
+const SUPABASE_URL =
+  "https://rxuopmnehdngmdsgkhvr.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
 
 const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
 /* =========================================================
-   CARDS
+   144 CARTES
 ========================================================= */
 
-const C = (id,name,category,emoji,gold=false) => ({
+const C = (
+  id,
+  name,
+  category,
+  emoji,
+  gold=false
+) => ({
   id,
   name,
   category,
@@ -488,7 +1289,7 @@ console.log("TOTAL CARDS:", allCards.length);
 
 
 /* =========================================================
-   STATE
+   ETAT
 ========================================================= */
 
 let currentUser = null;
@@ -502,56 +1303,107 @@ let authMode = "login";
    ELEMENTS
 ========================================================= */
 
-const authScreen = document.getElementById("authScreen");
-const appScreen = document.getElementById("appScreen");
-const authForm = document.getElementById("authForm");
-const authButton = document.getElementById("authButton");
-const authMessage = document.getElementById("authMessage");
+const authScreen =
+  document.getElementById("authScreen");
 
-const loginTab = document.getElementById("loginTab");
-const signupTab = document.getElementById("signupTab");
+const appScreen =
+  document.getElementById("appScreen");
 
-const usernameInput = document.getElementById("username");
-const tagInput = document.getElementById("tag");
-const passwordInput = document.getElementById("password");
+const authForm =
+  document.getElementById("authForm");
 
-const categoryGrid = document.getElementById("categoryGrid");
-const categoryPage = document.getElementById("categoryPage");
-const homePage = document.getElementById("homePage");
-const categoryTitle = document.getElementById("categoryTitle");
-const cardsGrid = document.getElementById("cardsGrid");
+const authButton =
+  document.getElementById("authButton");
 
-const ownedCount = document.getElementById("ownedCount");
-const availableCount = document.getElementById("availableCount");
-const collectionPercent = document.getElementById("collectionPercent");
+const authMessage =
+  document.getElementById("authMessage");
 
-const profileName = document.getElementById("profileName");
-const profileTag = document.getElementById("profileTag");
+const loginTab =
+  document.getElementById("loginTab");
 
-const tradePage = document.getElementById("tradePage");
-const tradeList = document.getElementById("tradeList");
-const tradeSearch = document.getElementById("tradeSearch");
-const tradeFilters = document.getElementById("tradeFilters");
+const signupTab =
+  document.getElementById("signupTab");
+
+const usernameInput =
+  document.getElementById("username");
+
+const tagInput =
+  document.getElementById("tag");
+
+const passwordInput =
+  document.getElementById("password");
+
+const categoryGrid =
+  document.getElementById("categoryGrid");
+
+const categoryPage =
+  document.getElementById("categoryPage");
+
+const homePage =
+  document.getElementById("homePage");
+
+const categoryTitle =
+  document.getElementById("categoryTitle");
+
+const cardsGrid =
+  document.getElementById("cardsGrid");
+
+const ownedCount =
+  document.getElementById("ownedCount");
+
+const availableCount =
+  document.getElementById("availableCount");
+
+const collectionPercent =
+  document.getElementById("collectionPercent");
+
+const profileName =
+  document.getElementById("profileName");
+
+const profileTag =
+  document.getElementById("profileTag");
+
+const tradePage =
+  document.getElementById("tradePage");
+
+const tradeList =
+  document.getElementById("tradeList");
+
+const tradeSearch =
+  document.getElementById("tradeSearch");
+
+const tradeFilters =
+  document.getElementById("tradeFilters");
 
 
 /* =========================================================
-   HELPERS
+   UTILITAIRES
 ========================================================= */
 
 function showMessage(text,type="error"){
+
   authMessage.textContent=text;
-  authMessage.className="message "+type;
+
+  authMessage.className =
+    "message " + type;
 }
 
 function hideMessage(){
+
   authMessage.className="message";
 }
 
 function pseudoEmail(tag){
-  return String(tag).trim().toLowerCase().replace(/[^a-z0-9]/g,"")+"@sundaycitycards.app";
+
+  return String(tag)
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g,"")
+    +"@sundaycitycards.app";
 }
 
 function escapeHtml(value){
+
   return String(value)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
@@ -561,26 +1413,39 @@ function escapeHtml(value){
 }
 
 function getCard(id){
-  return allCards.find(c=>c.id===id);
+
+  return allCards.find(
+    c => c.id === id
+  );
 }
 
 function getCategory(name){
-  return categories.find(c=>c.name===name);
+
+  return categories.find(
+    c => c.name === name
+  );
 }
 
 function updateStats(){
 
-  const count=owned.size;
+  const count = owned.size;
 
-  const tradableOwned=[...owned]
-    .map(id=>getCard(id))
-    .filter(Boolean)
-    .filter(c=>c.tradable)
-    .length;
+  const tradableOwned =
+    [...owned]
+      .map(id => getCard(id))
+      .filter(Boolean)
+      .filter(c => c.tradable)
+      .length;
 
-  ownedCount.textContent=count;
-  availableCount.textContent=tradableOwned;
-  collectionPercent.textContent=Math.round((count/allCards.length)*100)+"%";
+  ownedCount.textContent = count;
+
+  availableCount.textContent =
+    tradableOwned;
+
+  collectionPercent.textContent =
+    Math.round(
+      (count / allCards.length) * 100
+    ) + "%";
 }
 
 
@@ -588,129 +1453,169 @@ function updateStats(){
    AUTH
 ========================================================= */
 
-loginTab.onclick=()=>{
+loginTab.onclick = () => {
 
-  authMode="login";
+  authMode = "login";
 
   loginTab.classList.add("active");
+
   signupTab.classList.remove("active");
 
-  authButton.textContent="LOG IN";
+  authButton.textContent =
+    "LOG IN";
 
   hideMessage();
 };
 
-signupTab.onclick=()=>{
+signupTab.onclick = () => {
 
-  authMode="signup";
+  authMode = "signup";
 
   signupTab.classList.add("active");
+
   loginTab.classList.remove("active");
 
-  authButton.textContent="CREATE ACCOUNT";
+  authButton.textContent =
+    "CREATE ACCOUNT";
 
   hideMessage();
 };
 
-authForm.addEventListener("submit",async(e)=>{
+authForm.addEventListener(
+  "submit",
+  async e => {
 
-  e.preventDefault();
+    e.preventDefault();
 
-  const username=usernameInput.value.trim();
-  const tag=tagInput.value.trim();
-  const password=passwordInput.value;
+    const username =
+      usernameInput.value.trim();
 
-  if(!username || !tag || !password){
+    const tag =
+      tagInput.value.trim();
 
-    showMessage("Please fill in all fields.");
+    const password =
+      passwordInput.value;
 
-    return;
-  }
+    if(
+      !username ||
+      !tag ||
+      !password
+    ){
 
-  authButton.disabled=true;
-  authButton.textContent="...";
+      showMessage(
+        "Please fill in all fields."
+      );
 
-  const email=pseudoEmail(tag);
+      return;
+    }
 
-  try{
+    authButton.disabled = true;
 
-    if(authMode==="signup"){
+    authButton.textContent = "...";
 
-      const {data,error}=await db.auth.signUp({
-        email,
-        password,
-        options:{
-          data:{
-            username,
-            player_tag:tag
-          }
+    const email =
+      pseudoEmail(tag);
+
+    try{
+
+      if(authMode === "signup"){
+
+        const {data,error} =
+          await db.auth.signUp({
+
+            email,
+
+            password,
+
+            options:{
+              data:{
+                username,
+                player_tag:tag
+              }
+            }
+
+          });
+
+        if(error)
+          throw error;
+
+        if(data.session){
+
+          currentUser =
+            data.user;
+
+          await loadUserData();
+
+          showApp();
+
+        }else{
+
+          showMessage(
+            "Account created. If email confirmation is enabled in Supabase, confirm the account before logging in.",
+            "success"
+          );
         }
-      });
 
-      if(error) throw error;
+      }else{
 
-      if(data.session){
+        const {data,error} =
+          await db.auth.signInWithPassword({
 
-        currentUser=data.user;
+            email,
+
+            password
+
+          });
+
+        if(error)
+          throw error;
+
+        currentUser =
+          data.user;
 
         await loadUserData();
 
         showApp();
-
-      }else{
-
-        showMessage(
-          "Account created. If email confirmation is enabled in Supabase, confirm the account before logging in.",
-          "success"
-        );
       }
 
-    }else{
+    }catch(err){
 
-      const {data,error}=await db.auth.signInWithPassword({
-        email,
-        password
-      });
+      console.error(err);
 
-      if(error) throw error;
-
-      currentUser=data.user;
-
-      await loadUserData();
-
-      showApp();
+      showMessage(
+        err.message ||
+        "Something went wrong."
+      );
     }
 
-  }catch(err){
+    authButton.disabled = false;
 
-    console.error(err);
+    authButton.textContent =
+      authMode === "login"
+        ? "LOG IN"
+        : "CREATE ACCOUNT";
 
-    showMessage(
-      err.message || "Something went wrong."
-    );
   }
-
-  authButton.disabled=false;
-
-  authButton.textContent=
-    authMode==="login"
-      ?"LOG IN"
-      :"CREATE ACCOUNT";
-});
+);
 
 
 /* =========================================================
-   LOAD USER
+   CHARGEMENT UTILISATEUR
 ========================================================= */
 
 async function loadUserData(){
 
-  if(!currentUser) return;
+  if(!currentUser)
+    return;
 
-  const {data,error}=await db
-    .from("user_cards")
-    .select("id,user_id,card_id")
-    .eq("user_id",currentUser.id);
+  const {data,error} =
+    await db
+      .from("user_cards")
+      .select("id,user_id,card_id")
+      .eq(
+        "user_id",
+        currentUser.id
+      );
 
   if(error){
 
@@ -720,45 +1625,64 @@ async function loadUserData(){
   }
 
   owned.clear();
+
   wanted.clear();
 
-  for(const row of data || []){
+  for(
+    const row of data || []
+  ){
 
-    if(!row.card_id) continue;
+    if(!row.card_id)
+      continue;
 
-    if(String(row.card_id).startsWith("want:")){
+    if(
+      String(row.card_id)
+        .startsWith("want:")
+    ){
 
       wanted.add(
-        String(row.card_id).substring(5)
+        String(row.card_id)
+          .substring(5)
       );
 
     }else{
 
-      owned.add(row.card_id);
+      owned.add(
+        row.card_id
+      );
     }
   }
 
-  const meta=currentUser.user_metadata || {};
+  const meta =
+    currentUser.user_metadata || {};
 
-  profileName.textContent=
+  profileName.textContent =
     meta.username || "Player";
 
-  profileTag.textContent=
-    "#"+(meta.player_tag || currentUser.id.slice(0,6));
+  profileTag.textContent =
+    "#" +
+    (
+      meta.player_tag ||
+      currentUser.id.slice(0,6)
+    );
 
   updateStats();
 }
 
 
 /* =========================================================
-   APP DISPLAY
+   AFFICHAGE APP
 ========================================================= */
 
 function showApp(){
 
-  authScreen.classList.add("hidden");
+  authScreen.classList.add(
+    "hidden"
+  );
 
-  appScreen.classList.remove("hidden");
+  appScreen.classList.remove(
+    "hidden"
+  );
 
   renderCategories();
 
@@ -767,34 +1691,47 @@ function showApp(){
 
 function showAuth(){
 
-  appScreen.classList.add("hidden");
+  appScreen.classList.add(
+    "hidden"
+  );
 
-  authScreen.classList.remove("hidden");
+  authScreen.classList.remove(
+    "hidden"
+  );
 }
 
-document.getElementById("logoutBtn").onclick=async()=>{
+document
+  .getElementById("logoutBtn")
+  .onclick = async () => {
 
-  await db.auth.signOut();
+    await db.auth.signOut();
 
-  currentUser=null;
+    currentUser = null;
 
-  owned.clear();
-  wanted.clear();
+    owned.clear();
 
-  showAuth();
-};
+    wanted.clear();
 
-db.auth.onAuthStateChange(async(event,session)=>{
+    showAuth();
+  };
 
-  if(session && !currentUser){
+db.auth.onAuthStateChange(
+  async (event,session) => {
 
-    currentUser=session.user;
+    if(
+      session &&
+      !currentUser
+    ){
 
-    await loadUserData();
+      currentUser =
+        session.user;
 
-    showApp();
+      await loadUserData();
+
+      showApp();
+    }
   }
-});
+);
 
 
 /* =========================================================
@@ -803,36 +1740,59 @@ db.auth.onAuthStateChange(async(event,session)=>{
 
 function renderCategories(){
 
-  categoryGrid.innerHTML="";
+  categoryGrid.innerHTML = "";
 
-  for(const cat of categories){
+  for(
+    const cat of categories
+  ){
 
-    const ownedInCategory=
-      cat.cards.filter(c=>owned.has(c.id)).length;
+    const ownedInCategory =
+      cat.cards.filter(
+        c => owned.has(c.id)
+      ).length;
 
-    const percent=
+    const percent =
       Math.round(
-        (ownedInCategory/cat.cards.length)*100
+        (
+          ownedInCategory /
+          cat.cards.length
+        ) * 100
       );
 
-    const div=document.createElement("div");
+    const div =
+      document.createElement(
+        "div"
+      );
 
-    div.className="category";
+    div.className =
+      "category";
 
-    div.innerHTML=`
+    div.innerHTML = `
 
-      <div style="font-size:38px;margin-bottom:8px">
+      <div
+        style="
+          font-size:38px;
+          margin-bottom:8px
+        "
+      >
         ${cat.emoji}
       </div>
 
-      <h3>${escapeHtml(cat.name)}</h3>
+      <h3>
+        ${escapeHtml(cat.name)}
+      </h3>
 
       <p>
-        ${ownedInCategory}/${cat.cards.length} cards owned
+        ${ownedInCategory}/${cat.cards.length}
+        cards owned
       </p>
 
       <div class="progress">
-        <i style="width:${percent}%"></i>
+
+        <i
+          style="width:${percent}%"
+        ></i>
+
       </div>
 
       <button>
@@ -840,13 +1800,18 @@ function renderCategories(){
       </button>
     `;
 
-    div.querySelector("button").onclick=()=>{
+    div
+      .querySelector("button")
+      .onclick = () => {
 
-      openCategory(cat.name);
+        openCategory(
+          cat.name
+        );
+      };
 
-    };
-
-    categoryGrid.appendChild(div);
+    categoryGrid.appendChild(
+      div
+    );
   }
 }
 
@@ -857,188 +1822,286 @@ function renderCategories(){
 
 function openCategory(name){
 
-  currentCategory=name;
+  currentCategory = name;
 
-  homePage.classList.add("hidden");
+  homePage.classList.add(
+    "hidden"
+  );
 
-  tradePage.classList.add("hidden");
+  tradePage.classList.add(
+    "hidden"
+  );
 
-  categoryPage.classList.remove("hidden");
+  categoryPage.classList.remove(
+    "hidden"
+  );
 
-  categoryTitle.textContent=name;
+  categoryTitle.textContent =
+    name;
 
   renderCards(name);
 }
 
 function renderCards(categoryName){
 
-  const cat=getCategory(categoryName);
+  const cat =
+    getCategory(
+      categoryName
+    );
 
-  if(!cat) return;
+  if(!cat)
+    return;
 
-  cardsGrid.innerHTML="";
+  cardsGrid.innerHTML = "";
 
-  cat.cards.forEach(card=>{
+  cat.cards.forEach(
+    card => {
 
-    const isOwned=owned.has(card.id);
+      const isOwned =
+        owned.has(card.id);
 
-    const isWanted=wanted.has(card.id);
+      const isWanted =
+        wanted.has(card.id);
 
-    const div=document.createElement("div");
+      const div =
+        document.createElement(
+          "div"
+        );
 
-    div.className=
-      "card"+
-      (card.gold?" gold":"")+
-      (isOwned?" owned":"")+
-      (isWanted?" wanted":"");
+      div.className =
+        "card" +
 
-    div.innerHTML=`
+        (card.gold
+          ? " gold"
+          : "") +
 
-      <div class="card-status">
+        (isOwned
+          ? " owned"
+          : "") +
 
-        ${
-          card.gold
+        (isWanted
+          ? " wanted"
+          : "");
 
-          ? '<span class="gold-label">🟡 GOLD</span>'
+      div.innerHTML = `
 
-          : card.tradable
+        <div class="card-status">
 
-            ? "🔄 TRADABLE"
+          ${
+            card.gold
 
-            : ""
-        }
+            ? '<span class="gold-label">🟡 GOLD</span>'
 
-      </div>
+            : card.tradable
 
-      <div class="card-emoji">
-        ${card.emoji}
-      </div>
+              ? "🔄 TRADABLE"
 
-      <div class="card-name">
-        ${escapeHtml(card.name)}
-      </div>
+              : ""
+          }
 
-      <div class="card-actions">
+        </div>
 
-        <button
-          class="${isOwned?"active":""}"
-          data-owned
-        >
-          ${isOwned?"✓ OWNED":"OWN"}
-        </button>
+        <div class="card-emoji">
+          ${card.emoji}
+        </div>
 
-        ${
-          card.tradable
+        <div class="card-name">
+          ${escapeHtml(card.name)}
+        </div>
 
-          ? `
-            <button
-              class="want ${isWanted?"active":""}"
-              data-wanted
-            >
-              ${isWanted?"✓ WANTED":"WANT"}
-            </button>
-          `
+        <div class="card-actions">
 
-          : `
-            <button disabled class="disabled">
-              🔒 NOT TRADABLE
-            </button>
-          `
-        }
+          <button
+            class="${isOwned ? "active" : ""}"
+            data-owned
+          >
+            ${
+              isOwned
+                ? "✓ OWNED"
+                : "OWN"
+            }
+          </button>
 
-      </div>
-    `;
+          ${
+            card.tradable
 
-    div.querySelector("[data-owned]").onclick=async()=>{
+              ? `
+                <button
+                  class="want ${
+                    isWanted
+                      ? "active"
+                      : ""
+                  }"
+                  data-wanted
+                >
+                  ${
+                    isWanted
+                      ? "✓ WANTED"
+                      : "WANT"
+                  }
+                </button>
+              `
 
-      await toggleOwned(card);
+              : `
+                <button
+                  disabled
+                  class="disabled"
+                >
+                  🔒 NOT TRADABLE
+                </button>
+              `
+          }
 
-    };
+        </div>
+      `;
 
-    const wantedButton=
-      div.querySelector("[data-wanted]");
+      div
+        .querySelector(
+          "[data-owned]"
+        )
+        .onclick =
+        async () => {
 
-    if(wantedButton){
+          await toggleOwned(
+            card
+          );
+        };
 
-      wantedButton.onclick=async()=>{
+      const wantedButton =
+        div.querySelector(
+          "[data-wanted]"
+        );
 
-        await toggleWanted(card);
+      if(wantedButton){
 
-      };
+        wantedButton.onclick =
+          async () => {
+
+            await toggleWanted(
+              card
+            );
+          };
+      }
+
+      cardsGrid.appendChild(
+        div
+      );
     }
-
-    cardsGrid.appendChild(div);
-  });
+  );
 }
 
+document
+  .getElementById(
+    "backCategories"
+  )
+  .onclick = () => {
 
-document.getElementById("backCategories").onclick=()=>{
-
-  goHome();
-
-};
+    goHome();
+  };
 
 function goHome(){
 
-  currentCategory=null;
+  currentCategory = null;
 
-  homePage.classList.remove("hidden");
+  homePage.classList.remove(
+    "hidden"
+  );
 
-  categoryPage.classList.add("hidden");
+  categoryPage.classList.add(
+    "hidden"
+  );
 
-  tradePage.classList.add("hidden");
+  tradePage.classList.add(
+    "hidden"
+  );
 
   setNav("home");
 
   renderCategories();
 }
 
-document.getElementById("homeNav").onclick=()=>{
+document
+  .getElementById("homeNav")
+  .onclick = () => {
 
-  goHome();
+    goHome();
+  };
 
-};
+document
+  .getElementById("collectionNav")
+  .onclick = () => {
 
-document.getElementById("collectionNav").onclick=()=>{
+    homePage.classList.remove(
+      "hidden"
+    );
 
-  homePage.classList.remove("hidden");
+    categoryPage.classList.add(
+      "hidden"
+    );
 
-  categoryPage.classList.add("hidden");
+    tradePage.classList.add(
+      "hidden"
+    );
 
-  tradePage.classList.add("hidden");
+    setNav(
+      "collection"
+    );
 
-  setNav("collection");
-
-  renderCategories();
-};
+    renderCategories();
+  };
 
 function setNav(active){
 
-  document.querySelectorAll(".nav-btn").forEach(b=>{
+  document
+    .querySelectorAll(
+      ".nav-btn"
+    )
+    .forEach(
+      b => {
 
-    b.classList.remove("active");
+        b.classList.remove(
+          "active"
+        );
+      }
+    );
 
-  });
-
-  if(active==="home"){
+  if(
+    active === "home"
+  ){
 
     document
-      .getElementById("homeNav")
-      .classList.add("active");
+      .getElementById(
+        "homeNav"
+      )
+      .classList.add(
+        "active"
+      );
   }
 
-  if(active==="collection"){
+  if(
+    active === "collection"
+  ){
 
     document
-      .getElementById("collectionNav")
-      .classList.add("active");
+      .getElementById(
+        "collectionNav"
+      )
+      .classList.add(
+        "active"
+      );
   }
 
-  if(active==="trade"){
+  if(
+    active === "trade"
+  ){
 
     document
-      .getElementById("tradeNav")
-      .classList.add("active");
+      .getElementById(
+        "tradeNav"
+      )
+      .classList.add(
+        "active"
+      );
   }
 }
 
@@ -1049,18 +2112,26 @@ function setNav(active){
 
 async function toggleOwned(card){
 
-  if(!currentUser) return;
+  if(!currentUser)
+    return;
 
-  const currentlyOwned=
+  const currentlyOwned =
     owned.has(card.id);
 
   if(currentlyOwned){
 
-    const {error}=await db
-      .from("user_cards")
-      .delete()
-      .eq("user_id",currentUser.id)
-      .eq("card_id",card.id);
+    const {error} =
+      await db
+        .from("user_cards")
+        .delete()
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .eq(
+          "card_id",
+          card.id
+        );
 
     if(error){
 
@@ -1073,16 +2144,24 @@ async function toggleOwned(card){
       return;
     }
 
-    owned.delete(card.id);
+    owned.delete(
+      card.id
+    );
 
   }else{
 
-    const {error}=await db
-      .from("user_cards")
-      .insert({
-        user_id:currentUser.id,
-        card_id:card.id
-      });
+    const {error} =
+      await db
+        .from("user_cards")
+        .insert({
+
+          user_id:
+            currentUser.id,
+
+          card_id:
+            card.id
+
+        });
 
     if(error){
 
@@ -1095,12 +2174,16 @@ async function toggleOwned(card){
       return;
     }
 
-    owned.add(card.id);
+    owned.add(
+      card.id
+    );
   }
 
   updateStats();
 
-  renderCards(currentCategory);
+  renderCards(
+    currentCategory
+  );
 
   renderCategories();
 }
@@ -1108,25 +2191,37 @@ async function toggleOwned(card){
 
 /* =========================================================
    WANTED
+   On réutilise la colonne card_id avec "want:"
 ========================================================= */
 
 async function toggleWanted(card){
 
-  if(!currentUser || !card.tradable) return;
+  if(
+    !currentUser ||
+    !card.tradable
+  )
+    return;
 
-  const currentlyWanted=
+  const currentlyWanted =
     wanted.has(card.id);
 
-  const storedId=
-    "want:"+card.id;
+  const storedId =
+    "want:" + card.id;
 
   if(currentlyWanted){
 
-    const {error}=await db
-      .from("user_cards")
-      .delete()
-      .eq("user_id",currentUser.id)
-      .eq("card_id",storedId);
+    const {error} =
+      await db
+        .from("user_cards")
+        .delete()
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .eq(
+          "card_id",
+          storedId
+        );
 
     if(error){
 
@@ -1139,16 +2234,24 @@ async function toggleWanted(card){
       return;
     }
 
-    wanted.delete(card.id);
+    wanted.delete(
+      card.id
+    );
 
   }else{
 
-    const {error}=await db
-      .from("user_cards")
-      .insert({
-        user_id:currentUser.id,
-        card_id:storedId
-      });
+    const {error} =
+      await db
+        .from("user_cards")
+        .insert({
+
+          user_id:
+            currentUser.id,
+
+          card_id:
+            storedId
+
+        });
 
     if(error){
 
@@ -1161,10 +2264,14 @@ async function toggleWanted(card){
       return;
     }
 
-    wanted.add(card.id);
+    wanted.add(
+      card.id
+    );
   }
 
-  renderCards(currentCategory);
+  renderCards(
+    currentCategory
+  );
 }
 
 
@@ -1172,44 +2279,60 @@ async function toggleWanted(card){
    TRADING
 ========================================================= */
 
-document.getElementById("tradeNav").onclick=async()=>{
+document
+  .getElementById("tradeNav")
+  .onclick = async () => {
 
-  homePage.classList.add("hidden");
+    homePage.classList.add(
+      "hidden"
+    );
 
-  categoryPage.classList.add("hidden");
+    categoryPage.classList.add(
+      "hidden"
+    );
 
-  tradePage.classList.remove("hidden");
+    tradePage.classList.remove(
+      "hidden"
+    );
 
-  setNav("trade");
+    setNav("trade");
 
-  await renderTrading();
-};
+    await renderTrading();
+  };
 
-tradeSearch.addEventListener("input",()=>{
+tradeSearch.addEventListener(
+  "input",
+  () => {
 
-  renderTrading();
-
-});
-
+    renderTrading();
+  }
+);
 
 async function renderTrading(){
 
-  tradeList.innerHTML=`
+  tradeList.innerHTML = `
     <div class="empty">
       Loading players...
     </div>
   `;
 
-  const {data,error}=await db
-    .from("user_cards")
-    .select("user_id,card_id")
-    .not("card_id","like","want:%");
+  const {data,error} =
+    await db
+      .from("user_cards")
+      .select(
+        "user_id,card_id"
+      )
+      .not(
+        "card_id",
+        "like",
+        "want:%"
+      );
 
   if(error){
 
     console.error(error);
 
-    tradeList.innerHTML=`
+    tradeList.innerHTML = `
 
       <div class="empty">
 
@@ -1226,74 +2349,99 @@ async function renderTrading(){
     return;
   }
 
-  const players={};
+  const players = {};
 
-  for(const row of data || []){
+  for(
+    const row of data || []
+  ){
 
-    if(!row.user_id || !row.card_id)
+    if(
+      !row.user_id ||
+      !row.card_id
+    )
       continue;
 
-    const card=
-      getCard(row.card_id);
+    const card =
+      getCard(
+        row.card_id
+      );
 
-    if(!card || !card.tradable)
+    if(
+      !card ||
+      !card.tradable
+    )
       continue;
 
-    if(!players[row.user_id]){
+    if(
+      !players[
+        row.user_id
+      ]
+    ){
 
-      players[row.user_id]={
+      players[
+        row.user_id
+      ] = {
 
-        userId:row.user_id,
+        userId:
+          row.user_id,
 
         cards:[]
       };
     }
 
-    players[row.user_id]
-      .cards
-      .push(card);
+    players[
+      row.user_id
+    ].cards.push(
+      card
+    );
   }
 
-  const search=
-    (tradeSearch.value||"")
-      .trim()
-      .toLowerCase();
+  const search =
+    (
+      tradeSearch.value || ""
+    )
+    .trim()
+    .toLowerCase();
 
-  const entries=
-    Object.values(players)
-      .filter(player=>{
+  const entries =
+    Object
+      .values(players)
+      .filter(
+        player => {
 
-        if(!search)
-          return true;
+          if(!search)
+            return true;
 
-        if(
-          player.userId
-            .toLowerCase()
-            .includes(search)
-        )
-          return true;
+          if(
+            player.userId
+              .toLowerCase()
+              .includes(search)
+          )
+            return true;
 
-        return player.cards.some(c=>
+          return player.cards.some(
+            c =>
+              c.name
+                .toLowerCase()
+                .includes(search)
 
-          c.name
-            .toLowerCase()
-            .includes(search)
+              ||
 
-          ||
-
-          c.category
-            .toLowerCase()
-            .includes(search)
-        );
-      });
+              c.category
+                .toLowerCase()
+                .includes(search)
+          );
+        }
+      );
 
   if(!entries.length){
 
-    tradeList.innerHTML=`
+    tradeList.innerHTML = `
 
       <div class="empty">
 
-        No players with tradable cards found.
+        No players with tradable
+        cards found.
 
       </div>
     `;
@@ -1301,19 +2449,27 @@ async function renderTrading(){
     return;
   }
 
-  tradeList.innerHTML="";
+  tradeList.innerHTML = "";
 
-  for(const player of entries){
+  for(
+    const player of entries
+  ){
 
-    const div=
-      document.createElement("div");
+    const div =
+      document.createElement(
+        "div"
+      );
 
-    div.className="trade-card";
+    div.className =
+      "trade-card";
 
-    const cards=
-      player.cards.slice(0,30);
+    const cards =
+      player.cards.slice(
+        0,
+        30
+      );
 
-    div.innerHTML=`
+    div.innerHTML = `
 
       <div class="trade-player">
 
@@ -1324,10 +2480,10 @@ async function renderTrading(){
           </strong>
 
           <div class="player-tag">
-
             ID:
-            ${escapeHtml(player.userId)}
-
+            ${escapeHtml(
+              player.userId
+            )}
           </div>
 
         </div>
@@ -1342,21 +2498,25 @@ async function renderTrading(){
 
         ${
           cards
-            .map(card=>`
+            .map(
+              card => `
 
-              <div class="mini-card">
+                <div class="mini-card">
 
-                <div class="mini-emoji">
-                  ${card.emoji}
+                  <div class="mini-emoji">
+                    ${card.emoji}
+                  </div>
+
+                  <div class="mini-name">
+                    ${escapeHtml(
+                      card.name
+                    )}
+                  </div>
+
                 </div>
 
-                <div class="mini-name">
-                  ${escapeHtml(card.name)}
-                </div>
-
-              </div>
-
-            `)
+              `
+            )
             .join("")
         }
 
@@ -1364,35 +2524,52 @@ async function renderTrading(){
     `;
 
     div
-      .querySelector(".id-copy")
-      .onclick=async()=>{
+      .querySelector(
+        ".id-copy"
+      )
+      .onclick =
+      async () => {
 
         try{
 
           await navigator
             .clipboard
-            .writeText(player.userId);
+            .writeText(
+              player.userId
+            );
 
           div
-            .querySelector(".id-copy")
-            .textContent="COPIED ✓";
+            .querySelector(
+              ".id-copy"
+            )
+            .textContent =
+            "COPIED ✓";
 
-          setTimeout(()=>{
+          setTimeout(
+            () => {
 
-            div
-              .querySelector(".id-copy")
-              .textContent="COPY ID";
+              div
+                .querySelector(
+                  ".id-copy"
+                )
+                .textContent =
+                "COPY ID";
 
-          },1500);
+            },
+            1500
+          );
 
         }catch(e){
 
-          alert(player.userId);
-
+          alert(
+            player.userId
+          );
         }
       };
 
-    tradeList.appendChild(div);
+    tradeList.appendChild(
+      div
+    );
   }
 }
 
@@ -1401,38 +2578,50 @@ async function renderTrading(){
    MODAL
 ========================================================= */
 
-const cardModal=
-  document.getElementById("cardModal");
+const cardModal =
+  document.getElementById(
+    "cardModal"
+  );
 
-document.getElementById("closeModal").onclick=()=>{
+document
+  .getElementById(
+    "closeModal"
+  )
+  .onclick = () => {
 
-  cardModal.classList.add("hidden");
+    cardModal.classList.add(
+      "hidden"
+    );
+  };
 
-};
+cardModal.addEventListener(
+  "click",
+  e => {
 
-cardModal.addEventListener("click",e=>{
+    if(
+      e.target === cardModal
+    ){
 
-  if(e.target===cardModal){
-
-    cardModal.classList.add("hidden");
-
+      cardModal.classList.add(
+        "hidden"
+      );
+    }
   }
-
-});
+);
 
 
 /* =========================================================
-   INITIALIZATION
+   INITIALISATION
 ========================================================= */
 
-(async()=>{
+(async () => {
 
-  const {data}=
+  const {data} =
     await db.auth.getSession();
 
   if(data.session){
 
-    currentUser=
+    currentUser =
       data.session.user;
 
     await loadUserData();
