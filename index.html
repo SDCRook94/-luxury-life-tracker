@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Sunday City Trading Cards</title>
 
@@ -13,71 +17,135 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: white;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
+      color: #ffffff;
       background:
-        radial-gradient(circle at top, #542080 0%, #24102f 35%, #09050d 80%);
+        radial-gradient(
+          circle at top,
+          #542078 0%,
+          #24102f 35%,
+          #0b0610 75%,
+          #050307 100%
+        );
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 35px 18px 60px;
     }
 
     .container {
       width: 100%;
-      max-width: 900px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 35px 20px 60px;
     }
 
     .hero {
       text-align: center;
-      padding: 30px 10px 35px;
+      padding: 25px 10px 30px;
     }
 
     .card-icon {
-      font-size: 55px;
-      margin-bottom: 15px;
+      width: 78px;
+      height: 105px;
+      margin: 0 auto 22px;
+      border-radius: 10px;
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #d8d8e2
+        );
+      color: #15101b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.35);
     }
 
     .brand {
       letter-spacing: 8px;
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
-      color: #d9a8ff;
+      color: #e6b9ff;
       margin-bottom: 15px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(42px, 9vw, 76px);
-      line-height: 0.95;
-      background: linear-gradient(90deg, #ffffff, #e9b5ff);
+      font-size: clamp(42px, 10vw, 76px);
+      line-height: .98;
+      letter-spacing: -2px;
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff,
+          #ddaaff,
+          #ffd0bc
+        );
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
 
     .subtitle {
       max-width: 650px;
       margin: 25px auto 0;
-      font-size: 19px;
-      line-height: 1.6;
-      color: #d6c9df;
+      color: #d4c7dc;
+      font-size: 20px;
+      line-height: 1.55;
     }
 
-    .box {
-      max-width: 650px;
-      margin: 0 auto;
+    .subtitle strong {
+      color: #ffffff;
+    }
+
+    .panel {
+      margin-top: 25px;
       padding: 30px;
-      border-radius: 25px;
-      background: rgba(31, 20, 40, 0.88);
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow: 0 25px 70px rgba(0,0,0,0.45);
-      backdrop-filter: blur(15px);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.18);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(72,39,88,.78),
+          rgba(19,11,25,.92)
+        );
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.08);
+      backdrop-filter: blur(18px);
     }
 
-    .box h2 {
-      margin-top: 0;
+    .panel h2 {
+      margin: 0 0 10px;
       font-size: 30px;
+    }
+
+    .panel-description {
+      margin: 0 0 25px;
+      color: #bfb1c8;
+      line-height: 1.5;
     }
 
     .field {
@@ -87,143 +155,266 @@
     label {
       display: block;
       margin-bottom: 8px;
-      color: #d8c7e3;
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: 700;
+      color: #eee6f2;
     }
 
     input {
       width: 100%;
-      padding: 17px;
-      border-radius: 15px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(8, 5, 14, 0.75);
-      color: white;
-      font-size: 17px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
       outline: none;
-    }
-
-    input:focus {
-      border-color: #a83dff;
-      box-shadow: 0 0 0 3px rgba(168,61,255,0.15);
+      color: #ffffff;
+      background: rgba(5,3,10,.72);
+      transition: .2s ease;
     }
 
     input::placeholder {
-      color: #887b91;
+      color: #83798a;
+    }
+
+    input:focus {
+      border-color: #b63cff;
+      box-shadow:
+        0 0 0 3px rgba(182,60,255,.14);
+    }
+
+    .help {
+      margin-top: 8px;
+      color: #9f94a8;
+      font-size: 14px;
+      line-height: 1.4;
     }
 
     .button {
       width: 100%;
+      margin-top: 8px;
+      padding: 18px 20px;
       border: 0;
-      border-radius: 15px;
-      padding: 17px;
-      margin-top: 5px;
-      color: white;
-      font-size: 17px;
+      border-radius: 17px;
+      color: #ffffff;
       font-weight: 800;
+      font-size: 17px;
       cursor: pointer;
-      background: linear-gradient(90deg, #8129d9, #c13cff);
-      box-shadow: 0 10px 30px rgba(160,45,255,0.3);
+      background:
+        linear-gradient(
+          100deg,
+          #7624d8,
+          #c43cff
+        );
+      box-shadow:
+        0 12px 30px rgba(170,45,255,.28);
+      transition: transform .15s ease, opacity .15s ease;
     }
 
     .button:active {
-      transform: scale(0.99);
+      transform: scale(.98);
     }
 
-    .secondary {
-      margin-top: 20px;
-      text-align: center;
-      color: #b8aabd;
+    .button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
     }
 
-    .link {
-      color: #d06aff;
+    .secondary-button {
+      margin-top: 14px;
+      width: 100%;
+      padding: 16px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.05);
+      color: #ffffff;
       font-weight: 700;
+      cursor: pointer;
+    }
+
+    .switch {
+      text-align: center;
+      margin-top: 24px;
+      color: #bcb0c5;
+    }
+
+    .switch button {
+      border: 0;
+      padding: 0;
+      background: none;
+      color: #d36cff;
+      font-weight: 800;
       cursor: pointer;
     }
 
     .message {
       display: none;
       margin-top: 18px;
-      padding: 14px;
-      border-radius: 12px;
+      padding: 15px 17px;
+      border-radius: 15px;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .message.success {
+      display: block;
+      color: #b9ffd9;
+      background: rgba(18,125,73,.2);
+      border: 1px solid rgba(50,220,130,.35);
+    }
+
+    .message.error {
+      display: block;
+      color: #ffb2be;
+      background: rgba(150,25,50,.2);
+      border: 1px solid rgba(255,70,100,.35);
+    }
+
+    .profile {
+      display: none;
+    }
+
+    .profile-card {
       text-align: center;
-      line-height: 1.5;
     }
 
-    .error {
-      background: rgba(255, 60, 80, 0.12);
-      border: 1px solid rgba(255, 60, 80, 0.35);
-      color: #ff9ba6;
+    .profile-avatar {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      background:
+        linear-gradient(
+          135deg,
+          #7424d8,
+          #d93cff
+        );
+      box-shadow:
+        0 12px 35px rgba(190,55,255,.3);
     }
 
-    .success {
-      background: rgba(50, 220, 130, 0.12);
-      border: 1px solid rgba(50, 220, 130, 0.35);
-      color: #8cffbd;
+    .profile-name {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
-    .tag-help {
-      margin-top: 7px;
-      font-size: 12px;
-      color: #877a90;
+    .tag-box {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: #e5aaff;
+      font-weight: 800;
+    }
+
+    .profile-info {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 18px;
+      text-align: left;
+      background: rgba(0,0,0,.18);
+    }
+
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .profile-row:last-child {
+      border-bottom: 0;
+    }
+
+    .profile-row span:first-child {
+      color: #9e93a7;
+    }
+
+    .profile-row span:last-child {
+      font-weight: 700;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .feature {
+      padding: 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.035);
+    }
+
+    .feature-icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .feature h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .feature p {
+      margin: 0;
+      color: #a89cac;
+      line-height: 1.45;
+      font-size: 14px;
     }
 
     footer {
       text-align: center;
-      margin-top: 45px;
-      color: #766b7e;
+      margin-top: 35px;
+      color: #82768a;
       font-size: 13px;
+      line-height: 1.6;
     }
 
     .hidden {
       display: none !important;
     }
 
-    .dashboard {
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    @media (max-width: 650px) {
+      .page {
+        padding: 20px 12px 45px;
+      }
 
-    .profile-card {
-      padding: 25px;
-      border-radius: 22px;
-      background: rgba(31,20,40,0.9);
-      border: 1px solid rgba(255,255,255,0.15);
-      margin-bottom: 20px;
-    }
+      .panel {
+        padding: 22px;
+        border-radius: 23px;
+      }
 
-    .profile-card h2 {
-      margin-top: 0;
-    }
+      .features {
+        grid-template-columns: 1fr;
+      }
 
-    .tag {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 8px 13px;
-      border-radius: 20px;
-      background: rgba(168,61,255,0.18);
-      color: #d895ff;
-      font-weight: 700;
-    }
-
-    .logout {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: none;
+      .subtitle {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
+  <div class="container">
 
-  <!-- LANDING / AUTH -->
-  <section id="authSection">
+    <section class="hero">
 
-    <div class="hero">
-      <div class="card-icon">🃏</div>
+      <div class="card-icon">
+        🃏
+      </div>
 
       <div class="brand">
         SUNDAY CITY
@@ -236,17 +427,33 @@
 
       <p class="subtitle">
         Collect your favorite Sunday City cards,
-        meet other players and trade cards with the community.
+        meet other players and
+        <strong>trade cards with the community.</strong>
       </p>
-    </div>
+
+    </section>
 
 
-    <!-- SIGN UP -->
-    <div id="signupBox" class="box">
+    <!-- ========================= -->
+    <!-- AUTHENTICATION -->
+    <!-- ========================= -->
 
-      <h2>🎮 Create your player account</h2>
+    <section id="authSection" class="panel">
 
-      <div class="field">
+      <h2 id="authTitle">
+        Create your player account
+      </h2>
+
+      <p id="authDescription" class="panel-description">
+        Create your account and get your unique
+        Player Tag so other players can find you.
+      </p>
+
+
+      <!-- USERNAME -->
+
+      <div id="usernameField" class="field">
+
         <label for="username">
           Player Username
         </label>
@@ -254,13 +461,17 @@
         <input
           id="username"
           type="text"
-          placeholder="Player username"
-          autocomplete="username"
+          autocomplete="nickname"
+          placeholder="Enter your player username"
         >
+
       </div>
 
 
-      <div class="field">
+      <!-- PLAYER TAG -->
+
+      <div id="tagField" class="field">
+
         <label for="playerTag">
           Player Tag
         </label>
@@ -268,214 +479,253 @@
         <input
           id="playerTag"
           type="text"
-          placeholder="@your-player-tag"
+          autocomplete="off"
+          placeholder="Example: 18bc18"
           maxlength="30"
         >
 
-        <div class="tag-help">
-          Your unique Player Tag will allow other players to find you.
+        <div class="help">
+          Your unique Player Tag will allow other
+          players to find you.
         </div>
+
       </div>
 
 
+      <!-- EMAIL -->
+
       <div class="field">
-        <label for="signupEmail">
+
+        <label for="email">
           Email
         </label>
 
         <input
-          id="signupEmail"
+          id="email"
           type="email"
-          placeholder="Email"
           autocomplete="email"
+          placeholder="your@email.com"
         >
+
       </div>
 
 
+      <!-- PASSWORD -->
+
       <div class="field">
-        <label for="signupPassword">
+
+        <label for="password">
           Password
         </label>
 
         <input
-          id="signupPassword"
+          id="password"
           type="password"
-          placeholder="Password (minimum 6 characters)"
           autocomplete="new-password"
+          placeholder="Minimum 6 characters"
         >
+
       </div>
 
 
       <button
+        id="submitButton"
         class="button"
-        onclick="createAccount()"
+        type="button"
       >
         CREATE ACCOUNT
       </button>
 
 
-      <div id="signupMessage" class="message"></div>
+      <div
+        id="message"
+        class="message"
+      ></div>
 
 
-      <div class="secondary">
-        Already have an account?
-        <span
-          class="link"
-          onclick="showLogin()"
+      <div class="switch">
+
+        <span id="switchText">
+          Already have an account?
+        </span>
+
+        <button
+          id="switchButton"
+          type="button"
         >
           Log in
-        </span>
+        </button>
+
       </div>
 
-    </div>
+    </section>
 
 
-    <!-- LOGIN -->
-    <div id="loginBox" class="box hidden">
+    <!-- ========================= -->
+    <!-- PROFILE -->
+    <!-- ========================= -->
 
-      <h2>🔐 Welcome back</h2>
+    <section
+      id="profileSection"
+      class="panel profile"
+    >
 
-      <div class="field">
-        <label for="loginEmail">
-          Email
-        </label>
+      <div class="profile-card">
 
-        <input
-          id="loginEmail"
-          type="email"
-          placeholder="Email"
-          autocomplete="email"
-        >
+        <div class="profile-avatar">
+          🃏
+        </div>
+
+        <div class="profile-name">
+          Your Player Profile
+        </div>
+
+        <div class="tag-box">
+          Player Tag:
+          <span id="profileTag">
+            -
+          </span>
+        </div>
+
       </div>
 
 
-      <div class="field">
-        <label for="loginPassword">
-          Password
-        </label>
+      <div class="profile-info">
 
-        <input
-          id="loginPassword"
-          type="password"
-          placeholder="Password"
-          autocomplete="current-password"
-        >
+        <div class="profile-row">
+
+          <span>
+            Player Username
+          </span>
+
+          <span id="profileUsername">
+            -
+          </span>
+
+        </div>
+
+
+        <div class="profile-row">
+
+          <span>
+            Player Tag
+          </span>
+
+          <span id="profileTag2">
+            -
+          </span>
+
+        </div>
+
+
+        <div class="profile-row">
+
+          <span>
+            Email
+          </span>
+
+          <span id="profileEmail">
+            -
+          </span>
+
+        </div>
+
       </div>
 
 
       <button
-        class="button"
-        onclick="login()"
+        id="logoutButton"
+        class="secondary-button"
+        type="button"
       >
-        LOG IN
+        LOG OUT
       </button>
 
+    </section>
 
-      <div id="loginMessage" class="message"></div>
 
+    <!-- ========================= -->
+    <!-- FEATURES -->
+    <!-- ========================= -->
 
-      <div class="secondary">
-        Don't have an account?
-        <span
-          class="link"
-          onclick="showSignup()"
-        >
-          Create one
-        </span>
+    <section class="features">
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          🃏
+        </div>
+
+        <h3>
+          Your Collection
+        </h3>
+
+        <p>
+          Keep track of the Sunday City
+          trading cards you own.
+        </p>
+
       </div>
 
-    </div>
 
-  </section>
+      <div class="feature">
 
+        <div class="feature-icon">
+          👥
+        </div>
 
-  <!-- DASHBOARD -->
-  <section id="dashboard" class="dashboard hidden">
+        <h3>
+          Find Players
+        </h3>
 
-    <div class="hero">
-      <div class="card-icon">🃏</div>
+        <p>
+          Use Player Tags to find other
+          collectors in the community.
+        </p>
 
-      <div class="brand">
-        SUNDAY CITY
       </div>
 
-      <h1>
-        Welcome!
-      </h1>
 
-      <p class="subtitle">
-        Your player profile is ready.
-      </p>
-    </div>
+      <div class="feature">
 
+        <div class="feature-icon">
+          🔄
+        </div>
 
-    <div class="profile-card">
+        <h3>
+          Trade Cards
+        </h3>
 
-      <h2>🎮 Your Player Profile</h2>
+        <p>
+          Find cards you want and exchange
+          them with other players.
+        </p>
 
-      <p>
-        <strong>Player Username</strong>
-      </p>
-
-      <p id="profileUsername">
-        —
-      </p>
-
-      <p>
-        <strong>Player Tag</strong>
-      </p>
-
-      <div id="profileTag" class="tag">
-        —
       </div>
 
-    </div>
+    </section>
 
 
-    <div class="profile-card">
+    <footer>
 
-      <h2>🃏 Your Collection</h2>
+      Sunday City Trading Cards
+      • Fan-made community project
+      <br>
 
-      <p style="color:#aaa;">
-        Your trading card collection will appear here.
-      </p>
+      Not affiliated with or endorsed by
+      Sunday City.
 
-    </div>
+    </footer>
 
-
-    <div class="profile-card">
-
-      <h2>🔄 Trading</h2>
-
-      <p style="color:#aaa;">
-        Find other players by their Player Tag and exchange cards with them.
-      </p>
-
-    </div>
-
-
-    <button
-      class="button logout"
-      onclick="logout()"
-    >
-      LOG OUT
-    </button>
-
-  </section>
-
-
-  <footer>
-    Sunday City Trading Cards • Fan-made community project
-  </footer>
-
+  </div>
 </div>
 
 
 <script>
 
-  /*
-   * SUPABASE CONNECTION
-   */
+  /* ==========================================
+     SUPABASE CONFIGURATION
+     ========================================== */
 
   const SUPABASE_URL =
     "https://rxuopmnehdngmdsgkhvr.supabase.co";
@@ -483,329 +733,364 @@
   const SUPABASE_KEY =
     "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
 
+
   const supabaseClient =
     window.supabase.createClient(
       SUPABASE_URL,
-      SUPABASE_KEY
+      SUPABASE_KEY,
+      {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true
+        }
+      }
     );
 
 
-  /*
-   * HELPERS
-   */
+  /* ==========================================
+     REAL GITHUB PAGES URL
+     ========================================== */
 
-  function showMessage(elementId, text, type) {
+  const SITE_URL =
+    "https://sdcrook94.github.io/-luxury-life-tracker/";
 
-    const element =
-      document.getElementById(elementId);
 
-    element.textContent = text;
+  /* ==========================================
+     DOM
+     ========================================== */
 
-    element.className =
+  const authSection =
+    document.getElementById("authSection");
+
+  const profileSection =
+    document.getElementById("profileSection");
+
+  const authTitle =
+    document.getElementById("authTitle");
+
+  const authDescription =
+    document.getElementById("authDescription");
+
+  const usernameField =
+    document.getElementById("usernameField");
+
+  const tagField =
+    document.getElementById("tagField");
+
+  const usernameInput =
+    document.getElementById("username");
+
+  const tagInput =
+    document.getElementById("playerTag");
+
+  const emailInput =
+    document.getElementById("email");
+
+  const passwordInput =
+    document.getElementById("password");
+
+  const submitButton =
+    document.getElementById("submitButton");
+
+  const switchButton =
+    document.getElementById("switchButton");
+
+  const switchText =
+    document.getElementById("switchText");
+
+  const message =
+    document.getElementById("message");
+
+  const logoutButton =
+    document.getElementById("logoutButton");
+
+
+  /* ==========================================
+     MODE
+     ========================================== */
+
+  let loginMode = false;
+
+
+  /* ==========================================
+     MESSAGE
+     ========================================== */
+
+  function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className =
       "message " + type;
 
-    element.style.display = "block";
   }
 
 
-  function hideMessage(elementId) {
+  function clearMessage() {
 
-    const element =
-      document.getElementById(elementId);
+    message.textContent = "";
 
-    element.style.display = "none";
+    message.className =
+      "message";
+
   }
 
 
-  /*
-   * SWITCH SIGNUP / LOGIN
-   */
+  /* ==========================================
+     LOGIN / REGISTER SWITCH
+     ========================================== */
 
-  function showLogin() {
+  switchButton.addEventListener(
+    "click",
+    function () {
 
-    document
-      .getElementById("signupBox")
-      .classList.add("hidden");
+      loginMode = !loginMode;
 
-    document
-      .getElementById("loginBox")
-      .classList.remove("hidden");
+      clearMessage();
 
-    hideMessage("signupMessage");
-  }
+      if (loginMode) {
+
+        authTitle.textContent =
+          "Welcome back";
+
+        authDescription.textContent =
+          "Log in to access your player profile and collection.";
+
+        usernameField.classList.add(
+          "hidden"
+        );
+
+        tagField.classList.add(
+          "hidden"
+        );
+
+        submitButton.textContent =
+          "LOG IN";
+
+        switchText.textContent =
+          "Don't have an account?";
+
+        switchButton.textContent =
+          "Create one";
+
+        passwordInput.autocomplete =
+          "current-password";
+
+      } else {
+
+        authTitle.textContent =
+          "Create your player account";
+
+        authDescription.textContent =
+          "Create your account and get your unique Player Tag so other players can find you.";
+
+        usernameField.classList.remove(
+          "hidden"
+        );
+
+        tagField.classList.remove(
+          "hidden"
+        );
+
+        submitButton.textContent =
+          "CREATE ACCOUNT";
+
+        switchText.textContent =
+          "Already have an account?";
+
+        switchButton.textContent =
+          "Log in";
+
+        passwordInput.autocomplete =
+          "new-password";
+
+      }
+
+    }
+  );
 
 
-  function showSignup() {
-
-    document
-      .getElementById("loginBox")
-      .classList.add("hidden");
-
-    document
-      .getElementById("signupBox")
-      .classList.remove("hidden");
-
-    hideMessage("loginMessage");
-  }
-
-
-  /*
-   * CREATE ACCOUNT
-   */
+  /* ==========================================
+     CREATE ACCOUNT
+     ========================================== */
 
   async function createAccount() {
 
-    hideMessage("signupMessage");
-
     const username =
-      document
-        .getElementById("username")
-        .value
-        .trim();
+      usernameInput.value.trim();
 
-    let playerTag =
-      document
-        .getElementById("playerTag")
-        .value
-        .trim();
+    const playerTag =
+      tagInput.value.trim();
 
     const email =
-      document
-        .getElementById("signupEmail")
-        .value
-        .trim();
+      emailInput.value.trim();
 
     const password =
-      document
-        .getElementById("signupPassword")
-        .value;
+      passwordInput.value;
 
 
     if (!username) {
 
       showMessage(
-        "signupMessage",
         "Please enter your Player Username.",
         "error"
       );
 
       return;
+
     }
 
 
     if (!playerTag) {
 
       showMessage(
-        "signupMessage",
         "Please enter your Player Tag.",
         "error"
       );
 
       return;
+
     }
 
 
     if (!email) {
 
       showMessage(
-        "signupMessage",
-        "Please enter your email.",
+        "Please enter your email address.",
         "error"
       );
 
       return;
+
     }
 
 
     if (password.length < 6) {
 
       showMessage(
-        "signupMessage",
-        "Your password must contain at least 6 characters.",
+        "Password must contain at least 6 characters.",
         "error"
       );
 
       return;
+
     }
 
 
-    /*
-     * Automatically add @ if necessary.
-     */
+    submitButton.disabled = true;
 
-    if (!playerTag.startsWith("@")) {
-
-      playerTag = "@" + playerTag;
-    }
+    submitButton.textContent =
+      "CREATING ACCOUNT...";
 
 
-    /*
-     * Create Supabase Auth account.
-     */
+    try {
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.signUp({
-
-        email: email,
-
-        password: password
-
-      });
-
-
-    if (error) {
-
-      showMessage(
-        "signupMessage",
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-
-    /*
-     * If email confirmation is disabled,
-     * we have a user immediately.
-     */
-
-    if (data.user) {
+      /*
+       * Store username and Player Tag
+       * inside Supabase Auth metadata.
+       */
 
       const {
-        error: profileError
+        data,
+        error
       } =
-        await supabaseClient
-          .from("profiles")
-          .insert({
+        await supabaseClient.auth.signUp({
 
-            id: data.user.id,
+          email: email,
 
-            username: username,
+          password: password,
 
-            player_tag: playerTag
+          options: {
 
-          });
+            emailRedirectTo:
+              SITE_URL,
+
+            data: {
+
+              username:
+                username,
+
+              player_tag:
+                playerTag
+
+            }
+
+          }
+
+        });
 
 
-      if (profileError) {
-
-        console.error(profileError);
-
-        showMessage(
-          "signupMessage",
-          "Account created, but the player profile could not be saved. Check your Supabase profiles table.",
-          "error"
-        );
-
-        return;
+      if (error) {
+        throw error;
       }
 
 
+      /*
+       * If email confirmation is disabled,
+       * Supabase gives us a session immediately.
+       */
+
+      if (data.session && data.user) {
+
+        await saveProfile(
+          data.user,
+          username,
+          playerTag
+        );
+
+        showProfile(
+          username,
+          playerTag,
+          email
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * If email confirmation is enabled,
+       * tell the player to confirm their email.
+       */
+
       showMessage(
-        "signupMessage",
-        "Account created successfully! 🎉",
+        "Account created successfully. Please check your email to confirm your account, then log in.",
         "success"
       );
 
 
-      setTimeout(() => {
+    } catch (error) {
 
-        loadProfile();
+      console.error(error);
 
-      }, 1000);
+      showMessage(
+        getErrorMessage(error),
+        "error"
+      );
+
+    } finally {
+
+      submitButton.disabled = false;
+
+      submitButton.textContent =
+        "CREATE ACCOUNT";
 
     }
 
   }
 
 
-  /*
-   * LOGIN
-   */
+  /* ==========================================
+     SAVE PROFILE
+     ========================================== */
 
-  async function login() {
-
-    hideMessage("loginMessage");
-
-    const email =
-      document
-        .getElementById("loginEmail")
-        .value
-        .trim();
-
-    const password =
-      document
-        .getElementById("loginPassword")
-        .value;
-
-
-    if (!email || !password) {
-
-      showMessage(
-        "loginMessage",
-        "Please enter your email and password.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.signInWithPassword({
-
-        email: email,
-
-        password: password
-
-      });
-
-
-    if (error) {
-
-      showMessage(
-        "loginMessage",
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-
-    loadProfile();
-
-  }
-
-
-  /*
-   * LOAD PLAYER PROFILE
-   */
-
-  async function loadProfile() {
-
-    const {
-      data: sessionData
-    } =
-      await supabaseClient.auth.getSession();
-
-
-    const user =
-      sessionData.session?.user;
-
-
-    if (!user) {
-
-      return;
-    }
-
+  async function saveProfile(
+    user,
+    username,
+    playerTag
+  ) {
 
     const {
       data,
@@ -813,88 +1098,500 @@
     } =
       await supabaseClient
         .from("profiles")
-        .select("username, player_tag")
-        .eq("id", user.id)
+        .upsert(
+          {
+            id:
+              user.id,
+
+            username:
+              username,
+
+            player_tag:
+              playerTag
+
+          },
+          {
+            onConflict:
+              "id"
+          }
+        )
+        .select()
         .single();
 
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        "Profile error:",
+        error
+      );
 
-      return;
+      throw new Error(
+        "Account created, but the player profile could not be saved. Check the Supabase profiles table and its policies."
+      );
+
     }
 
 
-    document
-      .getElementById("profileUsername")
-      .textContent =
-      data.username || "—";
-
-
-    document
-      .getElementById("profileTag")
-      .textContent =
-      data.player_tag || "—";
-
-
-    document
-      .getElementById("authSection")
-      .classList.add("hidden");
-
-
-    document
-      .getElementById("dashboard")
-      .classList.remove("hidden");
+    return data;
 
   }
 
 
-  /*
-   * LOGOUT
-   */
+  /* ==========================================
+     LOGIN
+     ========================================== */
 
-  async function logout() {
+  async function login() {
 
-    await supabaseClient.auth.signOut();
+    const email =
+      emailInput.value.trim();
 
-    document
-      .getElementById("dashboard")
-      .classList.add("hidden");
+    const password =
+      passwordInput.value;
 
-    document
-      .getElementById("authSection")
-      .classList.remove("hidden");
 
-    showSignup();
+    if (!email || !password) {
+
+      showMessage(
+        "Please enter your email and password.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+      "LOGGING IN...";
+
+
+    try {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.signInWithPassword({
+
+          email:
+            email,
+
+          password:
+            password
+
+        });
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      if (!data.user) {
+
+        throw new Error(
+          "Unable to load your player account."
+        );
+
+      }
+
+
+      const metadata =
+        data.user.user_metadata || {};
+
+
+      let username =
+        metadata.username || "";
+
+      let playerTag =
+        metadata.player_tag || "";
+
+
+      /*
+       * Try to load the existing profile.
+       */
+
+      const {
+        data: profile
+      } =
+        await supabaseClient
+          .from("profiles")
+          .select(
+            "username, player_tag"
+          )
+          .eq(
+            "id",
+            data.user.id
+          )
+          .maybeSingle();
+
+
+      if (profile) {
+
+        username =
+          profile.username ||
+          username;
+
+        playerTag =
+          profile.player_tag ||
+          playerTag;
+
+      }
+
+
+      /*
+       * If profile doesn't exist,
+       * create it from Auth metadata.
+       */
+
+      if (
+        username &&
+        playerTag
+      ) {
+
+        await saveProfile(
+          data.user,
+          username,
+          playerTag
+        );
+
+      }
+
+
+      showProfile(
+        username,
+        playerTag,
+        data.user.email || email
+      );
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        getErrorMessage(error),
+        "error"
+      );
+
+    } finally {
+
+      submitButton.disabled = false;
+
+      submitButton.textContent =
+        loginMode
+          ? "LOG IN"
+          : "CREATE ACCOUNT";
+
+    }
 
   }
 
 
-  /*
-   * CHECK EXISTING SESSION
-   */
+  /* ==========================================
+     SUBMIT
+     ========================================== */
+
+  submitButton.addEventListener(
+    "click",
+    async function () {
+
+      clearMessage();
+
+      if (loginMode) {
+
+        await login();
+
+      } else {
+
+        await createAccount();
+
+      }
+
+    }
+  );
+
+
+  /* ==========================================
+     PROFILE DISPLAY
+     ========================================== */
+
+  function showProfile(
+    username,
+    playerTag,
+    email
+  ) {
+
+    authSection.style.display =
+      "none";
+
+    profileSection.style.display =
+      "block";
+
+
+    document.getElementById(
+      "profileUsername"
+    ).textContent =
+      username || "-";
+
+
+    document.getElementById(
+      "profileTag"
+    ).textContent =
+      playerTag || "-";
+
+
+    document.getElementById(
+      "profileTag2"
+    ).textContent =
+      playerTag || "-";
+
+
+    document.getElementById(
+      "profileEmail"
+    ).textContent =
+      email || "-";
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /* ==========================================
+     LOGOUT
+     ========================================== */
+
+  logoutButton.addEventListener(
+    "click",
+    async function () {
+
+      await supabaseClient.auth.signOut();
+
+      profileSection.style.display =
+        "none";
+
+      authSection.style.display =
+        "block";
+
+      loginMode = false;
+
+      authTitle.textContent =
+        "Create your player account";
+
+      authDescription.textContent =
+        "Create your account and get your unique Player Tag so other players can find you.";
+
+      usernameField.classList.remove(
+        "hidden"
+      );
+
+      tagField.classList.remove(
+        "hidden"
+      );
+
+      submitButton.textContent =
+        "CREATE ACCOUNT";
+
+      switchText.textContent =
+        "Already have an account?";
+
+      switchButton.textContent =
+        "Log in";
+
+      usernameInput.value = "";
+      tagInput.value = "";
+      emailInput.value = "";
+      passwordInput.value = "";
+
+      clearMessage();
+
+    }
+  );
+
+
+  /* ==========================================
+     SESSION CHECK
+     ========================================== */
 
   async function checkSession() {
 
-    const {
-      data
-    } =
-      await supabaseClient.auth.getSession();
+    try {
+
+      const {
+        data
+      } =
+        await supabaseClient.auth.getSession();
 
 
-    if (data.session) {
+      if (
+        data &&
+        data.session &&
+        data.session.user
+      ) {
 
-      await loadProfile();
+        const user =
+          data.session.user;
+
+
+        const {
+          data: profile
+        } =
+          await supabaseClient
+            .from("profiles")
+            .select(
+              "username, player_tag"
+            )
+            .eq(
+              "id",
+              user.id
+            )
+            .maybeSingle();
+
+
+        if (profile) {
+
+          showProfile(
+            profile.username,
+            profile.player_tag,
+            user.email
+          );
+
+        }
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Session error:",
+        error
+      );
 
     }
 
   }
 
 
-  /*
-   * START
-   */
+  /* ==========================================
+     AUTH STATE
+     ========================================== */
+
+  supabaseClient.auth.onAuthStateChange(
+    function (
+      event,
+      session
+    ) {
+
+      if (
+        event === "SIGNED_OUT"
+      ) {
+
+        profileSection.style.display =
+          "none";
+
+        authSection.style.display =
+          "block";
+
+      }
+
+    }
+  );
+
+
+  /* ==========================================
+     ERROR MESSAGES
+     ========================================== */
+
+  function getErrorMessage(error) {
+
+    const text =
+      error &&
+      error.message
+        ? error.message
+        : String(error);
+
+
+    if (
+      text
+        .toLowerCase()
+        .includes(
+          "rate limit"
+        )
+    ) {
+
+      return (
+        "Email rate limit exceeded. Please wait a little while before trying again."
+      );
+
+    }
+
+
+    if (
+      text
+        .toLowerCase()
+        .includes(
+          "user already registered"
+        )
+    ) {
+
+      return (
+        "This email is already registered. Try logging in instead."
+      );
+
+    }
+
+
+    if (
+      text
+        .toLowerCase()
+        .includes(
+          "password"
+        ) &&
+      text
+        .toLowerCase()
+        .includes(
+          "6"
+        )
+    ) {
+
+      return (
+        "Your password must contain at least 6 characters."
+      );
+
+    }
+
+
+    if (
+      text
+        .toLowerCase()
+        .includes(
+          "invalid login credentials"
+        )
+    ) {
+
+      return (
+        "Incorrect email or password."
+      );
+
+    }
+
+
+    return text;
+
+  }
+
+
+  /* ==========================================
+     START
+     ========================================== */
 
   checkSession();
 
