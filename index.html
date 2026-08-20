@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Sunday City Trading Cards</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -211,6 +210,7 @@
 
   <header>
     <h1>Sunday City Trading Cards</h1>
+
     <p>
       Collect your favorite Sunday City cards,
       meet other players and trade cards with the community.
@@ -239,9 +239,10 @@
         type="text"
         placeholder="Player username"
         required
+        minlength="2"
+        maxlength="30"
         autocomplete="username"
       >
-
 
       <label for="signupTag">
         Player Tag
@@ -260,20 +261,6 @@
         Your unique Player Tag will allow other players to find you.
       </div>
 
-
-      <label for="signupEmail">
-        Email
-      </label>
-
-      <input
-        id="signupEmail"
-        type="email"
-        placeholder="Email"
-        required
-        autocomplete="email"
-      >
-
-
       <label for="signupPassword">
         Password
       </label>
@@ -286,7 +273,6 @@
         required
         autocomplete="new-password"
       >
-
 
       <button id="signupButton" type="submit">
         CREATE ACCOUNT
@@ -313,23 +299,35 @@
     <h2>Welcome back</h2>
 
     <p style="color:#cfc4d8; line-height:1.6;">
-      Log in to access your player profile and collection.
+      Log in with your Player Username, Player Tag and password.
     </p>
 
     <form id="loginForm">
 
-      <label for="loginEmail">
-        Email
+      <label for="loginUsername">
+        Player Username
       </label>
 
       <input
-        id="loginEmail"
-        type="email"
-        placeholder="Email"
+        id="loginUsername"
+        type="text"
+        placeholder="Player username"
         required
-        autocomplete="email"
+        autocomplete="username"
       >
 
+      <label for="loginTag">
+        Player Tag
+      </label>
+
+      <input
+        id="loginTag"
+        type="text"
+        placeholder="Ex: 18bc18"
+        required
+        maxlength="20"
+        autocomplete="off"
+      >
 
       <label for="loginPassword">
         Password
@@ -342,7 +340,6 @@
         required
         autocomplete="current-password"
       >
-
 
       <button id="loginButton" type="submit">
         LOG IN
@@ -382,7 +379,6 @@
 
     </div>
 
-
     <div class="profile-row">
 
       <div class="profile-label">
@@ -394,20 +390,6 @@
       </div>
 
     </div>
-
-
-    <div class="profile-row">
-
-      <div class="profile-label">
-        Email
-      </div>
-
-      <div id="profileEmail" class="profile-value">
-        —
-      </div>
-
-    </div>
-
 
     <button id="logoutButton" class="logout">
       LOG OUT
@@ -443,6 +425,42 @@
 
 
   /* ==========================================================
+     INTERNAL AUTH IDENTIFIER
+
+     L'utilisateur ne voit jamais cette adresse.
+     Elle sert uniquement à Supabase Auth.
+     ========================================================== */
+
+  function makeAuthEmail(username, playerTag) {
+
+    const value =
+      username.trim().toLowerCase() +
+      "|" +
+      playerTag.trim().toLowerCase();
+
+    let hash = 2166136261;
+
+    for (let i = 0; i < value.length; i++) {
+
+      hash ^= value.charCodeAt(i);
+
+      hash = Math.imul(
+        hash,
+        16777619
+      );
+    }
+
+    hash >>>= 0;
+
+    return (
+      "player_" +
+      hash.toString(16) +
+      "@sundaycity.local"
+    );
+  }
+
+
+  /* ==========================================================
      ELEMENTS
      ========================================================== */
 
@@ -455,20 +473,17 @@
   const profileSection =
     document.getElementById("profileSection");
 
-
   const signupForm =
     document.getElementById("signupForm");
 
   const loginForm =
     document.getElementById("loginForm");
 
-
   const signupMessage =
     document.getElementById("signupMessage");
 
   const loginMessage =
     document.getElementById("loginMessage");
-
 
   const signupButton =
     document.getElementById("signupButton");
@@ -478,16 +493,19 @@
 
 
   /* ==========================================================
-     MESSAGE HELPERS
+     MESSAGES
      ========================================================== */
 
-  function showMessage(element, text, type) {
+  function showMessage(
+    element,
+    text,
+    type
+  ) {
 
     element.textContent = text;
 
     element.className =
       "message " + type;
-
   }
 
 
@@ -497,7 +515,6 @@
 
     element.className =
       "message";
-
   }
 
 
@@ -507,197 +524,60 @@
 
   document
     .getElementById("showLogin")
-    .addEventListener("click", () => {
+    .addEventListener(
+      "click",
+      () => {
 
-      signupSection.classList.add("hidden");
-      loginSection.classList.remove("hidden");
+        signupSection.classList.add(
+          "hidden"
+        );
 
-      clearMessage(signupMessage);
-      clearMessage(loginMessage);
+        loginSection.classList.remove(
+          "hidden"
+        );
 
-    });
+        profileSection.classList.add(
+          "hidden"
+        );
+
+        clearMessage(
+          signupMessage
+        );
+
+        clearMessage(
+          loginMessage
+        );
+      }
+    );
 
 
   document
     .getElementById("showSignup")
-    .addEventListener("click", () => {
+    .addEventListener(
+      "click",
+      () => {
 
-      loginSection.classList.add("hidden");
-      signupSection.classList.remove("hidden");
+        loginSection.classList.add(
+          "hidden"
+        );
 
-      clearMessage(loginMessage);
-      clearMessage(signupMessage);
+        signupSection.classList.remove(
+          "hidden"
+        );
 
-    });
+        profileSection.classList.add(
+          "hidden"
+        );
 
+        clearMessage(
+          loginMessage
+        );
 
-  /* ==========================================================
-     CREATE ACCOUNT
-     ========================================================== */
-
-  signupForm.addEventListener("submit", async (event) => {
-
-    event.preventDefault();
-
-    clearMessage(signupMessage);
-
-    signupButton.disabled = true;
-    signupButton.textContent = "CREATING...";
-
-
-    const username =
-      document
-        .getElementById("signupUsername")
-        .value
-        .trim();
-
-    const playerTag =
-      document
-        .getElementById("signupTag")
-        .value
-        .trim();
-
-    const email =
-      document
-        .getElementById("signupEmail")
-        .value
-        .trim();
-
-    const password =
-      document
-        .getElementById("signupPassword")
-        .value;
-
-
-    if (!username || !playerTag || !email || !password) {
-
-      showMessage(
-        signupMessage,
-        "Please complete all fields.",
-        "error"
-      );
-
-      signupButton.disabled = false;
-      signupButton.textContent = "CREATE ACCOUNT";
-
-      return;
-    }
-
-
-    if (password.length < 6) {
-
-      showMessage(
-        signupMessage,
-        "Password must contain at least 6 characters.",
-        "error"
-      );
-
-      signupButton.disabled = false;
-      signupButton.textContent = "CREATE ACCOUNT";
-
-      return;
-    }
-
-
-    /*
-      Save the profile information temporarily.
-
-      This is important because Supabase may require
-      email confirmation before the user receives a session.
-    */
-
-    localStorage.setItem(
-      "pending_profile",
-      JSON.stringify({
-        username: username,
-        player_tag: playerTag
-      })
+        clearMessage(
+          signupMessage
+        );
+      }
     );
-
-
-    try {
-
-      const { data, error } =
-        await supabaseClient.auth.signUp({
-
-          email: email,
-
-          password: password,
-
-          options: {
-
-            emailRedirectTo:
-              window.location.origin,
-
-            data: {
-              username: username,
-              player_tag: playerTag
-            }
-
-          }
-
-        });
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      /*
-        If email confirmation is disabled,
-        we may already have a session.
-      */
-
-      if (data.session && data.user) {
-
-        await saveProfile(
-          data.user,
-          username,
-          playerTag
-        );
-
-        localStorage.removeItem(
-          "pending_profile"
-        );
-
-        await loadProfile(data.user);
-
-        return;
-      }
-
-
-      /*
-        Email confirmation is probably enabled.
-      */
-
-      showMessage(
-        signupMessage,
-        "Account created! Check your email and click the confirmation link to finish signing up.",
-        "success"
-      );
-
-      signupForm.reset();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      showMessage(
-        signupMessage,
-        error.message || "Unable to create account.",
-        "error"
-      );
-
-    } finally {
-
-      signupButton.disabled = false;
-      signupButton.textContent = "CREATE ACCOUNT";
-
-    }
-
-  });
 
 
   /* ==========================================================
@@ -711,9 +591,11 @@
   ) {
 
     if (!user || !user.id) {
-      throw new Error("User ID is missing.");
-    }
 
+      throw new Error(
+        "User ID is missing."
+      );
+    }
 
     const { error } =
       await supabaseClient
@@ -721,129 +603,18 @@
         .upsert(
           {
             id: user.id,
-            username: username,
-            player_tag: playerTag
+            username: username.trim(),
+            player_tag: playerTag.trim()
           },
           {
             onConflict: "id"
           }
         );
 
-
     if (error) {
       throw error;
     }
-
   }
-
-
-  /* ==========================================================
-     LOGIN
-     ========================================================== */
-
-  loginForm.addEventListener("submit", async (event) => {
-
-    event.preventDefault();
-
-    clearMessage(loginMessage);
-
-    loginButton.disabled = true;
-    loginButton.textContent = "LOGGING IN...";
-
-
-    const email =
-      document
-        .getElementById("loginEmail")
-        .value
-        .trim();
-
-    const password =
-      document
-        .getElementById("loginPassword")
-        .value;
-
-
-    try {
-
-      const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-
-          email: email,
-          password: password
-
-        });
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      if (!data.user) {
-        throw new Error("User not found.");
-      }
-
-
-      /*
-        If the user created the account before
-        confirming the email, retrieve the pending
-        username/tag.
-      */
-
-      const pending =
-        localStorage.getItem("pending_profile");
-
-
-      if (pending) {
-
-        try {
-
-          const profile =
-            JSON.parse(pending);
-
-          await saveProfile(
-            data.user,
-            profile.username,
-            profile.player_tag
-          );
-
-          localStorage.removeItem(
-            "pending_profile"
-          );
-
-        } catch (profileError) {
-
-          console.error(
-            "Profile save error:",
-            profileError
-          );
-
-        }
-
-      }
-
-
-      await loadProfile(data.user);
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      showMessage(
-        loginMessage,
-        error.message || "Login failed.",
-        "error"
-      );
-
-    } finally {
-
-      loginButton.disabled = false;
-      loginButton.textContent = "LOG IN";
-
-    }
-
-  });
 
 
   /* ==========================================================
@@ -856,85 +627,49 @@
       return;
     }
 
-
     try {
-
-      /*
-        First check if we have pending profile data.
-      */
-
-      const pending =
-        localStorage.getItem("pending_profile");
-
-
-      if (pending) {
-
-        try {
-
-          const profile =
-            JSON.parse(pending);
-
-          await saveProfile(
-            user,
-            profile.username,
-            profile.player_tag
-          );
-
-          localStorage.removeItem(
-            "pending_profile"
-          );
-
-        } catch (error) {
-
-          console.error(
-            "Pending profile error:",
-            error
-          );
-
-        }
-
-      }
-
-
-      /*
-        Now retrieve the actual database profile.
-      */
 
       const { data, error } =
         await supabaseClient
           .from("profiles")
-          .select("username, player_tag")
-          .eq("id", user.id)
+          .select(
+            "username, player_tag"
+          )
+          .eq(
+            "id",
+            user.id
+          )
           .single();
-
 
       if (error) {
         throw error;
       }
 
-
       document
-        .getElementById("profileUsername")
+        .getElementById(
+          "profileUsername"
+        )
         .textContent =
         data.username || "—";
 
-
       document
-        .getElementById("profileTag")
+        .getElementById(
+          "profileTag"
+        )
         .textContent =
         data.player_tag || "—";
 
+      signupSection.classList.add(
+        "hidden"
+      );
 
-      document
-        .getElementById("profileEmail")
-        .textContent =
-        user.email || "—";
+      loginSection.classList.add(
+        "hidden"
+      );
 
-
-      signupSection.classList.add("hidden");
-      loginSection.classList.add("hidden");
-      profileSection.classList.remove("hidden");
-
+      profileSection.classList.remove(
+        "hidden"
+      );
 
     } catch (error) {
 
@@ -943,25 +678,350 @@
         error
       );
 
+      signupSection.classList.add(
+        "hidden"
+      );
 
-      /*
-        If the profile does not exist yet,
-        show the account screen rather than
-        breaking the whole site.
-      */
+      profileSection.classList.add(
+        "hidden"
+      );
 
-      signupSection.classList.add("hidden");
-      loginSection.classList.remove("hidden");
+      loginSection.classList.remove(
+        "hidden"
+      );
 
       showMessage(
         loginMessage,
-        "Your account exists, but your player profile could not be loaded. Please try logging in again.",
+        "Account found, but the player profile could not be loaded. Check the profiles table and its RLS policies.",
         "error"
       );
+    }
+  }
+
+
+  /* ==========================================================
+     CREATE ACCOUNT
+     ========================================================== */
+
+  signupForm.addEventListener(
+    "submit",
+    async (event) => {
+
+      event.preventDefault();
+
+      clearMessage(
+        signupMessage
+      );
+
+      signupButton.disabled = true;
+
+      signupButton.textContent =
+        "CREATING...";
+
+
+      const username =
+        document
+          .getElementById(
+            "signupUsername"
+          )
+          .value
+          .trim();
+
+
+      const playerTag =
+        document
+          .getElementById(
+            "signupTag"
+          )
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById(
+            "signupPassword"
+          )
+          .value;
+
+
+      if (
+        !username ||
+        !playerTag ||
+        !password
+      ) {
+
+        showMessage(
+          signupMessage,
+          "Please complete all fields.",
+          "error"
+        );
+
+        signupButton.disabled =
+          false;
+
+        signupButton.textContent =
+          "CREATE ACCOUNT";
+
+        return;
+      }
+
+
+      if (password.length < 6) {
+
+        showMessage(
+          signupMessage,
+          "Password must contain at least 6 characters.",
+          "error"
+        );
+
+        signupButton.disabled =
+          false;
+
+        signupButton.textContent =
+          "CREATE ACCOUNT";
+
+        return;
+      }
+
+
+      try {
+
+        const internalEmail =
+          makeAuthEmail(
+            username,
+            playerTag
+          );
+
+
+        const { data, error } =
+          await supabaseClient.auth.signUp(
+            {
+              email: internalEmail,
+
+              password: password,
+
+              options: {
+
+                data: {
+                  username:
+                    username,
+
+                  player_tag:
+                    playerTag
+                }
+
+              }
+            }
+          );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        if (!data.user) {
+
+          throw new Error(
+            "Account could not be created."
+          );
+        }
+
+
+        /*
+          IMPORTANT:
+
+          Email confirmation must be OFF
+          in Supabase Authentication.
+        */
+
+        if (!data.session) {
+
+          showMessage(
+            signupMessage,
+
+            "Supabase demande encore une confirmation e-mail. Désactive la confirmation e-mail dans Authentication > Providers > Email, puis réessaie.",
+
+            "error"
+          );
+
+          signupForm.reset();
+
+          return;
+        }
+
+
+        await saveProfile(
+          data.user,
+          username,
+          playerTag
+        );
+
+
+        await loadProfile(
+          data.user
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          signupMessage,
+          error.message ||
+            "Unable to create account.",
+          "error"
+        );
+
+      } finally {
+
+        signupButton.disabled =
+          false;
+
+        signupButton.textContent =
+          "CREATE ACCOUNT";
+      }
 
     }
+  );
 
-  }
+
+  /* ==========================================================
+     LOGIN
+     ========================================================== */
+
+  loginForm.addEventListener(
+    "submit",
+    async (event) => {
+
+      event.preventDefault();
+
+      clearMessage(
+        loginMessage
+      );
+
+      loginButton.disabled =
+        true;
+
+      loginButton.textContent =
+        "LOGGING IN...";
+
+
+      const username =
+        document
+          .getElementById(
+            "loginUsername"
+          )
+          .value
+          .trim();
+
+
+      const playerTag =
+        document
+          .getElementById(
+            "loginTag"
+          )
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById(
+            "loginPassword"
+          )
+          .value;
+
+
+      if (
+        !username ||
+        !playerTag ||
+        !password
+      ) {
+
+        showMessage(
+          loginMessage,
+
+          "Please enter your username, player tag and password.",
+
+          "error"
+        );
+
+        loginButton.disabled =
+          false;
+
+        loginButton.textContent =
+          "LOG IN";
+
+        return;
+      }
+
+
+      try {
+
+        const internalEmail =
+          makeAuthEmail(
+            username,
+            playerTag
+          );
+
+
+        const { data, error } =
+          await supabaseClient.auth
+            .signInWithPassword(
+              {
+                email:
+                  internalEmail,
+
+                password:
+                  password
+              }
+            );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        if (!data.user) {
+
+          throw new Error(
+            "User not found."
+          );
+        }
+
+
+        await loadProfile(
+          data.user
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          loginMessage,
+
+          "Username, Player Tag or password is incorrect.",
+
+          "error"
+        );
+
+      } finally {
+
+        loginButton.disabled =
+          false;
+
+        loginButton.textContent =
+          "LOG IN";
+      }
+
+    }
+  );
 
 
   /* ==========================================================
@@ -969,51 +1029,75 @@
      ========================================================== */
 
   document
-    .getElementById("logoutButton")
-    .addEventListener("click", async () => {
+    .getElementById(
+      "logoutButton"
+    )
+    .addEventListener(
+      "click",
+      async () => {
 
-      await supabaseClient.auth.signOut();
+        await supabaseClient
+          .auth
+          .signOut();
 
-      profileSection.classList.add("hidden");
-      loginSection.classList.remove("hidden");
 
-      document
-        .getElementById("loginForm")
-        .reset();
+        profileSection.classList.add(
+          "hidden"
+        );
 
-    });
+        signupSection.classList.add(
+          "hidden"
+        );
+
+        loginSection.classList.remove(
+          "hidden"
+        );
+
+
+        document
+          .getElementById(
+            "loginForm"
+          )
+          .reset();
+      }
+    );
 
 
   /* ==========================================================
      AUTH STATE
      ========================================================== */
 
-  supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
+  supabaseClient.auth
+    .onAuthStateChange(
+      async (
+        event,
+        session
+      ) => {
 
-      console.log(
-        "Auth event:",
-        event
-      );
+        console.log(
+          "Auth event:",
+          event
+        );
 
+        if (
+          session &&
+          session.user
+        ) {
 
-      if (session && session.user) {
+          setTimeout(
+            () => {
 
-        /*
-          Small timeout avoids Supabase auth
-          state timing issues during email confirmation.
-        */
+              loadProfile(
+                session.user
+              );
 
-        setTimeout(() => {
-
-          loadProfile(session.user);
-
-        }, 100);
+            },
+            100
+          );
+        }
 
       }
-
-    }
-  );
+    );
 
 
   /* ==========================================================
@@ -1025,7 +1109,9 @@
     try {
 
       const { data, error } =
-        await supabaseClient.auth.getSession();
+        await supabaseClient
+          .auth
+          .getSession();
 
 
       if (error) {
@@ -1033,8 +1119,10 @@
       }
 
 
-      if (data.session &&
-          data.session.user) {
+      if (
+        data.session &&
+        data.session.user
+      ) {
 
         await loadProfile(
           data.session.user
@@ -1042,11 +1130,19 @@
 
       } else {
 
-        signupSection.classList.remove("hidden");
-        loginSection.classList.add("hidden");
-        profileSection.classList.add("hidden");
+        signupSection.classList.remove(
+          "hidden"
+        );
 
+        loginSection.classList.add(
+          "hidden"
+        );
+
+        profileSection.classList.add(
+          "hidden"
+        );
       }
+
 
     } catch (error) {
 
@@ -1055,12 +1151,19 @@
         error
       );
 
-      signupSection.classList.remove("hidden");
-      loginSection.classList.add("hidden");
-      profileSection.classList.add("hidden");
 
+      signupSection.classList.remove(
+        "hidden"
+      );
+
+      loginSection.classList.add(
+        "hidden"
+      );
+
+      profileSection.classList.add(
+        "hidden"
+      );
     }
-
   }
 
 
