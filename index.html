@@ -212,7 +212,8 @@ border-radius:16px;
 display:grid;
 place-items:center;
 background:linear-gradient(135deg,#b7a5c8,#b48c9e);
-font-size:25px
+font-size:25px;
+overflow:hidden
 }
 
 .avatar img{
@@ -773,11 +774,13 @@ background:#30263a;
 color:#eee8f2;
 font-weight:900;
 font-size:10px;
-white-space:nowrap
+white-space:nowrap;
+cursor:pointer;
+-webkit-tap-highlight-color:transparent
 }
 
 .trade-chat-btn:active{
-transform:scale(.98)
+transform:scale(.97)
 }
 
 .empty-trade{
@@ -796,10 +799,6 @@ padding:11px 14px;
 border-radius:13px;
 font-weight:900;
 margin-top:15px
-}
-
-.trade-refresh:hover{
-background:#403449
 }
 
 .nav{
@@ -840,11 +839,6 @@ display:block;
 font-size:21px;
 margin-bottom:3px
 }
-
-
-/* ==============================
-PRIVATE CHAT
-============================== */
 
 .chat-backdrop{
 position:fixed;
@@ -1147,24 +1141,19 @@ padding:8px
 <body>
 
 <header class="topbar">
-
 <div class="brand">
 Sunday City <span>Trading Cards</span>
 </div>
-
 <div class="subtitle">
 Collect • Track • Trade
 </div>
-
 </header>
 
 <section id="authSection" class="auth">
 
 <div class="auth-card">
 
-<h1 class="auth-title">
-Welcome back
-</h1>
+<h1 class="auth-title">Welcome back</h1>
 
 <p class="auth-description">
 Build your collection, track your cards and trade with the community.
@@ -1188,17 +1177,17 @@ Create account
 
 <label>
 Player Username
-<input id="loginUsername" type="text" autocomplete="username" placeholder="Ex. Rook">
+<input id="loginUsername" type="text" autocomplete="username">
 </label>
 
 <label>
 Player Tag
-<input id="loginTag" type="text" placeholder="Ex. 18bc18">
+<input id="loginTag" type="text">
 </label>
 
 <label>
 Password
-<input id="loginPassword" type="password" autocomplete="current-password" placeholder="Password">
+<input id="loginPassword" type="password" autocomplete="current-password">
 </label>
 
 <button id="loginButton" class="primary" type="button">
@@ -1211,17 +1200,17 @@ LOG IN
 
 <label>
 Player Username
-<input id="signupUsername" type="text" placeholder="Ex. Rook">
+<input id="signupUsername" type="text">
 </label>
 
 <label>
 Player Tag
-<input id="signupTag" type="text" placeholder="Ex. 18bc18">
+<input id="signupTag" type="text">
 </label>
 
 <label>
 Password
-<input id="signupPassword" type="password" placeholder="Minimum 6 characters">
+<input id="signupPassword" type="password">
 </label>
 
 <button id="signupButton" class="primary" type="button">
@@ -1231,7 +1220,6 @@ CREATE ACCOUNT
 </div>
 
 </div>
-
 </section>
 
 <main id="app" class="app hidden">
@@ -1240,20 +1228,11 @@ CREATE ACCOUNT
 
 <div class="profile-info">
 
-<div class="avatar">
-👤
-</div>
+<div class="avatar">👤</div>
 
 <div>
-
-<div id="profileUsername" class="profile-name">
-Player
-</div>
-
-<div id="profileTag" class="profile-tag">
-#------
-</div>
-
+<div id="profileUsername" class="profile-name">Player</div>
+<div id="profileTag" class="profile-tag">#------</div>
 </div>
 
 </div>
@@ -1267,28 +1246,17 @@ accept="image/jpeg,image/png,image/webp"
 class="hidden"
 >
 
-<button
-id="avatarButton"
-class="avatar-button"
-type="button"
->
+<button id="avatarButton" class="avatar-button" type="button">
 📷 PHOTO
 </button>
 
-<button
-id="removeAvatarButton"
-class="avatar-button"
-type="button"
->
+<button id="removeAvatarButton" class="avatar-button" type="button">
 🗑️
 </button>
 
 </div>
 
-<button
-id="logoutButton"
-class="logout"
->
+<button id="logoutButton" class="logout">
 LOG OUT
 </button>
 
@@ -1325,18 +1293,13 @@ Complete your <span>collection.</span>
 Track every tradable card across all Sunday City albums and see exactly what you still need.
 </p>
 
-<button
-class="hero-button"
-onclick="navigate('collection')"
->
+<button class="hero-button" onclick="navigate('collection')">
 VIEW COLLECTION
 </button>
 
 </div>
 
-<h2 class="section-title">
-Albums
-</h2>
+<h2 class="section-title">Albums</h2>
 
 <div id="albumGrid" class="album-grid"></div>
 
@@ -1350,10 +1313,7 @@ Albums
 Collection
 </div>
 
-<button
-class="back-btn"
-onclick="navigate('home')"
->
+<button class="back-btn" onclick="navigate('home')">
 ← Home
 </button>
 
@@ -1373,18 +1333,13 @@ onclick="navigate('home')"
 
 <div class="trade-header">
 
-<h1>
-🔄 Trading
-</h1>
+<h1>🔄 Trading</h1>
 
 <p>
 Find players who need cards you own, discover cards other players are offering, and find possible matches for your own needs.
 </p>
 
-<button
-class="trade-refresh"
-onclick="loadTradeMarket()"
->
+<button class="trade-refresh" onclick="loadTradeMarket()">
 ↻ Refresh trades
 </button>
 
@@ -1400,13 +1355,8 @@ onclick="loadTradeMarket()"
 Cards you need that another player is offering.
 </div>
 
-<div
-id="tradeMatches"
-class="trade-list"
->
-<div class="empty-trade">
-Loading trades...
-</div>
+<div id="tradeMatches" class="trade-list">
+<div class="empty-trade">Loading trades...</div>
 </div>
 
 </div>
@@ -1421,13 +1371,8 @@ Loading trades...
 Players looking for cards that you own.
 </div>
 
-<div
-id="tradePeopleLooking"
-class="trade-list"
->
-<div class="empty-trade">
-Loading trades...
-</div>
+<div id="tradePeopleLooking" class="trade-list">
+<div class="empty-trade">Loading trades...</div>
 </div>
 
 </div>
@@ -1442,13 +1387,8 @@ Loading trades...
 Cards other players have marked as available.
 </div>
 
-<div
-id="tradeOffers"
-class="trade-list"
->
-<div class="empty-trade">
-Loading trades...
-</div>
+<div id="tradeOffers" class="trade-list">
+<div class="empty-trade">Loading trades...</div>
 </div>
 
 </div>
@@ -1459,18 +1399,9 @@ Loading trades...
 
 </main>
 
-<div
-id="chatBackdrop"
-class="chat-backdrop"
-aria-hidden="true"
->
+<div id="chatBackdrop" class="chat-backdrop" aria-hidden="true">
 
-<section
-class="chat-modal"
-role="dialog"
-aria-modal="true"
-aria-labelledby="chatTitle"
->
+<section class="chat-modal">
 
 <div class="chat-header">
 
@@ -1490,21 +1421,13 @@ Trading discussion
 
 </div>
 
-<button
-id="chatClose"
-class="chat-close"
-type="button"
-aria-label="Close chat"
->
+<button id="chatClose" class="chat-close" type="button">
 ×
 </button>
 
 </div>
 
-<div
-id="chatMessages"
-class="chat-messages"
->
+<div id="chatMessages" class="chat-messages">
 
 <div class="chat-empty">
 Loading conversation...
@@ -1512,10 +1435,7 @@ Loading conversation...
 
 </div>
 
-<form
-id="chatComposer"
-class="chat-composer"
->
+<form id="chatComposer" class="chat-composer">
 
 <input
 id="chatInput"
@@ -1526,11 +1446,7 @@ autocomplete="off"
 placeholder="Write a private message..."
 >
 
-<button
-id="chatSend"
-class="chat-send"
-type="submit"
->
+<button id="chatSend" class="chat-send" type="submit">
 SEND
 </button>
 
@@ -1542,24 +1458,17 @@ SEND
 
 <nav id="nav" class="nav hidden">
 
-<button
-class="active"
-onclick="navigate('home',this)"
->
+<button class="active" onclick="navigate('home',this)">
 <span class="nav-icon">🏠</span>
 Home
 </button>
 
-<button
-onclick="navigate('collection',this)"
->
+<button onclick="navigate('collection',this)">
 <span class="nav-icon">📖</span>
 Collection
 </button>
 
-<button
-onclick="navigate('trade',this)"
->
+<button onclick="navigate('trade',this)">
 <span class="nav-icon">🔄</span>
 Trade
 </button>
@@ -1900,41 +1809,28 @@ box.className="message";
 }
 
 document.getElementById("loginTab").onclick=function(){
-
 document.getElementById("loginTab").classList.add("active");
 document.getElementById("signupTab").classList.remove("active");
-
 document.getElementById("loginForm").classList.remove("hidden");
 document.getElementById("signupForm").classList.add("hidden");
-
 clearMessage();
-
 };
 
 document.getElementById("signupTab").onclick=function(){
-
 document.getElementById("signupTab").classList.add("active");
 document.getElementById("loginTab").classList.remove("active");
-
 document.getElementById("signupForm").classList.remove("hidden");
 document.getElementById("loginForm").classList.add("hidden");
-
 clearMessage();
-
 };
 
 async function signup(){
 
 clearMessage();
 
-const username=
-document.getElementById("signupUsername").value.trim();
-
-const tag=
-document.getElementById("signupTag").value.trim();
-
-const password=
-document.getElementById("signupPassword").value;
+const username=document.getElementById("signupUsername").value.trim();
+const tag=document.getElementById("signupTag").value.trim();
+const password=document.getElementById("signupPassword").value;
 
 if(!username||!tag||!password){
 showMessage("Please fill in every field.");
@@ -1946,19 +1842,16 @@ showMessage("Password must contain at least 6 characters.");
 return;
 }
 
-const email=
-`${tag.toLowerCase()}@sundaycity.local`;
+const email=`${tag.toLowerCase()}@sundaycity.local`;
 
-const button=
-document.getElementById("signupButton");
+const button=document.getElementById("signupButton");
 
 button.disabled=true;
 button.textContent="CREATING...";
 
 try{
 
-const result=
-await supabaseClient.auth.signUp({
+const result=await supabaseClient.auth.signUp({
 email,
 password,
 options:{
@@ -1969,15 +1862,13 @@ player_tag:tag
 }
 });
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
 currentUser=result.data.user;
 
 if(currentUser){
 
-const profile=
-await supabaseClient
+const profile=await supabaseClient
 .from("profiles")
 .upsert({
 id:currentUser.id,
@@ -1985,8 +1876,7 @@ username,
 player_tag:tag
 });
 
-if(profile.error)
-throw profile.error;
+if(profile.error) throw profile.error;
 
 await loadPlayerData();
 showApp();
@@ -2022,39 +1912,30 @@ async function login(){
 
 clearMessage();
 
-const username=
-document.getElementById("loginUsername").value.trim();
-
-const tag=
-document.getElementById("loginTag").value.trim();
-
-const password=
-document.getElementById("loginPassword").value;
+const username=document.getElementById("loginUsername").value.trim();
+const tag=document.getElementById("loginTag").value.trim();
+const password=document.getElementById("loginPassword").value;
 
 if(!username||!tag||!password){
 showMessage("Please fill in every field.");
 return;
 }
 
-const email=
-`${tag.toLowerCase()}@sundaycity.local`;
+const email=`${tag.toLowerCase()}@sundaycity.local`;
 
-const button=
-document.getElementById("loginButton");
+const button=document.getElementById("loginButton");
 
 button.disabled=true;
 button.textContent="LOGGING IN...";
 
 try{
 
-const result=
-await supabaseClient.auth.signInWithPassword({
+const result=await supabaseClient.auth.signInWithPassword({
 email,
 password
 });
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
 if(!result.data?.user)
 throw new Error("No user session was returned.");
@@ -2064,20 +1945,14 @@ currentUser=result.data.user;
 try{
 await loadPlayerData();
 }catch(dataError){
-console.warn(
-"POST-LOGIN DATA ERROR:",
-dataError
-);
+console.warn("POST-LOGIN DATA ERROR:",dataError);
 }
 
 showApp();
 
 }catch(error){
 
-console.error(
-"LOGIN ERROR:",
-error
-);
+console.error("LOGIN ERROR:",error);
 
 showMessage(
 error.message||
@@ -2095,13 +1970,11 @@ button.textContent="LOG IN";
 
 async function loadPlayerData(){
 
-if(!currentUser)
-return;
+if(!currentUser) return;
 
 try{
 
-const profileResult=
-await supabaseClient
+const profileResult=await supabaseClient
 .from("profiles")
 .select("*")
 .eq("id",currentUser.id)
@@ -2109,75 +1982,46 @@ await supabaseClient
 
 if(profileResult.data){
 
-currentProfile=
-profileResult.data;
+currentProfile=profileResult.data;
 
 }else{
 
 currentProfile={
-username:
-currentUser.user_metadata?.username||
-"Player",
-
-player_tag:
-currentUser.user_metadata?.player_tag||
-""
+username:currentUser.user_metadata?.username||"Player",
+player_tag:currentUser.user_metadata?.player_tag||""
 };
 
 }
 
 }catch(error){
 
-console.warn(
-"PROFILE LOAD ERROR:",
-error
-);
+console.warn("PROFILE LOAD ERROR:",error);
 
 currentProfile={
-username:
-currentUser.user_metadata?.username||
-"Player",
-
-player_tag:
-currentUser.user_metadata?.player_tag||
-""
+username:currentUser.user_metadata?.username||"Player",
+player_tag:currentUser.user_metadata?.player_tag||""
 };
 
 }
 
 try{
-
 await loadOwnedCards();
-
 }catch(error){
-
-console.warn(
-"CARD LOAD ERROR:",
-error
-);
-
+console.warn("CARD LOAD ERROR:",error);
 }
 
 }
 
 async function loadOwnedCards(){
 
-if(!currentUser)
-return;
+if(!currentUser) return;
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("user_cards")
-.select(
-"card_id,quantity,is_needed,is_for_trade,trade_quantity"
-)
-.eq(
-"user_id",
-currentUser.id
-);
+.select("card_id,quantity,is_needed,is_for_trade,trade_quantity")
+.eq("user_id",currentUser.id);
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
 ownedCards=new Set();
 neededCards=new Set();
@@ -2188,45 +2032,27 @@ tradeQuantities=new Map();
 
 (result.data||[]).forEach(row=>{
 
-const id=
-Number(row.card_id);
+const id=Number(row.card_id);
 
-const quantity=
-Math.max(
+const quantity=Math.max(
 0,
 Number(row.quantity)||0
 );
 
-const tradeQuantity=
-Math.min(
+const tradeQuantity=Math.min(
 Math.max(0,quantity-1),
-Math.max(
-0,
-Number(row.trade_quantity)||0
-)
+Math.max(0,Number(row.trade_quantity)||0)
 );
 
-if(quantity>0)
-ownedCards.add(id);
+if(quantity>0) ownedCards.add(id);
 
-if(row.is_needed)
-neededCards.add(id);
+if(row.is_needed) neededCards.add(id);
 
-if(
-row.is_for_trade&&
-tradeQuantity>0
-)
+if(row.is_for_trade&&tradeQuantity>0)
 tradeCards.add(id);
 
-cardQuantities.set(
-id,
-quantity
-);
-
-tradeQuantities.set(
-id,
-tradeQuantity
-);
+cardQuantities.set(id,quantity);
+tradeQuantities.set(id,tradeQuantity);
 
 });
 
@@ -2240,8 +2066,7 @@ let id=1;
 
 ALBUM_ORDER.forEach(album=>{
 
-CARD_DATA[album].forEach(
-(name,index)=>{
+CARD_DATA[album].forEach((name,index)=>{
 
 allCards.push({
 id,
@@ -2261,83 +2086,46 @@ id++;
 
 function showApp(){
 
-document
-.getElementById("authSection")
-.classList
-.add("hidden");
-
-document
-.getElementById("app")
-.classList
-.remove("hidden");
-
-document
-.getElementById("nav")
-.classList
-.remove("hidden");
+document.getElementById("authSection").classList.add("hidden");
+document.getElementById("app").classList.remove("hidden");
+document.getElementById("nav").classList.remove("hidden");
 
 updateProfileUI();
-
 updateAvatarUI();
 
 buildCards();
-
 renderAlbums();
-
 updateStats();
 
 }
 
 function updateProfileUI(){
 
-const username=
-currentProfile?.username||
-"Player";
+const username=currentProfile?.username||"Player";
+const tag=currentProfile?.player_tag||"";
 
-const tag=
-currentProfile?.player_tag||
-"";
-
-document.getElementById(
-"profileUsername"
-).textContent=
-username;
-
-document.getElementById(
-"profileTag"
-).textContent=
-tag
-?
-"#"+tag
-:
-"";
+document.getElementById("profileUsername").textContent=username;
+document.getElementById("profileTag").textContent=tag?"#"+tag:"";
 
 updateAvatarUI();
 
 }
 
 function getAvatarPath(){
-
 return `${currentUser.id}/avatar.jpg`;
-
 }
 
 function getAvatarUrl(){
-
 return `${SUPABASE_URL}/storage/v1/object/public/AVATARS/${getAvatarPath()}?v=${Date.now()}`;
-
 }
 
 function updateAvatarUI(){
 
-const avatar=
-document.querySelector(".avatar");
+const avatar=document.querySelector(".avatar");
 
-if(!avatar||!currentUser)
-return;
+if(!avatar||!currentUser) return;
 
-const img=
-new Image();
+const img=new Image();
 
 img.onload=()=>{
 
@@ -2347,41 +2135,29 @@ avatar.appendChild(img);
 };
 
 img.onerror=()=>{
-
 avatar.innerHTML="👤";
-
 };
 
-img.src=
-getAvatarUrl();
+img.src=getAvatarUrl();
 
 }
 
 async function uploadAvatar(file){
 
 if(!currentUser)
-throw new Error(
-"Please log in first."
-);
+throw new Error("Please log in first.");
 
-if(
-![
+if(![
 "image/jpeg",
 "image/png",
 "image/webp"
-].includes(file.type)
-)
-throw new Error(
-"Please choose a JPG, PNG or WebP image."
-);
+].includes(file.type))
+throw new Error("Please choose a JPG, PNG or WebP image.");
 
 if(file.size>2*1024*1024)
-throw new Error(
-"The profile photo must be 2 MB or smaller."
-);
+throw new Error("The profile photo must be 2 MB or smaller.");
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .storage
 .from("AVATARS")
 .upload(
@@ -2394,8 +2170,7 @@ cacheControl:"3600"
 }
 );
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
 updateAvatarUI();
 
@@ -2403,104 +2178,54 @@ updateAvatarUI();
 
 async function removeAvatar(){
 
-if(!currentUser)
-return;
+if(!currentUser) return;
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .storage
 .from("AVATARS")
-.remove([
-getAvatarPath()
-]);
+.remove([getAvatarPath()]);
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
-const avatar=
-document.querySelector(".avatar");
+const avatar=document.querySelector(".avatar");
 
-if(avatar)
-avatar.innerHTML="👤";
+if(avatar) avatar.innerHTML="👤";
 
 }
 
 function updateStats(){
 
-const total=
-allCards.length;
+const total=allCards.length;
+const owned=ownedCards.size;
+const percent=total?Math.round((owned/total)*100):0;
 
-const owned=
-ownedCards.size;
-
-const percent=
-total
-?
-Math.round(
-(owned/total)*100
-)
-:
-0;
-
-document.getElementById(
-"statOwned"
-).textContent=
-owned;
-
-document.getElementById(
-"statTotal"
-).textContent=
-total;
-
-document.getElementById(
-"statPercent"
-).textContent=
-percent+"%";
+document.getElementById("statOwned").textContent=owned;
+document.getElementById("statTotal").textContent=total;
+document.getElementById("statPercent").textContent=percent+"%";
 
 }
   function renderAlbums(){
 
-const grid=
-document.getElementById(
-"albumGrid"
-);
+const grid=document.getElementById("albumGrid");
 
 grid.innerHTML="";
 
 ALBUM_ORDER.forEach(album=>{
 
-const cards=
-allCards.filter(
-card=>card.album===album
-);
+const cards=allCards.filter(card=>card.album===album);
 
-const owned=
-cards.filter(
-card=>ownedCards.has(card.id)
-).length;
+const owned=cards.filter(card=>ownedCards.has(card.id)).length;
 
-const percent=
-Math.round(
-(owned/cards.length)*100
-);
+const percent=Math.round((owned/cards.length)*100);
 
-const colors=
-ALBUM_THEMES[album];
+const colors=ALBUM_THEMES[album];
 
-const button=
-document.createElement("button");
+const button=document.createElement("button");
 
 button.className="album-card";
 
-button.style.setProperty(
-"--c1",
-colors[0]
-);
-
-button.style.setProperty(
-"--c2",
-colors[1]
-);
+button.style.setProperty("--c1",colors[0]);
+button.style.setProperty("--c2",colors[1]);
 
 button.innerHTML=`
 
@@ -2519,7 +2244,6 @@ ${escapeHTML(album)}
 <div class="album-count">
 ${owned}/${cards.length} collected
 </div>
-
 `;
 
 button.onclick=function(){
@@ -2529,7 +2253,6 @@ selectedAlbum=album;
 navigate("collection");
 
 renderAlbumTabs();
-
 renderCollection(album);
 
 };
@@ -2542,38 +2265,26 @@ grid.appendChild(button);
 
 function renderAlbumTabs(){
 
-const container=
-document.getElementById(
-"albumTabs"
-);
+const container=document.getElementById("albumTabs");
 
 container.innerHTML="";
 
 ALBUM_ORDER.forEach(album=>{
 
-const button=
-document.createElement("button");
+const button=document.createElement("button");
 
 button.className=
 "album-tab"+
-(
-album===selectedAlbum
-?
-" active"
-:
-""
-);
+(album===selectedAlbum?" active":"");
 
 button.textContent=
-ALBUM_ICONS[album]+
-" "+album;
+ALBUM_ICONS[album]+" "+album;
 
 button.onclick=function(){
 
 selectedAlbum=album;
 
 renderAlbumTabs();
-
 renderCollection(album);
 
 };
@@ -2588,38 +2299,18 @@ function renderCollection(album){
 
 selectedAlbum=album;
 
-const cards=
-allCards.filter(
-card=>card.album===album
-);
+const cards=allCards.filter(card=>card.album===album);
 
-const owned=
-cards.filter(
-card=>ownedCards.has(card.id)
-).length;
+const owned=cards.filter(card=>ownedCards.has(card.id)).length;
 
-const percent=
-Math.round(
-(owned/cards.length)*100
-);
+const percent=Math.round((owned/cards.length)*100);
 
-const colors=
-ALBUM_THEMES[album];
+const colors=ALBUM_THEMES[album];
 
-const banner=
-document.getElementById(
-"albumBanner"
-);
+const banner=document.getElementById("albumBanner");
 
-banner.style.setProperty(
-"--c1",
-colors[0]
-);
-
-banner.style.setProperty(
-"--c2",
-colors[1]
-);
+banner.style.setProperty("--c1",colors[0]);
+banner.style.setProperty("--c2",colors[1]);
 
 banner.innerHTML=`
 
@@ -2629,8 +2320,7 @@ ${escapeHTML(album)}
 </h2>
 
 <p>
-${owned}/${cards.length}
-tradable cards collected
+${owned}/${cards.length} tradable cards collected
 </p>
 
 <div class="progress-row">
@@ -2644,42 +2334,23 @@ tradable cards collected
 </div>
 `;
 
-const grid=
-document.getElementById(
-"cardsGrid"
-);
+const grid=document.getElementById("cardsGrid");
 
 grid.innerHTML="";
 
 cards.forEach(card=>{
 
-const isOwned=
-ownedCards.has(card.id);
+const isOwned=ownedCards.has(card.id);
+const isNeeded=neededCards.has(card.id);
+const isTrade=tradeCards.has(card.id);
 
-const isNeeded=
-neededCards.has(card.id);
+const quantity=cardQuantities.get(card.id)||0;
+const tradeQuantity=tradeQuantities.get(card.id)||0;
 
-const isTrade=
-tradeCards.has(card.id);
-
-const quantity=
-cardQuantities.get(card.id)||0;
-
-const tradeQuantity=
-tradeQuantities.get(card.id)||0;
-
-const element=
-document.createElement("div");
+const element=document.createElement("div");
 
 element.className=
-"card"+
-(
-isOwned
-?
-" owned-card"
-:
-""
-);
+"card"+(isOwned?" owned-card":"");
 
 element.innerHTML=`
 
@@ -2702,33 +2373,15 @@ ${card.rarity}
 <div class="card-actions">
 
 <button
-class="action-btn ${
-isNeeded
-?
-"active-need"
-:
-""
-}"
+class="action-btn ${isNeeded?"active-need":""}"
 onclick="toggleNeed(${card.id})">
 
-🔎 ${
-isNeeded
-?
-"NEEDED"
-:
-"I NEED IT"
-}
+🔎 ${isNeeded?"NEEDED":"I NEED IT"}
 
 </button>
 
 <button
-class="action-btn ${
-isOwned
-?
-"active-have"
-:
-""
-}"
+class="action-btn ${isOwned?"active-have":""}"
 onclick="toggleHave(${card.id})">
 
 ✓ I HAVE IT
@@ -2765,23 +2418,11 @@ onclick="changeQuantity(${card.id},1)"
 </div>
 
 <button
-class="action-btn trade-toggle ${
-isTrade
-?
-"active-trade"
-:
-""
-}"
+class="action-btn trade-toggle ${isTrade?"active-trade":""}"
 onclick="toggleTrade(${card.id})"
 >
 
-🔄 ${
-isTrade
-?
-"OFFERING FOR TRADE"
-:
-"OFFER FOR TRADE"
-}
+🔄 ${isTrade?"OFFERING FOR TRADE":"OFFER FOR TRADE"}
 
 </button>
 
@@ -2815,7 +2456,6 @@ onclick="changeTradeQuantity(${card.id},1)"
 </button>
 
 </div>
-
 `
 :
 ""
@@ -2860,72 +2500,41 @@ grid.appendChild(element);
 
 }
 
-async function saveCardState(
-cardId,
-changes={}
-){
+async function saveCardState(cardId,changes={}){
 
 if(!currentUser)
-throw new Error(
-"Please log in first."
-);
+throw new Error("Please log in first.");
 
-const existing=
-await supabaseClient
+const existing=await supabaseClient
 .from("user_cards")
 .select("card_id")
-.eq(
-"user_id",
-currentUser.id
-)
-.eq(
-"card_id",
-cardId
-)
+.eq("user_id",currentUser.id)
+.eq("card_id",cardId)
 .maybeSingle();
 
-if(existing.error)
-throw existing.error;
+if(existing.error) throw existing.error;
 
 const quantity=
 changes.quantity!==undefined
-?
-Math.max(
-0,
-Number(changes.quantity)||0
-)
-:
-cardQuantities.get(cardId)||0;
+?Math.max(0,Number(changes.quantity)||0)
+:cardQuantities.get(cardId)||0;
 
 const isNeeded=
 changes.is_needed!==undefined
-?
-Boolean(changes.is_needed)
-:
-neededCards.has(cardId);
+?Boolean(changes.is_needed)
+:neededCards.has(cardId);
 
 const isForTrade=
 changes.is_for_trade!==undefined
-?
-Boolean(changes.is_for_trade)
-:
-tradeCards.has(cardId);
+?Boolean(changes.is_for_trade)
+:tradeCards.has(cardId);
 
 let tradeQuantity=
 changes.trade_quantity!==undefined
-?
-Math.max(
-0,
-Number(changes.trade_quantity)||0
-)
-:
-tradeQuantities.get(cardId)||0;
+?Math.max(0,Number(changes.trade_quantity)||0)
+:tradeQuantities.get(cardId)||0;
 
-tradeQuantity=
-Math.min(
-quantity,
-tradeQuantity
-);
+tradeQuantity=Math.min(quantity,tradeQuantity);
 
 const payload={
 user_id:currentUser.id,
@@ -2936,26 +2545,15 @@ is_for_trade:isForTrade,
 trade_quantity:isForTrade?tradeQuantity:0
 };
 
-if(
-payload.quantity<=0&&
-!payload.is_needed
-){
+if(payload.quantity<=0&&!payload.is_needed){
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("user_cards")
 .delete()
-.eq(
-"user_id",
-currentUser.id
-)
-.eq(
-"card_id",
-cardId
-);
+.eq("user_id",currentUser.id)
+.eq("card_id",cardId);
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
 return;
 
@@ -2963,8 +2561,7 @@ return;
 
 if(existing.data){
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("user_cards")
 .update({
 quantity:payload.quantity,
@@ -2972,27 +2569,18 @@ is_needed:payload.is_needed,
 is_for_trade:payload.is_for_trade,
 trade_quantity:payload.trade_quantity
 })
-.eq(
-"user_id",
-currentUser.id
-)
-.eq(
-"card_id",
-cardId
-);
+.eq("user_id",currentUser.id)
+.eq("card_id",cardId);
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
 }else{
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("user_cards")
 .insert(payload);
 
-if(result.error)
-throw result.error;
+if(result.error) throw result.error;
 
 }
 
@@ -3000,8 +2588,7 @@ throw result.error;
 
 async function toggleNeed(cardId){
 
-const old=
-neededCards.has(cardId);
+const old=neededCards.has(cardId);
 
 if(old)
 neededCards.delete(cardId);
@@ -3039,8 +2626,7 @@ error.message||
 
 async function toggleHave(cardId){
 
-const old=
-ownedCards.has(cardId);
+const old=ownedCards.has(cardId);
 
 if(old){
 
@@ -3061,9 +2647,7 @@ cardQuantities.set(cardId,1);
 }
 
 renderCollection(selectedAlbum);
-
 renderAlbums();
-
 updateStats();
 
 try{
@@ -3087,34 +2671,25 @@ error.message||
 await loadOwnedCards();
 
 renderCollection(selectedAlbum);
-
 renderAlbums();
-
 updateStats();
 
 }
 
 }
 
-async function changeQuantity(
-cardId,
-delta
-){
+async function changeQuantity(cardId,delta){
 
 if(!ownedCards.has(cardId))
 return;
 
-const old=
-cardQuantities.get(cardId)||1;
+const old=cardQuantities.get(cardId)||1;
 
-const next=
-Math.max(1,old+delta);
+const next=Math.max(1,old+delta);
 
-const oldTrade=
-tradeQuantities.get(cardId)||0;
+const oldTrade=tradeQuantities.get(cardId)||0;
 
-const nextTrade=
-Math.min(oldTrade,next);
+const nextTrade=Math.min(oldTrade,next);
 
 cardQuantities.set(cardId,next);
 tradeQuantities.set(cardId,nextTrade);
@@ -3163,21 +2738,18 @@ return;
 
 }
 
-const old=
-tradeCards.has(cardId);
+const old=tradeCards.has(cardId);
 
 if(old){
 
 tradeCards.delete(cardId);
-
 tradeQuantities.set(cardId,0);
 
 }else{
 
 tradeCards.add(cardId);
 
-const quantity=
-cardQuantities.get(cardId)||1;
+const quantity=cardQuantities.get(cardId)||1;
 
 tradeQuantities.set(
 cardId,
@@ -3194,12 +2766,7 @@ await saveCardState(
 cardId,
 {
 is_for_trade:!old,
-trade_quantity:
-old
-?
-0
-:
-tradeQuantities.get(cardId)||1
+trade_quantity:old?0:tradeQuantities.get(cardId)||1
 }
 );
 
@@ -3208,13 +2775,11 @@ tradeQuantities.get(cardId)||1
 if(old){
 
 tradeCards.add(cardId);
-
 tradeQuantities.set(cardId,1);
 
 }else{
 
 tradeCards.delete(cardId);
-
 tradeQuantities.set(cardId,0);
 
 }
@@ -3230,10 +2795,7 @@ error.message||
 
 }
 
-async function changeTradeQuantity(
-cardId,
-delta
-){
+async function changeTradeQuantity(cardId,delta){
 
 if(
 !ownedCards.has(cardId)||
@@ -3241,19 +2803,12 @@ if(
 )
 return;
 
-const owned=
-cardQuantities.get(cardId)||1;
+const owned=cardQuantities.get(cardId)||1;
+const old=tradeQuantities.get(cardId)||1;
 
-const old=
-tradeQuantities.get(cardId)||1;
-
-const next=
-Math.max(
+const next=Math.max(
 1,
-Math.min(
-owned,
-old+delta
-)
+Math.min(owned,old+delta)
 );
 
 tradeQuantities.set(cardId,next);
@@ -3303,30 +2858,19 @@ profile.player_tag||
 "Player";
 
 }
-  /* ==============================
-PRIVATE CHAT
-============================== */
+  function closeChat(){
 
-function closeChat(){
-
-const backdrop=
-document.getElementById(
-"chatBackdrop"
-);
+const backdrop=document.getElementById("chatBackdrop");
 
 if(backdrop)
 backdrop.classList.remove("open");
 
 if(backdrop)
-backdrop.setAttribute(
-"aria-hidden",
-"true"
-);
+backdrop.setAttribute("aria-hidden","true");
 
 if(chatPollTimer){
 
 clearInterval(chatPollTimer);
-
 chatPollTimer=null;
 
 }
@@ -3334,10 +2878,7 @@ chatPollTimer=null;
 chatPartnerId=null;
 chatCardId=null;
 
-const input=
-document.getElementById(
-"chatInput"
-);
+const input=document.getElementById("chatInput");
 
 if(input)
 input.value="";
@@ -3346,8 +2887,7 @@ input.value="";
 
 function formatChatTime(value){
 
-const date=
-new Date(value);
+const date=new Date(value);
 
 if(Number.isNaN(date.getTime()))
 return "";
@@ -3364,16 +2904,10 @@ minute:"2-digit"
 
 async function getChatProfile(userId){
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("profiles")
-.select(
-"id,username,player_tag"
-)
-.eq(
-"id",
-userId
-)
+.select("id,username,player_tag")
+.eq("id",userId)
 .maybeSingle();
 
 if(result.error)
@@ -3383,9 +2917,7 @@ return result.data||null;
 
 }
 
-async function loadChatMessages(
-scrollToBottom=false
-){
+async function loadChatMessages(scrollToBottom=false){
 
 if(
 !currentUser||
@@ -3394,24 +2926,17 @@ if(
 )
 return;
 
-const box=
-document.getElementById(
-"chatMessages"
-);
+const box=document.getElementById("chatMessages");
 
 if(!box)
 return;
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("direct_messages")
 .select(
 "id,sender_id,receiver_id,card_id,content,created_at"
 )
-.eq(
-"card_id",
-chatCardId
-)
+.eq("card_id",chatCardId)
 .or(
 `and(sender_id.eq.${currentUser.id},receiver_id.eq.${chatPartnerId}),and(sender_id.eq.${chatPartnerId},receiver_id.eq.${currentUser.id})`
 )
@@ -3425,8 +2950,7 @@ ascending:true
 if(result.error)
 throw result.error;
 
-const messages=
-result.data||[];
+const messages=result.data||[];
 
 if(!messages.length){
 
@@ -3439,12 +2963,10 @@ Say hello and discuss the trade privately.
 
 }else{
 
-box.innerHTML=
-messages.map(message=>{
+box.innerHTML=messages.map(message=>{
 
 const mine=
-message.sender_id===
-currentUser.id;
+message.sender_id===currentUser.id;
 
 return `
 <div class="chat-bubble-row ${mine?"mine":""}">
@@ -3462,22 +2984,15 @@ ${formatChatTime(message.created_at)}
 }
 
 if(scrollToBottom)
-box.scrollTop=
-box.scrollHeight;
+box.scrollTop=box.scrollHeight;
 
 }
 
-async function openChat(
-partnerId,
-cardId
-){
+async function openChat(partnerId,cardId){
 
 if(!currentUser){
 
-alert(
-"Please log in first."
-);
-
+alert("Please log in first.");
 return;
 
 }
@@ -3485,45 +3000,24 @@ return;
 if(
 !partnerId||
 !cardId||
-partnerId===
-currentUser.id
+partnerId===currentUser.id
 )
 return;
 
-chatPartnerId=
-partnerId;
+chatPartnerId=String(partnerId);
+chatCardId=Number(cardId);
 
-chatCardId=
-Number(cardId);
-
-const card=
-cardById(chatCardId);
+const card=cardById(chatCardId);
 
 if(!card)
 return;
 
-const backdrop=
-document.getElementById(
-"chatBackdrop"
-);
+const backdrop=document.getElementById("chatBackdrop");
+const title=document.getElementById("chatTitle");
+const cardLabel=document.getElementById("chatCard");
+const box=document.getElementById("chatMessages");
 
-const title=
-document.getElementById(
-"chatTitle"
-);
-
-const cardLabel=
-document.getElementById(
-"chatCard"
-);
-
-const box=
-document.getElementById(
-"chatMessages"
-);
-
-title.textContent=
-"Private chat";
+title.textContent="Private chat";
 
 cardLabel.textContent=
 `${CARD_EMOJIS[card.name]||"🃏"} ${card.name} • ${card.album}`;
@@ -3543,20 +3037,17 @@ backdrop.setAttribute(
 
 try{
 
-const profile=
-await getChatProfile(partnerId);
+const profile=await getChatProfile(partnerId);
 
 if(profile)
-title.textContent=
-profileName(profile);
+title.textContent=profileName(profile);
 
 await loadChatMessages(true);
 
 if(chatPollTimer)
 clearInterval(chatPollTimer);
 
-chatPollTimer=
-setInterval(
+chatPollTimer=setInterval(
 async()=>{
 try{
 await loadChatMessages(false);
@@ -3572,9 +3063,7 @@ error
 
 setTimeout(
 ()=>{
-document
-.getElementById("chatInput")
-?.focus();
+document.getElementById("chatInput")?.focus();
 },
 100
 );
@@ -3609,18 +3098,10 @@ if(
 )
 return;
 
-const input=
-document.getElementById(
-"chatInput"
-);
+const input=document.getElementById("chatInput");
+const button=document.getElementById("chatSend");
 
-const button=
-document.getElementById(
-"chatSend"
-);
-
-const content=
-input.value.trim();
+const content=input.value.trim();
 
 if(!content)
 return;
@@ -3629,20 +3110,13 @@ button.disabled=true;
 
 try{
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("direct_messages")
 .insert({
 
-sender_id:
-currentUser.id,
-
-receiver_id:
-chatPartnerId,
-
-card_id:
-chatCardId,
-
+sender_id:currentUser.id,
+receiver_id:chatPartnerId,
+card_id:chatCardId,
 content
 
 });
@@ -3669,7 +3143,6 @@ error.message||
 }finally{
 
 button.disabled=false;
-
 input.focus();
 
 }
@@ -3685,17 +3158,11 @@ badge,
 badgeClass
 ){
 
-const item=
-document.createElement(
-"div"
-);
+const item=document.createElement("div");
 
-item.className=
-"trade-item";
+item.className="trade-item";
 
-const safeProfileId=
-profile?.id||
-"";
+const safeProfileId=profile?.id||"";
 
 item.innerHTML=`
 
@@ -3743,7 +3210,8 @@ safeProfileId
 <button
 class="trade-chat-btn"
 type="button"
-onclick="openChat(${JSON.stringify(safeProfileId)},${Number(card.id)})"
+data-chat-user="${escapeHTML(safeProfileId)}"
+data-chat-card="${Number(card.id)}"
 >
 💬 MESSAGE
 </button>
@@ -3756,6 +3224,31 @@ onclick="openChat(${JSON.stringify(safeProfileId)},${Number(card.id)})"
 
 `;
 
+const chatButton=
+item.querySelector(".trade-chat-btn");
+
+if(chatButton){
+
+chatButton.addEventListener(
+"click",
+function(event){
+
+event.preventDefault();
+event.stopPropagation();
+
+const userId=
+this.getAttribute("data-chat-user");
+
+const cardId=
+Number(this.getAttribute("data-chat-card"));
+
+openChat(userId,cardId);
+
+}
+);
+
+}
+
 container.appendChild(item);
 
 }
@@ -3766,19 +3259,13 @@ if(!currentUser)
 return;
 
 const matchesContainer=
-document.getElementById(
-"tradeMatches"
-);
+document.getElementById("tradeMatches");
 
 const lookingContainer=
-document.getElementById(
-"tradePeopleLooking"
-);
+document.getElementById("tradePeopleLooking");
 
 const offersContainer=
-document.getElementById(
-"tradeOffers"
-);
+document.getElementById("tradeOffers");
 
 matchesContainer.innerHTML=
 `<div class="empty-trade">Loading trades...</div>`;
@@ -3791,8 +3278,7 @@ offersContainer.innerHTML=
 
 try{
 
-const result=
-await supabaseClient
+const result=await supabaseClient
 .from("user_cards")
 .select(
 "user_id,card_id,quantity,is_needed,is_for_trade,trade_quantity"
@@ -3804,16 +3290,13 @@ await supabaseClient
 if(result.error)
 throw result.error;
 
-const rows=
-(result.data||[]).filter(
+const rows=(result.data||[]).filter(
 row=>row.user_id!==currentUser.id
 );
 
 const profileIds=[
 ...new Set(
-rows.map(
-row=>row.user_id
-)
+rows.map(row=>row.user_id)
 )
 ];
 
@@ -3821,25 +3304,17 @@ let profiles=[];
 
 if(profileIds.length){
 
-const profileResult=
-await supabaseClient
+const profileResult=await supabaseClient
 .from("profiles")
-.select(
-"id,username,player_tag"
-)
-.in(
-"id",
-profileIds
-);
+.select("id,username,player_tag")
+.in("id",profileIds);
 
 if(!profileResult.error)
-profiles=
-profileResult.data||[];
+profiles=profileResult.data||[];
 
 }
 
-const profileMap=
-new Map(
+const profileMap=new Map(
 profiles.map(
 profile=>[
 profile.id,
@@ -3854,19 +3329,15 @@ const offers=[];
 
 rows.forEach(row=>{
 
-const card=
-cardById(row.card_id);
+const card=cardById(row.card_id);
 
 if(!card)
 return;
 
 const profile=
-profileMap.get(
-row.user_id
-)||null;
+profileMap.get(row.user_id)||null;
 
-const offeredQuantity=
-Math.max(
+const offeredQuantity=Math.max(
 0,
 Math.min(
 Number(row.quantity)||0,
@@ -3961,9 +3432,7 @@ Nobody is currently looking for cards you own.
 peopleLooking.forEach(item=>{
 
 const quantity=
-cardQuantities.get(
-item.card.id
-)||0;
+cardQuantities.get(item.card.id)||0;
 
 renderTradeItem(
 lookingContainer,
@@ -4019,51 +3488,33 @@ Please check the Supabase RLS policies.
 </div>
 `;
 
-matchesContainer.innerHTML=
-errorHTML;
-
-lookingContainer.innerHTML=
-errorHTML;
-
-offersContainer.innerHTML=
-errorHTML;
+matchesContainer.innerHTML=errorHTML;
+lookingContainer.innerHTML=errorHTML;
+offersContainer.innerHTML=errorHTML;
 
 }
 
 }
 
-function navigate(
-section,
-button
-){
+function navigate(section,button){
 
 [
 "homeSection",
 "collectionSection",
 "tradeSection"
 ].forEach(id=>{
-
-document
-.getElementById(id)
-.classList
-.add("hidden");
-
+document.getElementById(id).classList.add("hidden");
 });
 
 const target=
-document.getElementById(
-section+"Section"
-);
+document.getElementById(section+"Section");
 
 if(target)
 target.classList.remove("hidden");
 
 document
 .querySelectorAll(".nav button")
-.forEach(
-btn=>
-btn.classList.remove("active")
-);
+.forEach(btn=>btn.classList.remove("active"));
 
 if(button){
 
@@ -4072,9 +3523,7 @@ button.classList.add("active");
 }else{
 
 const buttons=
-document.querySelectorAll(
-".nav button"
-);
+document.querySelectorAll(".nav button");
 
 if(section==="home")
 buttons[0]?.classList.add("active");
@@ -4090,10 +3539,7 @@ buttons[2]?.classList.add("active");
 if(section==="collection"){
 
 renderAlbumTabs();
-
-renderCollection(
-selectedAlbum
-);
+renderCollection(selectedAlbum);
 
 }
 
@@ -4109,9 +3555,7 @@ async function logout(){
 
 closeChat();
 
-await supabaseClient
-.auth
-.signOut();
+await supabaseClient.auth.signOut();
 
 currentUser=null;
 currentProfile=null;
@@ -4125,20 +3569,9 @@ tradeQuantities=new Map();
 
 allCards=[];
 
-document
-.getElementById("app")
-.classList
-.add("hidden");
-
-document
-.getElementById("nav")
-.classList
-.add("hidden");
-
-document
-.getElementById("authSection")
-.classList
-.remove("hidden");
+document.getElementById("app").classList.add("hidden");
+document.getElementById("nav").classList.add("hidden");
+document.getElementById("authSection").classList.remove("hidden");
 
 showAuth("login");
 
@@ -4148,47 +3581,19 @@ function showAuth(mode){
 
 if(mode==="signup"){
 
-document
-.getElementById("signupTab")
-.classList
-.add("active");
+document.getElementById("signupTab").classList.add("active");
+document.getElementById("loginTab").classList.remove("active");
 
-document
-.getElementById("loginTab")
-.classList
-.remove("active");
-
-document
-.getElementById("signupForm")
-.classList
-.remove("hidden");
-
-document
-.getElementById("loginForm")
-.classList
-.add("hidden");
+document.getElementById("signupForm").classList.remove("hidden");
+document.getElementById("loginForm").classList.add("hidden");
 
 }else{
 
-document
-.getElementById("loginTab")
-.classList
-.add("active");
+document.getElementById("loginTab").classList.add("active");
+document.getElementById("signupTab").classList.remove("active");
 
-document
-.getElementById("signupTab")
-.classList
-.remove("active");
-
-document
-.getElementById("loginForm")
-.classList
-.remove("hidden");
-
-document
-.getElementById("signupForm")
-.classList
-.add("hidden");
+document.getElementById("loginForm").classList.remove("hidden");
+document.getElementById("signupForm").classList.add("hidden");
 
 }
 
@@ -4198,24 +3603,15 @@ clearMessage();
 
 document
 .getElementById("loginButton")
-.addEventListener(
-"click",
-login
-);
+.addEventListener("click",login);
 
 document
 .getElementById("signupButton")
-.addEventListener(
-"click",
-signup
-);
+.addEventListener("click",signup);
 
 document
 .getElementById("logoutButton")
-.addEventListener(
-"click",
-logout
-);
+.addEventListener("click",logout);
 
 document
 .getElementById("loginPassword")
@@ -4252,9 +3648,7 @@ document
 .addEventListener(
 "click",
 ()=>{
-document
-.getElementById("avatarInput")
-.click();
+document.getElementById("avatarInput").click();
 }
 );
 
@@ -4264,16 +3658,13 @@ document
 "change",
 async event=>{
 
-const file=
-event.target.files?.[0];
+const file=event.target.files?.[0];
 
 if(!file)
 return;
 
 const button=
-document.getElementById(
-"avatarButton"
-);
+document.getElementById("avatarButton");
 
 button.disabled=true;
 button.textContent="UPLOADING...";
@@ -4320,9 +3711,7 @@ if(
 return;
 
 const button=
-document.getElementById(
-"removeAvatarButton"
-);
+document.getElementById("removeAvatarButton");
 
 button.disabled=true;
 
@@ -4364,14 +3753,8 @@ document
 "click",
 event=>{
 
-if(
-event.target.id===
-"chatBackdrop"
-){
-
+if(event.target.id==="chatBackdrop")
 closeChat();
-
-}
 
 }
 );
@@ -4428,17 +3811,14 @@ buildCards();
 try{
 
 const result=
-await supabaseClient
-.auth
-.getSession();
+await supabaseClient.auth.getSession();
 
 const session=
 result.data?.session;
 
 if(session){
 
-currentUser=
-session.user;
+currentUser=session.user;
 
 try{
 
@@ -4470,18 +3850,14 @@ error
 );
 
 supabaseClient.auth.onAuthStateChange(
-async function(
-event,
-session
-){
+async function(event,session){
 
 if(
 event==="SIGNED_IN"&&
 session
 ){
 
-currentUser=
-session.user;
+currentUser=session.user;
 
 try{
 
@@ -4500,9 +3876,7 @@ showApp();
 
 }
 
-if(
-event==="SIGNED_OUT"
-){
+if(event==="SIGNED_OUT"){
 
 currentUser=null;
 
