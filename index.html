@@ -791,53 +791,46 @@ font-size:21px;
 margin-bottom:3px
 }
 
+.site-footer{
+text-align:center;
+color:#9d91a5;
+font-size:11px;
+padding:18px 0 95px;
+letter-spacing:.3px
+}
+
+.site-footer strong{
+color:#b89bb5;
+font-weight:800
+}
+
 @media(max-width:800px){
-
-.album-grid{
-grid-template-columns:repeat(2,1fr)
-}
-
-.cards-grid{
-grid-template-columns:repeat(2,1fr)
-}
-
-.hero h1{
-font-size:35px
-}
-
+.album-grid{grid-template-columns:repeat(2,1fr)}
+.cards-grid{grid-template-columns:repeat(2,1fr)}
+.hero h1{font-size:35px}
 }
 
 @media(max-width:480px){
 
-.app{
-padding:12px 12px 105px
-}
+.app{padding:12px 12px 105px}
 
 .auth{
 margin:15px auto;
 padding:12px
 }
 
-.auth-card{
-padding:22px 16px
-}
+.auth-card{padding:22px 16px}
 
-.auth-title{
-font-size:34px
-}
+.auth-title{font-size:34px}
 
-.album-grid{
-gap:10px
-}
+.album-grid{gap:10px}
 
 .album-card{
 min-height:135px;
 padding:14px
 }
 
-.cards-grid{
-gap:9px
-}
+.cards-grid{gap:9px}
 
 .card{
 min-height:270px;
@@ -845,38 +838,24 @@ padding:7px;
 border-radius:16px
 }
 
-.card-inner{
-min-height:248px
-}
+.card-inner{min-height:248px}
 
 .card-image{
 height:100px;
 font-size:53px
 }
 
-.card-name{
-font-size:12px
-}
+.card-name{font-size:12px}
 
-.stats{
-gap:7px
-}
+.stats{gap:7px}
 
-.stat{
-padding:12px 9px
-}
+.stat{padding:12px 9px}
 
-.stat-value{
-font-size:20px
-}
+.stat-value{font-size:20px}
 
-.trade-section{
-padding:15px
-}
+.trade-section{padding:15px}
 
-.trade-item{
-align-items:flex-start
-}
+.trade-item{align-items:flex-start}
 
 .trade-badge{
 font-size:9px;
@@ -890,24 +869,19 @@ padding:7px
 <body>
 
 <header class="topbar">
-
 <div class="brand">
 Sunday City <span>Trading Cards</span>
 </div>
-
 <div class="subtitle">
 Collect • Track • Trade
 </div>
-
 </header>
 
 <section id="authSection" class="auth">
 
 <div class="auth-card">
 
-<h1 class="auth-title">
-Welcome back
-</h1>
+<h1 class="auth-title">Welcome back</h1>
 
 <p class="auth-description">
 Build your collection, track your cards and trade with the community.
@@ -974,7 +948,6 @@ CREATE ACCOUNT
 </div>
 
 </div>
-
 </section>
 
 <main id="app" class="app hidden">
@@ -983,12 +956,9 @@ CREATE ACCOUNT
 
 <div class="profile-info">
 
-<div class="avatar">
-👤
-</div>
+<div class="avatar">👤</div>
 
 <div>
-
 <div id="profileUsername" class="profile-name">
 Player
 </div>
@@ -996,7 +966,6 @@ Player
 <div id="profileTag" class="profile-tag">
 #------
 </div>
-
 </div>
 
 </div>
@@ -1044,9 +1013,7 @@ VIEW COLLECTION
 
 </div>
 
-<h2 class="section-title">
-Albums
-</h2>
+<h2 class="section-title">Albums</h2>
 
 <div id="albumGrid" class="album-grid"></div>
 
@@ -1080,9 +1047,7 @@ Collection
 
 <div class="trade-header">
 
-<h1>
-🔄 Trading
-</h1>
+<h1>🔄 Trading</h1>
 
 <p>
 Find players who need cards you own, discover cards other players are offering, and find possible matches for your own needs.
@@ -1105,11 +1070,9 @@ Cards you need that another player is offering.
 </div>
 
 <div id="tradeMatches" class="trade-list">
-
 <div class="empty-trade">
 Loading trades...
 </div>
-
 </div>
 
 </div>
@@ -1125,11 +1088,9 @@ Players looking for cards that you own.
 </div>
 
 <div id="tradePeopleLooking" class="trade-list">
-
 <div class="empty-trade">
 Loading trades...
 </div>
-
 </div>
 
 </div>
@@ -1145,11 +1106,9 @@ Cards other players have marked as available.
 </div>
 
 <div id="tradeOffers" class="trade-list">
-
 <div class="empty-trade">
 Loading trades...
 </div>
-
 </div>
 
 </div>
@@ -1159,6 +1118,10 @@ Loading trades...
 </section>
 
 </main>
+
+<footer class="site-footer">
+Made by <strong>Rook</strong> ♡
+</footer>
 
 <nav id="nav" class="nav hidden">
 
@@ -1181,13 +1144,13 @@ Trade
 
 <script>
 
-const SUPABASE_URL=
+const SUPABASE_URL =
 "https://rxuopmnehdngmdsgkhvr.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY=
+const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
 
-const supabaseClient=
+const supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
@@ -1537,14 +1500,17 @@ async function signup(){
 
 clearMessage();
 
-const username=
-document.getElementById("signupUsername").value.trim();
+const username=document
+.getElementById("signupUsername")
+.value.trim();
 
-const tag=
-document.getElementById("signupTag").value.trim();
+const tag=document
+.getElementById("signupTag")
+.value.trim();
 
-const password=
-document.getElementById("signupPassword").value;
+const password=document
+.getElementById("signupPassword")
+.value;
 
 if(!username||!tag||!password){
 showMessage("Please fill in every field.");
@@ -1632,14 +1598,17 @@ async function login(){
 
 clearMessage();
 
-const username=
-document.getElementById("loginUsername").value.trim();
+const username=document
+.getElementById("loginUsername")
+.value.trim();
 
-const tag=
-document.getElementById("loginTag").value.trim();
+const tag=document
+.getElementById("loginTag")
+.value.trim();
 
-const password=
-document.getElementById("loginPassword").value;
+const password=document
+.getElementById("loginPassword")
+.value;
 
 if(!username||!tag||!password){
 showMessage("Please fill in every field.");
@@ -1703,8 +1672,7 @@ await supabaseClient
 
 if(profileResult.data){
 
-currentProfile=
-profileResult.data;
+currentProfile=profileResult.data;
 
 }else{
 
@@ -1748,6 +1716,7 @@ throw result.error;
 ownedCards=new Set();
 neededCards=new Set();
 tradeCards=new Set();
+
 cardQuantities=new Map();
 tradeQuantities=new Map();
 
@@ -1837,14 +1806,20 @@ id++;
 
 function showApp(){
 
-document.getElementById("authSection")
-.classList.add("hidden");
+document
+.getElementById("authSection")
+.classList
+.add("hidden");
 
-document.getElementById("app")
-.classList.remove("hidden");
+document
+.getElementById("app")
+.classList
+.remove("hidden");
 
-document.getElementById("nav")
-.classList.remove("hidden");
+document
+.getElementById("nav")
+.classList
+.remove("hidden");
 
 updateProfileUI();
 
@@ -1866,30 +1841,29 @@ const tag=
 currentProfile?.player_tag||
 "";
 
-document.getElementById(
-"profileUsername"
-).textContent=username;
+document
+.getElementById("profileUsername")
+.textContent=username;
 
-document.getElementById(
-"profileTag"
-).textContent=
+document
+.getElementById("profileTag")
+.textContent=
 tag?"#"+tag:"";
 
 }
 
 function updateStats(){
 
-const total=
-allCards.length;
-
-const owned=
-ownedCards.size;
+const total=allCards.length;
+const owned=ownedCards.size;
 
 const percent=
-total?
+total
+?
 Math.round(
 (owned/total)*100
-):
+)
+:
 0;
 
 document.getElementById(
@@ -1910,9 +1884,7 @@ percent+"%";
 function renderAlbums(){
 
 const grid=
-document.getElementById(
-"albumGrid"
-);
+document.getElementById("albumGrid");
 
 grid.innerHTML="";
 
@@ -1992,9 +1964,7 @@ grid.appendChild(button);
 function renderAlbumTabs(){
 
 const container=
-document.getElementById(
-"albumTabs"
-);
+document.getElementById("albumTabs");
 
 container.innerHTML="";
 
@@ -2055,9 +2025,7 @@ const colors=
 ALBUM_THEMES[album];
 
 const banner=
-document.getElementById(
-"albumBanner"
-);
+document.getElementById("albumBanner");
 
 banner.style.setProperty(
 "--c1",
@@ -2089,13 +2057,10 @@ ${owned}/${cards.length} tradable cards collected
 <strong>${percent}%</strong>
 
 </div>
-
 `;
 
 const grid=
-document.getElementById(
-"cardsGrid"
-);
+document.getElementById("cardsGrid");
 
 grid.innerHTML="";
 
@@ -2151,11 +2116,7 @@ ${card.rarity}
 
 <button
 class="action-btn ${
-isNeeded
-?
-"active-need"
-:
-""
+isNeeded?"active-need":""
 }"
 onclick="toggleNeed(${card.id})">
 
@@ -2171,11 +2132,7 @@ isNeeded
 
 <button
 class="action-btn ${
-isOwned
-?
-"active-have"
-:
-""
+isOwned?"active-have":""
 }"
 onclick="toggleHave(${card.id})">
 
@@ -2212,11 +2169,7 @@ onclick="changeQuantity(${card.id},1)">
 
 <button
 class="action-btn trade-toggle ${
-isTrade
-?
-"active-trade"
-:
-""
+isTrade?"active-trade":""
 }"
 onclick="toggleTrade(${card.id})">
 
@@ -2294,7 +2247,6 @@ isOwned
 </div>
 
 </div>
-
 `;
 
 grid.appendChild(element);
@@ -2406,7 +2358,6 @@ if(result.error)
 throw result.error;
 
 return;
-
 }
 
 if(existing.data){
@@ -3053,7 +3004,7 @@ matches.forEach(match=>{
 renderTradeItem(
 matchesContainer,
 match.card,
-match.profile,
+matches.profile,
 `${match.offeredQuantity} available for trade`,
 "MATCH",
 "match"
@@ -3423,6 +3374,2089 @@ currentUser=null;
 }
 
 });
+
+</script>
+
+</body>
+</html>
+<script>
+
+/* ==============================
+   ALBUM / CARD HELPERS
+============================== */
+
+function getAlbumCards(album){
+  return allCards.filter(
+    card => card.album === album
+  );
+}
+
+function getOwnedQuantity(cardId){
+  return Number(
+    cardQuantities.get(cardId) || 0
+  );
+}
+
+function getTradeQuantity(cardId){
+  return Number(
+    tradeQuantities.get(cardId) || 0
+  );
+}
+
+function isCardOwned(cardId){
+  return ownedCards.has(cardId);
+}
+
+function isCardNeeded(cardId){
+  return neededCards.has(cardId);
+}
+
+function isCardForTrade(cardId){
+  return tradeCards.has(cardId);
+}
+
+/* ==============================
+   PROFILE
+============================== */
+
+function updateProfileUI(){
+
+  const username =
+    currentProfile?.username ||
+    "Player";
+
+  const tag =
+    currentProfile?.player_tag ||
+    "";
+
+  document
+    .getElementById("profileUsername")
+    .textContent = username;
+
+  document
+    .getElementById("profileTag")
+    .textContent =
+      tag ? "#" + tag : "";
+
+}
+
+/* ==============================
+   STATS
+============================== */
+
+function updateStats(){
+
+  const total =
+    allCards.length;
+
+  const owned =
+    ownedCards.size;
+
+  const percent =
+    total
+      ? Math.round(
+          (owned / total) * 100
+        )
+      : 0;
+
+  document
+    .getElementById("statOwned")
+    .textContent = owned;
+
+  document
+    .getElementById("statTotal")
+    .textContent = total;
+
+  document
+    .getElementById("statPercent")
+    .textContent =
+      percent + "%";
+
+}
+
+/* ==============================
+   ALBUMS
+============================== */
+
+function renderAlbums(){
+
+  const grid =
+    document.getElementById(
+      "albumGrid"
+    );
+
+  if(!grid)
+    return;
+
+  grid.innerHTML = "";
+
+  ALBUM_ORDER.forEach(album => {
+
+    const cards =
+      getAlbumCards(album);
+
+    const owned =
+      cards.filter(card =>
+        isCardOwned(card.id)
+      ).length;
+
+    const percent =
+      cards.length
+        ? Math.round(
+            (owned / cards.length) * 100
+          )
+        : 0;
+
+    const colors =
+      ALBUM_THEMES[album] ||
+      ["#8f7aa8","#3c2b42"];
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.className =
+      "album-card";
+
+    button.type = "button";
+
+    button.style.setProperty(
+      "--c1",
+      colors[0]
+    );
+
+    button.style.setProperty(
+      "--c2",
+      colors[1]
+    );
+
+    button.innerHTML = `
+
+      <div class="album-icon">
+        ${ALBUM_ICONS[album] || "🃏"}
+      </div>
+
+      <div class="album-name">
+        ${escapeHTML(album)}
+      </div>
+
+      <div class="album-progress">
+        <span
+          style="width:${percent}%"
+        ></span>
+      </div>
+
+      <div class="album-count">
+        ${owned}/${cards.length} collected
+      </div>
+
+    `;
+
+    button.addEventListener(
+      "click",
+      function(){
+
+        selectedAlbum = album;
+
+        navigate(
+          "collection"
+        );
+
+        renderAlbumTabs();
+
+        renderCollection(
+          album
+        );
+
+      }
+    );
+
+    grid.appendChild(button);
+
+  });
+
+}
+
+/* ==============================
+   ALBUM TABS
+============================== */
+
+function renderAlbumTabs(){
+
+  const container =
+    document.getElementById(
+      "albumTabs"
+    );
+
+  if(!container)
+    return;
+
+  container.innerHTML = "";
+
+  ALBUM_ORDER.forEach(album => {
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.type = "button";
+
+    button.className =
+      "album-tab" +
+      (
+        album === selectedAlbum
+          ? " active"
+          : ""
+      );
+
+    button.textContent =
+      (
+        ALBUM_ICONS[album] ||
+        "🃏"
+      ) +
+      " " +
+      album;
+
+    button.addEventListener(
+      "click",
+      function(){
+
+        selectedAlbum = album;
+
+        renderAlbumTabs();
+
+        renderCollection(
+          album
+        );
+
+      }
+    );
+
+    container.appendChild(button);
+
+  });
+
+}
+
+/* ==============================
+   COLLECTION
+============================== */
+
+function renderCollection(album){
+
+  selectedAlbum =
+    album;
+
+  const cards =
+    getAlbumCards(album);
+
+  const owned =
+    cards.filter(card =>
+      isCardOwned(card.id)
+    ).length;
+
+  const percent =
+    cards.length
+      ? Math.round(
+          (owned / cards.length) * 100
+        )
+      : 0;
+
+  const colors =
+    ALBUM_THEMES[album] ||
+    ["#8f7aa8","#3c2b42"];
+
+  const banner =
+    document.getElementById(
+      "albumBanner"
+    );
+
+  if(banner){
+
+    banner.style.setProperty(
+      "--c1",
+      colors[0]
+    );
+
+    banner.style.setProperty(
+      "--c2",
+      colors[1]
+    );
+
+    banner.innerHTML = `
+
+      <h2>
+        ${ALBUM_ICONS[album] || "🃏"}
+        ${escapeHTML(album)}
+      </h2>
+
+      <p>
+        ${owned}/${cards.length}
+        tradable cards collected
+      </p>
+
+      <div class="progress-row">
+
+        <div class="progress">
+          <span
+            style="width:${percent}%"
+          ></span>
+        </div>
+
+        <strong>
+          ${percent}%
+        </strong>
+
+      </div>
+
+    `;
+
+  }
+
+  const grid =
+    document.getElementById(
+      "cardsGrid"
+    );
+
+  if(!grid)
+    return;
+
+  grid.innerHTML = "";
+
+  cards.forEach(card => {
+
+    const cardId =
+      Number(card.id);
+
+    const isOwned =
+      isCardOwned(cardId);
+
+    const isNeeded =
+      isCardNeeded(cardId);
+
+    const isTrade =
+      isCardForTrade(cardId);
+
+    const quantity =
+      getOwnedQuantity(cardId);
+
+    const tradeQuantity =
+      getTradeQuantity(cardId);
+
+    const element =
+      document.createElement(
+        "div"
+      );
+
+    element.className =
+      "card" +
+      (
+        isOwned
+          ? " owned-card"
+          : ""
+      );
+
+    element.innerHTML = `
+
+      <div class="card-inner">
+
+        <div class="card-image">
+          ${CARD_EMOJIS[card.name] || "🃏"}
+        </div>
+
+        <div class="card-info">
+
+          <div class="card-name">
+            ${escapeHTML(card.name)}
+          </div>
+
+          <div class="rarity">
+            ${card.rarity}
+          </div>
+
+          <div class="card-actions">
+
+            <button
+              type="button"
+              class="action-btn ${
+                isNeeded
+                  ? "active-need"
+                  : ""
+              }"
+              onclick="toggleNeed(${cardId})"
+            >
+              🔎
+              ${
+                isNeeded
+                  ? "NEEDED"
+                  : "I NEED IT"
+              }
+            </button>
+
+            <button
+              type="button"
+              class="action-btn ${
+                isOwned
+                  ? "active-have"
+                  : ""
+              }"
+              onclick="toggleHave(${cardId})"
+            >
+              ✓ I HAVE IT
+            </button>
+
+            ${
+              isOwned
+                ? `
+
+                  <div class="quantity-row">
+
+                    <span>
+                      Owned
+                    </span>
+
+                    <button
+                      type="button"
+                      class="qty-btn"
+                      onclick="changeQuantity(
+                        ${cardId},
+                        -1
+                      )"
+                    >
+                      −
+                    </button>
+
+                    <span class="qty-value">
+                      ${quantity}
+                    </span>
+
+                    <button
+                      type="button"
+                      class="qty-btn"
+                      onclick="changeQuantity(
+                        ${cardId},
+                        1
+                      )"
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                  <button
+                    type="button"
+                    class="action-btn trade-toggle ${
+                      isTrade
+                        ? "active-trade"
+                        : ""
+                    }"
+                    onclick="toggleTrade(${cardId})"
+                  >
+                    🔄
+                    ${
+                      isTrade
+                        ? "OFFERING FOR TRADE"
+                        : "OFFER FOR TRADE"
+                    }
+                  </button>
+
+                  ${
+                    isTrade
+                      ? `
+
+                        <div
+                          class="trade-quantity-row"
+                        >
+
+                          <span
+                            class="trade-quantity-label"
+                          >
+                            Trade quantity
+                          </span>
+
+                          <button
+                            type="button"
+                            class="qty-btn"
+                            onclick="changeTradeQuantity(
+                              ${cardId},
+                              -1
+                            )"
+                          >
+                            −
+                          </button>
+
+                          <span
+                            class="qty-value"
+                          >
+                            ${tradeQuantity}
+                          </span>
+
+                          <button
+                            type="button"
+                            class="qty-btn"
+                            onclick="changeTradeQuantity(
+                              ${cardId},
+                              1
+                            )"
+                          >
+                            +
+                          </button>
+
+                        </div>
+
+                      `
+                      : ""
+                  }
+
+                `
+                : ""
+            }
+
+          </div>
+
+          <div class="card-status">
+
+            ${
+              isNeeded
+                ? "You are looking for this card."
+                : isTrade
+                  ? "You are offering this card."
+                  : isOwned
+                    ? "In your collection."
+                    : ""
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+    grid.appendChild(
+      element
+    );
+
+  });
+
+}
+
+/* ==============================
+   SUPABASE CARD STATE
+============================== */
+
+async function saveCardState(
+  cardId,
+  changes = {}
+){
+
+  if(!currentUser){
+
+    throw new Error(
+      "Please log in first."
+    );
+
+  }
+
+  const existing =
+    await supabaseClient
+      .from("user_cards")
+      .select("card_id")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .eq(
+        "card_id",
+        cardId
+      )
+      .maybeSingle();
+
+  if(existing.error)
+    throw existing.error;
+
+  const quantity =
+    changes.quantity !== undefined
+      ? Math.max(
+          0,
+          Number(
+            changes.quantity
+          ) || 0
+        )
+      : getOwnedQuantity(cardId);
+
+  const isNeeded =
+    changes.is_needed !== undefined
+      ? Boolean(
+          changes.is_needed
+        )
+      : isCardNeeded(cardId);
+
+  const isForTrade =
+    changes.is_for_trade !== undefined
+      ? Boolean(
+          changes.is_for_trade
+        )
+      : isCardForTrade(cardId);
+
+  let tradeQuantity =
+    changes.trade_quantity !== undefined
+      ? Math.max(
+          0,
+          Number(
+            changes.trade_quantity
+          ) || 0
+        )
+      : getTradeQuantity(cardId);
+
+  tradeQuantity =
+    Math.min(
+      quantity,
+      tradeQuantity
+    );
+
+  const payload = {
+
+    user_id:
+      currentUser.id,
+
+    card_id:
+      cardId,
+
+    quantity:
+
+      quantity,
+
+    is_needed:
+      isNeeded,
+
+    is_for_trade:
+      isForTrade,
+
+    trade_quantity:
+      isForTrade
+        ? tradeQuantity
+        : 0
+
+  };
+
+  if(
+    payload.quantity <= 0 &&
+    !payload.is_needed
+  ){
+
+    const result =
+      await supabaseClient
+        .from("user_cards")
+        .delete()
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .eq(
+          "card_id",
+          cardId
+        );
+
+    if(result.error)
+      throw result.error;
+
+    return;
+
+  }
+
+  if(existing.data){
+
+    const result =
+      await supabaseClient
+        .from("user_cards")
+        .update({
+
+          quantity:
+            payload.quantity,
+
+          is_needed:
+            payload.is_needed,
+
+          is_for_trade:
+            payload.is_for_trade,
+
+          trade_quantity:
+            payload.trade_quantity
+
+        })
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .eq(
+          "card_id",
+          cardId
+        );
+
+    if(result.error)
+      throw result.error;
+
+  }else{
+
+    const result =
+      await supabaseClient
+        .from("user_cards")
+        .insert(
+          payload
+        );
+
+    if(result.error)
+      throw result.error;
+
+  }
+
+}
+
+/* ==============================
+   I NEED IT
+============================== */
+
+async function toggleNeed(
+  cardId
+){
+
+  const old =
+    isCardNeeded(cardId);
+
+  if(old){
+
+    neededCards.delete(
+      cardId
+    );
+
+  }else{
+
+    neededCards.add(
+      cardId
+    );
+
+  }
+
+  renderCollection(
+    selectedAlbum
+  );
+
+  try{
+
+    await saveCardState(
+      cardId,
+      {
+        is_needed:
+          !old
+      }
+    );
+
+  }catch(error){
+
+    if(old){
+
+      neededCards.add(
+        cardId
+      );
+
+    }else{
+
+      neededCards.delete(
+        cardId
+      );
+
+    }
+
+    renderCollection(
+      selectedAlbum
+    );
+
+    alert(
+      error.message ||
+      "Could not save your wanted card."
+    );
+
+  }
+
+}
+
+/* ==============================
+   I HAVE IT
+============================== */
+
+async function toggleHave(
+  cardId
+){
+
+  const old =
+    isCardOwned(cardId);
+
+  if(old){
+
+    ownedCards.delete(
+      cardId
+    );
+
+    cardQuantities.set(
+      cardId,
+      0
+    );
+
+    tradeCards.delete(
+      cardId
+    );
+
+    tradeQuantities.set(
+      cardId,
+      0
+    );
+
+  }else{
+
+    ownedCards.add(
+      cardId
+    );
+
+    cardQuantities.set(
+      cardId,
+      1
+    );
+
+  }
+
+  renderCollection(
+    selectedAlbum
+  );
+
+  renderAlbums();
+
+  updateStats();
+
+  try{
+
+    await saveCardState(
+      cardId,
+      {
+
+        quantity:
+          old ? 0 : 1,
+
+        is_for_trade:
+          old
+            ? false
+            : isCardForTrade(cardId),
+
+        trade_quantity:
+          old
+            ? 0
+            : getTradeQuantity(cardId)
+
+      }
+    );
+
+  }catch(error){
+
+    if(old){
+
+      ownedCards.add(
+        cardId
+      );
+
+      cardQuantities.set(
+        cardId,
+        1
+      );
+
+    }else{
+
+      ownedCards.delete(
+        cardId
+      );
+
+      cardQuantities.set(
+        cardId,
+        0
+      );
+
+    }
+
+    renderCollection(
+      selectedAlbum
+    );
+
+    renderAlbums();
+
+    updateStats();
+
+    alert(
+      error.message ||
+      "Could not save this card."
+    );
+
+  }
+
+}
+
+/* ==============================
+   OWNED QUANTITY
+============================== */
+
+async function changeQuantity(
+  cardId,
+  delta
+){
+
+  if(!isCardOwned(cardId))
+    return;
+
+  const old =
+    getOwnedQuantity(
+      cardId
+    );
+
+  const next =
+    Math.max(
+      1,
+      old + delta
+    );
+
+  const oldTrade =
+    getTradeQuantity(
+      cardId
+    );
+
+  const nextTrade =
+    Math.min(
+      oldTrade,
+      next
+    );
+
+  cardQuantities.set(
+    cardId,
+    next
+  );
+
+  tradeQuantities.set(
+    cardId,
+    nextTrade
+  );
+
+  renderCollection(
+    selectedAlbum
+  );
+
+  renderAlbums();
+
+  updateStats();
+
+  try{
+
+    await saveCardState(
+      cardId,
+      {
+        quantity:
+          next,
+
+        trade_quantity:
+          nextTrade
+      }
+    );
+
+  }catch(error){
+
+    cardQuantities.set(
+      cardId,
+      old
+    );
+
+    tradeQuantities.set(
+      cardId,
+      oldTrade
+    );
+
+    renderCollection(
+      selectedAlbum
+    );
+
+    renderAlbums();
+
+    updateStats();
+
+    alert(
+      error.message ||
+      "Could not save the quantity."
+    );
+
+  }
+
+}
+
+/* ==============================
+   OFFER FOR TRADE
+============================== */
+
+async function toggleTrade(
+  cardId
+){
+
+  if(!isCardOwned(cardId)){
+
+    alert(
+      "You need to have this card before offering it for trade."
+    );
+
+    return;
+
+  }
+
+  const old =
+    isCardForTrade(cardId);
+
+  if(old){
+
+    tradeCards.delete(
+      cardId
+    );
+
+    tradeQuantities.set(
+      cardId,
+      0
+    );
+
+  }else{
+
+    tradeCards.add(
+      cardId
+    );
+
+    const quantity =
+      getOwnedQuantity(
+        cardId
+      );
+
+    tradeQuantities.set(
+      cardId,
+      Math.min(
+        1,
+        quantity
+      )
+    );
+
+  }
+
+  renderCollection(
+    selectedAlbum
+  );
+
+  try{
+
+    await saveCardState(
+      cardId,
+      {
+
+        is_for_trade:
+          !old,
+
+        trade_quantity:
+          old
+            ? 0
+            : getTradeQuantity(
+                cardId
+              )
+
+      }
+    );
+
+  }catch(error){
+
+    if(old){
+
+      tradeCards.add(
+        cardId
+      );
+
+      tradeQuantities.set(
+        cardId,
+        1
+      );
+
+    }else{
+
+      tradeCards.delete(
+        cardId
+      );
+
+      tradeQuantities.set(
+        cardId,
+        0
+      );
+
+    }
+
+    renderCollection(
+      selectedAlbum
+    );
+
+    alert(
+      error.message ||
+      "Could not update the trade offer."
+    );
+
+  }
+
+}
+
+/* ==============================
+   TRADE QUANTITY
+============================== */
+
+async function changeTradeQuantity(
+  cardId,
+  delta
+){
+
+  if(
+    !isCardOwned(cardId) ||
+    !isCardForTrade(cardId)
+  )
+    return;
+
+  const owned =
+    getOwnedQuantity(
+      cardId
+    );
+
+  const old =
+    getTradeQuantity(
+      cardId
+    ) || 1;
+
+  const next =
+    Math.max(
+      1,
+      Math.min(
+        owned,
+        old + delta
+      )
+    );
+
+  tradeQuantities.set(
+    cardId,
+    next
+  );
+
+  renderCollection(
+    selectedAlbum
+  );
+
+  try{
+
+    await saveCardState(
+      cardId,
+      {
+
+        is_for_trade:
+          true,
+
+        trade_quantity:
+          next
+
+      }
+    );
+
+  }catch(error){
+
+    tradeQuantities.set(
+      cardId,
+      old
+    );
+
+    renderCollection(
+      selectedAlbum
+    );
+
+    alert(
+      error.message ||
+      "Could not save the trade quantity."
+    );
+
+  }
+
+}
+
+</script>
+<script>
+
+/* ==============================
+   TRADE MARKET
+============================== */
+
+function cardById(id){
+
+  return allCards.find(
+    card => card.id === Number(id)
+  );
+
+}
+
+function profileName(profile){
+
+  if(!profile)
+    return "Player";
+
+  return (
+    profile.username ||
+    profile.player_tag ||
+    "Player"
+  );
+
+}
+
+function renderTradeItem(
+  container,
+  card,
+  profile,
+  detail,
+  badge,
+  badgeClass
+){
+
+  if(!container || !card)
+    return;
+
+  const item =
+    document.createElement("div");
+
+  item.className =
+    "trade-item";
+
+  item.innerHTML = `
+
+    <div class="trade-item-left">
+
+      <div class="trade-icon">
+        ${CARD_EMOJIS[card.name] || "🃏"}
+      </div>
+
+      <div>
+
+        <div class="trade-card-name">
+          ${escapeHTML(card.name)}
+        </div>
+
+        <div class="trade-player">
+          ${escapeHTML(
+            profileName(profile)
+          )}
+
+          ${
+            profile?.player_tag
+              ? " • #" +
+                escapeHTML(
+                  profile.player_tag
+                )
+              : ""
+          }
+        </div>
+
+        <div class="trade-detail">
+          ${escapeHTML(detail)}
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="trade-badge ${badgeClass}">
+      ${escapeHTML(badge)}
+    </div>
+
+  `;
+
+  container.appendChild(
+    item
+  );
+
+}
+
+/* ==============================
+   LOAD TRADE MARKET
+============================== */
+
+async function loadTradeMarket(){
+
+  if(!currentUser)
+    return;
+
+  const matchesContainer =
+    document.getElementById(
+      "tradeMatches"
+    );
+
+  const lookingContainer =
+    document.getElementById(
+      "tradePeopleLooking"
+    );
+
+  const offersContainer =
+    document.getElementById(
+      "tradeOffers"
+    );
+
+  if(
+    !matchesContainer ||
+    !lookingContainer ||
+    !offersContainer
+  )
+    return;
+
+  matchesContainer.innerHTML = `
+    <div class="empty-trade">
+      Loading trades...
+    </div>
+  `;
+
+  lookingContainer.innerHTML = `
+    <div class="empty-trade">
+      Loading trades...
+    </div>
+  `;
+
+  offersContainer.innerHTML = `
+    <div class="empty-trade">
+      Loading trades...
+    </div>
+  `;
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("user_cards")
+        .select(
+          "user_id,card_id,quantity,is_needed,is_for_trade,trade_quantity"
+        )
+        .or(
+          "is_needed.eq.true,is_for_trade.eq.true"
+        );
+
+    if(result.error)
+      throw result.error;
+
+    const rows =
+      (result.data || [])
+        .filter(
+          row =>
+            row.user_id !==
+            currentUser.id
+        );
+
+    const profileIds =
+      [
+        ...new Set(
+          rows.map(
+            row => row.user_id
+          )
+        )
+      ];
+
+    let profiles = [];
+
+    if(profileIds.length){
+
+      const profileResult =
+        await supabaseClient
+          .from("profiles")
+          .select(
+            "id,username,player_tag"
+          )
+          .in(
+            "id",
+            profileIds
+          );
+
+      if(profileResult.error)
+        throw profileResult.error;
+
+      profiles =
+        profileResult.data || [];
+
+    }
+
+    const profileMap =
+      new Map(
+        profiles.map(
+          profile => [
+            profile.id,
+            profile
+          ]
+        )
+      );
+
+    const matches = [];
+    const peopleLooking = [];
+    const offers = [];
+
+    rows.forEach(row => {
+
+      const card =
+        cardById(
+          row.card_id
+        );
+
+      if(!card)
+        return;
+
+      const profile =
+        profileMap.get(
+          row.user_id
+        ) || null;
+
+      const quantity =
+        Math.max(
+          0,
+          Number(
+            row.quantity
+          ) || 0
+        );
+
+      const offeredQuantity =
+        Math.max(
+          0,
+          Math.min(
+            quantity,
+            Number(
+              row.trade_quantity
+            ) || 0
+          )
+        );
+
+      /*
+       * MATCHES
+       *
+       * The other player needs the card
+       * and you are offering that card.
+       */
+
+      if(
+        row.is_needed &&
+        isCardForTrade(
+          Number(row.card_id)
+        ) &&
+        offeredQuantity > 0
+      ){
+
+        matches.push({
+          row,
+          card,
+          profile,
+          offeredQuantity
+        });
+
+      }
+
+      /*
+       * PEOPLE LOOKING
+       *
+       * The other player needs a card
+       * that you own.
+       */
+
+      if(
+        row.is_needed &&
+        isCardOwned(
+          Number(row.card_id)
+        )
+      ){
+
+        peopleLooking.push({
+          row,
+          card,
+          profile
+        });
+
+      }
+
+      /*
+       * OFFERS
+       *
+       * The other player is offering
+       * this card.
+       */
+
+      if(
+        row.is_for_trade &&
+        offeredQuantity > 0
+      ){
+
+        offers.push({
+          row,
+          card,
+          profile,
+          offeredQuantity
+        });
+
+      }
+
+    });
+
+    /* ==============================
+       MATCHES FOR YOU
+    ============================== */
+
+    matchesContainer.innerHTML = "";
+
+    if(!matches.length){
+
+      matchesContainer.innerHTML = `
+        <div class="empty-trade">
+          No direct matches yet.<br>
+          When someone offers a card you need,
+          it will appear here.
+        </div>
+      `;
+
+    }else{
+
+      matches.forEach(
+        match => {
+
+          renderTradeItem(
+            matchesContainer,
+            match.card,
+            match.profile,
+            `${match.offeredQuantity} available for trade`,
+            "MATCH",
+            "match"
+          );
+
+        }
+      );
+
+    }
+
+    /* ==============================
+       PEOPLE LOOKING FOR YOUR CARDS
+    ============================== */
+
+    lookingContainer.innerHTML = "";
+
+    if(!peopleLooking.length){
+
+      lookingContainer.innerHTML = `
+        <div class="empty-trade">
+          Nobody is currently looking
+          for cards you own.
+        </div>
+      `;
+
+    }else{
+
+      peopleLooking.forEach(
+        item => {
+
+          const quantity =
+            getOwnedQuantity(
+              item.card.id
+            );
+
+          renderTradeItem(
+            lookingContainer,
+            item.card,
+            item.profile,
+            `You own ${quantity} of this card`,
+            "YOU HAVE IT",
+            "want"
+          );
+
+        }
+      );
+
+    }
+
+    /* ==============================
+       CARDS AVAILABLE FOR TRADE
+    ============================== */
+
+    offersContainer.innerHTML = "";
+
+    if(!offers.length){
+
+      offersContainer.innerHTML = `
+        <div class="empty-trade">
+          No cards are currently
+          offered by other players.
+        </div>
+      `;
+
+    }else{
+
+      offers.forEach(
+        item => {
+
+          renderTradeItem(
+            offersContainer,
+            item.card,
+            item.profile,
+            `${item.offeredQuantity} available for trade`,
+            "AVAILABLE",
+            "offer"
+          );
+
+        }
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "TRADE MARKET ERROR:",
+      error
+    );
+
+    const errorHTML = `
+      <div class="empty-trade">
+        Trade listings could not be loaded.<br>
+        Please check the Supabase RLS policies.
+      </div>
+    `;
+
+    matchesContainer.innerHTML =
+      errorHTML;
+
+    lookingContainer.innerHTML =
+      errorHTML;
+
+    offersContainer.innerHTML =
+      errorHTML;
+
+  }
+
+}
+
+/* ==============================
+   NAVIGATION
+============================== */
+
+function navigate(
+  section,
+  button
+){
+
+  const sections = [
+    "homeSection",
+    "collectionSection",
+    "tradeSection"
+  ];
+
+  sections.forEach(
+    id => {
+
+      const element =
+        document.getElementById(
+          id
+        );
+
+      if(element){
+
+        element.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+  );
+
+  const target =
+    document.getElementById(
+      section + "Section"
+    );
+
+  if(target){
+
+    target.classList.remove(
+      "hidden"
+    );
+
+  }
+
+  document
+    .querySelectorAll(
+      ".nav button"
+    )
+    .forEach(
+      btn =>
+        btn.classList.remove(
+          "active"
+        )
+    );
+
+  if(button){
+
+    button.classList.add(
+      "active"
+    );
+
+  }else{
+
+    const buttons =
+      document.querySelectorAll(
+        ".nav button"
+      );
+
+    if(section === "home"){
+
+      buttons[0]?.classList.add(
+        "active"
+      );
+
+    }
+
+    if(section === "collection"){
+
+      buttons[1]?.classList.add(
+        "active"
+      );
+
+    }
+
+    if(section === "trade"){
+
+      buttons[2]?.classList.add(
+        "active"
+      );
+
+    }
+
+  }
+
+  if(section === "collection"){
+
+    renderAlbumTabs();
+
+    renderCollection(
+      selectedAlbum
+    );
+
+  }
+
+  if(section === "trade"){
+
+    loadTradeMarket();
+
+  }
+
+}
+
+/* ==============================
+   LOGOUT
+============================== */
+
+async function logout(){
+
+  await supabaseClient
+    .auth
+    .signOut();
+
+  currentUser = null;
+
+  currentProfile = null;
+
+  ownedCards =
+    new Set();
+
+  neededCards =
+    new Set();
+
+  tradeCards =
+    new Set();
+
+  cardQuantities =
+    new Map();
+
+  tradeQuantities =
+    new Map();
+
+  allCards = [];
+
+  document
+    .getElementById("app")
+    .classList
+    .add("hidden");
+
+  document
+    .getElementById("nav")
+    .classList
+    .add("hidden");
+
+  document
+    .getElementById("authSection")
+    .classList
+    .remove("hidden");
+
+  showAuth(
+    "login"
+  );
+
+}
+
+/* ==============================
+   AUTH SCREEN
+============================== */
+
+function showAuth(
+  mode
+){
+
+  if(mode === "signup"){
+
+    document
+      .getElementById(
+        "signupTab"
+      )
+      .classList
+      .add("active");
+
+    document
+      .getElementById(
+        "loginTab"
+      )
+      .classList
+      .remove("active");
+
+    document
+      .getElementById(
+        "signupForm"
+      )
+      .classList
+      .remove("hidden");
+
+    document
+      .getElementById(
+        "loginForm"
+      )
+      .classList
+      .add("hidden");
+
+  }else{
+
+    document
+      .getElementById(
+        "loginTab"
+      )
+      .classList
+      .add("active");
+
+    document
+      .getElementById(
+        "signupTab"
+      )
+      .classList
+      .remove("active");
+
+    document
+      .getElementById(
+        "loginForm"
+      )
+      .classList
+      .remove("hidden");
+
+    document
+      .getElementById(
+        "signupForm"
+      )
+      .classList
+      .add("hidden");
+
+  }
+
+  clearMessage();
+
+}
+
+/* ==============================
+   AUTH EVENTS
+============================== */
+
+document
+  .getElementById(
+    "loginButton"
+  )
+  .addEventListener(
+    "click",
+    login
+  );
+
+document
+  .getElementById(
+    "signupButton"
+  )
+  .addEventListener(
+    "click",
+    signup
+  );
+
+document
+  .getElementById(
+    "logoutButton"
+  )
+  .addEventListener(
+    "click",
+    logout
+  );
+
+/* ==============================
+   ENTER KEY
+============================== */
+
+document
+  .getElementById(
+    "loginPassword"
+  )
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key ===
+        "Enter"
+      ){
+
+        login();
+
+      }
+
+    }
+  );
+
+document
+  .getElementById(
+    "loginTag"
+  )
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key ===
+        "Enter"
+      ){
+
+        login();
+
+      }
+
+    }
+  );
+
+document
+  .getElementById(
+    "signupPassword"
+  )
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key ===
+        "Enter"
+      ){
+
+        signup();
+
+      }
+
+    }
+  );
+
+/* ==============================
+   INITIAL LOAD
+============================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async function(){
+
+    buildCards();
+
+    try{
+
+      const result =
+        await supabaseClient
+          .auth
+          .getSession();
+
+      const session =
+        result.data?.session;
+
+      if(session){
+
+        currentUser =
+          session.user;
+
+        await loadPlayerData();
+
+        showApp();
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "SESSION ERROR:",
+        error
+      );
+
+    }
+
+  }
+);
+
+/* ==============================
+   AUTH STATE
+============================== */
+
+supabaseClient
+  .auth
+  .onAuthStateChange(
+    async function(
+      event,
+      session
+    ){
+
+      if(
+        event ===
+          "SIGNED_IN" &&
+        session
+      ){
+
+        currentUser =
+          session.user;
+
+        await loadPlayerData();
+
+        showApp();
+
+      }
+
+      if(
+        event ===
+        "SIGNED_OUT"
+      ){
+
+        currentUser =
+          null;
+
+      }
+
+    }
+  );
 
 </script>
 
