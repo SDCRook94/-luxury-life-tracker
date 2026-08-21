@@ -811,7 +811,7 @@ width:min(600px,calc(100% - 28px));
 padding:7px;
 border-radius:22px;
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(4,1fr);
 gap:5px;
 background:rgba(28,22,34,.94);
 backdrop-filter:blur(20px);
@@ -1135,6 +1135,31 @@ padding:8px
 
 }
 
+
+
+/* ================================
+   MESSAGES PAGE
+================================ */
+.messages-page{display:flex;flex-direction:column;gap:16px}
+.messages-header{background:radial-gradient(circle at 100% 0,#684d6b 0,transparent 38%),linear-gradient(145deg,#32283b,#1b1522);border:1px solid var(--border);border-radius:28px;padding:24px}
+.messages-header h1{font-size:34px;font-weight:1000}
+.messages-header p{color:#bbaec4;line-height:1.5;margin-top:8px}
+.messages-list{display:flex;flex-direction:column;gap:10px}
+.message-conversation{width:100%;display:flex;align-items:center;gap:12px;padding:14px;border:1px solid rgba(210,195,220,.08);border-radius:18px;background:linear-gradient(145deg,#33283b,#241c2d);color:white;text-align:left;cursor:pointer;transition:.15s}
+.message-conversation:hover{transform:translateY(-1px);background:linear-gradient(145deg,#3a2d43,#292031)}
+.message-conversation:active{transform:scale(.99)}
+.message-conversation-avatar{width:50px;height:50px;flex:0 0 50px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(135deg,#b7a5c8,#b48c9e);font-size:25px;overflow:hidden}
+.message-conversation-avatar img{width:100%;height:100%;object-fit:cover}
+.message-conversation-info{min-width:0;flex:1}
+.message-conversation-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.message-conversation-name{font-weight:900;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.message-conversation-time{flex:0 0 auto;color:#8f8495;font-size:9px}
+.message-conversation-card{color:#c2b4c7;font-size:11px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.message-conversation-preview{color:#928698;font-size:11px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.messages-empty{text-align:center;padding:35px 15px;color:#95899b;font-size:13px;line-height:1.6;background:rgba(34,27,43,.7);border:1px solid var(--border);border-radius:22px}
+.messages-refresh{border:1px solid var(--border);background:#30263a;color:white;padding:11px 14px;border-radius:13px;font-weight:900}
+@media(max-width:480px){.messages-header{padding:20px 16px}.messages-header h1{font-size:29px}.message-conversation{padding:12px}.message-conversation-avatar{width:45px;height:45px;flex-basis:45px}}
+
 </style>
 </head>
 
@@ -1397,6 +1422,25 @@ Cards other players have marked as available.
 
 </section>
 
+
+<section id="messagesSection" class="hidden">
+
+<div class="messages-page">
+
+<div class="messages-header">
+<h1>💬 Messages</h1>
+<p>Your private conversations with other players.</p>
+<button id="messagesRefresh" class="messages-refresh" type="button" style="margin-top:15px;">↻ Refresh messages</button>
+</div>
+
+<div id="messagesList" class="messages-list">
+<div class="messages-empty">Loading your conversations...</div>
+</div>
+
+</div>
+
+</section>
+
 </main>
 
 <div id="chatBackdrop" class="chat-backdrop" aria-hidden="true">
@@ -1458,17 +1502,22 @@ SEND
 
 <nav id="nav" class="nav hidden">
 
-<button class="active" onclick="navigate('home',this)">
+<button class="active" type="button" onclick="navigate('home',this)">
 <span class="nav-icon">🏠</span>
 Home
 </button>
 
-<button onclick="navigate('collection',this)">
+<button type="button" onclick="navigate('collection',this)">
 <span class="nav-icon">📖</span>
 Collection
 </button>
 
-<button onclick="navigate('trade',this)">
+<button type="button" onclick="navigate('messages',this)">
+<span class="nav-icon">💬</span>
+Messages
+</button>
+
+<button type="button" onclick="navigate('trade',this)">
 <span class="nav-icon">🔄</span>
 Trade
 </button>
@@ -1625,10 +1674,8 @@ const CARD_DATA={
 "Buletti Panaro","RM G-Rex","Buletti Aldo","Buletti Nera",
 "Espot Polygon"
 ]
-
 };
-
-const CARD_EMOJIS={
+  const CARD_EMOJIS={
 
 "Shopping Bags":"🛍️",
 "Sale Tag":"🏷️",
@@ -1788,87 +1835,162 @@ const CARD_EMOJIS={
 };
 
 function escapeHTML(value){
+
 return String(value??"")
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
 .replace(/"/g,"&quot;")
 .replace(/'/g,"&#039;");
+
 }
 
 function showMessage(text,type="error"){
+
 const box=document.getElementById("authMessage");
+
 box.textContent=text;
-box.className="message show "+type;
+
+box.className=
+"message show "+type;
+
 }
 
 function clearMessage(){
-const box=document.getElementById("authMessage");
+
+const box=
+document.getElementById("authMessage");
+
 box.textContent="";
+
 box.className="message";
+
 }
 
-document.getElementById("loginTab").onclick=function(){
-document.getElementById("loginTab").classList.add("active");
-document.getElementById("signupTab").classList.remove("active");
-document.getElementById("loginForm").classList.remove("hidden");
-document.getElementById("signupForm").classList.add("hidden");
+document
+.getElementById("loginTab")
+.onclick=function(){
+
+document
+.getElementById("loginTab")
+.classList.add("active");
+
+document
+.getElementById("signupTab")
+.classList.remove("active");
+
+document
+.getElementById("loginForm")
+.classList.remove("hidden");
+
+document
+.getElementById("signupForm")
+.classList.add("hidden");
+
 clearMessage();
+
 };
 
-document.getElementById("signupTab").onclick=function(){
-document.getElementById("signupTab").classList.add("active");
-document.getElementById("loginTab").classList.remove("active");
-document.getElementById("signupForm").classList.remove("hidden");
-document.getElementById("loginForm").classList.add("hidden");
+document
+.getElementById("signupTab")
+.onclick=function(){
+
+document
+.getElementById("signupTab")
+.classList.add("active");
+
+document
+.getElementById("loginTab")
+.classList.remove("active");
+
+document
+.getElementById("signupForm")
+.classList.remove("hidden");
+
+document
+.getElementById("loginForm")
+.classList.add("hidden");
+
 clearMessage();
+
 };
 
 async function signup(){
 
 clearMessage();
 
-const username=document.getElementById("signupUsername").value.trim();
-const tag=document.getElementById("signupTag").value.trim();
-const password=document.getElementById("signupPassword").value;
+const username=
+document
+.getElementById("signupUsername")
+.value
+.trim();
+
+const tag=
+document
+.getElementById("signupTag")
+.value
+.trim();
+
+const password=
+document
+.getElementById("signupPassword")
+.value;
 
 if(!username||!tag||!password){
-showMessage("Please fill in every field.");
+
+showMessage(
+"Please fill in every field."
+);
+
 return;
+
 }
 
 if(password.length<6){
-showMessage("Password must contain at least 6 characters.");
+
+showMessage(
+"Password must contain at least 6 characters."
+);
+
 return;
+
 }
 
-const email=`${tag.toLowerCase()}@sundaycity.local`;
+const email=
+`${tag.toLowerCase()}@sundaycity.local`;
 
-const button=document.getElementById("signupButton");
+const button=
+document.getElementById("signupButton");
 
 button.disabled=true;
 button.textContent="CREATING...";
 
 try{
 
-const result=await supabaseClient.auth.signUp({
+const result=
+await supabaseClient.auth.signUp({
+
 email,
 password,
+
 options:{
 data:{
 username,
 player_tag:tag
 }
 }
+
 });
 
-if(result.error) throw result.error;
+if(result.error)
+throw result.error;
 
 currentUser=result.data.user;
 
 if(currentUser){
 
-const profile=await supabaseClient
+const profile=
+await supabaseClient
 .from("profiles")
 .upsert({
 id:currentUser.id,
@@ -1876,9 +1998,11 @@ username,
 player_tag:tag
 });
 
-if(profile.error) throw profile.error;
+if(profile.error)
+throw profile.error;
 
 await loadPlayerData();
+
 showApp();
 
 }else{
@@ -1912,47 +2036,84 @@ async function login(){
 
 clearMessage();
 
-const username=document.getElementById("loginUsername").value.trim();
-const tag=document.getElementById("loginTag").value.trim();
-const password=document.getElementById("loginPassword").value;
+const username=
+document
+.getElementById("loginUsername")
+.value
+.trim();
+
+const tag=
+document
+.getElementById("loginTag")
+.value
+.trim();
+
+const password=
+document
+.getElementById("loginPassword")
+.value;
 
 if(!username||!tag||!password){
-showMessage("Please fill in every field.");
+
+showMessage(
+"Please fill in every field."
+);
+
 return;
+
 }
 
-const email=`${tag.toLowerCase()}@sundaycity.local`;
+const email=
+`${tag.toLowerCase()}@sundaycity.local`;
 
-const button=document.getElementById("loginButton");
+const button=
+document.getElementById("loginButton");
 
 button.disabled=true;
 button.textContent="LOGGING IN...";
 
 try{
 
-const result=await supabaseClient.auth.signInWithPassword({
+const result=
+await supabaseClient.auth.signInWithPassword({
+
 email,
 password
+
 });
 
-if(result.error) throw result.error;
+if(result.error)
+throw result.error;
 
 if(!result.data?.user)
-throw new Error("No user session was returned.");
+throw new Error(
+"No user session was returned."
+);
 
-currentUser=result.data.user;
+currentUser=
+result.data.user;
 
 try{
+
 await loadPlayerData();
+
 }catch(dataError){
-console.warn("POST-LOGIN DATA ERROR:",dataError);
+
+console.warn(
+"POST-LOGIN DATA ERROR:",
+dataError
+);
+
 }
 
 showApp();
 
 }catch(error){
 
-console.error("LOGIN ERROR:",error);
+console.error(
+"LOGIN ERROR:",
+error
+);
 
 showMessage(
 error.message||
@@ -1970,11 +2131,13 @@ button.textContent="LOG IN";
 
 async function loadPlayerData(){
 
-if(!currentUser) return;
+if(!currentUser)
+return;
 
 try{
 
-const profileResult=await supabaseClient
+const profileResult=
+await supabaseClient
 .from("profiles")
 .select("*")
 .eq("id",currentUser.id)
@@ -1982,46 +2145,76 @@ const profileResult=await supabaseClient
 
 if(profileResult.data){
 
-currentProfile=profileResult.data;
+currentProfile=
+profileResult.data;
 
 }else{
 
 currentProfile={
-username:currentUser.user_metadata?.username||"Player",
-player_tag:currentUser.user_metadata?.player_tag||""
+
+username:
+currentUser.user_metadata?.username||
+"Player",
+
+player_tag:
+currentUser.user_metadata?.player_tag||
+""
+
 };
 
 }
 
 }catch(error){
 
-console.warn("PROFILE LOAD ERROR:",error);
+console.warn(
+"PROFILE LOAD ERROR:",
+error
+);
 
 currentProfile={
-username:currentUser.user_metadata?.username||"Player",
-player_tag:currentUser.user_metadata?.player_tag||""
+
+username:
+currentUser.user_metadata?.username||
+"Player",
+
+player_tag:
+currentUser.user_metadata?.player_tag||
+""
+
 };
 
 }
 
 try{
+
 await loadOwnedCards();
+
 }catch(error){
-console.warn("CARD LOAD ERROR:",error);
+
+console.warn(
+"CARD LOAD ERROR:",
+error
+);
+
 }
 
 }
 
 async function loadOwnedCards(){
 
-if(!currentUser) return;
+if(!currentUser)
+return;
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .from("user_cards")
-.select("card_id,quantity,is_needed,is_for_trade,trade_quantity")
+.select(
+"card_id,quantity,is_needed,is_for_trade,trade_quantity"
+)
 .eq("user_id",currentUser.id);
 
-if(result.error) throw result.error;
+if(result.error)
+throw result.error;
 
 ownedCards=new Set();
 neededCards=new Set();
@@ -2034,25 +2227,45 @@ tradeQuantities=new Map();
 
 const id=Number(row.card_id);
 
-const quantity=Math.max(
+const quantity=
+Math.max(
 0,
 Number(row.quantity)||0
 );
 
-const tradeQuantity=Math.min(
-Math.max(0,quantity-1),
-Math.max(0,Number(row.trade_quantity)||0)
+const tradeQuantity=
+Math.min(
+Math.max(
+0,
+quantity-1
+),
+Math.max(
+0,
+Number(row.trade_quantity)||0
+)
 );
 
-if(quantity>0) ownedCards.add(id);
+if(quantity>0)
+ownedCards.add(id);
 
-if(row.is_needed) neededCards.add(id);
+if(row.is_needed)
+neededCards.add(id);
 
-if(row.is_for_trade&&tradeQuantity>0)
+if(
+row.is_for_trade&&
+tradeQuantity>0
+)
 tradeCards.add(id);
 
-cardQuantities.set(id,quantity);
-tradeQuantities.set(id,tradeQuantity);
+cardQuantities.set(
+id,
+quantity
+);
+
+tradeQuantities.set(
+id,
+tradeQuantity
+);
 
 });
 
@@ -2066,19 +2279,23 @@ let id=1;
 
 ALBUM_ORDER.forEach(album=>{
 
-CARD_DATA[album].forEach((name,index)=>{
+CARD_DATA[album].forEach(
+(name,index)=>{
 
 allCards.push({
+
 id,
 name,
 album,
 number:index+1,
 rarity:"◆◆"
+
 });
 
 id++;
 
-});
+}
+);
 
 });
 
@@ -2086,9 +2303,17 @@ id++;
 
 function showApp(){
 
-document.getElementById("authSection").classList.add("hidden");
-document.getElementById("app").classList.remove("hidden");
-document.getElementById("nav").classList.remove("hidden");
+document
+.getElementById("authSection")
+.classList.add("hidden");
+
+document
+.getElementById("app")
+.classList.remove("hidden");
+
+document
+.getElementById("nav")
+.classList.remove("hidden");
 
 updateProfileUI();
 updateAvatarUI();
@@ -2101,29 +2326,46 @@ updateStats();
 
 function updateProfileUI(){
 
-const username=currentProfile?.username||"Player";
-const tag=currentProfile?.player_tag||"";
+const username=
+currentProfile?.username||
+"Player";
 
-document.getElementById("profileUsername").textContent=username;
-document.getElementById("profileTag").textContent=tag?"#"+tag:"";
+const tag=
+currentProfile?.player_tag||
+"";
+
+document
+.getElementById("profileUsername")
+.textContent=username;
+
+document
+.getElementById("profileTag")
+.textContent=
+tag?"#"+tag:"";
 
 updateAvatarUI();
 
 }
 
 function getAvatarPath(){
+
 return `${currentUser.id}/avatar.jpg`;
+
 }
 
 function getAvatarUrl(){
+
 return `${SUPABASE_URL}/storage/v1/object/public/AVATARS/${getAvatarPath()}?v=${Date.now()}`;
+
 }
 
 function updateAvatarUI(){
 
-const avatar=document.querySelector(".avatar");
+const avatar=
+document.querySelector(".avatar");
 
-if(!avatar||!currentUser) return;
+if(!avatar||!currentUser)
+return;
 
 const img=new Image();
 
@@ -2135,7 +2377,9 @@ avatar.appendChild(img);
 };
 
 img.onerror=()=>{
+
 avatar.innerHTML="👤";
+
 };
 
 img.src=getAvatarUrl();
@@ -2145,19 +2389,26 @@ img.src=getAvatarUrl();
 async function uploadAvatar(file){
 
 if(!currentUser)
-throw new Error("Please log in first.");
+throw new Error(
+"Please log in first."
+);
 
 if(![
 "image/jpeg",
 "image/png",
 "image/webp"
 ].includes(file.type))
-throw new Error("Please choose a JPG, PNG or WebP image.");
+throw new Error(
+"Please choose a JPG, PNG or WebP image."
+);
 
 if(file.size>2*1024*1024)
-throw new Error("The profile photo must be 2 MB or smaller.");
+throw new Error(
+"The profile photo must be 2 MB or smaller."
+);
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .storage
 .from("AVATARS")
 .upload(
@@ -2170,7 +2421,8 @@ cacheControl:"3600"
 }
 );
 
-if(result.error) throw result.error;
+if(result.error)
+throw result.error;
 
 updateAvatarUI();
 
@@ -2178,18 +2430,25 @@ updateAvatarUI();
 
 async function removeAvatar(){
 
-if(!currentUser) return;
+if(!currentUser)
+return;
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .storage
 .from("AVATARS")
-.remove([getAvatarPath()]);
+.remove([
+getAvatarPath()
+]);
 
-if(result.error) throw result.error;
+if(result.error)
+throw result.error;
 
-const avatar=document.querySelector(".avatar");
+const avatar=
+document.querySelector(".avatar");
 
-if(avatar) avatar.innerHTML="👤";
+if(avatar)
+avatar.innerHTML="👤";
 
 }
 
@@ -2197,11 +2456,26 @@ function updateStats(){
 
 const total=allCards.length;
 const owned=ownedCards.size;
-const percent=total?Math.round((owned/total)*100):0;
 
-document.getElementById("statOwned").textContent=owned;
-document.getElementById("statTotal").textContent=total;
-document.getElementById("statPercent").textContent=percent+"%";
+const percent=
+total
+?
+Math.round((owned/total)*100)
+:
+0;
+
+document
+.getElementById("statOwned")
+.textContent=owned;
+
+document
+.getElementById("statTotal")
+.textContent=total;
+
+document
+.getElementById("statPercent")
+.textContent=
+percent+"%";
 
 }
   function renderAlbums(){
@@ -2212,20 +2486,38 @@ grid.innerHTML="";
 
 ALBUM_ORDER.forEach(album=>{
 
-const cards=allCards.filter(card=>card.album===album);
+const cards=
+allCards.filter(
+card=>card.album===album
+);
 
-const owned=cards.filter(card=>ownedCards.has(card.id)).length;
+const owned=
+cards.filter(
+card=>ownedCards.has(card.id)
+).length;
 
-const percent=Math.round((owned/cards.length)*100);
+const percent=
+Math.round(
+(owned/cards.length)*100
+);
 
-const colors=ALBUM_THEMES[album];
+const colors=
+ALBUM_THEMES[album];
 
-const button=document.createElement("button");
+const button=
+document.createElement("button");
 
 button.className="album-card";
 
-button.style.setProperty("--c1",colors[0]);
-button.style.setProperty("--c2",colors[1]);
+button.style.setProperty(
+"--c1",
+colors[0]
+);
+
+button.style.setProperty(
+"--c2",
+colors[1]
+);
 
 button.innerHTML=`
 
@@ -2244,6 +2536,7 @@ ${escapeHTML(album)}
 <div class="album-count">
 ${owned}/${cards.length} collected
 </div>
+
 `;
 
 button.onclick=function(){
@@ -2253,6 +2546,7 @@ selectedAlbum=album;
 navigate("collection");
 
 renderAlbumTabs();
+
 renderCollection(album);
 
 };
@@ -2263,19 +2557,28 @@ grid.appendChild(button);
 
 }
 
+
 function renderAlbumTabs(){
 
-const container=document.getElementById("albumTabs");
+const container=
+document.getElementById("albumTabs");
 
 container.innerHTML="";
 
 ALBUM_ORDER.forEach(album=>{
 
-const button=document.createElement("button");
+const button=
+document.createElement("button");
 
 button.className=
 "album-tab"+
-(album===selectedAlbum?" active":"");
+(
+album===selectedAlbum
+?
+" active"
+:
+""
+);
 
 button.textContent=
 ALBUM_ICONS[album]+" "+album;
@@ -2285,6 +2588,7 @@ button.onclick=function(){
 selectedAlbum=album;
 
 renderAlbumTabs();
+
 renderCollection(album);
 
 };
@@ -2295,22 +2599,41 @@ container.appendChild(button);
 
 }
 
+
 function renderCollection(album){
 
 selectedAlbum=album;
 
-const cards=allCards.filter(card=>card.album===album);
+const cards=
+allCards.filter(
+card=>card.album===album
+);
 
-const owned=cards.filter(card=>ownedCards.has(card.id)).length;
+const owned=
+cards.filter(
+card=>ownedCards.has(card.id)
+).length;
 
-const percent=Math.round((owned/cards.length)*100);
+const percent=
+Math.round(
+(owned/cards.length)*100
+);
 
-const colors=ALBUM_THEMES[album];
+const colors=
+ALBUM_THEMES[album];
 
-const banner=document.getElementById("albumBanner");
+const banner=
+document.getElementById("albumBanner");
 
-banner.style.setProperty("--c1",colors[0]);
-banner.style.setProperty("--c2",colors[1]);
+banner.style.setProperty(
+"--c1",
+colors[0]
+);
+
+banner.style.setProperty(
+"--c2",
+colors[1]
+);
 
 banner.innerHTML=`
 
@@ -2332,25 +2655,43 @@ ${owned}/${cards.length} tradable cards collected
 <strong>${percent}%</strong>
 
 </div>
+
 `;
 
-const grid=document.getElementById("cardsGrid");
+const grid=
+document.getElementById("cardsGrid");
 
 grid.innerHTML="";
 
 cards.forEach(card=>{
 
-const isOwned=ownedCards.has(card.id);
-const isNeeded=neededCards.has(card.id);
-const isTrade=tradeCards.has(card.id);
+const isOwned=
+ownedCards.has(card.id);
 
-const quantity=cardQuantities.get(card.id)||0;
-const tradeQuantity=tradeQuantities.get(card.id)||0;
+const isNeeded=
+neededCards.has(card.id);
 
-const element=document.createElement("div");
+const isTrade=
+tradeCards.has(card.id);
+
+const quantity=
+cardQuantities.get(card.id)||0;
+
+const tradeQuantity=
+tradeQuantities.get(card.id)||0;
+
+const element=
+document.createElement("div");
 
 element.className=
-"card"+(isOwned?" owned-card":"");
+"card"+
+(
+isOwned
+?
+" owned-card"
+:
+""
+);
 
 element.innerHTML=`
 
@@ -2373,16 +2714,36 @@ ${card.rarity}
 <div class="card-actions">
 
 <button
-class="action-btn ${isNeeded?"active-need":""}"
-onclick="toggleNeed(${card.id})">
+class="action-btn ${
+isNeeded
+?
+"active-need"
+:
+""
+}"
+onclick="toggleNeed(${card.id})"
+>
 
-🔎 ${isNeeded?"NEEDED":"I NEED IT"}
+🔎 ${
+isNeeded
+?
+"NEEDED"
+:
+"I NEED IT"
+}
 
 </button>
 
 <button
-class="action-btn ${isOwned?"active-have":""}"
-onclick="toggleHave(${card.id})">
+class="action-btn ${
+isOwned
+?
+"active-have"
+:
+""
+}"
+onclick="toggleHave(${card.id})"
+>
 
 ✓ I HAVE IT
 
@@ -2399,7 +2760,10 @@ isOwned
 
 <button
 class="qty-btn"
-onclick="changeQuantity(${card.id},-1)"
+onclick="changeQuantity(
+${card.id},
+-1
+)"
 >
 −
 </button>
@@ -2410,7 +2774,10 @@ ${quantity}
 
 <button
 class="qty-btn"
-onclick="changeQuantity(${card.id},1)"
+onclick="changeQuantity(
+${card.id},
+1
+)"
 >
 +
 </button>
@@ -2418,11 +2785,23 @@ onclick="changeQuantity(${card.id},1)"
 </div>
 
 <button
-class="action-btn trade-toggle ${isTrade?"active-trade":""}"
+class="action-btn trade-toggle ${
+isTrade
+?
+"active-trade"
+:
+""
+}"
 onclick="toggleTrade(${card.id})"
 >
 
-🔄 ${isTrade?"OFFERING FOR TRADE":"OFFER FOR TRADE"}
+🔄 ${
+isTrade
+?
+"OFFERING FOR TRADE"
+:
+"OFFER FOR TRADE"
+}
 
 </button>
 
@@ -2439,7 +2818,10 @@ Trade quantity
 
 <button
 class="qty-btn"
-onclick="changeTradeQuantity(${card.id},-1)"
+onclick="changeTradeQuantity(
+${card.id},
+-1
+)"
 >
 −
 </button>
@@ -2450,12 +2832,16 @@ ${tradeQuantity}
 
 <button
 class="qty-btn"
-onclick="changeTradeQuantity(${card.id},1)"
+onclick="changeTradeQuantity(
+${card.id},
+1
+)"
 >
 +
 </button>
 
 </div>
+
 `
 :
 ""
@@ -2500,60 +2886,103 @@ grid.appendChild(element);
 
 }
 
-async function saveCardState(cardId,changes={}){
+
+async function saveCardState(
+cardId,
+changes={}
+){
 
 if(!currentUser)
-throw new Error("Please log in first.");
+throw new Error(
+"Please log in first."
+);
 
-const existing=await supabaseClient
+const existing=
+await supabaseClient
 .from("user_cards")
 .select("card_id")
 .eq("user_id",currentUser.id)
 .eq("card_id",cardId)
 .maybeSingle();
 
-if(existing.error) throw existing.error;
+if(existing.error)
+throw existing.error;
 
 const quantity=
 changes.quantity!==undefined
-?Math.max(0,Number(changes.quantity)||0)
-:cardQuantities.get(cardId)||0;
+?
+Math.max(
+0,
+Number(changes.quantity)||0
+)
+:
+cardQuantities.get(cardId)||0;
 
 const isNeeded=
 changes.is_needed!==undefined
-?Boolean(changes.is_needed)
-:neededCards.has(cardId);
+?
+Boolean(changes.is_needed)
+:
+neededCards.has(cardId);
 
 const isForTrade=
 changes.is_for_trade!==undefined
-?Boolean(changes.is_for_trade)
-:tradeCards.has(cardId);
+?
+Boolean(changes.is_for_trade)
+:
+tradeCards.has(cardId);
 
 let tradeQuantity=
 changes.trade_quantity!==undefined
-?Math.max(0,Number(changes.trade_quantity)||0)
-:tradeQuantities.get(cardId)||0;
+?
+Math.max(
+0,
+Number(changes.trade_quantity)||0
+)
+:
+tradeQuantities.get(cardId)||0;
 
-tradeQuantity=Math.min(quantity,tradeQuantity);
+tradeQuantity=
+Math.min(
+quantity,
+tradeQuantity
+);
 
 const payload={
+
 user_id:currentUser.id,
+
 card_id:cardId,
+
 quantity,
+
 is_needed:isNeeded,
+
 is_for_trade:isForTrade,
-trade_quantity:isForTrade?tradeQuantity:0
+
+trade_quantity:
+isForTrade
+?
+tradeQuantity
+:
+0
+
 };
 
-if(payload.quantity<=0&&!payload.is_needed){
+if(
+payload.quantity<=0&&
+!payload.is_needed
+){
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .from("user_cards")
 .delete()
 .eq("user_id",currentUser.id)
 .eq("card_id",cardId);
 
-if(result.error) throw result.error;
+if(result.error)
+throw result.error;
 
 return;
 
@@ -2561,41 +2990,64 @@ return;
 
 if(existing.data){
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .from("user_cards")
 .update({
-quantity:payload.quantity,
-is_needed:payload.is_needed,
-is_for_trade:payload.is_for_trade,
-trade_quantity:payload.trade_quantity
-})
-.eq("user_id",currentUser.id)
-.eq("card_id",cardId);
 
-if(result.error) throw result.error;
+quantity:
+payload.quantity,
+
+is_needed:
+payload.is_needed,
+
+is_for_trade:
+payload.is_for_trade,
+
+trade_quantity:
+payload.trade_quantity
+
+})
+.eq(
+"user_id",
+currentUser.id
+)
+.eq(
+"card_id",
+cardId
+);
+
+if(result.error)
+throw result.error;
 
 }else{
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .from("user_cards")
 .insert(payload);
 
-if(result.error) throw result.error;
+if(result.error)
+throw result.error;
 
 }
 
 }
+
 
 async function toggleNeed(cardId){
 
-const old=neededCards.has(cardId);
+const old=
+neededCards.has(cardId);
 
 if(old)
 neededCards.delete(cardId);
 else
 neededCards.add(cardId);
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
 
 try{
 
@@ -2613,7 +3065,9 @@ neededCards.add(cardId);
 else
 neededCards.delete(cardId);
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
 
 alert(
 error.message||
@@ -2624,30 +3078,45 @@ error.message||
 
 }
 
+
 async function toggleHave(cardId){
 
-const old=ownedCards.has(cardId);
+const old=
+ownedCards.has(cardId);
 
 if(old){
 
 ownedCards.delete(cardId);
 
-cardQuantities.set(cardId,0);
+cardQuantities.set(
+cardId,
+0
+);
 
 tradeCards.delete(cardId);
 
-tradeQuantities.set(cardId,0);
+tradeQuantities.set(
+cardId,
+0
+);
 
 }else{
 
 ownedCards.add(cardId);
 
-cardQuantities.set(cardId,1);
+cardQuantities.set(
+cardId,
+1
+);
 
 }
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
+
 renderAlbums();
+
 updateStats();
 
 try{
@@ -2655,9 +3124,26 @@ try{
 await saveCardState(
 cardId,
 {
-quantity:old?0:1,
-is_for_trade:old?false:tradeCards.has(cardId),
-trade_quantity:old?0:tradeQuantities.get(cardId)||0
+quantity:
+old
+?
+0
+:
+1,
+
+is_for_trade:
+old
+?
+false
+:
+tradeCards.has(cardId),
+
+trade_quantity:
+old
+?
+0
+:
+tradeQuantities.get(cardId)||0
 }
 );
 
@@ -2670,32 +3156,63 @@ error.message||
 
 await loadOwnedCards();
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
+
 renderAlbums();
+
 updateStats();
 
 }
 
 }
 
-async function changeQuantity(cardId,delta){
 
-if(!ownedCards.has(cardId))
+async function changeQuantity(
+cardId,
+delta
+){
+
+if(
+!ownedCards.has(cardId)
+)
 return;
 
-const old=cardQuantities.get(cardId)||1;
+const old=
+cardQuantities.get(cardId)||1;
 
-const next=Math.max(1,old+delta);
+const next=
+Math.max(
+1,
+old+delta
+);
 
-const oldTrade=tradeQuantities.get(cardId)||0;
+const oldTrade=
+tradeQuantities.get(cardId)||0;
 
-const nextTrade=Math.min(oldTrade,next);
+const nextTrade=
+Math.min(
+oldTrade,
+next
+);
 
-cardQuantities.set(cardId,next);
-tradeQuantities.set(cardId,nextTrade);
+cardQuantities.set(
+cardId,
+next
+);
 
-renderCollection(selectedAlbum);
+tradeQuantities.set(
+cardId,
+nextTrade
+);
+
+renderCollection(
+selectedAlbum
+);
+
 renderAlbums();
+
 updateStats();
 
 try{
@@ -2710,11 +3227,22 @@ trade_quantity:nextTrade
 
 }catch(error){
 
-cardQuantities.set(cardId,old);
-tradeQuantities.set(cardId,oldTrade);
+cardQuantities.set(
+cardId,
+old
+);
 
-renderCollection(selectedAlbum);
+tradeQuantities.set(
+cardId,
+oldTrade
+);
+
+renderCollection(
+selectedAlbum
+);
+
 renderAlbums();
+
 updateStats();
 
 alert(
@@ -2726,9 +3254,12 @@ error.message||
 
 }
 
+
 async function toggleTrade(cardId){
 
-if(!ownedCards.has(cardId)){
+if(
+!ownedCards.has(cardId)
+){
 
 alert(
 "You need to have this card before offering it for trade."
@@ -2738,27 +3269,38 @@ return;
 
 }
 
-const old=tradeCards.has(cardId);
+const old=
+tradeCards.has(cardId);
 
 if(old){
 
 tradeCards.delete(cardId);
-tradeQuantities.set(cardId,0);
+
+tradeQuantities.set(
+cardId,
+0
+);
 
 }else{
 
 tradeCards.add(cardId);
 
-const quantity=cardQuantities.get(cardId)||1;
+const quantity=
+cardQuantities.get(cardId)||1;
 
 tradeQuantities.set(
 cardId,
-Math.min(1,quantity)
+Math.min(
+1,
+quantity
+)
 );
 
 }
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
 
 try{
 
@@ -2766,7 +3308,13 @@ await saveCardState(
 cardId,
 {
 is_for_trade:!old,
-trade_quantity:old?0:tradeQuantities.get(cardId)||1
+
+trade_quantity:
+old
+?
+0
+:
+tradeQuantities.get(cardId)||1
 }
 );
 
@@ -2775,16 +3323,26 @@ trade_quantity:old?0:tradeQuantities.get(cardId)||1
 if(old){
 
 tradeCards.add(cardId);
-tradeQuantities.set(cardId,1);
+
+tradeQuantities.set(
+cardId,
+1
+);
 
 }else{
 
 tradeCards.delete(cardId);
-tradeQuantities.set(cardId,0);
+
+tradeQuantities.set(
+cardId,
+0
+);
 
 }
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
 
 alert(
 error.message||
@@ -2795,7 +3353,11 @@ error.message||
 
 }
 
-async function changeTradeQuantity(cardId,delta){
+
+async function changeTradeQuantity(
+cardId,
+delta
+){
 
 if(
 !ownedCards.has(cardId)||
@@ -2803,17 +3365,29 @@ if(
 )
 return;
 
-const owned=cardQuantities.get(cardId)||1;
-const old=tradeQuantities.get(cardId)||1;
+const owned=
+cardQuantities.get(cardId)||1;
 
-const next=Math.max(
+const old=
+tradeQuantities.get(cardId)||1;
+
+const next=
+Math.max(
 1,
-Math.min(owned,old+delta)
+Math.min(
+owned,
+old+delta
+)
 );
 
-tradeQuantities.set(cardId,next);
+tradeQuantities.set(
+cardId,
+next
+);
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
 
 try{
 
@@ -2827,9 +3401,14 @@ trade_quantity:next
 
 }catch(error){
 
-tradeQuantities.set(cardId,old);
+tradeQuantities.set(
+cardId,
+old
+);
 
-renderCollection(selectedAlbum);
+renderCollection(
+selectedAlbum
+);
 
 alert(
 error.message||
@@ -2840,6 +3419,7 @@ error.message||
 
 }
 
+
 function cardById(id){
 
 return allCards.find(
@@ -2847,6 +3427,7 @@ card=>card.id===Number(id)
 );
 
 }
+
 
 function profileName(profile){
 
@@ -2858,19 +3439,32 @@ profile.player_tag||
 "Player";
 
 }
-  function closeChat(){
 
-const backdrop=document.getElementById("chatBackdrop");
+
+function closeChat(){
+
+const backdrop=
+document.getElementById(
+"chatBackdrop"
+);
 
 if(backdrop)
-backdrop.classList.remove("open");
+backdrop.classList.remove(
+"open"
+);
 
 if(backdrop)
-backdrop.setAttribute("aria-hidden","true");
+backdrop.setAttribute(
+"aria-hidden",
+"true"
+);
 
 if(chatPollTimer){
 
-clearInterval(chatPollTimer);
+clearInterval(
+chatPollTimer
+);
+
 chatPollTimer=null;
 
 }
@@ -2878,18 +3472,27 @@ chatPollTimer=null;
 chatPartnerId=null;
 chatCardId=null;
 
-const input=document.getElementById("chatInput");
+const input=
+document.getElementById(
+"chatInput"
+);
 
 if(input)
 input.value="";
 
 }
 
+
 function formatChatTime(value){
 
-const date=new Date(value);
+const date=
+new Date(value);
 
-if(Number.isNaN(date.getTime()))
+if(
+Number.isNaN(
+date.getTime()
+)
+)
 return "";
 
 return date.toLocaleTimeString(
@@ -2902,11 +3505,17 @@ minute:"2-digit"
 
 }
 
-async function getChatProfile(userId){
 
-const result=await supabaseClient
+async function getChatProfile(
+userId
+){
+
+const result=
+await supabaseClient
 .from("profiles")
-.select("id,username,player_tag")
+.select(
+"id,username,player_tag"
+)
 .eq("id",userId)
 .maybeSingle();
 
@@ -2916,8 +3525,7 @@ throw result.error;
 return result.data||null;
 
 }
-
-async function loadChatMessages(scrollToBottom=false){
+  async function loadChatMessages(scrollToBottom=false){
 
 if(
 !currentUser||
@@ -2926,17 +3534,24 @@ if(
 )
 return;
 
-const box=document.getElementById("chatMessages");
+const box=
+document.getElementById(
+"chatMessages"
+);
 
 if(!box)
 return;
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .from("direct_messages")
 .select(
 "id,sender_id,receiver_id,card_id,content,created_at"
 )
-.eq("card_id",chatCardId)
+.eq(
+"card_id",
+chatCardId
+)
 .or(
 `and(sender_id.eq.${currentUser.id},receiver_id.eq.${chatPartnerId}),and(sender_id.eq.${chatPartnerId},receiver_id.eq.${currentUser.id})`
 )
@@ -2950,33 +3565,60 @@ ascending:true
 if(result.error)
 throw result.error;
 
-const messages=result.data||[];
+const messages=
+result.data||[];
 
 if(!messages.length){
 
 box.innerHTML=`
+
 <div class="chat-empty">
+
 No messages yet.<br>
+
 Say hello and discuss the trade privately.
+
 </div>
+
 `;
 
 }else{
 
-box.innerHTML=messages.map(message=>{
+box.innerHTML=
+messages.map(message=>{
 
 const mine=
-message.sender_id===currentUser.id;
+message.sender_id===
+currentUser.id;
 
 return `
-<div class="chat-bubble-row ${mine?"mine":""}">
+
+<div class="chat-bubble-row ${
+mine
+?
+"mine"
+:
+""
+}">
+
 <div class="chat-bubble">
-${escapeHTML(message.content)}
+
+${escapeHTML(
+message.content
+)}
+
 <span class="chat-time">
-${formatChatTime(message.created_at)}
+
+${formatChatTime(
+message.created_at
+)}
+
 </span>
+
 </div>
+
 </div>
+
 `;
 
 }).join("");
@@ -2984,15 +3626,23 @@ ${formatChatTime(message.created_at)}
 }
 
 if(scrollToBottom)
-box.scrollTop=box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
 }
 
-async function openChat(partnerId,cardId){
+
+async function openChat(
+partnerId,
+cardId
+){
 
 if(!currentUser){
 
-alert("Please log in first.");
+alert(
+"Please log in first."
+);
+
 return;
 
 }
@@ -3000,35 +3650,62 @@ return;
 if(
 !partnerId||
 !cardId||
-partnerId===currentUser.id
+partnerId===
+currentUser.id
 )
 return;
 
-chatPartnerId=String(partnerId);
-chatCardId=Number(cardId);
+chatPartnerId=
+String(partnerId);
 
-const card=cardById(chatCardId);
+chatCardId=
+Number(cardId);
+
+const card=
+cardById(chatCardId);
 
 if(!card)
 return;
 
-const backdrop=document.getElementById("chatBackdrop");
-const title=document.getElementById("chatTitle");
-const cardLabel=document.getElementById("chatCard");
-const box=document.getElementById("chatMessages");
+const backdrop=
+document.getElementById(
+"chatBackdrop"
+);
 
-title.textContent="Private chat";
+const title=
+document.getElementById(
+"chatTitle"
+);
+
+const cardLabel=
+document.getElementById(
+"chatCard"
+);
+
+const box=
+document.getElementById(
+"chatMessages"
+);
+
+title.textContent=
+"Private chat";
 
 cardLabel.textContent=
 `${CARD_EMOJIS[card.name]||"🃏"} ${card.name} • ${card.album}`;
 
 box.innerHTML=`
+
 <div class="chat-empty">
+
 Loading conversation...
+
 </div>
+
 `;
 
-backdrop.classList.add("open");
+backdrop.classList.add(
+"open"
+);
 
 backdrop.setAttribute(
 "aria-hidden",
@@ -3037,33 +3714,56 @@ backdrop.setAttribute(
 
 try{
 
-const profile=await getChatProfile(partnerId);
+const profile=
+await getChatProfile(
+partnerId
+);
 
 if(profile)
-title.textContent=profileName(profile);
+title.textContent=
+profileName(profile);
 
-await loadChatMessages(true);
+await loadChatMessages(
+true
+);
 
 if(chatPollTimer)
-clearInterval(chatPollTimer);
+clearInterval(
+chatPollTimer
+);
 
-chatPollTimer=setInterval(
+chatPollTimer=
+setInterval(
 async()=>{
+
 try{
-await loadChatMessages(false);
+
+await loadChatMessages(
+false
+);
+
 }catch(error){
+
 console.warn(
 "CHAT REFRESH ERROR:",
 error
 );
+
 }
+
 },
 2500
 );
 
 setTimeout(
 ()=>{
-document.getElementById("chatInput")?.focus();
+
+document
+.getElementById(
+"chatInput"
+)
+?.focus();
+
 },
 100
 );
@@ -3076,18 +3776,24 @@ error
 );
 
 box.innerHTML=`
+
 <div class="chat-empty">
+
 Unable to load this conversation.<br>
+
 ${escapeHTML(
 error.message||
 "Please try again."
 )}
+
 </div>
+
 `;
 
 }
 
 }
+
 
 async function sendChatMessage(){
 
@@ -3098,10 +3804,18 @@ if(
 )
 return;
 
-const input=document.getElementById("chatInput");
-const button=document.getElementById("chatSend");
+const input=
+document.getElementById(
+"chatInput"
+);
 
-const content=input.value.trim();
+const button=
+document.getElementById(
+"chatSend"
+);
+
+const content=
+input.value.trim();
 
 if(!content)
 return;
@@ -3110,13 +3824,20 @@ button.disabled=true;
 
 try{
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .from("direct_messages")
 .insert({
 
-sender_id:currentUser.id,
-receiver_id:chatPartnerId,
-card_id:chatCardId,
+sender_id:
+currentUser.id,
+
+receiver_id:
+chatPartnerId,
+
+card_id:
+chatCardId,
+
 content
 
 });
@@ -3126,7 +3847,9 @@ throw result.error;
 
 input.value="";
 
-await loadChatMessages(true);
+await loadChatMessages(
+true
+);
 
 }catch(error){
 
@@ -3143,11 +3866,13 @@ error.message||
 }finally{
 
 button.disabled=false;
+
 input.focus();
 
 }
 
 }
+
 
 function renderTradeItem(
 container,
@@ -3158,39 +3883,64 @@ badge,
 badgeClass
 ){
 
-const item=document.createElement("div");
+const item=
+document.createElement(
+"div"
+);
 
-item.className="trade-item";
+item.className=
+"trade-item";
 
-const safeProfileId=profile?.id||"";
+const safeProfileId=
+profile?.id||"";
 
 item.innerHTML=`
 
 <div class="trade-item-left">
 
 <div class="trade-icon">
-${CARD_EMOJIS[card.name]||"🃏"}
+
+${CARD_EMOJIS[
+card.name
+]||"🃏"}
+
 </div>
 
 <div>
 
 <div class="trade-card-name">
-${escapeHTML(card.name)}
+
+${escapeHTML(
+card.name
+)}
+
 </div>
 
 <div class="trade-player">
-${escapeHTML(profileName(profile))}
+
+${escapeHTML(
+profileName(profile)
+)}
+
 ${
 profile?.player_tag
 ?
-" • #"+escapeHTML(profile.player_tag)
+" • #"+
+escapeHTML(
+profile.player_tag
+)
 :
 ""
 }
+
 </div>
 
 <div class="trade-detail">
-${escapeHTML(detail)}
+
+${escapeHTML(
+detail
+)}
+
 </div>
 
 </div>
@@ -3199,22 +3949,36 @@ ${escapeHTML(detail)}
 
 <div class="trade-item-right">
 
-<div class="trade-badge ${badgeClass}">
-${escapeHTML(badge)}
+<div class="trade-badge ${
+badgeClass
+}">
+
+${escapeHTML(
+badge
+)}
+
 </div>
 
 ${
 safeProfileId
 ?
 `
+
 <button
 class="trade-chat-btn"
 type="button"
-data-chat-user="${escapeHTML(safeProfileId)}"
-data-chat-card="${Number(card.id)}"
+data-chat-user="${escapeHTML(
+safeProfileId
+)}"
+data-chat-card="${Number(
+card.id
+)}"
 >
+
 💬 MESSAGE
+
 </button>
+
 `
 :
 ""
@@ -3225,7 +3989,9 @@ data-chat-card="${Number(card.id)}"
 `;
 
 const chatButton=
-item.querySelector(".trade-chat-btn");
+item.querySelector(
+".trade-chat-btn"
+);
 
 if(chatButton){
 
@@ -3234,24 +4000,37 @@ chatButton.addEventListener(
 function(event){
 
 event.preventDefault();
+
 event.stopPropagation();
 
 const userId=
-this.getAttribute("data-chat-user");
+this.getAttribute(
+"data-chat-user"
+);
 
 const cardId=
-Number(this.getAttribute("data-chat-card"));
+Number(
+this.getAttribute(
+"data-chat-card"
+)
+);
 
-openChat(userId,cardId);
+openChat(
+userId,
+cardId
+);
 
 }
 );
 
 }
 
-container.appendChild(item);
+container.appendChild(
+item
+);
 
 }
+
 
 async function loadTradeMarket(){
 
@@ -3259,26 +4038,45 @@ if(!currentUser)
 return;
 
 const matchesContainer=
-document.getElementById("tradeMatches");
+document.getElementById(
+"tradeMatches"
+);
 
 const lookingContainer=
-document.getElementById("tradePeopleLooking");
+document.getElementById(
+"tradePeopleLooking"
+);
 
 const offersContainer=
-document.getElementById("tradeOffers");
+document.getElementById(
+"tradeOffers"
+);
 
 matchesContainer.innerHTML=
-`<div class="empty-trade">Loading trades...</div>`;
+`
+<div class="empty-trade">
+Loading trades...
+</div>
+`;
 
 lookingContainer.innerHTML=
-`<div class="empty-trade">Loading trades...</div>`;
+`
+<div class="empty-trade">
+Loading trades...
+</div>
+`;
 
 offersContainer.innerHTML=
-`<div class="empty-trade">Loading trades...</div>`;
+`
+<div class="empty-trade">
+Loading trades...
+</div>
+`;
 
 try{
 
-const result=await supabaseClient
+const result=
+await supabaseClient
 .from("user_cards")
 .select(
 "user_id,card_id,quantity,is_needed,is_for_trade,trade_quantity"
@@ -3290,13 +4088,18 @@ const result=await supabaseClient
 if(result.error)
 throw result.error;
 
-const rows=(result.data||[]).filter(
-row=>row.user_id!==currentUser.id
+const rows=
+(result.data||[])
+.filter(
+row=>
+row.user_id!==currentUser.id
 );
 
 const profileIds=[
 ...new Set(
-rows.map(row=>row.user_id)
+rows.map(
+row=>row.user_id
+)
 )
 ];
 
@@ -3304,17 +4107,25 @@ let profiles=[];
 
 if(profileIds.length){
 
-const profileResult=await supabaseClient
+const profileResult=
+await supabaseClient
 .from("profiles")
-.select("id,username,player_tag")
-.in("id",profileIds);
+.select(
+"id,username,player_tag"
+)
+.in(
+"id",
+profileIds
+);
 
 if(!profileResult.error)
-profiles=profileResult.data||[];
+profiles=
+profileResult.data||[];
 
 }
 
-const profileMap=new Map(
+const profileMap=
+new Map(
 profiles.map(
 profile=>[
 profile.id,
@@ -3329,15 +4140,21 @@ const offers=[];
 
 rows.forEach(row=>{
 
-const card=cardById(row.card_id);
+const card=
+cardById(
+row.card_id
+);
 
 if(!card)
 return;
 
 const profile=
-profileMap.get(row.user_id)||null;
+profileMap.get(
+row.user_id
+)||null;
 
-const offeredQuantity=Math.max(
+const offeredQuantity=
+Math.max(
 0,
 Math.min(
 Number(row.quantity)||0,
@@ -3347,28 +4164,36 @@ Number(row.trade_quantity)||0
 
 if(
 row.is_needed&&
-tradeCards.has(Number(row.card_id))&&
+tradeCards.has(
+Number(row.card_id)
+)&&
 offeredQuantity>0
 ){
 
 matches.push({
+
 row,
 card,
 profile,
 offeredQuantity
+
 });
 
 }
 
 if(
 row.is_needed&&
-ownedCards.has(Number(row.card_id))
+ownedCards.has(
+Number(row.card_id)
+)
 ){
 
 peopleLooking.push({
+
 row,
 card,
 profile
+
 });
 
 }
@@ -3379,98 +4204,148 @@ offeredQuantity>0
 ){
 
 offers.push({
+
 row,
 card,
 profile,
 offeredQuantity
+
 });
 
 }
 
 });
+
 
 matchesContainer.innerHTML="";
 
 if(!matches.length){
 
 matchesContainer.innerHTML=`
+
 <div class="empty-trade">
+
 No direct matches yet.<br>
-When someone offers a card you need, it will appear here.
+
+When someone offers a card you need,
+it will appear here.
+
 </div>
+
 `;
 
 }else{
 
-matches.forEach(match=>{
+matches.forEach(
+match=>{
 
 renderTradeItem(
+
 matchesContainer,
+
 match.card,
+
 match.profile,
+
 `${match.offeredQuantity} available for trade`,
+
 "MATCH",
+
 "match"
+
 );
 
-});
+}
+);
 
 }
+
 
 lookingContainer.innerHTML="";
 
 if(!peopleLooking.length){
 
 lookingContainer.innerHTML=`
+
 <div class="empty-trade">
-Nobody is currently looking for cards you own.
+
+Nobody is currently looking for cards
+you own.
+
 </div>
+
 `;
 
 }else{
 
-peopleLooking.forEach(item=>{
+peopleLooking.forEach(
+item=>{
 
 const quantity=
-cardQuantities.get(item.card.id)||0;
+cardQuantities.get(
+item.card.id
+)||0;
 
 renderTradeItem(
+
 lookingContainer,
+
 item.card,
+
 item.profile,
+
 `You own ${quantity} of this card`,
+
 "YOU HAVE IT",
+
 "want"
+
 );
 
-});
+}
+);
 
 }
+
 
 offersContainer.innerHTML="";
 
 if(!offers.length){
 
 offersContainer.innerHTML=`
+
 <div class="empty-trade">
-No cards are currently offered by other players.
+
+No cards are currently offered
+by other players.
+
 </div>
+
 `;
 
 }else{
 
-offers.forEach(item=>{
+offers.forEach(
+item=>{
 
 renderTradeItem(
+
 offersContainer,
+
 item.card,
+
 item.profile,
+
 `${item.offeredQuantity} available for trade`,
+
 "AVAILABLE",
+
 "offer"
+
 );
 
-});
+}
+);
 
 }
 
@@ -3482,64 +4357,123 @@ error
 );
 
 const errorHTML=`
+
 <div class="empty-trade">
+
 Trade listings could not be loaded.<br>
+
 Please check the Supabase RLS policies.
+
 </div>
+
 `;
 
-matchesContainer.innerHTML=errorHTML;
-lookingContainer.innerHTML=errorHTML;
-offersContainer.innerHTML=errorHTML;
+matchesContainer.innerHTML=
+errorHTML;
+
+lookingContainer.innerHTML=
+errorHTML;
+
+offersContainer.innerHTML=
+errorHTML;
 
 }
 
-}
 
-function navigate(section,button){
+function navigate(
+section,
+button
+){
 
 [
 "homeSection",
 "collectionSection",
-"tradeSection"
-].forEach(id=>{
-document.getElementById(id).classList.add("hidden");
+"tradeSection",
+"messagesSection"
+]
+.forEach(id=>{
+
+const element=
+document.getElementById(
+id
+);
+
+if(element)
+element.classList.add(
+"hidden"
+);
+
 });
 
 const target=
-document.getElementById(section+"Section");
+document.getElementById(
+section+"Section"
+);
 
 if(target)
-target.classList.remove("hidden");
+target.classList.remove(
+"hidden"
+);
 
 document
-.querySelectorAll(".nav button")
-.forEach(btn=>btn.classList.remove("active"));
+.querySelectorAll(
+".nav button"
+)
+.forEach(
+btn=>
+btn.classList.remove(
+"active"
+)
+);
 
 if(button){
 
-button.classList.add("active");
+button.classList.add(
+"active"
+);
 
 }else{
 
 const buttons=
-document.querySelectorAll(".nav button");
+document.querySelectorAll(
+".nav button"
+);
 
 if(section==="home")
-buttons[0]?.classList.add("active");
+buttons[0]?.classList.add(
+"active"
+);
 
 if(section==="collection")
-buttons[1]?.classList.add("active");
+buttons[1]?.classList.add(
+"active"
+);
+
+if(section==="messages")
+buttons[2]?.classList.add(
+"active"
+);
 
 if(section==="trade")
-buttons[2]?.classList.add("active");
+buttons[3]?.classList.add(
+"active"
+);
 
 }
 
 if(section==="collection"){
 
 renderAlbumTabs();
-renderCollection(selectedAlbum);
+
+renderCollection(
+selectedAlbum
+);
+
+}
+
+if(section==="messages"){
+
+loadMessages();
 
 }
 
@@ -3550,12 +4484,302 @@ loadTradeMarket();
 }
 
 }
+  async function loadMessages(){
+
+if(!currentUser)
+return;
+
+const container=
+document.getElementById(
+"messagesList"
+);
+
+if(!container)
+return;
+
+container.innerHTML=`
+<div class="messages-empty">
+Loading your conversations...
+</div>
+`;
+
+try{
+
+const result=
+await supabaseClient
+.from("direct_messages")
+.select(
+"id,sender_id,receiver_id,card_id,content,created_at"
+)
+.or(
+`sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+if(result.error)
+throw result.error;
+
+const rows=
+result.data||[];
+
+const conversations=
+new Map();
+
+rows.forEach(message=>{
+
+const partnerId=
+message.sender_id===
+currentUser.id
+?
+message.receiver_id
+:
+message.sender_id;
+
+const key=
+`${partnerId}_${message.card_id}`;
+
+if(!conversations.has(key)){
+
+conversations.set(
+key,
+{
+...message,
+partnerId
+}
+);
+
+}
+
+});
+
+const list=
+Array.from(
+conversations.values()
+);
+
+if(!list.length){
+
+container.innerHTML=`
+
+<div class="messages-empty">
+
+💬<br>
+
+You don't have any conversations yet.
+
+<br><br>
+
+Go to <strong>Trade</strong> and message
+another player about a card.
+
+</div>
+
+`;
+
+return;
+
+}
+
+const partnerIds=[
+...new Set(
+list.map(
+item=>item.partnerId
+)
+)
+];
+
+let profiles=[];
+
+if(partnerIds.length){
+
+const profileResult=
+await supabaseClient
+.from("profiles")
+.select(
+"id,username,player_tag"
+)
+.in(
+"id",
+partnerIds
+);
+
+if(profileResult.error)
+throw profileResult.error;
+
+profiles=
+profileResult.data||[];
+
+}
+
+const profileMap=
+new Map(
+profiles.map(
+profile=>[
+profile.id,
+profile
+]
+)
+);
+
+container.innerHTML="";
+
+list.forEach(
+conversation=>{
+
+const card=
+cardById(
+conversation.card_id
+);
+
+if(!card)
+return;
+
+const profile=
+profileMap.get(
+conversation.partnerId
+);
+
+const playerName=
+profileName(
+profile
+);
+
+const preview=
+conversation.sender_id===
+currentUser.id
+?
+`You: ${conversation.content}`
+:
+conversation.content;
+
+const item=
+document.createElement(
+"button"
+);
+
+item.type="button";
+
+item.className=
+"message-conversation";
+
+item.innerHTML=`
+
+<div class="message-conversation-avatar">
+👤
+</div>
+
+<div class="message-conversation-info">
+
+<div class="message-conversation-top">
+
+<div class="message-conversation-name">
+
+${escapeHTML(
+playerName
+)}
+
+</div>
+
+<div class="message-conversation-time">
+
+${formatChatTime(
+conversation.created_at
+)}
+
+</div>
+
+</div>
+
+<div class="message-conversation-card">
+
+${CARD_EMOJIS[
+card.name
+]||"🃏"}
+
+${escapeHTML(
+card.name
+)}
+
+•
+
+${escapeHTML(
+card.album
+)}
+
+</div>
+
+<div class="message-conversation-preview">
+
+${escapeHTML(
+preview
+)}
+
+</div>
+
+</div>
+
+`;
+
+item.addEventListener(
+"click",
+()=>{
+
+openChat(
+conversation.partnerId,
+conversation.card_id
+);
+
+}
+);
+
+container.appendChild(
+item
+);
+
+}
+);
+
+}catch(error){
+
+console.error(
+"MESSAGES LOAD ERROR:",
+error
+);
+
+container.innerHTML=`
+
+<div class="messages-empty">
+
+Unable to load your messages.
+
+<br><br>
+
+${escapeHTML(
+error.message||
+"Please try again."
+)}
+
+</div>
+
+`;
+
+}
+
+}
+
 
 async function logout(){
 
 closeChat();
 
-await supabaseClient.auth.signOut();
+await supabaseClient
+.auth
+.signOut();
 
 currentUser=null;
 currentProfile=null;
@@ -3569,31 +4793,60 @@ tradeQuantities=new Map();
 
 allCards=[];
 
-document.getElementById("app").classList.add("hidden");
-document.getElementById("nav").classList.add("hidden");
-document.getElementById("authSection").classList.remove("hidden");
+document
+.getElementById("app")
+.classList.add("hidden");
+
+document
+.getElementById("nav")
+.classList.add("hidden");
+
+document
+.getElementById("authSection")
+.classList.remove("hidden");
 
 showAuth("login");
 
 }
 
+
 function showAuth(mode){
 
 if(mode==="signup"){
 
-document.getElementById("signupTab").classList.add("active");
-document.getElementById("loginTab").classList.remove("active");
+document
+.getElementById("signupTab")
+.classList.add("active");
 
-document.getElementById("signupForm").classList.remove("hidden");
-document.getElementById("loginForm").classList.add("hidden");
+document
+.getElementById("loginTab")
+.classList.remove("active");
+
+document
+.getElementById("signupForm")
+.classList.remove("hidden");
+
+document
+.getElementById("loginForm")
+.classList.add("hidden");
 
 }else{
 
-document.getElementById("loginTab").classList.add("active");
-document.getElementById("signupTab").classList.remove("active");
+document
+.getElementById("loginTab")
+.classList.add("active");
 
-document.getElementById("loginForm").classList.remove("hidden");
-document.getElementById("signupForm").classList.add("hidden");
+document
+.getElementById("signupTab")
+.classList.remove("active");
+
+document
+.getElementById("loginForm")
+.classList.remove("hidden");
+
+document
+.getElementById("signupForm")
+.classList.add("hidden");
 
 }
 
@@ -3601,56 +4854,83 @@ clearMessage();
 
 }
 
+
 document
 .getElementById("loginButton")
-.addEventListener("click",login);
+.addEventListener(
+"click",
+login
+);
+
 
 document
 .getElementById("signupButton")
-.addEventListener("click",signup);
+.addEventListener(
+"click",
+signup
+);
+
 
 document
 .getElementById("logoutButton")
-.addEventListener("click",logout);
+.addEventListener(
+"click",
+logout
+);
+
 
 document
 .getElementById("loginPassword")
 .addEventListener(
 "keydown",
 event=>{
+
 if(event.key==="Enter")
 login();
+
 }
 );
+
 
 document
 .getElementById("loginTag")
 .addEventListener(
 "keydown",
 event=>{
+
 if(event.key==="Enter")
 login();
+
 }
 );
+
 
 document
 .getElementById("signupPassword")
 .addEventListener(
 "keydown",
 event=>{
+
 if(event.key==="Enter")
 signup();
+
 }
 );
+
 
 document
 .getElementById("avatarButton")
 .addEventListener(
 "click",
 ()=>{
-document.getElementById("avatarInput").click();
+
+document
+.getElementById("avatarInput")
+.click();
+
 }
 );
+
 
 document
 .getElementById("avatarInput")
@@ -3658,20 +4938,27 @@ document
 "change",
 async event=>{
 
-const file=event.target.files?.[0];
+const file=
+event.target.files?.[0];
 
 if(!file)
 return;
 
 const button=
-document.getElementById("avatarButton");
+document.getElementById(
+"avatarButton"
+);
 
 button.disabled=true;
-button.textContent="UPLOADING...";
+
+button.textContent=
+"UPLOADING...";
 
 try{
 
-await uploadAvatar(file);
+await uploadAvatar(
+file
+);
 
 }catch(error){
 
@@ -3688,7 +4975,9 @@ error.message||
 }finally{
 
 button.disabled=false;
-button.textContent="📷 PHOTO";
+
+button.textContent=
+"📷 PHOTO";
 
 event.target.value="";
 
@@ -3697,8 +4986,11 @@ event.target.value="";
 }
 );
 
+
 document
-.getElementById("removeAvatarButton")
+.getElementById(
+"removeAvatarButton"
+)
 .addEventListener(
 "click",
 async()=>{
@@ -3711,7 +5003,9 @@ if(
 return;
 
 const button=
-document.getElementById("removeAvatarButton");
+document.getElementById(
+"removeAvatarButton"
+);
 
 button.disabled=true;
 
@@ -3740,6 +5034,7 @@ button.disabled=false;
 }
 );
 
+
 document
 .getElementById("chatClose")
 .addEventListener(
@@ -3747,17 +5042,25 @@ document
 closeChat
 );
 
+
 document
 .getElementById("chatBackdrop")
 .addEventListener(
 "click",
 event=>{
 
-if(event.target.id==="chatBackdrop")
+if(
+event.target.id===
+"chatBackdrop"
+){
+
 closeChat();
 
 }
+
+}
 );
+
 
 document
 .getElementById("chatComposer")
@@ -3771,6 +5074,7 @@ sendChatMessage();
 
 }
 );
+
 
 document
 .getElementById("chatInput")
@@ -3792,6 +5096,7 @@ sendChatMessage();
 }
 );
 
+
 document.addEventListener(
 "keydown",
 event=>{
@@ -3802,6 +5107,15 @@ closeChat();
 }
 );
 
+
+document
+.getElementById("messagesRefresh")
+?.addEventListener(
+"click",
+loadMessages
+);
+
+
 document.addEventListener(
 "DOMContentLoaded",
 async function(){
@@ -3811,14 +5125,17 @@ buildCards();
 try{
 
 const result=
-await supabaseClient.auth.getSession();
+await supabaseClient
+.auth
+.getSession();
 
 const session=
 result.data?.session;
 
 if(session){
 
-currentUser=session.user;
+currentUser=
+session.user;
 
 try{
 
@@ -3849,15 +5166,22 @@ error
 }
 );
 
-supabaseClient.auth.onAuthStateChange(
-async function(event,session){
+
+supabaseClient
+.auth
+.onAuthStateChange(
+async function(
+event,
+session
+){
 
 if(
 event==="SIGNED_IN"&&
 session
 ){
 
-currentUser=session.user;
+currentUser=
+session.user;
 
 try{
 
@@ -3876,13 +5200,16 @@ showApp();
 
 }
 
-if(event==="SIGNED_OUT"){
+if(
+event==="SIGNED_OUT"
+){
 
 currentUser=null;
 
 }
 
-});
+}
+);
 
 </script>
 
