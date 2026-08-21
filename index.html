@@ -12,15 +12,20 @@
 
 <title>Sunday City Trading Cards</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 
 <style>
 
 *{
     box-sizing:border-box;
     margin:0;
-    padding:0;
+    padding:0
 }
+
 
 :root{
 
@@ -28,45 +33,35 @@
     --bg2:#1e1827;
     --panel:#272033;
     --panel2:#30263d;
-
     --purple:#8f7aa8;
     --purple-light:#b8a7c9;
     --purple-dark:#604d6b;
-
     --mauve:#9b849f;
     --pink:#c29aaf;
-
     --text:#eee8f2;
     --muted:#aaa0b2;
     --muted2:#817687;
-
     --border:rgba(210,195,220,.12);
-
-    --shadow:0 20px 60px rgba(0,0,0,.28);
+    --shadow:0 20px 60px rgba(0,0,0,.28)
 
 }
 
+
 body{
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
 
     background:
-
         radial-gradient(
             circle at 15% 10%,
             #59446b 0,
             transparent 28%
         ),
-
         radial-gradient(
             circle at 90% 20%,
             #765267 0,
             transparent 25%
         ),
-
         linear-gradient(
             145deg,
             #14101a,
@@ -78,26 +73,29 @@ body{
 
     min-height:100vh;
 
-    overflow-x:hidden;
+    overflow-x:hidden
 
 }
+
 
 button,
 input{
 
-    font:inherit;
+    font:inherit
 
 }
+
 
 button{
 
-    cursor:pointer;
+    cursor:pointer
 
 }
 
+
 .hidden{
 
-    display:none!important;
+    display:none!important
 
 }
 
@@ -116,16 +114,15 @@ button{
 
     padding:18px;
 
-    background:
-        rgba(23,18,29,.92);
+    background:rgba(23,18,29,.92);
 
-    backdrop-filter:
-        blur(18px);
+    backdrop-filter:blur(18px);
 
     border-bottom:
-        1px solid var(--border);
+        1px solid var(--border)
 
 }
+
 
 .brand{
 
@@ -133,15 +130,17 @@ button{
 
     font-size:27px;
 
-    font-weight:900;
+    font-weight:900
 
 }
+
 
 .brand span{
 
-    color:var(--pink);
+    color:var(--pink)
 
 }
+
 
 .subtitle{
 
@@ -151,7 +150,7 @@ button{
 
     font-size:12px;
 
-    margin-top:4px;
+    margin-top:4px
 
 }
 
@@ -166,20 +165,19 @@ button{
 
     margin:35px auto;
 
-    padding:18px;
+    padding:18px
 
 }
+
 
 .auth-card{
 
     background:
-
         radial-gradient(
             circle at 100% 0,
             #59446b 0,
             transparent 40%
         ),
-
         linear-gradient(
             145deg,
             #32283b,
@@ -187,16 +185,16 @@ button{
         );
 
     border:
-        1px solid
-        rgba(210,195,220,.14);
+        1px solid rgba(210,195,220,.14);
 
     border-radius:28px;
 
     padding:28px 22px;
 
-    box-shadow:var(--shadow);
+    box-shadow:var(--shadow)
 
 }
+
 
 .auth-title{
 
@@ -204,9 +202,10 @@ button{
 
     font-weight:900;
 
-    margin-bottom:10px;
+    margin-bottom:10px
 
 }
+
 
 .auth-description{
 
@@ -214,16 +213,16 @@ button{
 
     line-height:1.5;
 
-    margin-bottom:24px;
+    margin-bottom:24px
 
 }
+
 
 .auth-tabs{
 
     display:grid;
 
-    grid-template-columns:
-        1fr 1fr;
+    grid-template-columns:1fr 1fr;
 
     background:#17121d;
 
@@ -231,9 +230,10 @@ button{
 
     padding:5px;
 
-    margin-bottom:20px;
+    margin-bottom:20px
 
 }
+
 
 .auth-tabs button{
 
@@ -247,17 +247,19 @@ button{
 
     border-radius:14px;
 
-    font-weight:800;
+    font-weight:800
 
 }
+
 
 .auth-tabs button.active{
 
     background:#403647;
 
-    color:white;
+    color:white
 
 }
+
 
 .form{
 
@@ -265,17 +267,19 @@ button{
 
     flex-direction:column;
 
-    gap:16px;
+    gap:16px
 
 }
+
 
 label{
 
     font-weight:800;
 
-    font-size:14px;
+    font-size:14px
 
 }
+
 
 input{
 
@@ -288,16 +292,16 @@ input{
     border-radius:16px;
 
     border:
-        1px solid
-        rgba(210,195,220,.14);
+        1px solid rgba(210,195,220,.14);
 
     background:#120e17;
 
     color:white;
 
-    outline:none;
+    outline:none
 
 }
+
 
 input:focus{
 
@@ -305,9 +309,10 @@ input:focus{
 
     box-shadow:
         0 0 0 3px
-        rgba(155,132,159,.14);
+        rgba(155,132,159,.14)
 
 }
+
 
 .primary{
 
@@ -328,17 +333,19 @@ input:focus{
             90deg,
             #75657f,
             #a58fae
-        );
+        )
 
 }
+
 
 .primary:disabled{
 
     opacity:.6;
 
-    cursor:not-allowed;
+    cursor:not-allowed
 
 }
+
 
 .message{
 
@@ -348,37 +355,36 @@ input:focus{
 
     border-radius:14px;
 
-    font-size:14px;
+    font-size:14px
 
 }
+
 
 .message.show{
 
-    display:block;
+    display:block
 
 }
+
 
 .message.error{
 
     background:#3a2631;
 
-    border:
-        1px solid
-        #755064;
+    border:1px solid #755064;
 
-    color:#e2adbe;
+    color:#e2adbe
 
 }
+
 
 .message.success{
 
     background:#26382e;
 
-    border:
-        1px solid
-        #628a70;
+    border:1px solid #628a70;
 
-    color:#a9d0b5;
+    color:#a9d0b5
 
 }
 
@@ -393,12 +399,14 @@ input:focus{
 
     margin:auto;
 
-    padding:
-        18px
-        18px
-        115px;
+    padding:18px 18px 115px
 
 }
+
+
+/* =========================
+   PROFILE
+========================= */
 
 .profile-strip{
 
@@ -418,16 +426,16 @@ input:focus{
         );
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius:22px;
 
     padding:16px;
 
-    margin-bottom:18px;
+    margin-bottom:18px
 
 }
+
 
 .profile-info{
 
@@ -435,9 +443,10 @@ input:focus{
 
     align-items:center;
 
-    gap:12px;
+    gap:12px
 
 }
+
 
 .avatar{
 
@@ -460,9 +469,10 @@ input:focus{
 
     font-size:25px;
 
-    overflow:hidden;
+    overflow:hidden
 
 }
+
 
 .avatar img{
 
@@ -472,9 +482,10 @@ input:focus{
 
     object-fit:cover;
 
-    border-radius:16px;
+    border-radius:16px
 
 }
+
 
 .avatar-actions{
 
@@ -482,15 +493,15 @@ input:focus{
 
     gap:6px;
 
-    align-items:center;
+    align-items:center
 
 }
+
 
 .avatar-button{
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     background:#30283a;
 
@@ -502,23 +513,26 @@ input:focus{
 
     font-weight:800;
 
-    font-size:11px;
+    font-size:11px
 
 }
+
 
 .avatar-button:disabled{
 
-    opacity:.6;
+    opacity:.6
 
 }
+
 
 .profile-name{
 
     font-weight:900;
 
-    font-size:17px;
+    font-size:17px
 
 }
+
 
 .profile-tag{
 
@@ -526,15 +540,15 @@ input:focus{
 
     font-size:12px;
 
-    margin-top:3px;
+    margin-top:3px
 
 }
+
 
 .logout{
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     background:#30283a;
 
@@ -544,9 +558,14 @@ input:focus{
 
     border-radius:13px;
 
-    font-weight:800;
+    font-weight:800
 
 }
+
+
+/* =========================
+   STATS
+========================= */
 
 .stats{
 
@@ -557,9 +576,10 @@ input:focus{
 
     gap:10px;
 
-    margin-bottom:20px;
+    margin-bottom:20px
 
 }
+
 
 .stat{
 
@@ -567,22 +587,23 @@ input:focus{
         rgba(39,32,51,.85);
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius:18px;
 
-    padding:16px;
+    padding:16px
 
 }
+
 
 .stat-value{
 
     font-size:25px;
 
-    font-weight:900;
+    font-weight:900
 
 }
+
 
 .stat-label{
 
@@ -590,13 +611,13 @@ input:focus{
 
     font-size:11px;
 
-    margin-top:4px;
+    margin-top:4px
 
 }
 
 
 /* =========================
-   HOME
+   HERO
 ========================= */
 
 .hero{
@@ -612,19 +633,16 @@ input:focus{
     margin-bottom:22px;
 
     background:
-
         radial-gradient(
             circle at 90% 20%,
             #9a789e 0,
             transparent 25%
         ),
-
         radial-gradient(
             circle at 10% 90%,
             #75657f 0,
             transparent 30%
         ),
-
         linear-gradient(
             135deg,
             #413747,
@@ -632,10 +650,10 @@ input:focus{
         );
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border)
 
 }
+
 
 .hero h1{
 
@@ -643,15 +661,17 @@ input:focus{
 
     line-height:1;
 
-    font-weight:1000;
+    font-weight:1000
 
 }
+
 
 .hero h1 span{
 
-    color:#c39bb5;
+    color:#c39bb5
 
 }
+
 
 .hero p{
 
@@ -661,9 +681,10 @@ input:focus{
 
     margin-top:12px;
 
-    line-height:1.5;
+    line-height:1.5
 
 }
+
 
 .hero-button{
 
@@ -679,9 +700,14 @@ input:focus{
 
     color:#2d2432;
 
-    font-weight:900;
+    font-weight:900
 
 }
+
+
+/* =========================
+   SECTION TITLES
+========================= */
 
 .section-title{
 
@@ -689,9 +715,14 @@ input:focus{
 
     font-weight:900;
 
-    margin:25px 0 14px;
+    margin:25px 0 14px
 
 }
+
+
+/* =========================
+   ALBUMS
+========================= */
 
 .album-grid{
 
@@ -700,9 +731,10 @@ input:focus{
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:14px;
+    gap:14px
 
 }
+
 
 .album-card{
 
@@ -735,22 +767,24 @@ input:focus{
         0 15px 40px
         rgba(0,0,0,.22);
 
-    transition:.15s;
+    transition:.15s
 
 }
+
 
 .album-card:hover{
 
-    transform:
-        translateY(-2px);
+    transform:translateY(-2px)
 
 }
+
 
 .album-icon{
 
-    font-size:35px;
+    font-size:35px
 
 }
+
 
 .album-name{
 
@@ -758,9 +792,10 @@ input:focus{
 
     font-size:17px;
 
-    margin-top:12px;
+    margin-top:12px
 
 }
+
 
 .album-progress{
 
@@ -773,9 +808,10 @@ input:focus{
 
     border-radius:10px;
 
-    overflow:hidden;
+    overflow:hidden
 
 }
+
 
 .album-progress span{
 
@@ -786,9 +822,10 @@ input:focus{
     background:
         rgba(245,240,247,.82);
 
-    border-radius:10px;
+    border-radius:10px
 
 }
+
 
 .album-count{
 
@@ -796,7 +833,7 @@ input:focus{
 
     margin-top:6px;
 
-    color:#eee8f2;
+    color:#eee8f2
 
 }
 
@@ -815,23 +852,24 @@ input:focus{
 
     gap:12px;
 
-    margin-bottom:15px;
+    margin-bottom:15px
 
 }
+
 
 .collection-title{
 
     font-size:32px;
 
-    font-weight:1000;
+    font-weight:1000
 
 }
+
 
 .back-btn{
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     background:#2b2433;
 
@@ -841,9 +879,10 @@ input:focus{
 
     border-radius:14px;
 
-    font-weight:800;
+    font-weight:800
 
 }
+
 
 .album-tabs{
 
@@ -855,17 +894,17 @@ input:focus{
 
     padding-bottom:12px;
 
-    margin-bottom:18px;
+    margin-bottom:18px
 
 }
+
 
 .album-tab{
 
     flex:0 0 auto;
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     background:#251e2d;
 
@@ -875,9 +914,10 @@ input:focus{
 
     border-radius:14px;
 
-    font-weight:800;
+    font-weight:800
 
 }
+
 
 .album-tab.active{
 
@@ -888,9 +928,10 @@ input:focus{
             #a58fae
         );
 
-    color:white;
+    color:white
 
 }
+
 
 .album-banner{
 
@@ -909,25 +950,28 @@ input:focus{
             135deg,
             var(--c1),
             var(--c2)
-        );
+        )
 
 }
+
 
 .album-banner h2{
 
     font-size:29px;
 
-    font-weight:1000;
+    font-weight:1000
 
 }
+
 
 .album-banner p{
 
     color:#eee8f2;
 
-    margin-top:5px;
+    margin-top:5px
 
 }
+
 
 .progress-row{
 
@@ -937,9 +981,10 @@ input:focus{
 
     align-items:center;
 
-    gap:10px;
+    gap:10px
 
 }
+
 
 .progress{
 
@@ -952,9 +997,10 @@ input:focus{
 
     border-radius:20px;
 
-    overflow:hidden;
+    overflow:hidden
 
 }
+
 
 .progress span{
 
@@ -963,7 +1009,7 @@ input:focus{
     height:100%;
 
     background:
-        rgba(245,240,247,.85);
+        rgba(245,240,247,.85)
 
 }
 
@@ -981,9 +1027,10 @@ input:focus{
 
     gap:14px;
 
-    align-items:stretch;
+    align-items:stretch
 
 }
+
 
 .card{
 
@@ -1010,28 +1057,28 @@ input:focus{
 
     display:flex;
 
-    height:100%;
+    height:100%
 
 }
+
 
 .card:hover{
 
-    transform:
-        translateY(-2px);
+    transform:translateY(-2px)
 
 }
+
 
 .card.owned-card{
 
     box-shadow:
-
         0 0 0 2px
         rgba(194,154,175,.55),
-
         0 15px 35px
-        rgba(0,0,0,.3);
+        rgba(0,0,0,.3)
 
 }
+
 
 .card-inner{
 
@@ -1048,8 +1095,7 @@ input:focus{
     display:grid;
 
     grid-template-rows:
-        120px
-        minmax(0,1fr);
+        120px minmax(0,1fr);
 
     background:
         linear-gradient(
@@ -1060,9 +1106,10 @@ input:focus{
 
     border:
         1px solid
-        rgba(210,195,220,.14);
+        rgba(210,195,220,.14)
 
 }
+
 
 .card-image{
 
@@ -1077,20 +1124,19 @@ input:focus{
     font-size:70px;
 
     background:
-
         radial-gradient(
             circle at 50% 30%,
             rgba(255,255,255,.15),
             transparent 40%
         ),
-
         linear-gradient(
             160deg,
             #725c79,
             #4a384f
-        );
+        )
 
 }
+
 
 .card-info{
 
@@ -1107,9 +1153,10 @@ input:focus{
 
     flex-direction:column;
 
-    min-height:0;
+    min-height:0
 
 }
+
 
 .card-name{
 
@@ -1125,9 +1172,10 @@ input:focus{
 
     justify-content:center;
 
-    align-items:center;
+    align-items:center
 
 }
+
 
 .rarity{
 
@@ -1139,9 +1187,10 @@ input:focus{
 
     letter-spacing:2px;
 
-    margin:3px 0 8px;
+    margin:3px 0 8px
 
 }
+
 
 .card-actions{
 
@@ -1152,9 +1201,10 @@ input:focus{
 
     gap:7px;
 
-    margin-top:8px;
+    margin-top:8px
 
 }
+
 
 .action-btn{
 
@@ -1174,9 +1224,10 @@ input:focus{
 
     font-weight:900;
 
-    font-size:11px;
+    font-size:11px
 
 }
+
 
 .action-btn.active-need{
 
@@ -1187,9 +1238,10 @@ input:focus{
             #9b829f
         );
 
-    color:#fff;
+    color:#fff
 
 }
+
 
 .action-btn.active-have{
 
@@ -1200,9 +1252,10 @@ input:focus{
             #b397ad
         );
 
-    color:#211927;
+    color:#211927
 
 }
+
 
 .trade-toggle{
 
@@ -1210,9 +1263,10 @@ input:focus{
 
     background:#3b3042;
 
-    color:#d8cedd;
+    color:#d8cedd
 
 }
+
 
 .trade-toggle.active-trade{
 
@@ -1223,9 +1277,10 @@ input:focus{
             #bd9caf
         );
 
-    color:#241c29;
+    color:#241c29
 
 }
+
 
 .quantity-row,
 .trade-quantity-row{
@@ -1244,17 +1299,19 @@ input:focus{
 
     font-size:12px;
 
-    font-weight:800;
+    font-weight:800
 
 }
+
 
 .trade-quantity-row{
 
     font-size:11px;
 
-    color:#cfc2d4;
+    color:#cfc2d4
 
 }
+
 
 .qty-btn{
 
@@ -1270,25 +1327,28 @@ input:focus{
 
     color:#fff;
 
-    font-weight:900;
+    font-weight:900
 
 }
+
 
 .qty-value{
 
     min-width:20px;
 
-    text-align:center;
+    text-align:center
 
 }
+
 
 .trade-quantity-label{
 
     color:#a99aad;
 
-    font-size:10px;
+    font-size:10px
 
 }
+
 
 .card-status{
 
@@ -1302,984 +1362,15 @@ input:focus{
 
     margin-top:auto;
 
-    padding-top:6px;
-
-}
-
-
-/* =========================
-   TRADE
-========================= */
-
-.trade-page{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:16px;
-
-}
-
-.trade-header{
-
-    background:
-
-        radial-gradient(
-            circle at 100% 0,
-            #684d6b 0,
-            transparent 38%
-        ),
-
-        linear-gradient(
-            145deg,
-            #32283b,
-            #1b1522
-        );
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:28px;
-
-    padding:24px;
-
-}
-
-.trade-header h1{
-
-    font-size:34px;
-
-    font-weight:1000;
-
-}
-
-.trade-header p{
-
-    color:#bbaec4;
-
-    line-height:1.5;
-
-    margin-top:8px;
-
-}
-
-.trade-section{
-
-    background:
-        rgba(34,27,43,.86);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:24px;
-
-    padding:20px;
-
-}
-
-.trade-section-title{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    font-size:22px;
-
-    font-weight:1000;
-
-    margin-bottom:14px;
-
-}
-
-.trade-section-subtitle{
-
-    color:#988d9f;
-
-    font-size:12px;
-
-    margin:-7px 0 15px;
-
-}
-
-.trade-list{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-}
-
-.trade-item{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:12px;
-
-    padding:13px;
-
-    border-radius:17px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #33283b,
-            #241c2d
-        );
-
-    border:
-        1px solid
-        rgba(210,195,220,.08);
-
-}
-
-.trade-item-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    min-width:0;
-
-}
-
-.trade-icon{
-
-    width:48px;
-
-    height:48px;
-
-    flex:0 0 48px;
-
-    display:grid;
-
-    place-items:center;
-
-    font-size:26px;
-
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #695675,
-            #3d2e47
-        );
-
-}
-
-.trade-card-name{
-
-    font-weight:900;
-
-    font-size:14px;
-
-}
-
-.trade-player{
-
-    color:#a99dae;
-
-    font-size:11px;
-
-    margin-top:3px;
-
-}
-
-.trade-detail{
-
-    color:#c8b7ca;
-
-    font-size:11px;
-
-    margin-top:4px;
-
-}
-
-.trade-badge{
-
-    padding:8px 10px;
-
-    border-radius:11px;
-
-    font-size:10px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-
-}
-
-.trade-badge.match{
-
-    background:#806c91;
-
-    color:white;
-
-}
-
-.trade-badge.want{
-
-    background:#49364d;
-
-    color:#d9c4da;
-
-}
-
-.trade-badge.offer{
-
-    background:#9b849f;
-
-    color:#241c29;
-
-}
-
-.trade-item-right{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:flex-end;
-
-    gap:7px;
-
-}
-
-.trade-chat-btn{
-
-    border:
-        1px solid
-        rgba(210,195,220,.12);
-
-    border-radius:11px;
-
-    padding:9px 11px;
-
-    background:#30263a;
-
-    color:#eee8f2;
-
-    font-weight:900;
-
-    font-size:10px;
-
-    white-space:nowrap;
-
-    cursor:pointer;
-
-    -webkit-tap-highlight-color:
-        transparent;
-
-}
-
-.trade-chat-btn:active{
-
-    transform:scale(.97);
-
-}
-
-.empty-trade{
-
-    text-align:center;
-
-    padding:22px 10px;
-
-    color:#95899b;
-
-    font-size:13px;
-
-    line-height:1.5;
-
-}
-
-.trade-refresh{
-
-    border:
-        1px solid
-        var(--border);
-
-    background:#30263a;
-
-    color:white;
-
-    padding:11px 14px;
-
-    border-radius:13px;
-
-    font-weight:900;
-
-    margin-top:15px;
-
-}
-
-
-/* =========================
-   NAV
-========================= */
-
-.nav{
-
-    position:fixed;
-
-    z-index:200;
-
-    left:50%;
-
-    transform:
-        translateX(-50%);
-
-    bottom:15px;
-
-    width:
-        min(
-            600px,
-            calc(100% - 28px)
-        );
-
-    padding:7px;
-
-    border-radius:22px;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:5px;
-
-    background:
-        rgba(28,22,34,.94);
-
-    backdrop-filter:
-        blur(20px);
-
-    border:
-        1px solid
-        var(--border);
-
-    box-shadow:
-        0 15px 50px
-        rgba(0,0,0,.38);
-
-}
-
-.nav button{
-
-    border:0;
-
-    background:transparent;
-
-    color:#9d94a3;
-
-    border-radius:16px;
-
-    padding:10px 5px;
-
-    font-size:12px;
-
-    font-weight:900;
-
-}
-
-.nav button.active{
-
-    background:#3a3042;
-
-    color:white;
-
-}
-
-.nav-icon{
-
-    display:block;
-
-    font-size:21px;
-
-    margin-bottom:3px;
-
-}
-
-
-/* =========================
-   CHAT
-========================= */
-
-.chat-backdrop{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:500;
-
-    display:none;
-
-    align-items:flex-end;
-
-    justify-content:center;
-
-    padding:14px;
-
-    background:
-        rgba(8,6,11,.72);
-
-    backdrop-filter:
-        blur(10px);
-
-}
-
-.chat-backdrop.open{
-
-    display:flex;
-
-}
-
-.chat-modal{
-
-    width:
-        min(
-            620px,
-            100%
-        );
-
-    height:
-        min(
-            78vh,
-            720px
-        );
-
-    display:flex;
-
-    flex-direction:column;
-
-    overflow:hidden;
-
-    border:
-        1px solid
-        rgba(210,195,220,.18);
-
-    border-radius:26px;
-
-    background:
-        linear-gradient(
-            160deg,
-            #2a2132,
-            #17121d
-        );
-
-    box-shadow:
-        0 30px 90px
-        rgba(0,0,0,.55);
-
-}
-
-.chat-header{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    padding:15px 16px;
-
-    border-bottom:
-        1px solid
-        var(--border);
-
-    background:
-        rgba(39,32,51,.9);
-
-}
-
-.chat-avatar{
-
-    width:42px;
-
-    height:42px;
-
-    flex:0 0 42px;
-
-    display:grid;
-
-    place-items:center;
-
-    border-radius:13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #b7a5c8,
-            #b48c9e
-        );
-
-    font-size:22px;
-
-}
-
-.chat-header-info{
-
-    min-width:0;
-
-    flex:1;
-
-}
-
-.chat-title{
-
-    font-size:16px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-}
-
-.chat-card{
-
-    color:#bcaec3;
-
-    font-size:11px;
-
-    margin-top:3px;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-}
-
-.chat-close{
-
-    width:38px;
-
-    height:38px;
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:12px;
-
-    background:#33293b;
-
-    color:white;
-
-    font-size:22px;
-
-    line-height:1;
-
-}
-
-.chat-messages{
-
-    flex:1;
-
-    overflow-y:auto;
-
-    padding:18px 14px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
-
-    scroll-behavior:smooth;
-
-}
-
-.chat-empty{
-
-    margin:auto;
-
-    max-width:280px;
-
-    text-align:center;
-
-    color:#978b9e;
-
-    font-size:13px;
-
-    line-height:1.5;
-
-}
-
-.chat-bubble-row{
-
-    display:flex;
-
-    width:100%;
-
-}
-
-.chat-bubble-row.mine{
-
-    justify-content:flex-end;
-
-}
-
-.chat-bubble{
-
-    max-width:
-        min(
-            78%,
-            420px
-        );
-
-    padding:10px 13px;
-
-    border-radius:17px;
-
-    background:#30263a;
-
-    border:
-        1px solid
-        rgba(210,195,220,.09);
-
-    color:#eee8f2;
-
-    font-size:13px;
-
-    line-height:1.4;
-
-    white-space:pre-wrap;
-
-    overflow-wrap:anywhere;
-
-}
-
-.chat-bubble-row.mine .chat-bubble{
-
-    background:
-        linear-gradient(
-            135deg,
-            #806c91,
-            #a58fae
-        );
-
-    color:white;
-
-    border-bottom-right-radius:6px;
-
-}
-
-.chat-bubble-row:not(.mine) .chat-bubble{
-
-    border-bottom-left-radius:6px;
-
-}
-
-.chat-time{
-
-    display:block;
-
-    margin-top:4px;
-
-    font-size:9px;
-
-    opacity:.65;
-
-}
-
-.chat-composer{
-
-    display:flex;
-
-    gap:8px;
-
-    padding:12px;
-
-    border-top:
-        1px solid
-        var(--border);
-
-    background:
-        rgba(23,18,29,.96);
-
-}
-
-.chat-input{
-
-    flex:1;
-
-    min-width:0;
-
-    margin:0;
-
-    padding:12px 13px;
-
-    border-radius:15px;
-
-    background:#120e17;
-
-    border:
-        1px solid
-        rgba(210,195,220,.14);
-
-}
-
-.chat-send{
-
-    border:0;
-
-    border-radius:15px;
-
-    padding:0 17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #806c91,
-            #a58fae
-        );
-
-    color:white;
-
-    font-weight:900;
-
-}
-
-.chat-send:disabled{
-
-    opacity:.55;
-
-    cursor:not-allowed;
-
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:800px){
-
-    .album-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-    .cards-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-    .hero h1{
-
-        font-size:35px;
-
-    }
-
-}
-
-@media(max-width:480px){
-
-    .app{
-
-        padding:
-            12px
-            12px
-            105px;
-
-    }
-
-    .auth{
-
-        margin:15px auto;
-
-        padding:12px;
-
-    }
-
-    .auth-card{
-
-        padding:
-            22px 16px;
-
-    }
-
-    .auth-title{
-
-        font-size:34px;
-
-    }
-
-    .album-grid{
-
-        gap:10px;
-
-    }
-
-    .album-card{
-
-        min-height:135px;
-
-        padding:14px;
-
-    }
-
-    .cards-grid{
-
-        gap:9px;
-
-    }
-
-    .card{
-
-        min-height:270px;
-
-        padding:7px;
-
-        border-radius:16px;
-
-    }
-
-    .card-inner{
-
-        min-height:248px;
-
-        grid-template-rows:
-            104px
-            minmax(0,1fr);
-
-    }
-
-    .card-image{
-
-        min-height:104px;
-
-        font-size:53px;
-
-    }
-
-    .card-name{
-
-        font-size:12px;
-
-    }
-
-    .stats{
-
-        gap:7px;
-
-    }
-
-    .stat{
-
-        padding:
-            12px 9px;
-
-    }
-
-    .stat-value{
-
-        font-size:20px;
-
-    }
-
-    .trade-section{
-
-        padding:15px;
-
-    }
-
-    .trade-item{
-
-        align-items:flex-start;
-
-    }
-
-    .trade-badge{
-
-        font-size:9px;
-
-        padding:7px;
-
-    }
-
-    .chat-backdrop{
-
-        padding:0;
-
-        align-items:flex-end;
-
-    }
-
-    .chat-modal{
-
-        width:100%;
-
-        height:84vh;
-
-        border-radius:
-            25px
-            25px
-            0
-            0;
-
-    }
-
-    .chat-bubble{
-
-        max-width:84%;
-
-    }
-
-    .chat-send{
-
-        padding:
-            0 14px;
-
-    }
-
-    .trade-item-right{
-
-        max-width:43%;
-
-        align-items:flex-end;
-
-    }
-
-    .trade-chat-btn{
-
-        font-size:9px;
-
-        padding:8px;
-
-    }
+    padding-top:6px
 
 }
 
 </style>
-
-</head>
-
 <body>
-  <header class="topbar">
+
+<header class="topbar">
+
     <div class="brand">
         Sunday City <span>Trading Cards</span>
     </div>
@@ -2287,10 +1378,18 @@ input:focus{
     <div class="subtitle">
         Collect • Track • Trade
     </div>
+
 </header>
 
 
-<section id="authSection" class="auth">
+<!-- =========================
+     AUTH
+========================= -->
+
+<section
+    id="authSection"
+    class="auth"
+>
 
     <div class="auth-card">
 
@@ -2299,8 +1398,10 @@ input:focus{
         </h1>
 
         <p class="auth-description">
-            Build your collection, track your cards and trade with the community.
+            Build your collection, track your cards
+            and trade with the community.
         </p>
+
 
         <div class="auth-tabs">
 
@@ -2442,21 +1543,32 @@ input:focus{
 </section>
 
 
+
+<!-- =========================
+     MAIN APP
+========================= -->
+
 <main
     id="app"
     class="app hidden"
 >
 
 
-    <!-- PROFILE -->
+    <!-- =========================
+         PROFILE
+    ========================= -->
 
     <div class="profile-strip">
 
         <div class="profile-info">
 
-            <div class="avatar">
+            <div
+                id="profileAvatar"
+                class="avatar"
+            >
                 👤
             </div>
+
 
             <div>
 
@@ -2466,6 +1578,7 @@ input:focus{
                 >
                     Player
                 </div>
+
 
                 <div
                     id="profileTag"
@@ -2488,6 +1601,7 @@ input:focus{
                 class="hidden"
             >
 
+
             <button
                 id="avatarButton"
                 class="avatar-button"
@@ -2495,6 +1609,7 @@ input:focus{
             >
                 📷 PHOTO
             </button>
+
 
             <button
                 id="removeAvatarButton"
@@ -2510,6 +1625,7 @@ input:focus{
         <button
             id="logoutButton"
             class="logout"
+            type="button"
         >
             LOG OUT
         </button>
@@ -2517,7 +1633,10 @@ input:focus{
     </div>
 
 
-    <!-- STATS -->
+
+    <!-- =========================
+         STATS
+    ========================= -->
 
     <div class="stats">
 
@@ -2571,11 +1690,14 @@ input:focus{
     </div>
 
 
+
     <!-- =========================
          HOME
     ========================= -->
 
-    <section id="homeSection">
+    <section
+        id="homeSection"
+    >
 
         <div class="hero">
 
@@ -2584,13 +1706,17 @@ input:focus{
                 <span>collection.</span>
             </h1>
 
+
             <p>
-                Track every tradable card across all Sunday City albums
-                and see exactly what you still need.
+                Track every tradable card across
+                all Sunday City albums and see
+                exactly what you still need.
             </p>
+
 
             <button
                 class="hero-button"
+                type="button"
                 onclick="navigate('collection')"
             >
                 VIEW COLLECTION
@@ -2612,6 +1738,7 @@ input:focus{
     </section>
 
 
+
     <!-- =========================
          COLLECTION
     ========================= -->
@@ -2627,8 +1754,10 @@ input:focus{
                 Collection
             </div>
 
+
             <button
                 class="back-btn"
+                type="button"
                 onclick="navigate('home')"
             >
                 ← Home
@@ -2657,8 +1786,9 @@ input:focus{
     </section>
 
 
+
     <!-- =========================
-         TRADING
+         TRADE
     ========================= -->
 
     <section
@@ -2675,20 +1805,25 @@ input:focus{
                     🔄 Trading
                 </h1>
 
+
                 <p>
-                    Find players who need cards you own,
-                    discover cards other players are offering,
-                    and find possible matches for your own needs.
+                    Find players who need cards
+                    you own and discover cards
+                    other players are offering.
                 </p>
 
+
                 <button
+                    id="tradeRefreshButton"
                     class="trade-refresh"
+                    type="button"
                     onclick="loadTradeMarket()"
                 >
                     ↻ Refresh trades
                 </button>
 
             </div>
+
 
 
             <!-- MATCHES -->
@@ -2699,9 +1834,12 @@ input:focus{
                     ✨ Matches for you
                 </div>
 
+
                 <div class="trade-section-subtitle">
-                    Cards you need that another player is offering.
+                    Cards you need that another
+                    player is offering.
                 </div>
+
 
                 <div
                     id="tradeMatches"
@@ -2717,6 +1855,7 @@ input:focus{
             </div>
 
 
+
             <!-- PEOPLE LOOKING -->
 
             <div class="trade-section">
@@ -2725,9 +1864,12 @@ input:focus{
                     🔎 People looking for your cards
                 </div>
 
+
                 <div class="trade-section-subtitle">
-                    Players looking for cards that you own.
+                    Players looking for cards
+                    that you own.
                 </div>
+
 
                 <div
                     id="tradePeopleLooking"
@@ -2743,6 +1885,7 @@ input:focus{
             </div>
 
 
+
             <!-- OFFERS -->
 
             <div class="trade-section">
@@ -2751,9 +1894,12 @@ input:focus{
                     🔄 Cards available for trade
                 </div>
 
+
                 <div class="trade-section-subtitle">
-                    Cards other players have marked as available.
+                    Cards other players have marked
+                    as available.
                 </div>
+
 
                 <div
                     id="tradeOffers"
@@ -2775,6 +1921,7 @@ input:focus{
 </main>
 
 
+
 <!-- =========================
      PRIVATE CHAT
 ========================= -->
@@ -2785,8 +1932,15 @@ input:focus{
     aria-hidden="true"
 >
 
-    <section class="chat-modal">
+    <section
+        class="chat-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Private chat"
+    >
 
+
+        <!-- CHAT HEADER -->
 
         <div class="chat-header">
 
@@ -2807,6 +1961,7 @@ input:focus{
                     Private chat
                 </div>
 
+
                 <div
                     id="chatCard"
                     class="chat-card"
@@ -2821,6 +1976,7 @@ input:focus{
                 id="chatClose"
                 class="chat-close"
                 type="button"
+                aria-label="Close chat"
             >
                 ×
             </button>
@@ -2828,17 +1984,24 @@ input:focus{
         </div>
 
 
+
+        <!-- CHAT MESSAGES -->
+
         <div
             id="chatMessages"
             class="chat-messages"
         >
 
             <div class="chat-empty">
-                Loading conversation...
+                Select a player to start
+                a private conversation.
             </div>
 
         </div>
 
+
+
+        <!-- CHAT INPUT -->
 
         <form
             id="chatComposer"
@@ -2853,6 +2016,7 @@ input:focus{
                 autocomplete="off"
                 placeholder="Write a private message..."
             >
+
 
             <button
                 id="chatSend"
@@ -2869,6 +2033,7 @@ input:focus{
 </div>
 
 
+
 <!-- =========================
      BOTTOM NAVIGATION
 ========================= -->
@@ -2879,6 +2044,7 @@ input:focus{
 >
 
     <button
+        type="button"
         class="active"
         onclick="navigate('home',this)"
     >
@@ -2893,6 +2059,7 @@ input:focus{
 
 
     <button
+        type="button"
         onclick="navigate('collection',this)"
     >
 
@@ -2906,6 +2073,7 @@ input:focus{
 
 
     <button
+        type="button"
         onclick="navigate('trade',this)"
     >
 
@@ -2918,13 +2086,17 @@ input:focus{
     </button>
 
 </nav>
-  <script>
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
-    'https://vxmzqgqvczxkqzjfqyvx.supabase.co';
+    "https://rxuopmnehdngmdsgkhvr.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-    'sb_publishable_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+    "sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
 
 
 const supabaseClient =
@@ -2935,18 +2107,17 @@ const supabaseClient =
 
 
 /* =========================
-   GLOBAL STATE
+   APP STATE
 ========================= */
 
 let currentUser = null;
 
 let currentProfile = null;
 
-let allCards = [];
-
 let selectedAlbum =
-    'Shopping Chic';
+    "Shopping Chic";
 
+let allCards = [];
 
 let ownedCards =
     new Set();
@@ -2964,6 +2135,10 @@ let tradeQuantities =
     new Map();
 
 
+/* =========================
+   CHAT STATE
+========================= */
+
 let chatPartnerId = null;
 
 let chatCardId = null;
@@ -2972,75 +2147,79 @@ let chatPollTimer = null;
 
 
 /* =========================
-   ALBUMS
+   ALBUM ORDER
 ========================= */
 
 const ALBUM_ORDER = [
 
-    'Shopping Chic',
+    "Shopping Chic",
 
-    'High-End Auctions',
+    "High-End Auctions",
 
-    'Boarding School',
+    "Boarding School",
 
-    'Horse Racing',
+    "Horse Racing",
 
-    'Fancy Paws',
+    "Fancy Paws",
 
-    'VIP Party',
+    "VIP Party",
 
-    'Money',
+    "Money",
 
-    'Casino Night',
+    "Casino Night",
 
-    'Island Vacation',
+    "Island Vacation",
 
-    'Deck Days',
+    "Deck Days",
 
-    'Golf Club',
+    "Golf Club",
 
-    'Dream Cars'
+    "Dream Cars"
 
 ];
 
 
+/* =========================
+   ALBUM ICONS
+========================= */
+
 const ALBUM_ICONS = {
 
-    'Shopping Chic':
-        '🛍️',
+    "Shopping Chic":
+        "🛍️",
 
-    'High-End Auctions':
-        '🔨',
+    "High-End Auctions":
+        "🔨",
 
-    'Boarding School':
-        '🎓',
+    "Boarding School":
+        "🎓",
 
-    'Horse Racing':
-        '🏇',
+    "Horse Racing":
+        "🏇",
 
-    'Fancy Paws':
-        '🐾',
+    "Fancy Paws":
+        "🐾",
 
-    'VIP Party':
-        '🥂',
+    "VIP Party":
+        "🥂",
 
-    'Money':
-        '💰',
+    "Money":
+        "💰",
 
-    'Casino Night':
-        '🎰',
+    "Casino Night":
+        "🎰",
 
-    'Island Vacation':
-        '🌴',
+    "Island Vacation":
+        "🌴",
 
-    'Deck Days':
-        '⚓',
+    "Deck Days":
+        "⚓",
 
-    'Golf Club':
-        '⛳',
+    "Golf Club":
+        "⛳",
 
-    'Dream Cars':
-        '🚗'
+    "Dream Cars":
+        "🚗"
 
 };
 
@@ -3051,41 +2230,41 @@ const ALBUM_ICONS = {
 
 const ALBUM_THEMES = {
 
-    'Shopping Chic':
-        ['#a9829d','#3c2b42'],
+    "Shopping Chic":
+        ["#a9829d","#3c2b42"],
 
-    'High-End Auctions':
-        ['#b6a57c','#3c3427'],
+    "High-End Auctions":
+        ["#b6a57c","#3c3427"],
 
-    'Boarding School':
-        ['#9a89ab','#332a3b'],
+    "Boarding School":
+        ["#9a89ab","#332a3b"],
 
-    'Horse Racing':
-        ['#a98278','#3e2d2a'],
+    "Horse Racing":
+        ["#a98278","#3e2d2a"],
 
-    'Fancy Paws':
-        ['#aa7f8f','#3b2a31'],
+    "Fancy Paws":
+        ["#aa7f8f","#3b2a31"],
 
-    'VIP Party':
-        ['#9a89ab','#332a3b'],
+    "VIP Party":
+        ["#9a89ab","#332a3b"],
 
-    'Money':
-        ['#83739a','#30283b'],
+    "Money":
+        ["#83739a","#30283b"],
 
-    'Casino Night':
-        ['#9a789e','#382d3d'],
+    "Casino Night":
+        ["#9a789e","#382d3d"],
 
-    'Island Vacation':
-        ['#8d78a0','#30273d'],
+    "Island Vacation":
+        ["#8d78a0","#30273d"],
 
-    'Deck Days':
-        ['#8a7899','#30273d'],
+    "Deck Days":
+        ["#8a7899","#30273d"],
 
-    'Golf Club':
-        ['#a6957f','#3d342d'],
+    "Golf Club":
+        ["#a6957f","#3d342d"],
 
-    'Dream Cars':
-        ['#a98278','#3e2d2a']
+    "Dream Cars":
+        ["#a98278","#3e2d2a"]
 
 };
 
@@ -3096,218 +2275,218 @@ const ALBUM_THEMES = {
 
 const CARD_DATA = {
 
-    'Shopping Chic': [
+    "Shopping Chic": [
 
-        'Shopping Bags',
-        'Sale Tag',
-        'Jewelry Pouch',
-        'Chic Top',
-        'Receipt',
-        'Fancy Mirror',
-        'Shoe Box',
-        'Cash in a Wallet',
-        'Credit Card',
-        'Vintage Glasses',
-        'Designer Handbag',
-        'Gold Watch'
+        "Shopping Bags",
+        "Sale Tag",
+        "Jewelry Pouch",
+        "Chic Top",
+        "Receipt",
+        "Fancy Mirror",
+        "Shoe Box",
+        "Cash in a Wallet",
+        "Credit Card",
+        "Vintage Glasses",
+        "Designer Handbag",
+        "Gold Watch"
 
     ],
 
 
-    'High-End Auctions': [
+    "High-End Auctions": [
 
-        'Gavel',
-        'Number Paddle',
-        'Rostrum',
-        'Phone',
+        "Gavel",
+        "Number Paddle",
+        "Rostrum",
+        "Phone",
         "Jeweler's Glass",
-        'Sold',
-        'Plate Armor',
-        'Old Sword',
-        'Marble Bust',
-        'Vase',
-        'Royal Relic',
-        'Diamond'
+        "Sold",
+        "Plate Armor",
+        "Old Sword",
+        "Marble Bust",
+        "Vase",
+        "Royal Relic",
+        "Diamond"
 
     ],
 
 
-    'Boarding School': [
+    "Boarding School": [
 
-        'Blazer Patch',
-        'Skirt',
-        'Silk Tie',
-        'Sweater Vest',
-        'Shorts',
-        'Headband',
-        'Reading Glasses',
-        'Leather Satchel',
-        'Personal Locker',
-        'Iron Gates',
-        'Garden Fountain',
-        'Crest'
-
-    ],
-
-
-    'Horse Racing': [
-
-        'Jockey Jacket',
-        'Saddle & Blanket',
-        'Cup',
-        'Horse Shoe',
-        'Starting Gate',
-        'Betting Ticket',
-        'Stop Watch',
-        'Finish Line',
-        'Award',
-        'Jockey Boots',
-        'Jockey Helmet',
-        'Champion'
+        "Blazer Patch",
+        "Skirt",
+        "Silk Tie",
+        "Sweater Vest",
+        "Shorts",
+        "Headband",
+        "Reading Glasses",
+        "Leather Satchel",
+        "Personal Locker",
+        "Iron Gates",
+        "Garden Fountain",
+        "Crest"
 
     ],
 
 
-    'Fancy Paws': [
+    "Horse Racing": [
 
-        'Dapper Gent',
-        'Big Flex',
-        'Cutie Pie',
-        'Fluffy Guy',
-        'Munchie',
-        'Pretty Lady',
-        'Guardian',
-        'Huntress',
-        'Rich Fella',
-        'Sunshine',
-        'Style Icon',
-        'Mini Boss'
-
-    ],
-
-
-    'VIP Party': [
-
-        'Guest List',
-        'Limo',
-        'Cocoon Seat',
-        'Spark Sticks',
-        'Shaker',
-        'Choco Berry',
-        'Glass Tower',
-        'DJ Deck',
-        'Neon Sign',
-        'VIP Band',
-        'VIP Ticket',
-        'Night City'
+        "Jockey Jacket",
+        "Saddle & Blanket",
+        "Cup",
+        "Horse Shoe",
+        "Starting Gate",
+        "Betting Ticket",
+        "Stop Watch",
+        "Finish Line",
+        "Award",
+        "Jockey Boots",
+        "Jockey Helmet",
+        "Champion"
 
     ],
 
 
-    'Money': [
+    "Fancy Paws": [
 
-        'Piggy Bank',
-        'Bill',
-        'Gold Coin',
-        'Check Book',
-        'Pearl Scatter',
-        'Money Stack',
-        'Platinum Bar',
-        'ATM',
-        'Stocks',
-        'Suitcase of Money',
-        'Safe',
-        'Bank Vault'
-
-    ],
-
-
-    'Casino Night': [
-
-        'Cards',
-        'Chip Rake',
-        'Chips',
-        'Dice',
-        'Bow Tie',
-        'Bandit Slot',
-        'Lucky Wheel',
-        'Blackjack',
-        'Roulette',
-        'Slot Machine',
-        'Jackpot',
-        'Trump Card'
+        "Dapper Gent",
+        "Big Flex",
+        "Cutie Pie",
+        "Fluffy Guy",
+        "Munchie",
+        "Pretty Lady",
+        "Guardian",
+        "Huntress",
+        "Rich Fella",
+        "Sunshine",
+        "Style Icon",
+        "Mini Boss"
 
     ],
 
 
-    'Island Vacation': [
+    "VIP Party": [
 
-        'Flip Flops',
-        'Luxury Shades',
-        'Swim Fins',
-        'Tropical Fruit',
-        'Beach Hammock',
-        'Plumeria',
-        'Floating Meal',
-        'SUP',
-        'Sash Band Hat',
-        'Shells on Sand',
-        'Shaded Lounger',
-        'Beach Bar'
-
-    ],
-
-
-    'Deck Days': [
-
-        'Anchor',
-        'Lifebuoy',
-        'Sail',
-        'Ship Bell',
-        'Oyster Plate',
-        'Ocean View',
-        'Island Cocktail',
-        'Day Bed',
-        'Snorkel Mask',
-        'Captain Cap',
-        'Jet Ski',
-        'Luxury Yacht'
+        "Guest List",
+        "Limo",
+        "Cocoon Seat",
+        "Spark Sticks",
+        "Shaker",
+        "Choco Berry",
+        "Glass Tower",
+        "DJ Deck",
+        "Neon Sign",
+        "VIP Band",
+        "VIP Ticket",
+        "Night City"
 
     ],
 
 
-    'Golf Club': [
+    "Money": [
 
-        'Golf Ball',
-        'Golf Gloves',
-        'Golf Visor',
-        'Golf Shoes',
-        'Polo Shirt',
-        'Range Finder',
-        'Golf Brush',
-        'Golf Kit',
-        'Flagged Hole',
-        'Golf Cart',
-        'Club Bag',
-        'Golf Cup'
+        "Piggy Bank",
+        "Bill",
+        "Gold Coin",
+        "Check Book",
+        "Pearl Scatter",
+        "Money Stack",
+        "Platinum Bar",
+        "ATM",
+        "Stocks",
+        "Suitcase of Money",
+        "Safe",
+        "Bank Vault"
 
     ],
 
 
-    'Dream Cars': [
+    "Casino Night": [
 
-        'Longhorn Continent',
-        'Fukurou Millenium',
-        'Longhorn Wild',
-        'RM Phantom',
-        'RM Grandeur',
-        'Longhorn Shark',
-        'Buletti Inferno',
-        'Buletti Panaro',
-        'RM G-Rex',
-        'Buletti Aldo',
-        'Buletti Nera',
-        'Espot Polygon'
+        "Cards",
+        "Chip Rake",
+        "Chips",
+        "Dice",
+        "Bow Tie",
+        "Bandit Slot",
+        "Lucky Wheel",
+        "Blackjack",
+        "Roulette",
+        "Slot Machine",
+        "Jackpot",
+        "Trump Card"
+
+    ],
+
+
+    "Island Vacation": [
+
+        "Flip Flops",
+        "Luxury Shades",
+        "Swim Fins",
+        "Tropical Fruit",
+        "Beach Hammock",
+        "Plumeria",
+        "Floating Meal",
+        "SUP",
+        "Sash Band Hat",
+        "Shells on Sand",
+        "Shaded Lounger",
+        "Beach Bar"
+
+    ],
+
+
+    "Deck Days": [
+
+        "Anchor",
+        "Lifebuoy",
+        "Sail",
+        "Ship Bell",
+        "Oyster Plate",
+        "Ocean View",
+        "Island Cocktail",
+        "Day Bed",
+        "Snorkel Mask",
+        "Captain Cap",
+        "Jet Ski",
+        "Luxury Yacht"
+
+    ],
+
+
+    "Golf Club": [
+
+        "Golf Ball",
+        "Golf Gloves",
+        "Golf Visor",
+        "Golf Shoes",
+        "Polo Shirt",
+        "Range Finder",
+        "Golf Brush",
+        "Golf Kit",
+        "Flagged Hole",
+        "Golf Cart",
+        "Club Bag",
+        "Golf Cup"
+
+    ],
+
+
+    "Dream Cars": [
+
+        "Longhorn Continent",
+        "Fukurou Millenium",
+        "Longhorn Wild",
+        "RM Phantom",
+        "RM Grandeur",
+        "Longhorn Shark",
+        "Buletti Inferno",
+        "Buletti Panaro",
+        "RM G-Rex",
+        "Buletti Aldo",
+        "Buletti Nera",
+        "Espot Polygon"
 
     ]
 
@@ -3320,172 +2499,161 @@ const CARD_DATA = {
 
 const CARD_EMOJIS = {
 
-    'Shopping Bags':'🛍️',
-    'Sale Tag':'🏷️',
-    'Jewelry Pouch':'👝',
-    'Chic Top':'👚',
-    'Receipt':'🧾',
-    'Fancy Mirror':'🪞',
-    'Shoe Box':'👟',
-    'Cash in a Wallet':'💵',
-    'Credit Card':'💳',
-    'Vintage Glasses':'🕶️',
-    'Designer Handbag':'👜',
-    'Gold Watch':'⌚',
+    "Shopping Bags":"🛍️",
+    "Sale Tag":"🏷️",
+    "Jewelry Pouch":"👝",
+    "Chic Top":"👚",
+    "Receipt":"🧾",
+    "Fancy Mirror":"🪞",
+    "Shoe Box":"👟",
+    "Cash in a Wallet":"💵",
+    "Credit Card":"💳",
+    "Vintage Glasses":"🕶️",
+    "Designer Handbag":"👜",
+    "Gold Watch":"⌚",
 
+    "Gavel":"🔨",
+    "Number Paddle":"🔢",
+    "Rostrum":"🎤",
+    "Phone":"📱",
+    "Jeweler's Glass":"🔍",
+    "Sold":"🔨",
+    "Plate Armor":"🛡️",
+    "Old Sword":"⚔️",
+    "Marble Bust":"🗿",
+    "Vase":"🏺",
+    "Royal Relic":"👑",
+    "Diamond":"💎",
 
-    'Gavel':'🔨',
-    'Number Paddle':'🔢',
-    'Rostrum':'🎤',
-    'Phone':'📱',
-    "Jeweler's Glass":'🔍',
-    'Sold':'🔨',
-    'Plate Armor':'🛡️',
-    'Old Sword':'⚔️',
-    'Marble Bust':'🗿',
-    'Vase':'🏺',
-    'Royal Relic':'👑',
-    'Diamond':'💎',
+    "Blazer Patch":"🧥",
+    "Skirt":"👗",
+    "Silk Tie":"👔",
+    "Sweater Vest":"🦺",
+    "Shorts":"🩳",
+    "Headband":"🎀",
+    "Reading Glasses":"👓",
+    "Leather Satchel":"💼",
+    "Personal Locker":"🚪",
+    "Iron Gates":"🏰",
+    "Garden Fountain":"⛲",
+    "Crest":"🏛️",
 
+    "Jockey Jacket":"🏇",
+    "Saddle & Blanket":"🐎",
+    "Cup":"🏆",
+    "Horse Shoe":"🐴",
+    "Starting Gate":"🚪",
+    "Betting Ticket":"🎟️",
+    "Stop Watch":"⏱️",
+    "Finish Line":"🏁",
+    "Award":"🏆",
+    "Jockey Boots":"🥾",
+    "Jockey Helmet":"⛑️",
+    "Champion":"👑",
 
-    'Blazer Patch':'🧥',
-    'Skirt':'👗',
-    'Silk Tie':'👔',
-    'Sweater Vest':'🦺',
-    'Shorts':'🩳',
-    'Headband':'🎀',
-    'Reading Glasses':'👓',
-    'Leather Satchel':'💼',
-    'Personal Locker':'🚪',
-    'Iron Gates':'🏰',
-    'Garden Fountain':'⛲',
-    'Crest':'🏛️',
+    "Dapper Gent":"🤵",
+    "Big Flex":"💪",
+    "Cutie Pie":"🥧",
+    "Fluffy Guy":"🐶",
+    "Munchie":"🍔",
+    "Pretty Lady":"👸",
+    "Guardian":"🛡️",
+    "Huntress":"🏹",
+    "Rich Fella":"💰",
+    "Sunshine":"☀️",
+    "Style Icon":"✨",
+    "Mini Boss":"👑",
 
+    "Guest List":"📋",
+    "Limo":"🚘",
+    "Cocoon Seat":"💺",
+    "Spark Sticks":"✨",
+    "Shaker":"🍸",
+    "Choco Berry":"🍓",
+    "Glass Tower":"🥂",
+    "DJ Deck":"🎧",
+    "Neon Sign":"💡",
+    "VIP Band":"🎟️",
+    "VIP Ticket":"🎫",
+    "Night City":"🌃",
 
-    'Jockey Jacket':'🏇',
-    'Saddle & Blanket':'🐎',
-    'Cup':'🏆',
-    'Horse Shoe':'🐴',
-    'Starting Gate':'🚪',
-    'Betting Ticket':'🎟️',
-    'Stop Watch':'⏱️',
-    'Finish Line':'🏁',
-    'Award':'🏆',
-    'Jockey Boots':'🥾',
-    'Jockey Helmet':'⛑️',
-    'Champion':'👑',
+    "Piggy Bank":"🐷",
+    "Bill":"💵",
+    "Gold Coin":"🪙",
+    "Check Book":"📕",
+    "Pearl Scatter":"🤍",
+    "Money Stack":"💰",
+    "Platinum Bar":"🥇",
+    "ATM":"🏧",
+    "Stocks":"📈",
+    "Suitcase of Money":"💼",
+    "Safe":"🔐",
+    "Bank Vault":"🏦",
 
+    "Cards":"🃏",
+    "Chip Rake":"🎰",
+    "Chips":"🔴",
+    "Dice":"🎲",
+    "Bow Tie":"🎀",
+    "Bandit Slot":"🎰",
+    "Lucky Wheel":"🎡",
+    "Blackjack":"🃏",
+    "Roulette":"🎡",
+    "Slot Machine":"🎰",
+    "Jackpot":"💰",
+    "Trump Card":"🃏",
 
-    'Dapper Gent':'🤵',
-    'Big Flex':'💪',
-    'Cutie Pie':'🥧',
-    'Fluffy Guy':'🐶',
-    'Munchie':'🍔',
-    'Pretty Lady':'👸',
-    'Guardian':'🛡️',
-    'Huntress':'🏹',
-    'Rich Fella':'💰',
-    'Sunshine':'☀️',
-    'Style Icon':'✨',
-    'Mini Boss':'👑',
+    "Flip Flops":"🩴",
+    "Luxury Shades":"🕶️",
+    "Swim Fins":"🤿",
+    "Tropical Fruit":"🍍",
+    "Beach Hammock":"🏖️",
+    "Plumeria":"🌺",
+    "Floating Meal":"🍹",
+    "SUP":"🏄",
+    "Sash Band Hat":"👒",
+    "Shells on Sand":"🐚",
+    "Shaded Lounger":"🏖️",
+    "Beach Bar":"🍹",
 
+    "Anchor":"⚓",
+    "Lifebuoy":"🛟",
+    "Sail":"⛵",
+    "Ship Bell":"🔔",
+    "Oyster Plate":"🦪",
+    "Ocean View":"🌊",
+    "Island Cocktail":"🍹",
+    "Day Bed":"🛏️",
+    "Snorkel Mask":"🤿",
+    "Captain Cap":"🧢",
+    "Jet Ski":"🚤",
+    "Luxury Yacht":"🛥️",
 
-    'Guest List':'📋',
-    'Limo':'🚘',
-    'Cocoon Seat':'💺',
-    'Spark Sticks':'✨',
-    'Shaker':'🍸',
-    'Choco Berry':'🍓',
-    'Glass Tower':'🥂',
-    'DJ Deck':'🎧',
-    'Neon Sign':'💡',
-    'VIP Band':'🎟️',
-    'VIP Ticket':'🎫',
-    'Night City':'🌃',
+    "Golf Ball":"⛳",
+    "Golf Gloves":"🧤",
+    "Golf Visor":"🧢",
+    "Golf Shoes":"👟",
+    "Polo Shirt":"👕",
+    "Range Finder":"🔭",
+    "Golf Brush":"🧹",
+    "Golf Kit":"🏌️",
+    "Flagged Hole":"🚩",
+    "Golf Cart":"🚙",
+    "Club Bag":"🏌️",
+    "Golf Cup":"🏆",
 
-
-    'Piggy Bank':'🐷',
-    'Bill':'💵',
-    'Gold Coin':'🪙',
-    'Check Book':'📕',
-    'Pearl Scatter':'🤍',
-    'Money Stack':'💰',
-    'Platinum Bar':'🥇',
-    'ATM':'🏧',
-    'Stocks':'📈',
-    'Suitcase of Money':'💼',
-    'Safe':'🔐',
-    'Bank Vault':'🏦',
-
-
-    'Cards':'🃏',
-    'Chip Rake':'🎰',
-    'Chips':'🔴',
-    'Dice':'🎲',
-    'Bow Tie':'🎀',
-    'Bandit Slot':'🎰',
-    'Lucky Wheel':'🎡',
-    'Blackjack':'🃏',
-    'Roulette':'🎡',
-    'Slot Machine':'🎰',
-    'Jackpot':'💰',
-    'Trump Card':'🃏',
-
-
-    'Flip Flops':'🩴',
-    'Luxury Shades':'🕶️',
-    'Swim Fins':'🤿',
-    'Tropical Fruit':'🍍',
-    'Beach Hammock':'🏖️',
-    'Plumeria':'🌺',
-    'Floating Meal':'🍹',
-    'SUP':'🏄',
-    'Sash Band Hat':'👒',
-    'Shells on Sand':'🐚',
-    'Shaded Lounger':'🏖️',
-    'Beach Bar':'🍹',
-
-
-    'Anchor':'⚓',
-    'Lifebuoy':'🛟',
-    'Sail':'⛵',
-    'Ship Bell':'🔔',
-    'Oyster Plate':'🦪',
-    'Ocean View':'🌊',
-    'Island Cocktail':'🍹',
-    'Day Bed':'🛏️',
-    'Snorkel Mask':'🤿',
-    'Captain Cap':'🧢',
-    'Jet Ski':'🚤',
-    'Luxury Yacht':'🛥️',
-
-
-    'Golf Ball':'⛳',
-    'Golf Gloves':'🧤',
-    'Golf Visor':'🧢',
-    'Golf Shoes':'👟',
-    'Polo Shirt':'👕',
-    'Range Finder':'🔭',
-    'Golf Brush':'🧹',
-    'Golf Kit':'🏌️',
-    'Flagged Hole':'🚩',
-    'Golf Cart':'🚙',
-    'Club Bag':'🏌️',
-    'Golf Cup':'🏆',
-
-
-    'Longhorn Continent':'🚗',
-    'Fukurou Millenium':'🚘',
-    'Longhorn Wild':'🏎️',
-    'RM Phantom':'🚙',
-    'RM Grandeur':'🚘',
-    'Longhorn Shark':'🦈',
-    'Buletti Inferno':'🔥',
-    'Buletti Panaro':'🏎️',
-    'RM G-Rex':'🦖',
-    'Buletti Aldo':'🚗',
-    'Buletti Nera':'🏎️',
-    'Espot Polygon':'🚘'
+    "Longhorn Continent":"🚗",
+    "Fukurou Millenium":"🚘",
+    "Longhorn Wild":"🏎️",
+    "RM Phantom":"🚙",
+    "RM Grandeur":"🚘",
+    "Longhorn Shark":"🦈",
+    "Buletti Inferno":"🔥",
+    "Buletti Panaro":"🏎️",
+    "RM G-Rex":"🦖",
+    "Buletti Aldo":"🚗",
+    "Buletti Nera":"🏎️",
+    "Espot Polygon":"🚘"
 
 };
     <script>
@@ -3494,20 +2662,21 @@ const CARD_EMOJIS = {
    HELPERS
 ========================= */
 
-function escapeHTML(value){
+function escapeHtml(text){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text ?? "";
+
+    return div.innerHTML;
 
 }
 
 
 function showMessage(
-    text,
+    message,
     type = "error"
 ){
 
@@ -3520,7 +2689,7 @@ function showMessage(
         return;
 
     element.textContent =
-        text;
+        message;
 
     element.className =
         "message show " + type;
@@ -3538,7 +2707,8 @@ function clearMessage(){
     if(!element)
         return;
 
-    element.textContent = "";
+    element.textContent =
+        "";
 
     element.className =
         "message";
@@ -3611,7 +2781,6 @@ function showAuth(mode){
 
     }
 
-
     clearMessage();
 
 }
@@ -3619,6 +2788,7 @@ function showAuth(mode){
 
 /* =========================
    LOGIN
+   ORIGINAL LOGIC
 ========================= */
 
 async function login(){
@@ -3631,7 +2801,7 @@ async function login(){
             .getElementById(
                 "loginUsername"
             )
-            ?.value
+            .value
             .trim();
 
 
@@ -3640,7 +2810,7 @@ async function login(){
             .getElementById(
                 "loginTag"
             )
-            ?.value
+            .value
             .trim();
 
 
@@ -3649,7 +2819,7 @@ async function login(){
             .getElementById(
                 "loginPassword"
             )
-            ?.value;
+            .value;
 
 
     if(
@@ -3675,7 +2845,8 @@ async function login(){
 
     if(button){
 
-        button.disabled = true;
+        button.disabled =
+            true;
 
         button.textContent =
             "LOGGING IN...";
@@ -3686,8 +2857,12 @@ async function login(){
     try{
 
         /*
-         * Keep the same authentication
-         * method used by the existing app.
+         * IMPORTANT:
+         * The username is kept because
+         * it is part of the original form.
+         *
+         * Authentication itself uses the
+         * player tag as the email alias.
          */
 
         const email =
@@ -3699,11 +2874,8 @@ async function login(){
                 .auth
                 .signInWithPassword({
 
-                    email:
-                        email,
-
-                    password:
-                        password
+                    email,
+                    password
 
                 });
 
@@ -3728,37 +2900,18 @@ async function login(){
 
 
         /*
-         * IMPORTANT:
+         * DO NOT REMOVE THIS.
          *
-         * currentUser is assigned BEFORE
-         * loadPlayerData() and showApp().
-         *
-         * This is the modification that
-         * prevents the login from getting
-         * stuck after a successful sign-in.
+         * currentUser must be assigned
+         * before loading the player data
+         * and before showing the app.
          */
 
         currentUser =
             result.data.user;
 
 
-        /*
-         * Player data must never prevent
-         * the application from opening.
-         */
-
-        try{
-
-            await loadPlayerData();
-
-        }catch(error){
-
-            console.warn(
-                "Could not load player data:",
-                error
-            );
-
-        }
+        await loadPlayerData();
 
 
         showApp();
@@ -3782,7 +2935,8 @@ async function login(){
 
         if(button){
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             button.textContent =
                 "LOG IN";
@@ -3808,7 +2962,7 @@ async function signup(){
             .getElementById(
                 "signupUsername"
             )
-            ?.value
+            .value
             .trim();
 
 
@@ -3817,7 +2971,7 @@ async function signup(){
             .getElementById(
                 "signupTag"
             )
-            ?.value
+            .value
             .trim();
 
 
@@ -3826,7 +2980,7 @@ async function signup(){
             .getElementById(
                 "signupPassword"
             )
-            ?.value;
+            .value;
 
 
     if(
@@ -3844,7 +2998,9 @@ async function signup(){
     }
 
 
-    if(password.length < 6){
+    if(
+        password.length < 6
+    ){
 
         showMessage(
             "Password must contain at least 6 characters."
@@ -3863,7 +3019,8 @@ async function signup(){
 
     if(button){
 
-        button.disabled = true;
+        button.disabled =
+            true;
 
         button.textContent =
             "CREATING...";
@@ -3882,21 +3039,15 @@ async function signup(){
                 .auth
                 .signUp({
 
-                    email:
-                        email,
-
-                    password:
-                        password,
+                    email,
+                    password,
 
                     options:{
 
                         data:{
 
-                            username:
-                                username,
-
-                            player_tag:
-                                tag
+                            username,
+                            player_tag:tag
 
                         }
 
@@ -3921,18 +3072,7 @@ async function signup(){
                 result.data.user;
 
 
-            try{
-
-                await loadPlayerData();
-
-            }catch(error){
-
-                console.warn(
-                    "Could not load player data:",
-                    error
-                );
-
-            }
+            await loadPlayerData();
 
 
             showApp();
@@ -3943,6 +3083,7 @@ async function signup(){
                 "Account created. You can now log in.",
                 "success"
             );
+
 
             showAuth(
                 "login"
@@ -3969,7 +3110,8 @@ async function signup(){
 
         if(button){
 
-            button.disabled = false;
+            button.disabled =
+                false;
 
             button.textContent =
                 "CREATE ACCOUNT";
@@ -4002,14 +3144,11 @@ function buildCards(){
 
                     allCards.push({
 
-                        id:
-                            id,
+                        id,
 
-                        name:
-                            name,
+                        name,
 
-                        album:
-                            album,
+                        album,
 
                         number:
                             index + 1,
@@ -4084,7 +3223,7 @@ async function loadPlayerData(){
     }catch(error){
 
         console.warn(
-            "PROFILE LOAD ERROR:",
+            "Could not load profile:",
             error
         );
 
@@ -4098,7 +3237,7 @@ async function loadPlayerData(){
     }catch(error){
 
         console.warn(
-            "CARD LOAD ERROR:",
+            "Could not load player cards:",
             error
         );
 
@@ -4157,7 +3296,7 @@ async function loadOwnedCards(){
     ).forEach(
         row=>{
 
-            const id =
+            const cardId =
                 Number(
                     row.card_id
                 );
@@ -4187,7 +3326,7 @@ async function loadOwnedCards(){
             if(quantity > 0){
 
                 ownedCards.add(
-                    id
+                    cardId
                 );
 
             }
@@ -4196,7 +3335,7 @@ async function loadOwnedCards(){
             if(row.is_needed){
 
                 neededCards.add(
-                    id
+                    cardId
                 );
 
             }
@@ -4208,20 +3347,20 @@ async function loadOwnedCards(){
             ){
 
                 tradeCards.add(
-                    id
+                    cardId
                 );
 
             }
 
 
             cardQuantities.set(
-                id,
+                cardId,
                 quantity
             );
 
 
             tradeQuantities.set(
-                id,
+                cardId,
                 tradeQuantity
             );
 
@@ -4282,7 +3421,7 @@ function showApp(){
 
 
 /* =========================
-   PROFILE
+   PROFILE UI
 ========================= */
 
 function updateProfileUI(){
@@ -4340,10 +3479,7 @@ function getAvatarPath(){
     if(!currentUser)
         return "";
 
-
-    return `
-        ${currentUser.id}/avatar.jpg
-    `.trim();
+    return `${currentUser.id}/avatar.jpg`;
 
 }
 
@@ -4352,7 +3488,6 @@ function getAvatarUrl(){
 
     if(!currentUser)
         return "";
-
 
     return (
         `${SUPABASE_URL}` +
@@ -4367,8 +3502,8 @@ function getAvatarUrl(){
 function updateAvatarUI(){
 
     const avatar =
-        document.querySelector(
-            ".avatar"
+        document.getElementById(
+            "profileAvatar"
         );
 
 
@@ -4382,144 +3517,34 @@ function updateAvatarUI(){
     }
 
 
-    const img =
+    const image =
         new Image();
 
 
-    img.onload = function(){
+    image.onload =
+        function(){
 
-        avatar.innerHTML = "";
+            avatar.innerHTML =
+                "";
 
-        avatar.appendChild(
-            img
-        );
-
-    };
-
-
-    img.onerror = function(){
-
-        avatar.innerHTML =
-            "👤";
-
-    };
-
-
-    img.src =
-        getAvatarUrl();
-
-}
-
-
-async function uploadAvatar(
-    file
-){
-
-    if(!currentUser){
-
-        throw new Error(
-            "Please log in first."
-        );
-
-    }
-
-
-    if(
-        ![
-            "image/jpeg",
-            "image/png",
-            "image/webp"
-        ].includes(
-            file.type
-        )
-    ){
-
-        throw new Error(
-            "Please choose a JPG, PNG or WebP image."
-        );
-
-    }
-
-
-    if(
-        file.size >
-        2 * 1024 * 1024
-    ){
-
-        throw new Error(
-            "The image must be smaller than 2 MB."
-        );
-
-    }
-
-
-    const result =
-        await supabaseClient
-            .storage
-            .from("AVATARS")
-            .upload(
-                getAvatarPath(),
-                file,
-                {
-
-                    upsert:true,
-
-                    contentType:
-                        file.type,
-
-                    cacheControl:
-                        "3600"
-
-                }
+            avatar.appendChild(
+                image
             );
 
-
-    if(result.error){
-
-        throw result.error;
-
-    }
+        };
 
 
-    updateAvatarUI();
+    image.onerror =
+        function(){
 
-}
+            avatar.innerHTML =
+                "👤";
 
-
-async function removeAvatar(){
-
-    if(!currentUser)
-        return;
+        };
 
 
-    const result =
-        await supabaseClient
-            .storage
-            .from("AVATARS")
-            .remove([
-                getAvatarPath()
-            ]);
-
-
-    if(result.error){
-
-        throw result.error;
-
-    }
-
-
-    const avatar =
-        document.querySelector(
-            ".avatar"
-        );
-
-
-    if(avatar){
-
-        avatar.innerHTML =
-            "👤";
-
-    }
+    image.src =
+        getAvatarUrl();
 
 }
 
@@ -4538,7 +3563,7 @@ function updateStats(){
         ownedCards.size;
 
 
-    const percent =
+    const percentage =
         total
         ?
         Math.round(
@@ -4563,7 +3588,7 @@ function updateStats(){
         );
 
 
-    const percentElement =
+    const percentageElement =
         document.getElementById(
             "statPercent"
         );
@@ -4585,10 +3610,10 @@ function updateStats(){
     }
 
 
-    if(percentElement){
+    if(percentageElement){
 
-        percentElement.textContent =
-            percent + "%";
+        percentageElement.textContent =
+            percentage + "%";
 
     }
 
@@ -4596,7 +3621,7 @@ function updateStats(){
 
 
 /* =========================
-   ALBUMS
+   ALBUM RENDERING
 ========================= */
 
 function renderAlbums(){
@@ -4611,7 +3636,8 @@ function renderAlbums(){
         return;
 
 
-    grid.innerHTML = "";
+    grid.innerHTML =
+        "";
 
 
     ALBUM_ORDER.forEach(
@@ -4634,7 +3660,7 @@ function renderAlbums(){
                 ).length;
 
 
-            const percent =
+            const percentage =
                 cards.length
                 ?
                 Math.round(
@@ -4680,22 +3706,29 @@ function renderAlbums(){
             button.innerHTML = `
 
                 <div class="album-icon">
+
                     ${ALBUM_ICONS[album]}
+
                 </div>
 
+
                 <div class="album-name">
-                    ${escapeHTML(album)}
+
+                    ${escapeHtml(album)}
+
                 </div>
+
 
                 <div class="album-progress">
 
                     <span
                         style="
-                            width:${percent}%
+                            width:${percentage}%
                         "
                     ></span>
 
                 </div>
+
 
                 <div class="album-count">
 
@@ -4738,17 +3771,18 @@ function renderAlbums(){
 
 function renderAlbumTabs(){
 
-    const container =
+    const tabs =
         document.getElementById(
             "albumTabs"
         );
 
 
-    if(!container)
+    if(!tabs)
         return;
 
 
-    container.innerHTML = "";
+    tabs.innerHTML =
+        "";
 
 
     ALBUM_ORDER.forEach(
@@ -4777,9 +3811,7 @@ function renderAlbumTabs(){
 
 
             button.textContent =
-                `${
-                    ALBUM_ICONS[album]
-                } ${album}`;
+                `${ALBUM_ICONS[album]} ${album}`;
 
 
             button.addEventListener(
@@ -4799,7 +3831,7 @@ function renderAlbumTabs(){
             );
 
 
-            container.appendChild(
+            tabs.appendChild(
                 button
             );
 
@@ -4810,7 +3842,7 @@ function renderAlbumTabs(){
 
 
 /* =========================
-   CARD RENDERING
+   COLLECTION RENDERING
 ========================= */
 
 function renderCollection(
@@ -4819,6 +3851,9 @@ function renderCollection(
 
     selectedAlbum =
         album;
+
+
+    renderAlbumTabs();
 
 
     const cards =
@@ -4838,7 +3873,7 @@ function renderCollection(
         ).length;
 
 
-    const percent =
+    const percentage =
         cards.length
         ?
         Math.round(
@@ -4868,7 +3903,6 @@ function renderCollection(
             colors[0]
         );
 
-
         banner.style.setProperty(
             "--c2",
             colors[1]
@@ -4881,9 +3915,10 @@ function renderCollection(
 
                 ${ALBUM_ICONS[album]}
 
-                ${escapeHTML(album)}
+                ${escapeHtml(album)}
 
             </h2>
+
 
             <p>
 
@@ -4892,20 +3927,22 @@ function renderCollection(
 
             </p>
 
+
             <div class="progress-row">
 
                 <div class="progress">
 
                     <span
                         style="
-                            width:${percent}%
+                            width:${percentage}%
                         "
                     ></span>
 
                 </div>
 
+
                 <strong>
-                    ${percent}%
+                    ${percentage}%
                 </strong>
 
             </div>
@@ -4925,25 +3962,26 @@ function renderCollection(
         return;
 
 
-    grid.innerHTML = "";
+    grid.innerHTML =
+        "";
 
 
     cards.forEach(
         card=>{
 
-            const isOwned =
+            const ownedCard =
                 ownedCards.has(
                     card.id
                 );
 
 
-            const isNeeded =
+            const needed =
                 neededCards.has(
                     card.id
                 );
 
 
-            const isTrade =
+            const forTrade =
                 tradeCards.has(
                     card.id
                 );
@@ -4970,7 +4008,7 @@ function renderCollection(
             element.className =
                 "card" +
                 (
-                    isOwned
+                    ownedCard
                     ?
                     " owned-card"
                     :
@@ -4997,7 +4035,7 @@ function renderCollection(
 
                         <div class="card-name">
 
-                            ${escapeHTML(
+                            ${escapeHtml(
                                 card.name
                             )}
 
@@ -5018,7 +4056,7 @@ function renderCollection(
                                 class="
                                     action-btn
                                     ${
-                                        isNeeded
+                                        needed
                                         ?
                                         "active-need"
                                         :
@@ -5032,7 +4070,7 @@ function renderCollection(
                                 🔎
 
                                 ${
-                                    isNeeded
+                                    needed
                                     ?
                                     "NEEDED"
                                     :
@@ -5047,7 +4085,7 @@ function renderCollection(
                                 class="
                                     action-btn
                                     ${
-                                        isOwned
+                                        ownedCard
                                         ?
                                         "active-have"
                                         :
@@ -5064,7 +4102,7 @@ function renderCollection(
 
 
                             ${
-                                isOwned
+                                ownedCard
                                 ?
                                 `
 
@@ -5073,6 +4111,7 @@ function renderCollection(
                                     <span>
                                         Owned
                                     </span>
+
 
                                     <button
                                         type="button"
@@ -5083,11 +4122,13 @@ function renderCollection(
                                         −
                                     </button>
 
+
                                     <span class="qty-value">
 
                                         ${quantity}
 
                                     </span>
+
 
                                     <button
                                         type="button"
@@ -5107,7 +4148,7 @@ function renderCollection(
                                         action-btn
                                         trade-toggle
                                         ${
-                                            isTrade
+                                            forTrade
                                             ?
                                             "active-trade"
                                             :
@@ -5121,7 +4162,7 @@ function renderCollection(
                                     🔄
 
                                     ${
-                                        isTrade
+                                        forTrade
                                         ?
                                         "OFFERING FOR TRADE"
                                         :
@@ -5132,7 +4173,7 @@ function renderCollection(
 
 
                                 ${
-                                    isTrade
+                                    forTrade
                                     ?
                                     `
 
@@ -5144,6 +4185,7 @@ function renderCollection(
 
                                         </span>
 
+
                                         <button
                                             type="button"
                                             class="qty-btn"
@@ -5153,11 +4195,13 @@ function renderCollection(
                                             −
                                         </button>
 
+
                                         <span class="qty-value">
 
                                             ${tradeQuantity}
 
                                         </span>
+
 
                                         <button
                                             type="button"
@@ -5186,15 +4230,15 @@ function renderCollection(
                         <div class="card-status">
 
                             ${
-                                isNeeded
+                                needed
                                 ?
                                 "You are looking for this card."
                                 :
-                                isTrade
+                                forTrade
                                 ?
                                 "You are offering this card."
                                 :
-                                isOwned
+                                ownedCard
                                 ?
                                 "In your collection."
                                 :
@@ -5218,10 +4262,10 @@ function renderCollection(
     );
 
 }
-
+    <script>
 
 /* =========================
-   SAVE CARD
+   SAVE CARD STATE
 ========================= */
 
 async function saveCardState(
@@ -5243,9 +4287,7 @@ async function saveCardState(
         ?
         Math.max(
             0,
-            Number(
-                changes.quantity
-            ) || 0
+            Number(changes.quantity) || 0
         )
         :
         (
@@ -5258,25 +4300,17 @@ async function saveCardState(
     const isNeeded =
         changes.is_needed !== undefined
         ?
-        Boolean(
-            changes.is_needed
-        )
+        Boolean(changes.is_needed)
         :
-        neededCards.has(
-            cardId
-        );
+        neededCards.has(cardId);
 
 
     const isForTrade =
         changes.is_for_trade !== undefined
         ?
-        Boolean(
-            changes.is_for_trade
-        )
+        Boolean(changes.is_for_trade)
         :
-        tradeCards.has(
-            cardId
-        );
+        tradeCards.has(cardId);
 
 
     let tradeQuantity =
@@ -5284,9 +4318,7 @@ async function saveCardState(
         ?
         Math.max(
             0,
-            Number(
-                changes.trade_quantity
-            ) || 0
+            Number(changes.trade_quantity) || 0
         )
         :
         (
@@ -5308,7 +4340,7 @@ async function saveCardState(
         !isNeeded
     ){
 
-        const deleted =
+        const result =
             await supabaseClient
                 .from("user_cards")
                 .delete()
@@ -5322,9 +4354,9 @@ async function saveCardState(
                 );
 
 
-        if(deleted.error){
+        if(result.error){
 
-            throw deleted.error;
+            throw result.error;
 
         }
 
@@ -5342,8 +4374,7 @@ async function saveCardState(
         card_id:
             cardId,
 
-        quantity:
-            quantity,
+        quantity,
 
         is_needed:
             isNeeded,
@@ -5383,20 +4414,37 @@ async function saveCardState(
 
 
 /* =========================
-   TOGGLE NEED
+   CARD HELPERS
+========================= */
+
+function getCardById(
+    cardId
+){
+
+    return allCards.find(
+        card =>
+            Number(card.id) ===
+            Number(cardId)
+    );
+
+}
+
+
+/* =========================
+   NEED CARD
 ========================= */
 
 async function toggleNeed(
     cardId
 ){
 
-    const old =
+    const previous =
         neededCards.has(
             cardId
         );
 
 
-    if(old){
+    if(previous){
 
         neededCards.delete(
             cardId
@@ -5422,13 +4470,13 @@ async function toggleNeed(
             cardId,
             {
                 is_needed:
-                    !old
+                    !previous
             }
         );
 
     }catch(error){
 
-        if(old){
+        if(previous){
 
             neededCards.add(
                 cardId
@@ -5459,20 +4507,20 @@ async function toggleNeed(
 
 
 /* =========================
-   TOGGLE HAVE
+   HAVE CARD
 ========================= */
 
 async function toggleHave(
     cardId
 ){
 
-    const old =
+    const previous =
         ownedCards.has(
             cardId
         );
 
 
-    if(old){
+    if(previous){
 
         ownedCards.delete(
             cardId
@@ -5522,14 +4570,14 @@ async function toggleHave(
             {
 
                 quantity:
-                    old
+                    previous
                     ?
                     0
                     :
                     1,
 
                 is_for_trade:
-                    old
+                    previous
                     ?
                     false
                     :
@@ -5538,7 +4586,7 @@ async function toggleHave(
                     ),
 
                 trade_quantity:
-                    old
+                    previous
                     ?
                     0
                     :
@@ -5575,12 +4623,12 @@ async function toggleHave(
 
 
 /* =========================
-   QUANTITY
+   OWNED QUANTITY
 ========================= */
 
 async function changeQuantity(
     cardId,
-    delta
+    amount
 ){
 
     if(
@@ -5594,41 +4642,41 @@ async function changeQuantity(
     }
 
 
-    const old =
+    const previous =
         cardQuantities.get(
             cardId
         ) || 1;
 
 
-    const oldTrade =
+    const previousTrade =
         tradeQuantities.get(
             cardId
         ) || 0;
 
 
-    const next =
+    const quantity =
         Math.max(
             1,
-            old + delta
+            previous + amount
         );
 
 
-    const nextTrade =
+    const tradeQuantity =
         Math.min(
-            oldTrade,
-            next
+            previousTrade,
+            quantity
         );
 
 
     cardQuantities.set(
         cardId,
-        next
+        quantity
     );
 
 
     tradeQuantities.set(
         cardId,
-        nextTrade
+        tradeQuantity
     );
 
 
@@ -5643,11 +4691,10 @@ async function changeQuantity(
             cardId,
             {
 
-                quantity:
-                    next,
+                quantity,
 
                 trade_quantity:
-                    nextTrade
+                    tradeQuantity
 
             }
         );
@@ -5656,12 +4703,12 @@ async function changeQuantity(
 
         cardQuantities.set(
             cardId,
-            old
+            previous
         );
 
         tradeQuantities.set(
             cardId,
-            oldTrade
+            previousTrade
         );
 
 
@@ -5703,13 +4750,13 @@ async function toggleTrade(
     }
 
 
-    const old =
+    const previous =
         tradeCards.has(
             cardId
         );
 
 
-    if(old){
+    if(previous){
 
         tradeCards.delete(
             cardId
@@ -5746,10 +4793,10 @@ async function toggleTrade(
             {
 
                 is_for_trade:
-                    !old,
+                    !previous,
 
                 trade_quantity:
-                    old
+                    previous
                     ?
                     0
                     :
@@ -5769,7 +4816,7 @@ async function toggleTrade(
 
         alert(
             error?.message ||
-            "Could not update the trade offer."
+            "Could not update the trade."
         );
 
     }
@@ -5783,16 +4830,12 @@ async function toggleTrade(
 
 async function changeTradeQuantity(
     cardId,
-    delta
+    amount
 ){
 
     if(
-        !ownedCards.has(
-            cardId
-        ) ||
-        !tradeCards.has(
-            cardId
-        )
+        !ownedCards.has(cardId) ||
+        !tradeCards.has(cardId)
     ){
 
         return;
@@ -5806,25 +4849,25 @@ async function changeTradeQuantity(
         ) || 1;
 
 
-    const old =
+    const previous =
         tradeQuantities.get(
             cardId
         ) || 1;
 
 
-    const next =
+    const quantity =
         Math.max(
             1,
             Math.min(
                 owned,
-                old + delta
+                previous + amount
             )
         );
 
 
     tradeQuantities.set(
         cardId,
-        next
+        quantity
     );
 
 
@@ -5843,7 +4886,7 @@ async function changeTradeQuantity(
                     true,
 
                 trade_quantity:
-                    next
+                    quantity
 
             }
         );
@@ -5852,7 +4895,7 @@ async function changeTradeQuantity(
 
         tradeQuantities.set(
             cardId,
-            old
+            previous
         );
 
 
@@ -5872,71 +4915,542 @@ async function changeTradeQuantity(
 
 
 /* =========================
-   CARD FINDER
+   TRADE MARKET
 ========================= */
 
-function cardById(id){
+async function loadTradeMarket(){
 
-    return allCards.find(
-        card =>
-            card.id ===
-            Number(id)
-    );
-
-}
+    if(!currentUser)
+        return;
 
 
-/* =========================
-   PROFILE NAME
-========================= */
+    const matches =
+        document.getElementById(
+            "tradeMatches"
+        );
 
-function profileName(
-    profile
-){
+    const looking =
+        document.getElementById(
+            "tradePeopleLooking"
+        );
 
-    if(!profile)
-        return "Player";
-
-
-    return (
-        profile.username ||
-        profile.player_tag ||
-        "Player"
-    );
-
-}
-    function formatChatTime(
-    value
-){
-
-    const date =
-        new Date(value);
+    const offers =
+        document.getElementById(
+            "tradeOffers"
+        );
 
 
     if(
-        Number.isNaN(
-            date.getTime()
-        )
+        !matches ||
+        !looking ||
+        !offers
     ){
 
-        return "";
+        return;
 
     }
 
 
-    return date.toLocaleTimeString(
-        [],
-        {
-            hour:"2-digit",
-            minute:"2-digit"
+    const loading = `
+
+        <div class="empty-trade">
+
+            Loading trades...
+
+        </div>
+
+    `;
+
+
+    matches.innerHTML =
+        loading;
+
+    looking.innerHTML =
+        loading;
+
+    offers.innerHTML =
+        loading;
+
+
+    try{
+
+        const result =
+            await supabaseClient
+                .from("user_cards")
+                .select(
+                    "user_id,card_id,quantity,is_needed,is_for_trade,trade_quantity"
+                )
+                .or(
+                    "is_needed.eq.true,is_for_trade.eq.true"
+                );
+
+
+        if(result.error){
+
+            throw result.error;
+
         }
+
+
+        const rows =
+            (result.data || [])
+                .filter(
+                    row =>
+                        row.user_id !==
+                        currentUser.id
+                );
+
+
+        const userIds =
+            [
+                ...new Set(
+                    rows.map(
+                        row =>
+                            row.user_id
+                    )
+                )
+            ];
+
+
+        let profiles = [];
+
+
+        if(userIds.length){
+
+            const profileResult =
+                await supabaseClient
+                    .from("profiles")
+                    .select(
+                        "id,username,player_tag"
+                    )
+                    .in(
+                        "id",
+                        userIds
+                    );
+
+
+            if(profileResult.error){
+
+                throw profileResult.error;
+
+            }
+
+
+            profiles =
+                profileResult.data || [];
+
+        }
+
+
+        const profileMap =
+            new Map(
+                profiles.map(
+                    profile => [
+                        profile.id,
+                        profile
+                    ]
+                )
+            );
+
+
+        matches.innerHTML =
+            "";
+
+        looking.innerHTML =
+            "";
+
+        offers.innerHTML =
+            "";
+
+
+        let matchCount = 0;
+
+        let lookingCount = 0;
+
+        let offerCount = 0;
+
+
+        rows.forEach(
+            row=>{
+
+                const card =
+                    getCardById(
+                        row.card_id
+                    );
+
+
+                if(!card)
+                    return;
+
+
+                const profile =
+                    profileMap.get(
+                        row.user_id
+                    );
+
+
+                const quantity =
+                    Math.min(
+                        Number(
+                            row.quantity
+                        ) || 0,
+                        Number(
+                            row.trade_quantity
+                        ) || 0
+                    );
+
+
+                /*
+                 * MATCH:
+                 *
+                 * The other player needs
+                 * a card that you offer.
+                 */
+
+                if(
+                    row.is_needed &&
+                    tradeCards.has(
+                        Number(
+                            row.card_id
+                        )
+                    ) &&
+                    quantity > 0
+                ){
+
+                    matchCount++;
+
+
+                    addTradeItem(
+                        matches,
+                        card,
+                        profile,
+                        `${quantity} available`,
+                        "MATCH"
+                    );
+
+                }
+
+
+                /*
+                 * PEOPLE LOOKING:
+                 *
+                 * The other player needs
+                 * a card that you own.
+                 */
+
+                if(
+                    row.is_needed &&
+                    ownedCards.has(
+                        Number(
+                            row.card_id
+                        )
+                    )
+                ){
+
+                    lookingCount++;
+
+
+                    const ownedQuantity =
+                        cardQuantities.get(
+                            Number(
+                                row.card_id
+                            )
+                        ) || 0;
+
+
+                    addTradeItem(
+                        looking,
+                        card,
+                        profile,
+                        `You own ${ownedQuantity}`,
+                        "LOOKING"
+                    );
+
+                }
+
+
+                /*
+                 * OFFERS:
+                 *
+                 * The other player offers
+                 * a card for trade.
+                 */
+
+                if(
+                    row.is_for_trade &&
+                    quantity > 0
+                ){
+
+                    offerCount++;
+
+
+                    addTradeItem(
+                        offers,
+                        card,
+                        profile,
+                        `${quantity} available`,
+                        "OFFER"
+                    );
+
+                }
+
+            }
+        );
+
+
+        if(!matchCount){
+
+            matches.innerHTML = `
+
+                <div class="empty-trade">
+
+                    No direct matches yet.
+
+                </div>
+
+            `;
+
+        }
+
+
+        if(!lookingCount){
+
+            looking.innerHTML = `
+
+                <div class="empty-trade">
+
+                    Nobody is currently looking
+                    for your cards.
+
+                </div>
+
+            `;
+
+        }
+
+
+        if(!offerCount){
+
+            offers.innerHTML = `
+
+                <div class="empty-trade">
+
+                    No cards are currently
+                    offered by other players.
+
+                </div>
+
+            `;
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "TRADE MARKET ERROR:",
+            error
+        );
+
+
+        const errorHTML = `
+
+            <div class="empty-trade">
+
+                Unable to load the trade market.
+
+            </div>
+
+        `;
+
+
+        matches.innerHTML =
+            errorHTML;
+
+        looking.innerHTML =
+            errorHTML;
+
+        offers.innerHTML =
+            errorHTML;
+
+    }
+
+}
+
+
+/* =========================
+   TRADE ITEM
+========================= */
+
+function addTradeItem(
+    container,
+    card,
+    profile,
+    detail,
+    badge
+){
+
+    if(!container)
+        return;
+
+
+    const playerName =
+        profile?.username ||
+        profile?.player_tag ||
+        "Player";
+
+
+    const playerTag =
+        profile?.player_tag
+        ?
+        `#${profile.player_tag}`
+        :
+        "";
+
+
+    const item =
+        document.createElement(
+            "div"
+        );
+
+
+    item.className =
+        "trade-item";
+
+
+    item.innerHTML = `
+
+        <div class="trade-item-left">
+
+            <div class="trade-icon">
+
+                ${
+                    CARD_EMOJIS[
+                        card.name
+                    ] || "🃏"
+                }
+
+            </div>
+
+
+            <div>
+
+                <div class="trade-card-name">
+
+                    ${escapeHtml(
+                        card.name
+                    )}
+
+                </div>
+
+
+                <div class="trade-player">
+
+                    ${escapeHtml(
+                        playerName
+                    )}
+
+                    ${
+                        playerTag
+                        ?
+                        ` • ${escapeHtml(
+                            playerTag
+                        )}`
+                        :
+                        ""
+                    }
+
+                </div>
+
+
+                <div class="trade-detail">
+
+                    ${escapeHtml(
+                        detail
+                    )}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="trade-item-right">
+
+            <div class="trade-badge">
+
+                ${escapeHtml(
+                    badge
+                )}
+
+            </div>
+
+
+            ${
+                profile?.id
+                ?
+                `
+
+                <button
+                    type="button"
+                    class="trade-chat-btn"
+                    data-user-id="${escapeHtml(
+                        profile.id
+                    )}"
+                    data-card-id="${Number(
+                        card.id
+                    )}"
+                >
+
+                    💬 MESSAGE
+
+                </button>
+
+                `
+                :
+                ""
+            }
+
+        </div>
+
+    `;
+
+
+    const messageButton =
+        item.querySelector(
+            ".trade-chat-btn"
+        );
+
+
+    if(messageButton){
+
+        messageButton.addEventListener(
+            "click",
+            function(){
+
+                openChat(
+                    this.dataset.userId,
+                    Number(
+                        this.dataset.cardId
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    container.appendChild(
+        item
     );
 
 }
 
 
 /* =========================
-   CHAT PROFILE
+   PRIVATE CHAT
 ========================= */
 
 async function getChatProfile(
@@ -5963,148 +5477,37 @@ async function getChatProfile(
     }
 
 
-    return result.data || null;
+    return result.data;
 
 }
 
 
-/* =========================
-   LOAD CHAT
-========================= */
-
-async function loadChatMessages(
-    scrollToBottom = false
+function formatChatTime(
+    timestamp
 ){
 
+    const date =
+        new Date(timestamp);
+
+
     if(
-        !currentUser ||
-        !chatPartnerId ||
-        !chatCardId
+        Number.isNaN(
+            date.getTime()
+        )
     ){
 
-        return;
+        return "";
 
     }
 
 
-    const box =
-        document.getElementById(
-            "chatMessages"
-        );
-
-
-    if(!box)
-        return;
-
-
-    const result =
-        await supabaseClient
-            .from("direct_messages")
-            .select(
-                "id,sender_id,receiver_id,card_id,content,created_at"
-            )
-            .eq(
-                "card_id",
-                chatCardId
-            )
-            .or(
-                `and(sender_id.eq.${currentUser.id},receiver_id.eq.${chatPartnerId}),and(sender_id.eq.${chatPartnerId},receiver_id.eq.${currentUser.id})`
-            )
-            .order(
-                "created_at",
-                {
-                    ascending:true
-                }
-            );
-
-
-    if(result.error){
-
-        throw result.error;
-
-    }
-
-
-    const messages =
-        result.data || [];
-
-
-    if(!messages.length){
-
-        box.innerHTML = `
-
-            <div class="chat-empty">
-
-                No messages yet.
-
-                <br><br>
-
-                Start the conversation about this card.
-
-            </div>
-
-        `;
-
-    }else{
-
-        box.innerHTML =
-            messages
-                .map(
-                    message=>{
-
-                        const mine =
-                            message.sender_id ===
-                            currentUser.id;
-
-
-                        return `
-
-                            <div
-                                class="
-                                    chat-bubble-row
-                                    ${
-                                        mine
-                                        ?
-                                        "mine"
-                                        :
-                                        ""
-                                    }
-                                "
-                            >
-
-                                <div class="chat-bubble">
-
-                                    ${escapeHTML(
-                                        message.content
-                                    )}
-
-                                    <span class="chat-time">
-
-                                        ${formatChatTime(
-                                            message.created_at
-                                        )}
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        `;
-
-                    }
-                )
-                .join("");
-
-    }
-
-
-    if(scrollToBottom){
-
-        box.scrollTop =
-            box.scrollHeight;
-
-    }
+    return date.toLocaleTimeString(
+        [],
+        {
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
 
 }
 
@@ -6132,7 +5535,8 @@ async function openChat(
     if(
         !partnerId ||
         !cardId ||
-        partnerId === currentUser.id
+        partnerId ===
+        currentUser.id
     ){
 
         return;
@@ -6141,24 +5545,20 @@ async function openChat(
 
 
     chatPartnerId =
-        String(partnerId);
-
+        partnerId;
 
     chatCardId =
         Number(cardId);
 
 
     const card =
-        cardById(
+        getCardById(
             chatCardId
         );
 
 
-    if(!card){
-
+    if(!card)
         return;
-
-    }
 
 
     const backdrop =
@@ -6173,15 +5573,9 @@ async function openChat(
         );
 
 
-    const cardLabel =
+    const cardInfo =
         document.getElementById(
             "chatCard"
-        );
-
-
-    const box =
-        document.getElementById(
-            "chatMessages"
         );
 
 
@@ -6189,27 +5583,16 @@ async function openChat(
         return;
 
 
-    title.textContent =
-        "Private chat";
-
-
-    cardLabel.textContent =
+    cardInfo.textContent =
         `${
             CARD_EMOJIS[
                 card.name
             ] || "🃏"
-        } ${card.name} • ${card.album}`;
+        } ${card.name}`;
 
 
-    box.innerHTML = `
-
-        <div class="chat-empty">
-
-            Loading conversation...
-
-        </div>
-
-    `;
+    title.textContent =
+        "Private chat";
 
 
     backdrop.classList.add(
@@ -6234,9 +5617,9 @@ async function openChat(
         if(profile){
 
             title.textContent =
-                profileName(
-                    profile
-                );
+                profile.username ||
+                profile.player_tag ||
+                "Player";
 
         }
 
@@ -6257,30 +5640,19 @@ async function openChat(
 
         chatPollTimer =
             setInterval(
-                async()=>{
+                function(){
 
-                    try{
-
-                        await loadChatMessages(
-                            false
-                        );
-
-                    }catch(error){
-
-                        console.warn(
-                            "CHAT REFRESH ERROR:",
-                            error
-                        );
-
-                    }
+                    loadChatMessages(
+                        false
+                    );
 
                 },
-                2500
+                3000
             );
 
 
         setTimeout(
-            ()=>{
+            function(){
 
                 document
                     .getElementById(
@@ -6296,97 +5668,182 @@ async function openChat(
     }catch(error){
 
         console.error(
-            "OPEN CHAT ERROR:",
+            "CHAT OPEN ERROR:",
             error
         );
 
 
-        box.innerHTML = `
+        const messages =
+            document.getElementById(
+                "chatMessages"
+            );
+
+
+        if(messages){
+
+            messages.innerHTML = `
+
+                <div class="chat-empty">
+
+                    Unable to load the conversation.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   LOAD CHAT MESSAGES
+========================= */
+
+async function loadChatMessages(
+    scrollToBottom = false
+){
+
+    if(
+        !currentUser ||
+        !chatPartnerId ||
+        !chatCardId
+    ){
+
+        return;
+
+    }
+
+
+    const messages =
+        document.getElementById(
+            "chatMessages"
+        );
+
+
+    if(!messages)
+        return;
+
+
+    const result =
+        await supabaseClient
+            .from("direct_messages")
+            .select(
+                "id,sender_id,receiver_id,card_id,content,created_at"
+            )
+            .eq(
+                "card_id",
+                chatCardId
+            )
+            .or(
+                `and(sender_id.eq.${currentUser.id},receiver_id.eq.${chatPartnerId}),and(sender_id.eq.${chatPartnerId},receiver_id.eq.${currentUser.id})`
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+
+    if(result.error){
+
+        console.error(
+            "CHAT LOAD ERROR:",
+            result.error
+        );
+
+        return;
+
+    }
+
+
+    const rows =
+        result.data || [];
+
+
+    if(!rows.length){
+
+        messages.innerHTML = `
 
             <div class="chat-empty">
 
-                Unable to load this conversation.
+                No messages yet.
 
-                <br><br>
+                <br>
 
-                ${escapeHTML(
-                    error?.message ||
-                    "Please try again."
-                )}
+                Start the conversation!
 
             </div>
 
         `;
 
+    }else{
+
+        messages.innerHTML =
+            rows.map(
+                message=>{
+
+                    const mine =
+                        message.sender_id ===
+                        currentUser.id;
+
+
+                    return `
+
+                        <div
+                            class="
+                                chat-bubble-row
+                                ${
+                                    mine
+                                    ?
+                                    "mine"
+                                    :
+                                    ""
+                                }
+                            "
+                        >
+
+                            <div class="chat-bubble">
+
+                                ${escapeHtml(
+                                    message.content
+                                )}
+
+                                <span class="chat-time">
+
+                                    ${formatChatTime(
+                                        message.created_at
+                                    )}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    if(scrollToBottom){
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
     }
 
 }
 
 
 /* =========================
-   CLOSE CHAT
-========================= */
-
-function closeChat(){
-
-    const backdrop =
-        document.getElementById(
-            "chatBackdrop"
-        );
-
-
-    if(backdrop){
-
-        backdrop.classList.remove(
-            "open"
-        );
-
-        backdrop.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-    }
-
-
-    if(chatPollTimer){
-
-        clearInterval(
-            chatPollTimer
-        );
-
-        chatPollTimer =
-            null;
-
-    }
-
-
-    chatPartnerId =
-        null;
-
-
-    chatCardId =
-        null;
-
-
-    const input =
-        document.getElementById(
-            "chatInput"
-        );
-
-
-    if(input){
-
-        input.value =
-            "";
-
-    }
-
-}
-
-
-/* =========================
-   SEND MESSAGE
+   SEND CHAT MESSAGE
 ========================= */
 
 async function sendChatMessage(){
@@ -6453,8 +5910,7 @@ async function sendChatMessage(){
                     card_id:
                         chatCardId,
 
-                    content:
-                        content
+                    content
 
                 });
 
@@ -6478,7 +5934,7 @@ async function sendChatMessage(){
     }catch(error){
 
         console.error(
-            "SEND CHAT ERROR:",
+            "CHAT SEND ERROR:",
             error
         );
 
@@ -6487,7 +5943,6 @@ async function sendChatMessage(){
             error?.message ||
             "Could not send the message."
         );
-
 
     }finally{
 
@@ -6510,651 +5965,48 @@ async function sendChatMessage(){
 
 
 /* =========================
-   TRADE MARKET
+   CLOSE CHAT
 ========================= */
 
-function renderTradeItem(
-    container,
-    card,
-    profile,
-    detail,
-    badge,
-    badgeClass
-){
+function closeChat(){
 
-    if(
-        !container ||
-        !card
-    ){
-
-        return;
-
-    }
-
-
-    const item =
-        document.createElement(
-            "div"
-        );
-
-
-    item.className =
-        "trade-item";
-
-
-    const profileId =
-        profile?.id || "";
-
-
-    item.innerHTML = `
-
-        <div class="trade-item-left">
-
-            <div class="trade-icon">
-
-                ${
-                    CARD_EMOJIS[
-                        card.name
-                    ] || "🃏"
-                }
-
-            </div>
-
-
-            <div>
-
-                <div class="trade-card-name">
-
-                    ${escapeHTML(
-                        card.name
-                    )}
-
-                </div>
-
-
-                <div class="trade-player">
-
-                    ${escapeHTML(
-                        profileName(
-                            profile
-                        )
-                    )}
-
-                    ${
-                        profile?.player_tag
-                        ?
-                        " • #" +
-                        escapeHTML(
-                            profile.player_tag
-                        )
-                        :
-                        ""
-                    }
-
-                </div>
-
-
-                <div class="trade-detail">
-
-                    ${escapeHTML(
-                        detail
-                    )}
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="trade-item-right">
-
-            <div
-                class="
-                    trade-badge
-                    ${badgeClass}
-                "
-            >
-
-                ${escapeHTML(
-                    badge
-                )}
-
-            </div>
-
-
-            ${
-                profileId
-                ?
-                `
-
-                    <button
-                        class="trade-chat-btn"
-                        type="button"
-                        data-chat-user="${escapeHTML(
-                            profileId
-                        )}"
-                        data-chat-card="${Number(
-                            card.id
-                        )}"
-                    >
-
-                        💬 MESSAGE
-
-                    </button>
-
-                `
-                :
-                ""
-            }
-
-        </div>
-
-    `;
-
-
-    const chatButton =
-        item.querySelector(
-            ".trade-chat-btn"
-        );
-
-
-    if(chatButton){
-
-        chatButton.addEventListener(
-            "click",
-            function(event){
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-
-                const userId =
-                    this.getAttribute(
-                        "data-chat-user"
-                    );
-
-
-                const cardId =
-                    Number(
-                        this.getAttribute(
-                            "data-chat-card"
-                        )
-                    );
-
-
-                openChat(
-                    userId,
-                    cardId
-                );
-
-            }
-        );
-
-    }
-
-
-    container.appendChild(
-        item
-    );
-
-}
-
-
-async function loadTradeMarket(){
-
-    if(!currentUser)
-        return;
-
-
-    const matchesContainer =
+    const backdrop =
         document.getElementById(
-            "tradeMatches"
+            "chatBackdrop"
         );
 
 
-    const lookingContainer =
-        document.getElementById(
-            "tradePeopleLooking"
+    if(backdrop){
+
+        backdrop.classList.remove(
+            "open"
         );
 
-
-    const offersContainer =
-        document.getElementById(
-            "tradeOffers"
+        backdrop.setAttribute(
+            "aria-hidden",
+            "true"
         );
-
-
-    if(
-        !matchesContainer ||
-        !lookingContainer ||
-        !offersContainer
-    ){
-
-        return;
 
     }
 
 
-    const loading = `
+    if(chatPollTimer){
 
-        <div class="empty-trade">
-
-            Loading trades...
-
-        </div>
-
-    `;
-
-
-    matchesContainer.innerHTML =
-        loading;
-
-    lookingContainer.innerHTML =
-        loading;
-
-    offersContainer.innerHTML =
-        loading;
-
-
-    try{
-
-        const result =
-            await supabaseClient
-                .from("user_cards")
-                .select(
-                    "user_id,card_id,quantity,is_needed,is_for_trade,trade_quantity"
-                )
-                .or(
-                    "is_needed.eq.true,is_for_trade.eq.true"
-                );
-
-
-        if(result.error){
-
-            throw result.error;
-
-        }
-
-
-        const rows =
-            (result.data || [])
-                .filter(
-                    row =>
-                        row.user_id !==
-                        currentUser.id
-                );
-
-
-        const profileIds =
-            [
-                ...new Set(
-                    rows.map(
-                        row =>
-                            row.user_id
-                    )
-                )
-            ];
-
-
-        let profiles = [];
-
-
-        if(profileIds.length){
-
-            const profileResult =
-                await supabaseClient
-                    .from("profiles")
-                    .select(
-                        "id,username,player_tag"
-                    )
-                    .in(
-                        "id",
-                        profileIds
-                    );
-
-
-            if(profileResult.error){
-
-                throw profileResult.error;
-
-            }
-
-
-            profiles =
-                profileResult.data || [];
-
-        }
-
-
-        const profileMap =
-            new Map(
-                profiles.map(
-                    profile => [
-                        profile.id,
-                        profile
-                    ]
-                )
-            );
-
-
-        const matches = [];
-
-        const peopleLooking = [];
-
-        const offers = [];
-
-
-        rows.forEach(
-            row=>{
-
-                const card =
-                    cardById(
-                        row.card_id
-                    );
-
-
-                if(!card)
-                    return;
-
-
-                const profile =
-                    profileMap.get(
-                        row.user_id
-                    ) || null;
-
-
-                const offeredQuantity =
-                    Math.min(
-
-                        Number(
-                            row.quantity
-                        ) || 0,
-
-                        Number(
-                            row.trade_quantity
-                        ) || 0
-
-                    );
-
-
-                /*
-                 * DIRECT MATCH
-                 */
-
-                if(
-                    row.is_needed &&
-                    tradeCards.has(
-                        Number(
-                            row.card_id
-                        )
-                    ) &&
-                    offeredQuantity > 0
-                ){
-
-                    matches.push({
-
-                        card:
-                            card,
-
-                        profile:
-                            profile,
-
-                        quantity:
-                            offeredQuantity
-
-                    });
-
-                }
-
-
-                /*
-                 * PLAYER LOOKING
-                 */
-
-                if(
-                    row.is_needed &&
-                    ownedCards.has(
-                        Number(
-                            row.card_id
-                        )
-                    )
-                ){
-
-                    peopleLooking.push({
-
-                        card:
-                            card,
-
-                        profile:
-                            profile
-
-                    });
-
-                }
-
-
-                /*
-                 * CARDS FOR TRADE
-                 */
-
-                if(
-                    row.is_for_trade &&
-                    offeredQuantity > 0
-                ){
-
-                    offers.push({
-
-                        card:
-                            card,
-
-                        profile:
-                            profile,
-
-                        quantity:
-                            offeredQuantity
-
-                    });
-
-                }
-
-            }
+        clearInterval(
+            chatPollTimer
         );
 
-
-        matchesContainer.innerHTML =
-            "";
-
-
-        if(!matches.length){
-
-            matchesContainer.innerHTML = `
-
-                <div class="empty-trade">
-
-                    No direct matches yet.
-
-                </div>
-
-            `;
-
-        }else{
-
-            matches.forEach(
-                item=>{
-
-                    renderTradeItem(
-
-                        matchesContainer,
-
-                        item.card,
-
-                        item.profile,
-
-                        `${item.quantity} available for trade`,
-
-                        "MATCH",
-
-                        "match"
-
-                    );
-
-                }
-            );
-
-        }
-
-
-        lookingContainer.innerHTML =
-            "";
-
-
-        if(!peopleLooking.length){
-
-            lookingContainer.innerHTML = `
-
-                <div class="empty-trade">
-
-                    Nobody is currently looking
-                    for cards you own.
-
-                </div>
-
-            `;
-
-        }else{
-
-            peopleLooking.forEach(
-                item=>{
-
-                    const quantity =
-                        cardQuantities.get(
-                            item.card.id
-                        ) || 0;
-
-
-                    renderTradeItem(
-
-                        lookingContainer,
-
-                        item.card,
-
-                        item.profile,
-
-                        `You own ${quantity} of this card`,
-
-                        "YOU HAVE IT",
-
-                        "want"
-
-                    );
-
-                }
-            );
-
-        }
-
-
-        offersContainer.innerHTML =
-            "";
-
-
-        if(!offers.length){
-
-            offersContainer.innerHTML = `
-
-                <div class="empty-trade">
-
-                    No cards are currently
-                    offered by other players.
-
-                </div>
-
-            `;
-
-        }else{
-
-            offers.forEach(
-                item=>{
-
-                    renderTradeItem(
-
-                        offersContainer,
-
-                        item.card,
-
-                        item.profile,
-
-                        `${item.quantity} available for trade`,
-
-                        "AVAILABLE",
-
-                        "offer"
-
-                    );
-
-                }
-            );
-
-        }
-
-
-    }catch(error){
-
-        console.error(
-            "TRADE MARKET ERROR:",
-            error
-        );
-
-
-        const errorHTML = `
-
-            <div class="empty-trade">
-
-                Unable to load the trade market.
-
-                <br><br>
-
-                Please check your Supabase
-                permissions.
-
-            </div>
-
-        `;
-
-
-        matchesContainer.innerHTML =
-            errorHTML;
-
-        lookingContainer.innerHTML =
-            errorHTML;
-
-        offersContainer.innerHTML =
-            errorHTML;
+        chatPollTimer =
+            null;
 
     }
 
-}
 
+    chatPartnerId =
+        null;
 
-/* =========================
-   MESSAGES
-========================= */
-
-async function loadMessages(){
-
-    if(!currentUser)
-        return;
-
-
-    /*
-     * There is no separate messages
-     * page in this version.
-     *
-     * The private conversation opens
-     * directly from the Trade section.
-     */
+    chatCardId =
+        null;
 
 }
 
@@ -7194,28 +6046,22 @@ function navigate(
     );
 
 
-    const target =
-        document.getElementById(
+    document
+        .getElementById(
             section + "Section"
-        );
-
-
-    if(target){
-
-        target.classList.remove(
+        )
+        ?.classList.remove(
             "hidden"
         );
-
-    }
 
 
     document
         .querySelectorAll(
-            ".nav button"
+            "#nav button"
         )
         .forEach(
-            btn =>
-                btn.classList.remove(
+            item =>
+                item.classList.remove(
                     "active"
                 )
         );
@@ -7227,50 +6073,10 @@ function navigate(
             "active"
         );
 
-    }else{
-
-        const buttons =
-            document.querySelectorAll(
-                ".nav button"
-            );
-
-
-        if(section === "home"){
-
-            buttons[0]
-                ?.classList.add(
-                    "active"
-                );
-
-        }
-
-
-        if(section === "collection"){
-
-            buttons[1]
-                ?.classList.add(
-                    "active"
-                );
-
-        }
-
-
-        if(section === "trade"){
-
-            buttons[2]
-                ?.classList.add(
-                    "active"
-                );
-
-        }
-
     }
 
 
-    if(
-        section ===
-        "collection"
-    ){
+    if(section === "collection"){
 
         renderAlbumTabs();
 
@@ -7281,10 +6087,7 @@ function navigate(
     }
 
 
-    if(
-        section ===
-        "trade"
-    ){
+    if(section === "trade"){
 
         loadTradeMarket();
 
@@ -7302,17 +6105,17 @@ async function logout(){
     closeChat();
 
 
-    try{
-
+    const result =
         await supabaseClient
             .auth
             .signOut();
 
-    }catch(error){
+
+    if(result.error){
 
         console.error(
             "LOGOUT ERROR:",
-            error
+            result.error
         );
 
     }
@@ -7323,7 +6126,6 @@ async function logout(){
 
     currentProfile =
         null;
-
 
     ownedCards =
         new Set();
@@ -7339,9 +6141,6 @@ async function logout(){
 
     tradeQuantities =
         new Map();
-
-    allCards =
-        [];
 
 
     document
@@ -7379,14 +6178,224 @@ async function logout(){
 
 
 /* =========================
-   EVENTS
+   CARD EVENTS
+========================= */
+
+function setupCardEvents(){
+
+    const grid =
+        document.getElementById(
+            "cardsGrid"
+        );
+
+
+    if(!grid)
+        return;
+
+
+    grid.addEventListener(
+        "click",
+        async function(event){
+
+            const button =
+                event.target.closest(
+                    "[data-action]"
+                );
+
+
+            if(!button)
+                return;
+
+
+            const action =
+                button.dataset.action;
+
+
+            const cardId =
+                Number(
+                    button.dataset.cardId
+                );
+
+
+            if(!cardId)
+                return;
+
+
+            if(
+                action ===
+                "need"
+            ){
+
+                await toggleNeed(
+                    cardId
+                );
+
+            }
+
+
+            if(
+                action ===
+                "have"
+            ){
+
+                await toggleHave(
+                    cardId
+                );
+
+            }
+
+
+            if(
+                action ===
+                "quantity-down"
+            ){
+
+                await changeQuantity(
+                    cardId,
+                    -1
+                );
+
+            }
+
+
+            if(
+                action ===
+                "quantity-up"
+            ){
+
+                await changeQuantity(
+                    cardId,
+                    1
+                );
+
+            }
+
+
+            if(
+                action ===
+                "trade"
+            ){
+
+                await toggleTrade(
+                    cardId
+                );
+
+            }
+
+
+            if(
+                action ===
+                "trade-down"
+            ){
+
+                await changeTradeQuantity(
+                    cardId,
+                    -1
+                );
+
+            }
+
+
+            if(
+                action ===
+                "trade-up"
+            ){
+
+                await changeTradeQuantity(
+                    cardId,
+                    1
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   AVATAR EVENTS
+========================= */
+
+async function uploadAvatar(
+    file
+){
+
+    if(!currentUser)
+        return;
+
+
+    const result =
+        await supabaseClient
+            .storage
+            .from("AVATARS")
+            .upload(
+                `${currentUser.id}/avatar.jpg`,
+                file,
+                {
+                    upsert:true,
+                    contentType:
+                        file.type
+                }
+            );
+
+
+    if(result.error){
+
+        throw result.error;
+
+    }
+
+
+    updateAvatarUI();
+
+}
+
+
+async function removeAvatar(){
+
+    if(!currentUser)
+        return;
+
+
+    const result =
+        await supabaseClient
+            .storage
+            .from("AVATARS")
+            .remove([
+                `${currentUser.id}/avatar.jpg`
+            ]);
+
+
+    if(result.error){
+
+        throw result.error;
+
+    }
+
+
+    const avatar =
+        document.getElementById(
+            "profileAvatar"
+        );
+
+
+    if(avatar){
+
+        avatar.innerHTML =
+            "👤";
+
+    }
+
+}
+
+
+/* =========================
+   INITIALIZATION
 ========================= */
 
 function setupEvents(){
-
-    /*
-     * LOGIN
-     */
 
     document
         .getElementById(
@@ -7394,9 +6403,7 @@ function setupEvents(){
         )
         ?.addEventListener(
             "click",
-            function(event){
-
-                event.preventDefault();
+            function(){
 
                 login();
 
@@ -7404,29 +6411,19 @@ function setupEvents(){
         );
 
 
-    /*
-     * SIGN UP
-     */
-
     document
         .getElementById(
             "signupButton"
         )
         ?.addEventListener(
             "click",
-            function(event){
-
-                event.preventDefault();
+            function(){
 
                 signup();
 
             }
         );
 
-
-    /*
-     * AUTH TABS
-     */
 
     document
         .getElementById(
@@ -7460,10 +6457,6 @@ function setupEvents(){
         );
 
 
-    /*
-     * LOGOUT
-     */
-
     document
         .getElementById(
             "logoutButton"
@@ -7474,79 +6467,52 @@ function setupEvents(){
         );
 
 
-    /*
-     * ENTER = LOGIN
-     */
-
-    [
-        "loginUsername",
-        "loginTag",
-        "loginPassword"
-    ].forEach(
-        id=>{
-
-            document
-                .getElementById(id)
-                ?.addEventListener(
-                    "keydown",
-                    function(event){
-
-                        if(
-                            event.key ===
-                            "Enter"
-                        ){
-
-                            event.preventDefault();
-
-                            login();
-
-                        }
-
-                    }
-                );
-
-        }
-    );
+    document
+        .getElementById(
+            "chatClose"
+        )
+        ?.addEventListener(
+            "click",
+            closeChat
+        );
 
 
-    /*
-     * ENTER = SIGN UP
-     */
+    document
+        .getElementById(
+            "chatComposer"
+        )
+        ?.addEventListener(
+            "submit",
+            function(event){
 
-    [
-        "signupUsername",
-        "signupTag",
-        "signupPassword"
-    ].forEach(
-        id=>{
+                event.preventDefault();
 
-            document
-                .getElementById(id)
-                ?.addEventListener(
-                    "keydown",
-                    function(event){
+                sendChatMessage();
 
-                        if(
-                            event.key ===
-                            "Enter"
-                        ){
-
-                            event.preventDefault();
-
-                            signup();
-
-                        }
-
-                    }
-                );
-
-        }
-    );
+            }
+        );
 
 
-    /*
-     * AVATAR
-     */
+    document
+        .getElementById(
+            "chatBackdrop"
+        )
+        ?.addEventListener(
+            "click",
+            function(event){
+
+                if(
+                    event.target ===
+                    this
+                ){
+
+                    closeChat();
+
+                }
+
+            }
+        );
+
 
     document
         .getElementById(
@@ -7575,29 +6541,11 @@ function setupEvents(){
             async function(event){
 
                 const file =
-                    event.target
-                        ?.files?.[0];
+                    event.target.files?.[0];
 
 
                 if(!file)
                     return;
-
-
-                const button =
-                    document.getElementById(
-                        "avatarButton"
-                    );
-
-
-                if(button){
-
-                    button.disabled =
-                        true;
-
-                    button.textContent =
-                        "UPLOADING...";
-
-                }
 
 
                 try{
@@ -7606,46 +6554,22 @@ function setupEvents(){
                         file
                     );
 
-
                 }catch(error){
-
-                    console.error(
-                        "AVATAR ERROR:",
-                        error
-                    );
-
 
                     alert(
                         error?.message ||
                         "Could not upload the photo."
                     );
 
-
-                }finally{
-
-                    if(button){
-
-                        button.disabled =
-                            false;
-
-                        button.textContent =
-                            "📷 PHOTO";
-
-                    }
-
-
-                    event.target.value =
-                        "";
-
                 }
+
+
+                event.target.value =
+                    "";
 
             }
         );
 
-
-    /*
-     * REMOVE AVATAR
-     */
 
     document
         .getElementById(
@@ -7655,28 +6579,11 @@ function setupEvents(){
             "click",
             async function(){
 
-                if(
-                    !confirm(
-                        "Remove your profile photo?"
-                    )
-                ){
-
-                    return;
-
-                }
-
-
                 try{
 
                     await removeAvatar();
 
                 }catch(error){
-
-                    console.error(
-                        "REMOVE AVATAR ERROR:",
-                        error
-                    );
-
 
                     alert(
                         error?.message ||
@@ -7689,243 +6596,21 @@ function setupEvents(){
         );
 
 
-    /*
-     * CHAT CLOSE
-     */
-
-    document
-        .getElementById(
-            "chatClose"
-        )
-        ?.addEventListener(
-            "click",
-            closeChat
-        );
-
-
-    /*
-     * CHAT BACKDROP
-     */
-
-    document
-        .getElementById(
-            "chatBackdrop"
-        )
-        ?.addEventListener(
-            "click",
-            function(event){
-
-                if(
-                    event.target.id ===
-                    "chatBackdrop"
-                ){
-
-                    closeChat();
-
-                }
-
-            }
-        );
-
-
-    /*
-     * SEND CHAT
-     */
-
-    document
-        .getElementById(
-            "chatComposer"
-        )
-        ?.addEventListener(
-            "submit",
-            function(event){
-
-                event.preventDefault();
-
-                sendChatMessage();
-
-            }
-        );
-
-
-    /*
-     * CARD BUTTONS
-     */
-
-    document
-        .getElementById(
-            "cardsGrid"
-        )
-        ?.addEventListener(
-            "click",
-            async function(event){
-
-                const button =
-                    event.target.closest(
-                        "button[data-action]"
-                    );
-
-
-                if(!button)
-                    return;
-
-
-                const action =
-                    button.getAttribute(
-                        "data-action"
-                    );
-
-
-                const cardId =
-                    Number(
-                        button.getAttribute(
-                            "data-card-id"
-                        )
-                    );
-
-
-                if(!cardId)
-                    return;
-
-
-                if(
-                    action ===
-                    "need"
-                ){
-
-                    await toggleNeed(
-                        cardId
-                    );
-
-                }
-
-
-                if(
-                    action ===
-                    "have"
-                ){
-
-                    await toggleHave(
-                        cardId
-                    );
-
-                }
-
-
-                if(
-                    action ===
-                    "quantity-down"
-                ){
-
-                    await changeQuantity(
-                        cardId,
-                        -1
-                    );
-
-                }
-
-
-                if(
-                    action ===
-                    "quantity-up"
-                ){
-
-                    await changeQuantity(
-                        cardId,
-                        1
-                    );
-
-                }
-
-
-                if(
-                    action ===
-                    "trade"
-                ){
-
-                    await toggleTrade(
-                        cardId
-                    );
-
-                }
-
-
-                if(
-                    action ===
-                    "trade-down"
-                ){
-
-                    await changeTradeQuantity(
-                        cardId,
-                        -1
-                    );
-
-                }
-
-
-                if(
-                    action ===
-                    "trade-up"
-                ){
-
-                    await changeTradeQuantity(
-                        cardId,
-                        1
-                    );
-
-                }
-
-            }
-        );
-
-
-    /*
-     * ESC = CLOSE CHAT
-     */
-
-    document.addEventListener(
-        "keydown",
-        function(event){
-
-            if(
-                event.key ===
-                "Escape"
-            ){
-
-                closeChat();
-
-            }
-
-        }
-    );
+    setupCardEvents();
 
 }
 
 
 /* =========================
-   INITIALIZATION
+   START APPLICATION
 ========================= */
 
 async function initializeApp(){
 
-    /*
-     * Build all cards first.
-     */
-
     buildCards();
-
-
-    /*
-     * Attach all buttons AFTER
-     * the HTML has been created.
-     */
 
     setupEvents();
 
-
-    /*
-     * Check existing session.
-     */
 
     try{
 
@@ -7952,7 +6637,7 @@ async function initializeApp(){
             }catch(error){
 
                 console.warn(
-                    "INITIAL PLAYER DATA ERROR:",
+                    "Could not load player data:",
                     error
                 );
 
@@ -7973,7 +6658,7 @@ async function initializeApp(){
     }catch(error){
 
         console.error(
-            "SESSION CHECK ERROR:",
+            "SESSION ERROR:",
             error
         );
 
@@ -7984,11 +6669,6 @@ async function initializeApp(){
 
     }
 
-
-    /*
-     * Keep the interface synchronized
-     * with Supabase authentication.
-     */
 
     supabaseClient
         .auth
@@ -8015,7 +6695,7 @@ async function initializeApp(){
                     }catch(error){
 
                         console.warn(
-                            "AUTH DATA ERROR:",
+                            "Could not load player data:",
                             error
                         );
 
@@ -8046,10 +6726,6 @@ async function initializeApp(){
 }
 
 
-/* =========================
-   START APP
-========================= */
-
 if(
     document.readyState ===
     "loading"
@@ -8068,7 +6744,8 @@ if(
 
 </script>
 
+
 </body>
 
 </html>
-  
+    
