@@ -1,4087 +1,3930 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sunday City Trading Cards</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-:root{
-  --bg:#120e18;
-  --bg2:#1b1522;
-  --card:#211a2a;
-  --card2:#292132;
-  --border:rgba(220,190,230,.18);
-  --text:#f7f1fa;
-  --muted:#aaa0b1;
-  --pink:#c99bbd;
-  --pink2:#e2c9df;
-  --purple:#73557c;
-  --green:#9fc8b4;
-  --danger:#d98e9c;
-}
-
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-  margin:0;
-  padding:0;
-  min-height:100%;
-  background:
-    radial-gradient(circle at 50% 20%,#49314f 0,transparent 35%),
-    radial-gradient(circle at 80% 60%,#39233e 0,transparent 35%),
-    var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
-}
+*{box-sizing:border-box}
 
 body{
-  padding-bottom:110px;
+margin:0;
+background:linear-gradient(145deg,#14101a,#211928 55%,#110d16);
+color:#eee8f2;
+font:14px Arial,sans-serif;
+min-height:100vh
 }
 
-button,
-input{
-  font:inherit;
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.top{
+position:sticky;
+top:0;
+z-index:10;
+text-align:center;
+padding:18px;
+background:#17121df2;
+backdrop-filter:blur(15px);
+border-bottom:1px solid #ffffff14
 }
 
-button{
-  cursor:pointer;
+.brand{
+font-size:27px;
+font-weight:900
 }
 
-.hidden{
-  display:none!important;
+.brand span{color:#c29aaf}
+
+.sub{
+color:#aaa0b2;
+font-size:12px;
+margin-top:4px
 }
-
-/* HEADER */
-
-.header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  padding:28px 18px 24px;
-  text-align:center;
-  background:rgba(18,14,24,.94);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
-}
-
-.header h1{
-  margin:0;
-  font-size:30px;
-  line-height:1.1;
-  font-weight:800;
-  letter-spacing:-1px;
-}
-
-.header h1 span{
-  color:var(--pink);
-}
-
-.header p{
-  margin:10px 0 0;
-  color:var(--muted);
-  font-size:17px;
-}
-
-/* MAIN */
-
-.container{
-  width:min(100%,1050px);
-  margin:auto;
-  padding:22px;
-}
-
-/* AUTH */
 
 .auth{
-  min-height:75vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+max-width:560px;
+margin:35px auto;
+padding:18px
 }
 
-.auth-box{
-  width:min(100%,470px);
-  padding:28px;
-  border:1px solid var(--border);
-  border-radius:30px;
-  background:rgba(32,25,41,.88);
-  box-shadow:0 25px 70px rgba(0,0,0,.25);
+.box{
+background:linear-gradient(145deg,#32283b,#1b1522);
+border:1px solid #ffffff18;
+border-radius:28px;
+padding:24px;
+box-shadow:0 20px 60px #0005
 }
 
-.auth-box h2{
-  margin:0 0 8px;
-  font-size:30px;
+.auth h1{
+font-size:40px;
+margin:0 0 10px
 }
 
-.auth-box > p{
-  margin:0 0 25px;
-  color:var(--muted);
+.muted{color:#aaa0b2}
+
+.tabs{
+display:grid;
+grid-template-columns:1fr 1fr;
+background:#17121d;
+border-radius:18px;
+padding:5px;
+margin:20px 0
 }
 
-.auth-tabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-bottom:20px;
+.tabs button{
+border:0;
+background:transparent;
+color:#958b9d;
+padding:14px;
+border-radius:14px;
+font-weight:800
 }
 
-.auth-tabs button{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
-  color:var(--muted);
-  border-radius:15px;
-  padding:13px;
-  font-weight:700;
-}
-
-.auth-tabs button.active{
-  background:var(--pink2);
-  color:#271d2b;
+.tabs .active{
+background:#403647;
+color:#fff
 }
 
 .form{
-  display:flex;
-  flex-direction:column;
-  gap:13px;
+display:flex;
+flex-direction:column;
+gap:14px
+}
+
+.form label{
+font-weight:800
 }
 
 .form input{
-  width:100%;
-  border:1px solid var(--border);
-  background:#17121d;
-  color:var(--text);
-  border-radius:15px;
-  padding:15px;
-  outline:none;
+width:100%;
+margin-top:6px;
+padding:15px;
+border-radius:15px;
+border:1px solid #ffffff1a;
+background:#120e17;
+color:#fff;
+outline:0
 }
 
-.form input:focus{
-  border-color:var(--pink);
+.primary{
+border:0;
+border-radius:16px;
+padding:16px;
+color:#fff;
+font-weight:900;
+background:linear-gradient(90deg,#75657f,#a58fae)
 }
 
-.primary-btn{
-  border:0;
-  border-radius:16px;
-  padding:15px;
-  background:var(--pink2);
-  color:#251c29;
-  font-weight:800;
+.primary:disabled{
+opacity:.6
 }
 
-.primary-btn:disabled{
-  opacity:.55;
+.msg{
+display:none;
+padding:12px;
+border-radius:13px;
+margin:12px 0
 }
 
-.message{
-  margin-top:15px;
-  padding:12px;
-  border-radius:14px;
-  background:rgba(217,142,156,.12);
-  color:#f0c6ce;
-  text-align:center;
+.msg.show{display:block}
+
+.msg.error{
+background:#3a2631;
+color:#e2adbe
 }
 
-.message.success{
-  background:rgba(159,200,180,.12);
-  color:#b9e1cc;
+.msg.success{
+background:#26382e;
+color:#a9d0b5
 }
 
-/* PROFILE */
+.app{
+max-width:1100px;
+margin:auto;
+padding:18px 18px 110px
+}
 
 .profile{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:18px;
-  margin-bottom:20px;
-  border:1px solid var(--border);
-  border-radius:28px;
-  background:rgba(30,23,39,.82);
-}
-
-.avatar{
-  width:86px;
-  height:86px;
-  flex:none;
-  border-radius:25px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#c7a7c9,#92728f);
-  font-size:42px;
-}
-
-.avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+display:flex;
+align-items:center;
+gap:12px;
+background:linear-gradient(135deg,#342a3d,#211a29);
+border:1px solid #ffffff14;
+border-radius:22px;
+padding:14px;
+margin-bottom:16px
 }
 
 .profile-info{
-  min-width:0;
-  flex:1;
+display:flex;
+align-items:center;
+gap:12px;
+flex:1;
+min-width:0
 }
 
-.profile-info h2{
-  margin:0;
-  font-size:25px;
+.avatar{
+width:54px;
+height:54px;
+border-radius:16px;
+display:grid;
+place-items:center;
+background:linear-gradient(135deg,#b7a5c8,#b48c9e);
+font-size:25px;
+overflow:hidden;
+flex:none
 }
 
-.profile-info p{
-  margin:5px 0 0;
-  color:var(--muted);
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover
 }
 
-.profile-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+.name{
+font-weight:900
 }
 
-.small-btn{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
-  color:var(--text);
-  border-radius:14px;
-  padding:11px 15px;
-  font-weight:700;
+.tag{
+color:#aaa0b2;
+font-size:12px;
+margin-top:3px
 }
 
-.small-btn:hover{
-  background:rgba(201,155,189,.15);
+.avatar-actions{
+display:flex;
+gap:6px
 }
 
-/* STATS */
+.small,
+.logout{
+border:1px solid #ffffff18;
+background:#30283a;
+color:#fff;
+padding:9px 11px;
+border-radius:11px;
+font-weight:800;
+font-size:11px
+}
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:22px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:20px
 }
 
 .stat{
-  padding:18px 14px;
-  border-radius:23px;
-  border:1px solid var(--border);
-  background:rgba(33,26,43,.85);
+background:#272033db;
+border:1px solid #ffffff14;
+border-radius:18px;
+padding:15px
 }
 
-.stat strong{
-  display:block;
-  font-size:28px;
+.stat b{
+font-size:25px
 }
 
 .stat span{
-  display:block;
-  margin-top:5px;
-  color:var(--muted);
-  font-size:13px;
-  text-transform:uppercase;
+display:block;
+color:#aaa0b2;
+font-size:10px;
+margin-top:4px
 }
-
-/* HERO */
 
 .hero{
-  padding:35px;
-  border:1px solid var(--border);
-  border-radius:32px;
-  background:
-    radial-gradient(circle at 80% 35%,rgba(225,191,220,.25),transparent 30%),
-    linear-gradient(135deg,#2c2135,#19141f);
-  margin-bottom:28px;
+border-radius:28px;
+padding:30px 22px;
+margin-bottom:22px;
+background:
+radial-gradient(circle at 90% 20%,#9a789e 0,transparent 25%),
+linear-gradient(135deg,#413747,#211928);
+border:1px solid #ffffff14
 }
 
-.hero h2{
-  margin:0;
-  font-size:45px;
-  line-height:1;
-  max-width:600px;
+.hero h1{
+font-size:42px;
+margin:0
 }
 
-.hero h2 span{
-  color:var(--pink);
+.hero h1 span{
+color:#c39bb5
 }
 
 .hero p{
-  max-width:720px;
-  color:#c5bbc8;
-  font-size:19px;
-  line-height:1.6;
+color:#d1c9d5;
+max-width:650px;
+line-height:1.5
 }
 
 .hero button{
-  border:0;
-  background:var(--pink2);
-  color:#261d2a;
-  border-radius:18px;
-  padding:16px 25px;
-  font-weight:800;
+border:0;
+border-radius:15px;
+padding:14px 20px;
+background:#e6dde9;
+color:#2d2432;
+font-weight:900
 }
 
-/* SECTION */
-
-.section-title{
-  font-size:30px;
-  margin:30px 0 16px;
+.title{
+font-size:25px;
+margin:25px 0 14px
 }
 
-/* ALBUMS */
-
-.album-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+.albums{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px
 }
 
-.album-card{
-  text-align:left;
-  padding:22px;
-  border:1px solid var(--border);
-  border-radius:25px;
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb,var(--c1),transparent 55%),
-      color-mix(in srgb,var(--c2),transparent 70%)
-    ),
-    var(--card);
-  color:var(--text);
+.album{
+border:1px solid #ffffff18;
+border-radius:22px;
+padding:18px;
+min-height:145px;
+color:#fff;
+text-align:left;
+background:linear-gradient(145deg,var(--a),var(--b))
 }
 
-.album-icon{
-  font-size:42px;
+.album .icon{
+font-size:32px
 }
 
-.album-name{
-  margin-top:10px;
-  font-size:21px;
-  font-weight:800;
+.album .name{
+margin-top:10px
 }
 
-.album-progress,
-.progress{
-  height:7px;
-  margin-top:15px;
-  background:rgba(255,255,255,.08);
-  border-radius:20px;
-  overflow:hidden;
+.bar{
+height:8px;
+background:#0004;
+border-radius:10px;
+overflow:hidden;
+margin-top:12px
 }
 
-.album-progress span,
-.progress span{
-  display:block;
-  height:100%;
-  background:linear-gradient(90deg,var(--pink),var(--pink2));
-  border-radius:20px;
+.bar i{
+display:block;
+height:100%;
+background:#f5f0f7d9
 }
 
-.album-count{
-  margin-top:9px;
-  color:var(--muted);
+.tabs2{
+display:flex;
+gap:8px;
+overflow:auto;
+margin-bottom:15px
 }
 
-/* COLLECTION */
-
-.album-tabs{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding:3px 0 15px;
-  scrollbar-width:none;
+.tab2{
+white-space:nowrap;
+border:1px solid #ffffff18;
+background:#251e2d;
+color:#bcb2c3;
+padding:10px 14px;
+border-radius:14px;
+font-weight:800
 }
 
-.album-tab{
-  flex:none;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
-  color:var(--muted);
-  border-radius:14px;
-  padding:11px 15px;
-  font-weight:700;
+.tab2.active{
+background:linear-gradient(90deg,#75657f,#a58fae);
+color:#fff
 }
 
-.album-tab.active{
-  background:var(--pink2);
-  color:#251c29;
+.banner{
+border-radius:25px;
+padding:22px;
+margin-bottom:18px;
+background:linear-gradient(135deg,var(--a),var(--b))
 }
 
-.album-banner{
-  padding:23px;
-  border-radius:25px;
-  border:1px solid var(--border);
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb,var(--c1),transparent 55%),
-      color-mix(in srgb,var(--c2),transparent 70%)
-    ),
-    var(--card);
-  margin-bottom:18px;
-}
-
-.album-banner h2{
-  margin:0;
-  font-size:27px;
-}
-
-.album-banner p{
-  color:var(--muted);
-}
-
-.progress-row{
-  display:flex;
-  gap:12px;
-  align-items:center;
+.banner h2{
+margin:0;
+font-size:29px
 }
 
 .progress{
-  flex:1;
-  margin:0;
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:15px
 }
 
-/* CARDS */
+.progress .bar{
+flex:1;
+margin:0
+}
 
-.cards-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:17px;
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px
 }
 
 .card{
-  border:1px solid var(--border);
-  border-radius:26px;
-  overflow:hidden;
-  background:#1b1522;
+border-radius:20px;
+padding:8px;
+background:linear-gradient(160deg,#382d43,#211a29);
+box-shadow:0 14px 35px #0005
 }
 
-.card-image{
-  min-height:150px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:70px;
-  background:linear-gradient(135deg,#806889,#4e3d58);
+.card.owned{
+box-shadow:
+0 0 0 2px #c29aaf88,
+0 14px 35px #0005
 }
 
-.card-info{
-  padding:18px;
+.cardin{
+overflow:hidden;
+border-radius:15px;
+background:linear-gradient(160deg,#67536f,#392b43);
+height:100%
 }
 
-.card-name{
-  font-size:20px;
-  font-weight:800;
-  text-align:center;
+.cardimg{
+height:115px;
+display:grid;
+place-items:center;
+font-size:60px;
+background:linear-gradient(160deg,#725c79,#4a384f)
+}
+
+.cardinfo{
+padding:10px
+}
+
+.cardname{
+text-align:center;
+font-weight:900;
+font-size:13px;
+min-height:32px;
+display:grid;
+place-items:center
 }
 
 .rarity{
-  text-align:center;
-  color:var(--pink2);
-  margin:9px 0 15px;
+text-align:center;
+color:#c29aaf;
+letter-spacing:2px;
+margin:4px 0
 }
 
-.card-actions{
-  display:flex;
-  flex-direction:column;
-  gap:9px;
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:6px
 }
 
-.action-btn{
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:13px 9px;
-  background:#2b2233;
-  color:var(--text);
-  font-weight:700;
+.action{
+border:1px solid #ffffff0d;
+border-radius:10px;
+padding:9px 5px;
+background:#30263a;
+color:#ddd5e1;
+font-weight:900;
+font-size:10px
 }
 
-.action-btn.active-need{
-  background:#a883a9;
-  color:#241b28;
+.need.active{
+background:#806c91;
+color:#fff
 }
 
-.action-btn.active-have{
-  background:#bda3bd;
-  color:#251c29;
+.have.active{
+background:#b397ad;
+color:#211927
 }
 
-.action-btn.active-trade{
-  background:#9e7ca1;
-  color:#fff;
+.tradebtn{
+grid-column:1/-1
 }
 
-.quantity-row,
-.trade-quantity-row{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:14px;
-  color:var(--muted);
-  padding:4px;
+.tradebtn.active{
+background:#bd9caf;
+color:#241c29
 }
 
-.qty-btn{
-  width:40px;
-  height:40px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:#352a3d;
-  color:var(--text);
-  font-size:22px;
+.qty{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+margin-top:7px;
+color:#d8cedd;
+font-size:11px
 }
 
-.qty-value{
-  min-width:22px;
-  text-align:center;
-  color:var(--text);
-  font-weight:800;
+.qty button{
+width:27px;
+height:27px;
+border:0;
+border-radius:8px;
+background:#403647;
+color:#fff;
+font-weight:900
 }
 
-.card-status{
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  margin-top:12px;
+.tradepage{
+display:flex;
+flex-direction:column;
+gap:15px
 }
 
-/* TRADE */
-
-.trade-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:18px;
+.tradehead{
+border:1px solid #ffffff14;
+border-radius:28px;
+padding:23px;
+background:linear-gradient(145deg,#32283b,#1b1522)
 }
 
-.trade-header h2{
-  margin:0;
-  font-size:32px;
+.tradehead h1{
+margin:0;
+font-size:34px
 }
 
-.trade-section{
-  margin-bottom:20px;
-  padding:25px;
-  border:1px solid var(--border);
-  border-radius:28px;
-  background:rgba(31,24,40,.88);
+.tradehead p{
+color:#bbaec4;
+line-height:1.5
 }
 
-.trade-section h3{
-  margin:0;
-  font-size:27px;
+.tradehead button{
+border:1px solid #ffffff18;
+background:#30263a;
+color:#fff;
+padding:10px 13px;
+border-radius:12px;
+font-weight:900
 }
 
-.trade-section > p{
-  margin:8px 0 22px;
-  color:var(--muted);
+.tradesec{
+background:#221b2bd9;
+border:1px solid #ffffff14;
+border-radius:24px;
+padding:19px
 }
 
-.trade-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+.tradesec h2{
+margin:0 0 6px;
+font-size:21px
 }
 
-.trade-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:13px;
-  border:1px solid var(--border);
-  border-radius:20px;
-  background:rgba(255,255,255,.035);
+.tradesec>p{
+color:#988d9f;
+font-size:12px;
+margin:0 0 14px
 }
 
-.trade-item-left{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  min-width:0;
+.tradelist{
+display:flex;
+flex-direction:column;
+gap:9px
 }
 
-.trade-icon{
-  width:58px;
-  height:58px;
-  flex:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:17px;
-  background:linear-gradient(135deg,#826989,#57445f);
-  font-size:30px;
+.tradeitem{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+padding:12px;
+border-radius:16px;
+background:linear-gradient(145deg,#33283b,#241c2d);
+border:1px solid #ffffff0d
 }
 
-.trade-card-name{
-  font-weight:800;
-  font-size:17px;
+.tradeleft{
+display:flex;
+align-items:center;
+gap:10px;
+min-width:0
 }
 
-.trade-player-row{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  margin-top:4px;
+.tradeicon{
+width:46px;
+height:46px;
+border-radius:13px;
+display:grid;
+place-items:center;
+background:#695675;
+font-size:24px
 }
 
-.trade-avatar{
-  width:25px;
-  height:25px;
-  border-radius:50%;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#8d708d;
-  font-size:13px;
+.tradename{
+font-weight:900;
+font-size:13px
 }
 
-.trade-avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.tradeplayer,
+.tradedetail{
+color:#aaa0b2;
+font-size:10px;
+margin-top:3px
 }
 
-.trade-player{
-  color:var(--muted);
-  font-size:12px;
+.badge{
+padding:7px 9px;
+border-radius:10px;
+font-size:9px;
+font-weight:900;
+white-space:nowrap
 }
 
-.trade-detail{
-  color:#bbb0bf;
-  font-size:12px;
-  margin-top:3px;
+.match{
+background:#806c91
 }
 
-.trade-badge{
-  flex:none;
-  padding:8px 11px;
-  border-radius:13px;
-  font-size:11px;
-  font-weight:800;
+.want{
+background:#49364d;
+color:#d9c4da
 }
 
-.trade-badge.match{
-  background:#cba2c3;
-  color:#271d29;
+.offer{
+background:#9b849f;
+color:#241c29
 }
 
-.trade-badge.want{
-  background:#b6a1bd;
-  color:#251c29;
+.empty{
+text-align:center;
+color:#95899b;
+padding:20px;
+font-size:12px;
+line-height:1.5
 }
-
-.trade-badge.offer{
-  background:#9dbfae;
-  color:#17231c;
-}
-
-.empty-trade{
-  text-align:center;
-  padding:30px 15px;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-/* FOOTER */
-
-.footer{
-  text-align:center;
-  color:#817786;
-  padding:35px 20px 20px;
-  font-size:13px;
-}
-
-.footer strong{
-  color:var(--pink);
-}
-
-/* NAV */
 
 .nav{
-  position:fixed;
-  z-index:100;
-  left:50%;
-  bottom:16px;
-  transform:translateX(-50%);
-  width:min(calc(100% - 30px),700px);
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:5px;
-  padding:7px;
-  border:1px solid var(--border);
-  border-radius:28px;
-  background:rgba(24,18,30,.94);
-  backdrop-filter:blur(20px);
-  box-shadow:0 15px 50px rgba(0,0,0,.35);
+position:fixed;
+z-index:20;
+left:50%;
+transform:translateX(-50%);
+bottom:14px;
+width:min(600px,calc(100% - 28px));
+padding:7px;
+border-radius:22px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:5px;
+background:#1c1622f2;
+backdrop-filter:blur(20px);
+border:1px solid #ffffff14
 }
 
 .nav button{
-  border:0;
-  border-radius:21px;
-  background:transparent;
-  color:#a9a0ad;
-  padding:12px 5px;
-  font-weight:700;
+border:0;
+background:transparent;
+color:#9d94a3;
+border-radius:16px;
+padding:10px 5px;
+font-size:12px;
+font-weight:900
 }
 
 .nav button.active{
-  background:#3b3043;
-  color:#fff;
+background:#3a3042;
+color:#fff
 }
 
-.nav-icon{
-  display:block;
-  font-size:24px;
-  margin-bottom:4px;
+.nav i{
+display:block;
+font-style:normal;
+font-size:21px;
+margin-bottom:3px
 }
 
-/* RESPONSIVE */
-
-@media(max-width:650px){
-
-  .container{
-    padding:16px 15px;
-  }
-
-  .header h1{
-    font-size:29px;
-  }
-
-  .profile{
-    flex-wrap:wrap;
-  }
-
-  .profile-actions{
-    width:100%;
-  }
-
-  .hero{
-    padding:27px;
-  }
-
-  .hero h2{
-    font-size:39px;
-  }
-
-  .album-grid,
-  .cards-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .cards-grid{
-    gap:10px;
-  }
-
-  .card-image{
-    min-height:115px;
-    font-size:55px;
-  }
-
-  .card-info{
-    padding:12px 9px;
-  }
-
-  .card-name{
-    font-size:16px;
-  }
-
-  .action-btn{
-    font-size:12px;
-    padding:11px 5px;
-  }
-
-  .trade-section{
-    padding:19px 14px;
-  }
-
-  .trade-section h3{
-    font-size:23px;
-  }
-
-  .trade-item{
-    padding:10px;
-  }
-
-  .trade-badge{
-    display:none;
-  }
-
+@media(max-width:800px){
+.albums{
+grid-template-columns:repeat(2,1fr)
+}
+.cards{
+grid-template-columns:repeat(2,1fr)
+}
 }
 
-@media(max-width:420px){
-
-  .stats{
-    gap:7px;
-  }
-
-  .stat{
-    padding:14px 9px;
-  }
-
-  .stat strong{
-    font-size:23px;
-  }
-
-  .stat span{
-    font-size:10px;
-  }
-
-  .album-grid{
-    grid-template-columns:1fr;
-  }
-
+@media(max-width:480px){
+.app{
+padding:12px 12px 105px
 }
 
+.profile{
+flex-wrap:wrap
+}
+
+.avatar-actions{
+margin-left:auto
+}
+
+.hero h1{
+font-size:34px
+}
+
+.cards{
+gap:8px
+}
+
+.cardimg{
+height:95px;
+font-size:50px
+}
+
+.card{
+padding:6px
+}
+
+.cardinfo{
+padding:8px
+}
+
+.cardname{
+font-size:11px
+}
+
+.action{
+font-size:9px;
+padding:8px 3px
+}
+
+.albums{
+gap:9px
+}
+
+.album{
+padding:13px;
+min-height:130px
+}
+}
 </style>
 </head>
 
 <body>
 
-<header class="header">
-  <h1>Sunday City <span>Trading Cards</span></h1>
-  <p>Collect • Track • Trade</p>
+<header class="top">
+<div class="brand">
+Sunday City <span>Trading Cards</span>
+</div>
+<div class="sub">
+Collect • Track • Trade
+</div>
 </header>
 
-<section id="authSection" class="auth container">
+<section id="auth" class="auth">
 
-  <div class="auth-box">
+<div class="box">
 
-    <h2>Welcome back 👋</h2>
-    <p>Track your collection and trade with other players.</p>
+<h1>Welcome back</h1>
 
-    <div class="auth-tabs">
+<p class="muted">
+Build your collection, track your cards and trade with the community.
+</p>
 
-      <button
-        id="loginTab"
-        class="active"
-        type="button"
-      >
-        LOG IN
-      </button>
+<div class="tabs">
 
-      <button
-        id="signupTab"
-        type="button"
-      >
-        SIGN UP
-      </button>
+<button id="loginTab" class="active">
+Log in
+</button>
 
-    </div>
+<button id="signupTab">
+Create account
+</button>
 
-    <div
-      id="loginForm"
-      class="form"
-    >
+</div>
 
-      <input
-        id="loginUsername"
-        type="text"
-        placeholder="Username"
-        autocomplete="username"
-      >
+<div id="msg" class="msg"></div>
 
-      <input
-        id="loginTag"
-        type="text"
-        placeholder="Player Tag (e.g. 4444)"
-        autocomplete="off"
-      >
+<div id="loginForm" class="form">
 
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-      >
+<label>
+Player Username
+<input
+id="loginUsername"
+autocomplete="username"
+placeholder="Ex. Rook"
+>
+</label>
 
-      <button
-        id="loginButton"
-        class="primary-btn"
-        type="button"
-      >
-        LOG IN
-      </button>
+<label>
+Player Tag
+<input
+id="loginTag"
+placeholder="Ex. 18bc18"
+>
+</label>
 
-    </div>
+<label>
+Password
+<input
+id="loginPassword"
+type="password"
+autocomplete="current-password"
+placeholder="Password"
+>
+</label>
 
-    <div
-      id="signupForm"
-      class="form hidden"
-    >
+<button id="loginBtn" class="primary">
+LOG IN
+</button>
 
-      <input
-        id="signupUsername"
-        type="text"
-        placeholder="Username"
-        autocomplete="username"
-      >
+</div>
 
-      <input
-        id="signupTag"
-        type="text"
-        placeholder="Player Tag (e.g. 4444)"
-        autocomplete="off"
-      >
+<div id="signupForm" class="form hidden">
 
-      <input
-        id="signupPassword"
-        type="password"
-        placeholder="Password (6+ characters)"
-        autocomplete="new-password"
-      >
+<label>
+Player Username
+<input
+id="signupUsername"
+placeholder="Ex. Rook"
+>
+</label>
 
-      <button
-        id="signupButton"
-        class="primary-btn"
-        type="button"
-      >
-        CREATE ACCOUNT
-      </button>
+<label>
+Player Tag
+<input
+id="signupTag"
+placeholder="Ex. 18bc18"
+>
+</label>
 
-    </div>
+<label>
+Password
+<input
+id="signupPassword"
+type="password"
+placeholder="Minimum 6 characters"
+>
+</label>
 
-    <div
-      id="authMessage"
-      class="message hidden"
-    ></div>
+<button id="signupBtn" class="primary">
+CREATE ACCOUNT
+</button>
 
-  </div>
+</div>
+
+</div>
 
 </section>
 
-<main
-  id="app"
-  class="container hidden"
+<main id="app" class="app hidden">
+
+<div class="profile">
+
+<div class="profile-info">
+
+<div id="avatar" class="avatar">
+👤
+</div>
+
+<div>
+
+<div id="profileName" class="name">
+Player
+</div>
+
+<div id="profileTag" class="tag"></div>
+
+</div>
+
+</div>
+
+<div class="avatar-actions">
+
+<input
+id="avatarInput"
+class="hidden"
+type="file"
+accept="image/jpeg,image/png,image/webp"
 >
 
-  <section class="profile">
+<button id="avatarBtn" class="small">
+📷 PHOTO
+</button>
 
-    <div
-      id="profileAvatar"
-      class="avatar"
-    >
-      <span>👤</span>
-    </div>
+<button id="removeAvatar" class="small">
+🗑️
+</button>
 
-    <div class="profile-info">
+</div>
 
-      <h2 id="profileUsername">
-        Player
-      </h2>
+<button id="logout" class="logout">
+LOG OUT
+</button>
 
-      <p id="profileTag">
-        #0000
-      </p>
+</div>
 
-    </div>
+<div class="stats">
 
-    <div class="profile-actions">
+<div class="stat">
+<b id="ownedStat">0</b>
+<span>CARDS OWNED</span>
+</div>
 
-      <input
-        id="avatarInput"
-        class="hidden"
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-      >
+<div class="stat">
+<b id="totalStat">0</b>
+<span>AVAILABLE CARDS</span>
+</div>
 
-      <button
-        id="changeAvatarButton"
-        class="small-btn"
-        type="button"
-      >
-        📷 PHOTO
-      </button>
+<div class="stat">
+<b id="percentStat">0%</b>
+<span>COLLECTION</span>
+</div>
 
-      <button
-        id="removeAvatarButton"
-        class="small-btn"
-        type="button"
-      >
-        🗑 REMOVE
-      </button>
+</div>
 
-      <button
-        id="logoutButton"
-        class="small-btn"
-        type="button"
-      >
-        LOG OUT
-      </button>
+<section id="home">
 
-    </div>
+<div class="hero">
 
-  </section>
+<h1>
+Complete your <span>collection.</span>
+</h1>
 
-  <section class="stats">
+<p>
+Track every tradable card across all Sunday City albums and see exactly what you still need.
+</p>
 
-    <div class="stat">
-      <strong id="statOwned">0</strong>
-      <span>Cards Owned</span>
-    </div>
+<button onclick="nav('collection')">
+VIEW COLLECTION
+</button>
 
-    <div class="stat">
-      <strong id="statTotal">0</strong>
-      <span>Available Cards</span>
-    </div>
+</div>
 
-    <div class="stat">
-      <strong id="statPercent">0%</strong>
-      <span>Collection</span>
-    </div>
+<h2 class="title">
+Albums
+</h2>
 
-  </section>
+<div id="albums" class="albums"></div>
 
-  <section
-    id="homeSection"
-  >
+</section>
 
-    <div class="hero">
+<section id="collection" class="hidden">
 
-      <h2>
-        Complete your
-        <span>collection.</span>
-      </h2>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
 
-      <p>
-        Track every tradable card across all
-        Sunday City albums and see exactly
-        what you still need.
-      </p>
+<h2 class="title" style="margin:0">
+Collection
+</h2>
 
-      <button
-        type="button"
-        onclick="navigate('collection')"
-      >
-        VIEW COLLECTION
-      </button>
+<button
+class="small"
+onclick="nav('home')"
+>
+← Home
+</button>
 
-    </div>
+</div>
 
-    <h2 class="section-title">
-      Albums
-    </h2>
+<div id="albumTabs" class="tabs2"></div>
 
-    <div
-      id="albumGrid"
-      class="album-grid"
-    ></div>
+<div id="banner" class="banner"></div>
 
-  </section>
+<div id="cards" class="cards"></div>
 
-  <section
-    id="collectionSection"
-    class="hidden"
-  >
+</section>
 
-    <h2 class="section-title">
-      Collection
-    </h2>
+<section id="trade" class="hidden">
 
-    <div
-      id="albumTabs"
-      class="album-tabs"
-    ></div>
+<div class="tradepage">
 
-    <div
-      id="albumBanner"
-      class="album-banner"
-    ></div>
+<div class="tradehead">
 
-    <div
-      id="cardsGrid"
-      class="cards-grid"
-    ></div>
+<h1>
+🔄 Trading
+</h1>
 
-  </section>
+<p>
+Find players who need cards you own, discover cards other players are offering, and find possible matches for your own needs.
+</p>
 
-  <section
-    id="tradeSection"
-    class="hidden"
-  >
+<button onclick="loadTrade()">
+↻ Refresh trades
+</button>
 
-    <div class="trade-header">
+</div>
 
-      <div>
-        <h2>
-          🔄 Trade
-        </h2>
-      </div>
+<div class="tradesec">
 
-      <button
-        id="tradeRefreshButton"
-        class="small-btn"
-        type="button"
-      >
-        ↻ REFRESH
-      </button>
+<h2>
+✨ Matches for you
+</h2>
 
-    </div>
+<p>
+Cards you need that another player is offering.
+</p>
 
-    <div class="trade-section">
+<div id="matches" class="tradelist"></div>
 
-      <h3>
-        ✨ Matches for you
-      </h3>
+</div>
 
-      <p>
-        Cards you need that another player is offering.
-      </p>
+<div class="tradesec">
 
-      <div
-        id="tradeMatches"
-        class="trade-list"
-      ></div>
+<h2>
+🔎 People looking for your cards
+</h2>
 
-    </div>
+<p>
+Players looking for cards that you own.
+</p>
 
-    <div class="trade-section">
+<div id="looking" class="tradelist"></div>
 
-      <h3>
-        🔎 People looking for your cards
-      </h3>
+</div>
 
-      <p>
-        Players looking for cards that you own.
-      </p>
+<div class="tradesec">
 
-      <div
-        id="tradePeopleLooking"
-        class="trade-list"
-      ></div>
+<h2>
+🔄 Cards available for trade
+</h2>
 
-    </div>
+<p>
+Cards other players have marked as available.
+</p>
 
-    <div class="trade-section">
+<div id="offers" class="tradelist"></div>
 
-      <h3>
-        🔄 Cards available for trade
-      </h3>
+</div>
 
-      <p>
-        Cards other players have marked as available.
-      </p>
+</div>
 
-      <div
-        id="tradeOffers"
-        class="trade-list"
-      ></div>
+</section>
 
-    </div>
-
-  </section>
-
-  <footer class="footer">
-    Made by <strong>Rook</strong> 🃏
-  </footer>
+<footer style="text-align:center;color:#817687;padding:30px">
+Made by <b style="color:#c29aaf">Rook</b> 🃏
+</footer>
 
 </main>
 
-<nav
-  id="nav"
-  class="nav hidden"
+<nav id="nav" class="nav hidden">
+
+<button
+class="active"
+onclick="nav('home',this)"
 >
+<i>🏠</i>
+Home
+</button>
 
-  <button
-    type="button"
-    onclick="navigate('home',this)"
-  >
-    <span class="nav-icon">🏠</span>
-    Home
-  </button>
+<button
+onclick="nav('collection',this)"
+>
+<i>📖</i>
+Collection
+</button>
 
-  <button
-    type="button"
-    onclick="navigate('collection',this)"
-  >
-    <span class="nav-icon">📖</span>
-    Collection
-  </button>
-
-  <button
-    type="button"
-    onclick="navigate('trade',this)"
-  >
-    <span class="nav-icon">🔄</span>
-    Trade
-  </button>
+<button
+onclick="nav('trade',this)"
+>
+<i>🔄</i>
+Trade
+</button>
 
 </nav>
 
-<script> 
-  /* ==============================
-   SUPABASE
-============================== */
+<script>
 
 const SUPABASE_URL =
-  "TON_SUPABASE_URL";
+"https://rxuopmnehdngmdsgkhvr.supabase.co";
 
-const SUPABASE_ANON_KEY =
-  "TON_SUPABASE_ANON_KEY";
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_5FTIddCoP9rONA5GMfS8hw_rSCtE2o5";
 
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
+const BUCKET =
+"AVATARS";
 
-/*
-  IMPORTANT:
-  Your Supabase Storage bucket is named
-  AVATARS, so EVERY storage operation
-  below uses AVATARS.
-*/
+const sb =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
 
-const AVATAR_BUCKET =
-  "AVATARS";
+let user = null;
+let profile = null;
 
-/* ==============================
-   STATE
-============================== */
+let cards = [];
 
-let currentUser = null;
-let currentProfile = null;
+let owned =
+new Set();
 
-let allCards = [];
+let needed =
+new Set();
 
-let ownedCards = new Set();
-let neededCards = new Set();
-let tradeCards = new Set();
+let forTrade =
+new Set();
 
-let cardQuantities = new Map();
-let tradeQuantities = new Map();
+let qty =
+new Map();
 
-let selectedAlbum = "Albums";
+let tradeQty =
+new Map();
 
-/* ==============================
-   ALBUM DATA
-============================== */
+let album =
+"Shopping Chic";
 
-const ALBUM_ORDER = [
-  "Albums",
-  "Special",
-  "Sunday City"
-];
 
-/*
-  Keep your existing card lists here
-  if your current HTML already has them.
+/* =========================================================
+   CARD DATA
+========================================================= */
 
-  Replace these example entries with
-  your existing CARD_DATA if necessary.
-*/
+const DATA = {
 
-const CARD_DATA = {
+"Shopping Chic":[
+"Shopping Bags",
+"Sale Tag",
+"Jewelry Pouch",
+"Chic Top",
+"Receipt",
+"Fancy Mirror",
+"Shoe Box",
+"Cash in a Wallet",
+"Credit Card",
+"Vintage Glasses",
+"Designer Handbag",
+"Gold Watch"
+],
 
-  "Albums":[
-    "Shopping Bags",
-    "Blazer Patch",
-    "Skirt",
-    "Silk Tie",
-    "Sweater Vest"
-  ],
+"High-End Auctions":[
+"Gavel",
+"Number Paddle",
+"Rostrum",
+"Phone",
+"Jeweler's Glass",
+"Sold",
+"Plate Armor",
+"Old Sword",
+"Marble Bust",
+"Vase",
+"Royal Relic",
+"Diamond"
+],
 
-  "Special":[
-    "Golden Trophy",
-    "Special Outfit",
-    "Rare Accessory"
-  ],
+"Boarding School":[
+"Blazer Patch",
+"Skirt",
+"Silk Tie",
+"Sweater Vest",
+"Shorts",
+"Headband",
+"Reading Glasses",
+"Leather Satchel",
+"Personal Locker",
+"Iron Gates",
+"Garden Fountain",
+"Crest"
+],
 
-  "Sunday City":[
-    "Sunday Hat",
-    "City Jacket",
-    "City Shoes"
-  ]
+"Horse Racing":[
+"Jockey Jacket",
+"Saddle & Blanket",
+"Cup",
+"Horse Shoe",
+"Starting Gate",
+"Betting Ticket",
+"Stop Watch",
+"Finish Line",
+"Award",
+"Jockey Boots",
+"Jockey Helmet",
+"Champion"
+],
+
+"Fancy Paws":[
+"Dapper Gent",
+"Big Flex",
+"Cutie Pie",
+"Fluffy Guy",
+"Munchie",
+"Pretty Lady",
+"Guardian",
+"Huntress",
+"Rich Fella",
+"Sunshine",
+"Style Icon",
+"Mini Boss"
+],
+
+"VIP Party":[
+"Guest List",
+"Limo",
+"Cocoon Seat",
+"Spark Sticks",
+"Shaker",
+"Choco Berry",
+"Glass Tower",
+"DJ Deck",
+"Neon Sign",
+"VIP Band",
+"VIP Ticket",
+"Night City"
+],
+
+"Money":[
+"Piggy Bank",
+"Bill",
+"Gold Coin",
+"Check Book",
+"Pearl Scatter",
+"Money Stack",
+"Platinum Bar",
+"ATM",
+"Stocks",
+"Suitcase of Money",
+"Safe",
+"Bank Vault"
+],
+
+"Casino Night":[
+"Cards",
+"Chip Rake",
+"Chips",
+"Dice",
+"Bow Tie",
+"Bandit Slot",
+"Lucky Wheel",
+"Blackjack",
+"Roulette",
+"Slot Machine",
+"Jackpot",
+"Trump Card"
+],
+
+"Island Vacation":[
+"Flip Flops",
+"Luxury Shades",
+"Swim Fins",
+"Tropical Fruit",
+"Beach Hammock",
+"Plumeria",
+"Floating Meal",
+"SUP",
+"Sash Band Hat",
+"Shells on Sand",
+"Shaded Lounger",
+"Beach Bar"
+],
+
+"Deck Days":[
+"Anchor",
+"Lifebuoy",
+"Sail",
+"Ship Bell",
+"Oyster Plate",
+"Ocean View",
+"Island Cocktail",
+"Day Bed",
+"Snorkel Mask",
+"Captain Cap",
+"Jet Ski",
+"Luxury Yacht"
+],
+
+"Golf Club":[
+"Golf Ball",
+"Golf Gloves",
+"Golf Visor",
+"Golf Shoes",
+"Polo Shirt",
+"Range Finder",
+"Golf Brush",
+"Golf Kit",
+"Flagged Hole",
+"Golf Cart",
+"Club Bag",
+"Golf Cup"
+],
+
+"Dream Cars":[
+"Longhorn Continent",
+"Fukurou Millenium",
+"Longhorn Wild",
+"RM Phantom",
+"RM Grandeur",
+"Longhorn Shark",
+"Buletti Inferno",
+"Buletti Panaro",
+"RM G-Rex",
+"Buletti Aldo",
+"Buletti Nera",
+"Espot Polygon"
+]
 
 };
 
-const CARD_EMOJIS = {
 
-  "Shopping Bags":"🛍️",
-  "Blazer Patch":"🥼",
-  "Skirt":"👗",
-  "Silk Tie":"👔",
-  "Sweater Vest":"🦺",
-  "Golden Trophy":"🏆",
-  "Special Outfit":"✨",
-  "Rare Accessory":"💎",
-  "Sunday Hat":"🧢",
-  "City Jacket":"🧥",
-  "City Shoes":"👟"
+const albums =
+Object.keys(DATA);
 
-};
 
-const ALBUM_ICONS = {
+const icons = {
 
-  "Albums":"📚",
-  "Special":"✨",
-  "Sunday City":"🏙️"
+"Shopping Chic":"🛍️",
+"High-End Auctions":"🏆",
+"Boarding School":"🎓",
+"Horse Racing":"🏇",
+"Fancy Paws":"🐾",
+"VIP Party":"🎉",
+"Money":"💰",
+"Casino Night":"🎰",
+"Island Vacation":"🏝️",
+"Deck Days":"⚓",
+"Golf Club":"⛳",
+"Dream Cars":"🚗"
 
 };
 
-const ALBUM_THEMES = {
 
-  "Albums":[
-    "#826989",
-    "#c39bc0"
-  ],
+const themes = {
 
-  "Special":[
-    "#a8936b",
-    "#d4c39b"
-  ],
+"Shopping Chic":[
+"#a9829d",
+"#3c2b42"
+],
 
-  "Sunday City":[
-    "#64858a",
-    "#9fc2c1"
-  ]
+"High-End Auctions":[
+"#b6a57c",
+"#3c3427"
+],
+
+"Boarding School":[
+"#9a89ab",
+"#332a3b"
+],
+
+"Horse Racing":[
+"#a98278",
+"#3e2d2a"
+],
+
+"Fancy Paws":[
+"#aa7f8f",
+"#3b2a31"
+],
+
+"VIP Party":[
+"#9a89ab",
+"#332a3b"
+],
+
+"Money":[
+"#83739a",
+"#30283b"
+],
+
+"Casino Night":[
+"#9a789e",
+"#382d3d"
+],
+
+"Island Vacation":[
+"#8d78a0",
+"#30273d"
+],
+
+"Deck Days":[
+"#8a7899",
+"#30273d"
+],
+
+"Golf Club":[
+"#a6957f",
+"#3d342d"
+],
+
+"Dream Cars":[
+"#a98278",
+"#3e2d2a"
+]
 
 };
 
-/* ==============================
+
+/* =========================================================
    HELPERS
-============================== */
+========================================================= */
 
-function escapeHTML(value){
+function esc(value){
 
-  return String(
-    value ?? ""
-  )
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
+return String(value ?? "")
+.replace(/[&<>"']/g,function(m){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+"\"":"&quot;",
+"'":"&#039;"
+
+}[m];
+
+});
 
 }
+
 
 function showMessage(
-  text,
-  type = "error"
+text,
+success=false
 ){
 
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
+const el =
+document.getElementById(
+"msg"
+);
 
-  box.textContent =
-    text;
+el.textContent =
+text;
 
-  box.classList.remove(
-    "hidden",
-    "success"
-  );
-
-  if(type === "success")
-    box.classList.add(
-      "success"
-    );
+el.className =
+"msg show " +
+(
+success
+? "success"
+: "error"
+);
 
 }
+
 
 function clearMessage(){
 
-  document
-    .getElementById(
-      "authMessage"
-    )
-    .classList
-    .add("hidden");
+document
+.getElementById("msg")
+.className =
+"msg";
 
 }
 
-/* ==============================
-   AVATAR
-============================== */
 
-function getAvatarPath(
-  userId
-){
-
-  return `${userId}/avatar.jpg`;
-
-}
-
-function getAvatarUrl(
-  userId,
-  cacheBust = ""
-){
-
-  if(!userId)
-    return "";
-
-  /*
-    FIX:
-    The bucket is AVATARS,
-    not avatars.
-  */
-
-  const base =
-    `${SUPABASE_URL}/storage/v1/object/public/${AVATAR_BUCKET}/` +
-    getAvatarPath(userId);
-
-  if(cacheBust){
-
-    return (
-      base +
-      "?v=" +
-      encodeURIComponent(
-        cacheBust
-      )
-    );
-
-  }
-
-  return base;
-
-}
-
-function setProfileAvatar(
-  url
-){
-
-  const avatar =
-    document.getElementById(
-      "profileAvatar"
-    );
-
-  if(!avatar)
-    return;
-
-  if(!url){
-
-    avatar.innerHTML =
-      "<span>👤</span>";
-
-    return;
-
-  }
-
-  avatar.innerHTML = `
-
-    <img
-      src="${escapeHTML(url)}"
-      alt="Profile photo"
-      onerror="
-        this.parentElement.innerHTML='<span>👤</span>';
-      "
-    >
-
-  `;
-
-}
-
-/* ==============================
+/* =========================================================
    AUTH TABS
-============================== */
+========================================================= */
 
-document
-  .getElementById("loginTab")
-  .addEventListener(
-    "click",
-    () => {
+loginTab.onclick =
+function(){
 
-      document
-        .getElementById("loginTab")
-        .classList
-        .add("active");
+loginTab.classList.add(
+"active"
+);
 
-      document
-        .getElementById("signupTab")
-        .classList
-        .remove("active");
+signupTab.classList.remove(
+"active"
+);
 
-      document
-        .getElementById("loginForm")
-        .classList
-        .remove("hidden");
+loginForm.classList.remove(
+"hidden"
+);
 
-      document
-        .getElementById("signupForm")
-        .classList
-        .add("hidden");
+signupForm.classList.add(
+"hidden"
+);
 
-      clearMessage();
+clearMessage();
 
-    }
-  );
+};
 
-document
-  .getElementById("signupTab")
-  .addEventListener(
-    "click",
-    () => {
 
-      document
-        .getElementById("signupTab")
-        .classList
-        .add("active");
+signupTab.onclick =
+function(){
 
-      document
-        .getElementById("loginTab")
-        .classList
-        .remove("active");
+signupTab.classList.add(
+"active"
+);
 
-      document
-        .getElementById("signupForm")
-        .classList
-        .remove("hidden");
+loginTab.classList.remove(
+"active"
+);
 
-      document
-        .getElementById("loginForm")
-        .classList
-        .add("hidden");
+signupForm.classList.remove(
+"hidden"
+);
 
-      clearMessage();
+loginForm.classList.add(
+"hidden"
+);
 
-    }
-  );
+clearMessage();
 
-/* ==============================
-   SIGN UP
-============================== */
+};
 
-async function signup(){
 
-  clearMessage();
-
-  const username =
-    document
-      .getElementById(
-        "signupUsername"
-      )
-      .value
-      .trim();
-
-  const tag =
-    document
-      .getElementById(
-        "signupTag"
-      )
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById(
-        "signupPassword"
-      )
-      .value;
-
-  if(
-    !username ||
-    !tag ||
-    !password
-  ){
-
-    showMessage(
-      "Please fill in every field."
-    );
-
-    return;
-
-  }
-
-  if(
-    password.length < 6
-  ){
-
-    showMessage(
-      "Password must contain at least 6 characters."
-    );
-
-    return;
-
-  }
-
-  const button =
-    document.getElementById(
-      "signupButton"
-    );
-
-  button.disabled = true;
-  button.textContent =
-    "CREATING...";
-
-  try{
-
-    const email =
-      `${tag.toLowerCase()}@sundaycity.local`;
-
-    const result =
-      await supabaseClient.auth.signUp({
-
-        email,
-        password,
-
-        options:{
-          data:{
-            username,
-            player_tag:tag
-          }
-        }
-
-      });
-
-    if(result.error)
-      throw result.error;
-
-    const user =
-      result.data.user;
-
-    if(!user){
-
-      showMessage(
-        "Account created. Please log in.",
-        "success"
-      );
-
-      return;
-
-    }
-
-    const profileResult =
-      await supabaseClient
-        .from("profiles")
-        .upsert({
-
-          id:user.id,
-          username,
-          player_tag:tag
-
-        });
-
-    if(profileResult.error)
-      throw profileResult.error;
-
-    currentUser =
-      user;
-
-    currentProfile = {
-
-      id:user.id,
-      username,
-      player_tag:tag
-
-    };
-
-    await loadPlayerData();
-
-    showApp();
-
-  }catch(error){
-
-    console.error(
-      "SIGN UP ERROR:",
-      error
-    );
-
-    showMessage(
-      error.message ||
-      "Unable to create the account."
-    );
-
-  }finally{
-
-    button.disabled = false;
-    button.textContent =
-      "CREATE ACCOUNT";
-
-  }
-
-}
-
-/* ==============================
+/* =========================================================
    LOGIN
-============================== */
+========================================================= */
 
 async function login(){
 
-  clearMessage();
+clearMessage();
 
-  const username =
-    document
-      .getElementById(
-        "loginUsername"
-      )
-      .value
-      .trim();
+const username =
+loginUsername.value.trim();
 
-  const tag =
-    document
-      .getElementById(
-        "loginTag"
-      )
-      .value
-      .trim();
+const tag =
+loginTag.value.trim();
 
-  const password =
-    document
-      .getElementById(
-        "loginPassword"
-      )
-      .value;
+const password =
+loginPassword.value;
 
-  if(
-    !username ||
-    !tag ||
-    !password
-  ){
+if(
+!username ||
+!tag ||
+!password
+){
 
-    showMessage(
-      "Please fill in every field."
-    );
+showMessage(
+"Please fill in every field."
+);
 
-    return;
-
-  }
-
-  const button =
-    document.getElementById(
-      "loginButton"
-    );
-
-  button.disabled = true;
-  button.textContent =
-    "LOGGING IN...";
-
-  try{
-
-    const email =
-      `${tag.toLowerCase()}@sundaycity.local`;
-
-    const result =
-      await supabaseClient
-        .auth
-        .signInWithPassword({
-
-          email,
-          password
-
-        });
-
-    if(result.error)
-      throw result.error;
-
-    currentUser =
-      result.data.user;
-
-    const profileResult =
-      await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq(
-          "id",
-          currentUser.id
-        )
-        .maybeSingle();
-
-    if(
-      profileResult.error &&
-      profileResult.error.code !== "PGRST116"
-    ){
-
-      throw profileResult.error;
-
-    }
-
-    if(profileResult.data){
-
-      currentProfile =
-        profileResult.data;
-
-      if(
-        currentProfile.username &&
-        currentProfile.username
-          .toLowerCase() !==
-        username.toLowerCase()
-      ){
-
-        await supabaseClient
-          .auth
-          .signOut();
-
-        currentUser = null;
-
-        throw new Error(
-          "The username and Player Tag don't match."
-        );
-
-      }
-
-    }
-
-    await loadPlayerData();
-
-    showApp();
-
-  }catch(error){
-
-    console.error(
-      "LOGIN ERROR:",
-      error
-    );
-
-    showMessage(
-      error.message ||
-      "Incorrect username, Player Tag or password."
-    );
-
-  }finally{
-
-    button.disabled = false;
-    button.textContent =
-      "LOG IN";
-
-  }
-
-} 
-  /* ==============================
-   LOAD DATA
-============================== */
-
-async function loadPlayerData(){
-
-  if(!currentUser)
-    return;
-
-  const profileResult =
-    await supabaseClient
-      .from("profiles")
-      .select("*")
-      .eq(
-        "id",
-        currentUser.id
-      )
-      .maybeSingle();
-
-  if(profileResult.data){
-
-    currentProfile =
-      profileResult.data;
-
-  }else{
-
-    currentProfile = {
-
-      id:currentUser.id,
-
-      username:
-        currentUser.user_metadata
-          ?.username ||
-        "Player",
-
-      player_tag:
-        currentUser.user_metadata
-          ?.player_tag ||
-        ""
-
-    };
-
-  }
-
-  await loadUserCards();
-
-  updateProfileUI();
+return;
 
 }
 
-async function loadUserCards(){
+loginBtn.disabled =
+true;
 
-  if(!currentUser)
-    return;
+loginBtn.textContent =
+"LOGGING IN...";
 
-  const result =
-    await supabaseClient
-      .from("user_cards")
-      .select(
-        "card_id,quantity,is_needed,is_for_trade,trade_quantity"
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+try{
 
-  if(result.error){
+const result =
+await sb.auth.signInWithPassword({
 
-    console.error(
-      "USER CARDS ERROR:",
-      result.error
-    );
+email:
+`${tag.toLowerCase()}@sundaycity.local`,
 
-    return;
+password
 
-  }
+});
 
-  ownedCards = new Set();
-  neededCards = new Set();
-  tradeCards = new Set();
+if(result.error)
+throw result.error;
 
-  cardQuantities = new Map();
-  tradeQuantities = new Map();
+if(!result.data?.user)
+throw new Error(
+"No user session was returned."
+);
 
-  (result.data || [])
-    .forEach(row => {
+user =
+result.data.user;
 
-      const id =
-        Number(row.card_id);
 
-      const quantity =
-        Math.max(
-          0,
-          Number(row.quantity) || 0
-        );
+/*
+ Authentication succeeded.
+ Even if profiles/user_cards has
+ an RLS problem, the user must
+ still be allowed into the app.
+*/
 
-      const tradeQuantity =
-        Math.max(
-          0,
-          Number(row.trade_quantity) || 0
-        );
+try{
 
-      if(quantity > 0)
-        ownedCards.add(id);
+await loadData();
 
-      if(row.is_needed)
-        neededCards.add(id);
+}catch(error){
 
-      if(
-        row.is_for_trade &&
-        tradeQuantity > 0
-      )
-        tradeCards.add(id);
-
-      cardQuantities.set(
-        id,
-        quantity
-      );
-
-      tradeQuantities.set(
-        id,
-        Math.min(
-          tradeQuantity,
-          Math.max(
-            0,
-            quantity - 1
-          )
-        )
-      );
-
-    });
+console.warn(
+"POST LOGIN DATA ERROR:",
+error
+);
 
 }
 
-/* ==============================
-   BUILD CARDS
-============================== */
+showApp();
+
+}catch(error){
+
+console.error(
+"LOGIN ERROR:",
+error
+);
+
+showMessage(
+error.message ||
+"Incorrect Player Tag or password."
+);
+
+}finally{
+
+loginBtn.disabled =
+false;
+
+loginBtn.textContent =
+"LOG IN";
+
+}
+
+}
+
+
+/* =========================================================
+   SIGN UP
+========================================================= */
+
+async function signup(){
+
+clearMessage();
+
+const username =
+signupUsername.value.trim();
+
+const tag =
+signupTag.value.trim();
+
+const password =
+signupPassword.value;
+
+if(
+!username ||
+!tag ||
+!password
+){
+
+showMessage(
+"Please fill in every field."
+);
+
+return;
+
+}
+
+if(password.length < 6){
+
+showMessage(
+"Password must contain at least 6 characters."
+);
+
+return;
+
+}
+
+signupBtn.disabled =
+true;
+
+signupBtn.textContent =
+"CREATING...";
+
+try{
+
+const result =
+await sb.auth.signUp({
+
+email:
+`${tag.toLowerCase()}@sundaycity.local`,
+
+password,
+
+options:{
+data:{
+username,
+player_tag:tag
+}
+}
+
+});
+
+if(result.error)
+throw result.error;
+
+if(!result.data.user){
+
+showMessage(
+"Account created. Please log in.",
+true
+);
+
+return;
+
+}
+
+user =
+result.data.user;
+
+
+/*
+ Create profile, but do not prevent
+ authentication if the profile
+ policy causes an error.
+*/
+
+try{
+
+const profileResult =
+await sb
+.from("profiles")
+.upsert(
+{
+id:user.id,
+username,
+player_tag:tag
+},
+{
+onConflict:"id"
+}
+);
+
+if(profileResult.error)
+console.warn(
+"PROFILE CREATE ERROR:",
+profileResult.error
+);
+
+}catch(error){
+
+console.warn(
+"PROFILE CREATE ERROR:",
+error
+);
+
+}
+
+try{
+
+await loadData();
+
+}catch(error){
+
+console.warn(
+"DATA LOAD ERROR:",
+error
+);
+
+}
+
+showApp();
+
+}catch(error){
+
+console.error(
+"SIGNUP ERROR:",
+error
+);
+
+showMessage(
+error.message ||
+"Unable to create account."
+);
+
+}finally{
+
+signupBtn.disabled =
+false;
+
+signupBtn.textContent =
+"CREATE ACCOUNT";
+
+}
+
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
 
 function buildCards(){
 
-  allCards = [];
+cards = [];
 
-  let id = 1;
+let id = 1;
 
-  ALBUM_ORDER.forEach(
-    album => {
+albums.forEach(
+albumName => {
 
-      (
-        CARD_DATA[album] || []
-      ).forEach(
-        (name,index) => {
+DATA[albumName].forEach(
+(name,index) => {
 
-          allCards.push({
+cards.push({
 
-            id,
-            name,
-            album,
-            number:index + 1,
-            rarity:"◆◆"
+id:id++,
 
-          });
+name,
 
-          id++;
+album:albumName,
 
-        }
-      );
+number:index + 1,
 
-    }
-  );
+rarity:"◆◆"
+
+});
+
+});
+
+});
 
 }
 
-/* ==============================
-   PROFILE
-============================== */
 
-function updateProfileUI(){
+/* =========================================================
+   LOAD USER DATA
+========================================================= */
 
-  if(!currentProfile)
-    return;
+async function loadData(){
 
-  document
-    .getElementById(
-      "profileUsername"
-    )
-    .textContent =
-      currentProfile.username ||
-      "Player";
+if(!user)
+return;
 
-  document
-    .getElementById(
-      "profileTag"
-    )
-    .textContent =
-      currentProfile.player_tag
-        ? "#" +
-          currentProfile.player_tag
-        : "";
 
-  setProfileAvatar(
-    getAvatarUrl(
-      currentUser.id,
-      Date.now()
-    )
-  );
+/*
+ PROFILE
+*/
+
+try{
+
+const result =
+await sb
+.from("profiles")
+.select("*")
+.eq(
+"id",
+user.id
+)
+.maybeSingle();
+
+if(
+!result.error &&
+result.data
+){
+
+profile =
+result.data;
+
+}else{
+
+profile = {
+
+username:
+user.user_metadata?.username ||
+"Player",
+
+player_tag:
+user.user_metadata?.player_tag ||
+""
+
+};
 
 }
 
-/* ==============================
-   SHOW APP
-============================== */
+}catch(error){
+
+console.warn(
+"PROFILE LOAD ERROR:",
+error
+);
+
+profile = {
+
+username:
+user.user_metadata?.username ||
+"Player",
+
+player_tag:
+user.user_metadata?.player_tag ||
+""
+
+};
+
+}
+
+
+/*
+ CARDS
+*/
+
+try{
+
+const result =
+await sb
+.from("user_cards")
+.select(
+"card_id,quantity,is_needed,is_for_trade,trade_quantity"
+)
+.eq(
+"user_id",
+user.id
+);
+
+if(result.error)
+throw result.error;
+
+owned =
+new Set();
+
+needed =
+new Set();
+
+forTrade =
+new Set();
+
+qty =
+new Map();
+
+tradeQty =
+new Map();
+
+
+(result.data || [])
+.forEach(
+row => {
+
+const id =
+Number(row.card_id);
+
+const quantity =
+Math.max(
+0,
+Number(row.quantity) || 0
+);
+
+
+/*
+ IMPORTANT:
+
+1 copy = 0 available
+
+2 copies = 1 available
+
+3 copies = 2 available
+
+etc.
+*/
+
+const tradeQuantity =
+Math.min(
+Math.max(
+0,
+quantity - 1
+),
+Math.max(
+0,
+Number(row.trade_quantity) || 0
+)
+);
+
+
+if(quantity > 0)
+owned.add(id);
+
+if(row.is_needed)
+needed.add(id);
+
+if(
+row.is_for_trade &&
+tradeQuantity > 0
+){
+
+forTrade.add(id);
+
+}
+
+qty.set(
+id,
+quantity
+);
+
+tradeQty.set(
+id,
+tradeQuantity
+);
+
+});
+
+}catch(error){
+
+console.warn(
+"CARDS LOAD ERROR:",
+error
+);
+
+}
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
 
 function showApp(){
 
-  document
-    .getElementById("authSection")
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById("app")
-    .classList
-    .remove("hidden");
-
-  document
-    .getElementById("nav")
-    .classList
-    .remove("hidden");
-
-  buildCards();
-
-  updateProfileUI();
-
-  renderAlbums();
-
-  updateStats();
-
-  navigate("home");
-
-}
-
-/* ==============================
-   STATS
-============================== */
-
-function updateStats(){
-
-  const total =
-    allCards.length;
-
-  const owned =
-    ownedCards.size;
-
-  const percent =
-    total
-      ? Math.round(
-          owned / total * 100
-        )
-      : 0;
-
-  document
-    .getElementById(
-      "statOwned"
-    )
-    .textContent =
-      owned;
-
-  document
-    .getElementById(
-      "statTotal"
-    )
-    .textContent =
-      total;
-
-  document
-    .getElementById(
-      "statPercent"
-    )
-    .textContent =
-      percent + "%";
-
-}
-
-/* ==============================
-   ALBUMS
-============================== */
-
-function renderAlbums(){
-
-  const grid =
-    document.getElementById(
-      "albumGrid"
-    );
-
-  grid.innerHTML = "";
-
-  ALBUM_ORDER.forEach(
-    album => {
-
-      const cards =
-        allCards.filter(
-          card =>
-            card.album === album
-        );
-
-      const owned =
-        cards.filter(
-          card =>
-            ownedCards.has(card.id)
-        ).length;
-
-      const percent =
-        cards.length
-          ? Math.round(
-              owned /
-              cards.length *
-              100
-            )
-          : 0;
-
-      const theme =
-        ALBUM_THEMES[album];
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-      button.type =
-        "button";
-
-      button.className =
-        "album-card";
-
-      button.style.setProperty(
-        "--c1",
-        theme[0]
-      );
-
-      button.style.setProperty(
-        "--c2",
-        theme[1]
-      );
-
-      button.innerHTML = `
-
-        <div class="album-icon">
-          ${ALBUM_ICONS[album]}
-        </div>
-
-        <div class="album-name">
-          ${escapeHTML(album)}
-        </div>
-
-        <div class="album-progress">
-          <span
-            style="width:${percent}%"
-          ></span>
-        </div>
-
-        <div class="album-count">
-          ${owned}/${cards.length} collected
-        </div>
-
-      `;
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          selectedAlbum =
-            album;
-
-          navigate(
-            "collection"
-          );
-
-        }
-      );
-
-      grid.appendChild(
-        button
-      );
-
-    }
-  );
-
-}
-
-/* ==============================
-   COLLECTION TABS
-============================== */
-
-function renderAlbumTabs(){
-
-  const container =
-    document.getElementById(
-      "albumTabs"
-    );
-
-  container.innerHTML = "";
-
-  ALBUM_ORDER.forEach(
-    album => {
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-      button.type =
-        "button";
-
-      button.className =
-        "album-tab" +
-        (
-          album === selectedAlbum
-            ? " active"
-            : ""
-        );
-
-      button.textContent =
-        ALBUM_ICONS[album] +
-        " " +
-        album;
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          selectedAlbum =
-            album;
-
-          renderAlbumTabs();
-
-          renderCollection(
-            album
-          );
-
-        }
-      );
-
-      container.appendChild(
-        button
-      );
-
-    }
-  );
-
-}
-
-/* ==============================
-   COLLECTION
-============================== */
-
-function renderCollection(
-  album
-){
-
-  selectedAlbum =
-    album;
-
-  const cards =
-    allCards.filter(
-      card =>
-        card.album === album
-    );
-
-  const owned =
-    cards.filter(
-      card =>
-        ownedCards.has(card.id)
-    ).length;
-
-  const percent =
-    cards.length
-      ? Math.round(
-          owned /
-          cards.length *
-          100
-        )
-      : 0;
-
-  const theme =
-    ALBUM_THEMES[album];
-
-  const banner =
-    document.getElementById(
-      "albumBanner"
-    );
-
-  banner.style.setProperty(
-    "--c1",
-    theme[0]
-  );
-
-  banner.style.setProperty(
-    "--c2",
-    theme[1]
-  );
-
-  banner.innerHTML = `
-
-    <h2>
-      ${ALBUM_ICONS[album]}
-      ${escapeHTML(album)}
-    </h2>
-
-    <p>
-      ${owned}/${cards.length}
-      tradable cards collected
-    </p>
-
-    <div class="progress-row">
-
-      <div class="progress">
-        <span
-          style="width:${percent}%"
-        ></span>
-      </div>
-
-      <strong>
-        ${percent}%
-      </strong>
-
-    </div>
-
-  `;
-
-  const grid =
-    document.getElementById(
-      "cardsGrid"
-    );
-
-  grid.innerHTML = "";
-
-  cards.forEach(
-    card => {
-
-      const owned =
-        ownedCards.has(card.id);
-
-      const needed =
-        neededCards.has(card.id);
-
-      const offering =
-        tradeCards.has(card.id);
-
-      const quantity =
-        cardQuantities.get(
-          card.id
-        ) || 0;
-
-      const tradeQuantity =
-        tradeQuantities.get(
-          card.id
-        ) || 0;
-
-      const element =
-        document.createElement(
-          "div"
-        );
-
-      element.className =
-        "card";
-
-      element.innerHTML = `
-
-        <div class="card-image">
-          ${
-            CARD_EMOJIS[card.name]
-            || "🃏"
-          }
-        </div>
-
-        <div class="card-info">
-
-          <div class="card-name">
-            ${escapeHTML(card.name)}
-          </div>
-
-          <div class="rarity">
-            ${card.rarity}
-          </div>
-
-          <div class="card-actions">
-
-            <button
-              type="button"
-              class="action-btn ${
-                needed
-                  ? "active-need"
-                  : ""
-              }"
-              onclick="toggleNeed(${card.id})"
-            >
-              🔎 ${
-                needed
-                  ? "NEEDED"
-                  : "I NEED IT"
-              }
-            </button>
-
-            <button
-              type="button"
-              class="action-btn ${
-                owned
-                  ? "active-have"
-                  : ""
-              }"
-              onclick="toggleHave(${card.id})"
-            >
-              ✓ I HAVE IT
-            </button>
-
-            ${
-              owned
-                ? `
-
-                  <div class="quantity-row">
-
-                    <span>Owned</span>
-
-                    <button
-                      type="button"
-                      class="qty-btn"
-                      onclick="changeQuantity(${card.id},-1)"
-                    >
-                      −
-                    </button>
-
-                    <span class="qty-value">
-                      ${quantity}
-                    </span>
-
-                    <button
-                      type="button"
-                      class="qty-btn"
-                      onclick="changeQuantity(${card.id},1)"
-                    >
-                      +
-                    </button>
-
-                  </div>
-
-                  ${
-                    quantity >= 2
-                      ? `
-
-                        <button
-                          type="button"
-                          class="action-btn ${
-                            offering
-                              ? "active-trade"
-                              : ""
-                          }"
-                          onclick="toggleTrade(${card.id})"
-                        >
-                          🔄 ${
-                            offering
-                              ? "OFFERING FOR TRADE"
-                              : "OFFER FOR TRADE"
-                          }
-                        </button>
-
-                        ${
-                          offering
-                            ? `
-
-                              <div class="trade-quantity-row">
-
-                                <span>
-                                  Trade
-                                </span>
-
-                                <button
-                                  type="button"
-                                  class="qty-btn"
-                                  onclick="changeTradeQuantity(${card.id},-1)"
-                                >
-                                  −
-                                </button>
-
-                                <span class="qty-value">
-                                  ${tradeQuantity}
-                                </span>
-
-                                <button
-                                  type="button"
-                                  class="qty-btn"
-                                  onclick="changeTradeQuantity(${card.id},1)"
-                                >
-                                  +
-                                </button>
-
-                              </div>
-
-                            `
-                            : ""
-                        }
-
-                      `
-                      : ""
-                  }
-
-                `
-                : ""
-            }
-
-          </div>
-
-          <div class="card-status">
-
-            ${
-              needed
-                ? "You are looking for this card."
-                : offering
-                  ? "This extra copy is available for trade."
-                  : owned
-                    ? "In your collection."
-                    : ""
-            }
-
-          </div>
-
-        </div>
-
-      `;
-
-      grid.appendChild(
-        element
-      );
-
-    }
-  );
-
-}
-
-/* ==============================
-   SAVE CARD
-============================== */
-
-async function saveCardState(
-  cardId,
-  changes = {}
-){
-
-  if(!currentUser)
-    throw new Error(
-      "Please log in first."
-    );
-
-  const quantity =
-    changes.quantity !== undefined
-      ? Math.max(
-          0,
-          Number(changes.quantity) || 0
-        )
-      : (
-          cardQuantities.get(cardId)
-          || 0
-        );
-
-  const isNeeded =
-    changes.is_needed !== undefined
-      ? Boolean(changes.is_needed)
-      : neededCards.has(cardId);
-
-  const isForTrade =
-    changes.is_for_trade !== undefined
-      ? Boolean(changes.is_for_trade)
-      : tradeCards.has(cardId);
-
-  let tradeQuantity =
-    changes.trade_quantity !== undefined
-      ? Math.max(
-          0,
-          Number(changes.trade_quantity) || 0
-        )
-      : (
-          tradeQuantities.get(cardId)
-          || 0
-        );
-
-  tradeQuantity =
-    Math.min(
-      tradeQuantity,
-      Math.max(
-        0,
-        quantity - 1
-      )
-    );
-
-  if(
-    quantity <= 0 &&
-    !isNeeded
-  ){
-
-    const result =
-      await supabaseClient
-        .from("user_cards")
-        .delete()
-        .eq(
-          "user_id",
-          currentUser.id
-        )
-        .eq(
-          "card_id",
-          cardId
-        );
-
-    if(result.error)
-      throw result.error;
-
-    return;
-
-  }
-
-  const result =
-    await supabaseClient
-      .from("user_cards")
-      .upsert(
-        {
-
-          user_id:
-            currentUser.id,
-
-          card_id:
-            cardId,
-
-          quantity,
-
-          is_needed:
-            isNeeded,
-
-          is_for_trade:
-            isForTrade &&
-            tradeQuantity > 0,
-
-          trade_quantity:
-            isForTrade
-              ? tradeQuantity
-              : 0
-
-        },
-        {
-          onConflict:
-            "user_id,card_id"
-        }
-      );
-
-  if(result.error)
-    throw result.error;
-
-}
-
-/* ==============================
-   NEED
-============================== */
-
-async function toggleNeed(
-  cardId
-){
-
-  const previous =
-    neededCards.has(cardId);
-
-  if(previous)
-    neededCards.delete(cardId);
-  else
-    neededCards.add(cardId);
-
-  renderCollection(
-    selectedAlbum
-  );
-
-  try{
-
-    await saveCardState(
-      cardId,
-      {
-        is_needed:
-          !previous
-      }
-    );
-
-  }catch(error){
-
-    if(previous)
-      neededCards.add(cardId);
-    else
-      neededCards.delete(cardId);
-
-    renderCollection(
-      selectedAlbum
-    );
-
-    alert(
-      error.message
-    );
-
-  }
-
-}
-
-/* ==============================
-   HAVE
-============================== */
-
-async function toggleHave(
-  cardId
-){
-
-  const previous =
-    ownedCards.has(cardId);
-
-  if(previous){
-
-    ownedCards.delete(cardId);
-    tradeCards.delete(cardId);
-    cardQuantities.set(cardId,0);
-    tradeQuantities.set(cardId,0);
-
-  }else{
-
-    ownedCards.add(cardId);
-    cardQuantities.set(cardId,1);
-
-  }
-
-  renderCollection(
-    selectedAlbum
-  );
-
-  renderAlbums();
-  updateStats();
-
-  try{
-
-    await saveCardState(
-      cardId,
-      {
-
-        quantity:
-          previous ? 0 : 1,
-
-        is_for_trade:false,
-
-        trade_quantity:0
-
-      }
-    );
-
-  }catch(error){
-
-    if(previous){
-
-      ownedCards.add(cardId);
-      cardQuantities.set(cardId,1);
-
-    }else{
-
-      ownedCards.delete(cardId);
-      cardQuantities.set(cardId,0);
-
-    }
-
-    renderCollection(
-      selectedAlbum
-    );
-
-    renderAlbums();
-    updateStats();
-
-    alert(
-      error.message
-    );
-
-  }
-
-}
-
-/* ==============================
-   QUANTITY
-============================== */
-
-async function changeQuantity(
-  cardId,
-  delta
-){
-
-  if(
-    !ownedCards.has(cardId)
-  )
-    return;
-
-  const previous =
-    cardQuantities.get(
-      cardId
-    ) || 1;
-
-  const previousTrade =
-    tradeQuantities.get(
-      cardId
-    ) || 0;
-
-  const next =
-    Math.max(
-      1,
-      previous + delta
-    );
-
-  const maxTradable =
-    Math.max(
-      0,
-      next - 1
-    );
-
-  const nextTrade =
-    Math.min(
-      previousTrade,
-      maxTradable
-    );
-
-  cardQuantities.set(
-    cardId,
-    next
-  );
-
-  tradeQuantities.set(
-    cardId,
-    nextTrade
-  );
-
-  if(nextTrade <= 0)
-    tradeCards.delete(cardId);
-
-  renderCollection(
-    selectedAlbum
-  );
-
-  renderAlbums();
-  updateStats();
-
-  try{
-
-    await saveCardState(
-      cardId,
-      {
-
-        quantity:next,
-
-        is_for_trade:
-          tradeCards.has(cardId) &&
-          nextTrade > 0,
-
-        trade_quantity:
-          nextTrade
-
-      }
-    );
-
-  }catch(error){
-
-    cardQuantities.set(
-      cardId,
-      previous
-    );
-
-    tradeQuantities.set(
-      cardId,
-      previousTrade
-    );
-
-    if(previousTrade > 0)
-      tradeCards.add(cardId);
-
-    renderCollection(
-      selectedAlbum
-    );
-
-    renderAlbums();
-    updateStats();
-
-    alert(
-      error.message
-    );
-
-  }
-
-}
-  /* ==============================
-   TRADE
-============================== */
-
-async function toggleTrade(
-  cardId
-){
-
-  if(
-    !ownedCards.has(cardId)
-  ){
-
-    alert(
-      "You need to have this card first."
-    );
-
-    return;
-
-  }
-
-  const owned =
-    cardQuantities.get(
-      cardId
-    ) || 0;
-
-  const maxTradable =
-    Math.max(
-      0,
-      owned - 1
-    );
-
-  if(maxTradable <= 0){
-
-    alert(
-      "You need at least 2 copies to offer one for trade."
-    );
-
-    return;
-
-  }
-
-  const previous =
-    tradeCards.has(cardId);
-
-  if(previous){
-
-    tradeCards.delete(cardId);
-
-    tradeQuantities.set(
-      cardId,
-      0
-    );
-
-  }else{
-
-    tradeCards.add(cardId);
-
-    tradeQuantities.set(
-      cardId,
-      1
-    );
-
-  }
-
-  renderCollection(
-    selectedAlbum
-  );
-
-  try{
-
-    await saveCardState(
-      cardId,
-      {
-
-        is_for_trade:
-          !previous,
-
-        trade_quantity:
-          previous ? 0 : 1
-
-      }
-    );
-
-  }catch(error){
-
-    if(previous){
-
-      tradeCards.add(cardId);
-
-      tradeQuantities.set(
-        cardId,
-        1
-      );
-
-    }else{
-
-      tradeCards.delete(cardId);
-
-      tradeQuantities.set(
-        cardId,
-        0
-      );
-
-    }
-
-    renderCollection(
-      selectedAlbum
-    );
-
-    alert(
-      error.message
-    );
-
-  }
-
-}
-
-async function changeTradeQuantity(
-  cardId,
-  delta
-){
-
-  const owned =
-    cardQuantities.get(
-      cardId
-    ) || 0;
-
-  const maxTradable =
-    Math.max(
-      0,
-      owned - 1
-    );
-
-  if(maxTradable <= 0)
-    return;
-
-  const previous =
-    tradeQuantities.get(
-      cardId
-    ) || 1;
-
-  const next =
-    Math.max(
-      1,
-      Math.min(
-        maxTradable,
-        previous + delta
-      )
-    );
-
-  tradeQuantities.set(
-    cardId,
-    next
-  );
-
-  renderCollection(
-    selectedAlbum
-  );
-
-  try{
-
-    await saveCardState(
-      cardId,
-      {
-
-        is_for_trade:true,
-        trade_quantity:next
-
-      }
-    );
-
-  }catch(error){
-
-    tradeQuantities.set(
-      cardId,
-      previous
-    );
-
-    renderCollection(
-      selectedAlbum
-    );
-
-    alert(
-      error.message
-    );
-
-  }
-
-}
-
-/* ==============================
-   AVATAR UPLOAD
-============================== */
-
-async function uploadAvatar(
-  file
-){
-
-  if(!currentUser)
-    throw new Error(
-      "Please log in first."
-    );
-
-  if(!file)
-    return;
-
-  const allowed = [
-    "image/jpeg",
-    "image/png",
-    "image/webp"
-  ];
-
-  if(
-    !allowed.includes(
-      file.type
-    )
-  ){
-
-    throw new Error(
-      "Please choose a JPG, PNG or WebP image."
-    );
-
-  }
-
-  if(
-    file.size >
-    2 * 1024 * 1024
-  ){
-
-    throw new Error(
-      "Your profile photo must be 2 MB or smaller."
-    );
-
-  }
-
-  /*
-    FIX:
-    AVATAR_BUCKET = "AVATARS"
-  */
-
-  const result =
-    await supabaseClient
-      .storage
-      .from(AVATAR_BUCKET)
-      .upload(
-        getAvatarPath(
-          currentUser.id
-        ),
-        file,
-        {
-
-          upsert:true,
-
-          contentType:
-            file.type,
-
-          cacheControl:
-            "3600"
-
-        }
-      );
-
-  if(result.error)
-    throw result.error;
-
-  setProfileAvatar(
-    getAvatarUrl(
-      currentUser.id,
-      Date.now()
-    )
-  );
-
-}
-
-/* ==============================
-   REMOVE AVATAR
-============================== */
-
-async function removeAvatar(){
-
-  if(!currentUser)
-    return;
-
-  const result =
-    await supabaseClient
-      .storage
-      .from(AVATAR_BUCKET)
-      .remove([
-        getAvatarPath(
-          currentUser.id
-        )
-      ]);
-
-  if(result.error)
-    throw result.error;
-
-  setProfileAvatar("");
-
-}
-
-/* ==============================
-   AVATAR BUTTONS
-============================== */
-
-document
-  .getElementById(
-    "changeAvatarButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      document
-        .getElementById(
-          "avatarInput"
-        )
-        .click();
-
-    }
-  );
-
-document
-  .getElementById(
-    "avatarInput"
-  )
-  .addEventListener(
-    "change",
-    async event => {
-
-      const file =
-        event.target.files?.[0];
-
-      if(!file)
-        return;
-
-      const button =
-        document.getElementById(
-          "changeAvatarButton"
-        );
-
-      button.disabled = true;
-
-      button.textContent =
-        "UPLOADING...";
-
-      try{
-
-        await uploadAvatar(
-          file
-        );
-
-      }catch(error){
-
-        console.error(
-          "AVATAR ERROR:",
-          error
-        );
-
-        alert(
-          error.message ||
-          "Could not upload your photo."
-        );
-
-      }finally{
-
-        button.disabled = false;
-
-        button.textContent =
-          "📷 PHOTO";
-
-        event.target.value =
-          "";
-
-      }
-
-    }
-  );
-
-document
-  .getElementById(
-    "removeAvatarButton"
-  )
-  .addEventListener(
-    "click",
-    async () => {
-
-      if(
-        !confirm(
-          "Remove your profile photo?"
-        )
-      )
-        return;
-
-      const button =
-        document.getElementById(
-          "removeAvatarButton"
-        );
-
-      button.disabled = true;
-
-      button.textContent =
-        "REMOVING...";
-
-      try{
-
-        await removeAvatar();
-
-      }catch(error){
-
-        alert(
-          error.message ||
-          "Could not remove your photo."
-        );
-
-      }finally{
-
-        button.disabled = false;
-
-        button.textContent =
-          "🗑 REMOVE";
-
-      }
-
-    }
-  );
-
-/* ==============================
-   TRADE MARKET
-============================== */
-
-function cardById(id){
-
-  return allCards.find(
-    card =>
-      card.id === Number(id)
-  );
-
-}
-
-function profileName(
-  profile
-){
-
-  return (
-    profile?.username ||
-    profile?.player_tag ||
-    "Player"
-  );
-
-}
-
-function renderTradeItem(
-  container,
-  card,
-  profile,
-  detail,
-  badge,
-  badgeClass
-){
-
-  const item =
-    document.createElement(
-      "div"
-    );
-
-  item.className =
-    "trade-item";
-
-  const avatarUrl =
-    profile?.id
-      ? getAvatarUrl(
-          profile.id
-        )
-      : "";
-
-  item.innerHTML = `
-
-    <div class="trade-item-left">
-
-      <div class="trade-icon">
-        ${
-          CARD_EMOJIS[card.name]
-          || "🃏"
-        }
-      </div>
-
-      <div>
-
-        <div class="trade-card-name">
-          ${escapeHTML(card.name)}
-        </div>
-
-        <div class="trade-player-row">
-
-          <div class="trade-avatar">
-
-            ${
-              avatarUrl
-                ? `
-                  <img
-                    src="${escapeHTML(
-                      avatarUrl
-                    )}"
-                    alt=""
-                  >
-                `
-                : "👤"
-            }
-
-          </div>
-
-          <div class="trade-player">
-            ${escapeHTML(
-              profileName(profile)
-            )}
-
-            ${
-              profile?.player_tag
-                ? " • #" +
-                  escapeHTML(
-                    profile.player_tag
-                  )
-                : ""
-            }
-
-          </div>
-
-        </div>
-
-        <div class="trade-detail">
-          ${escapeHTML(detail)}
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="trade-badge ${badgeClass}">
-      ${escapeHTML(badge)}
-    </div>
-
-  `;
-
-  container.appendChild(
-    item
-  );
-
-}
-
-async function loadTradeMarket(){
-
-  if(!currentUser)
-    return;
-
-  const matches =
-    document.getElementById(
-      "tradeMatches"
-    );
-
-  const looking =
-    document.getElementById(
-      "tradePeopleLooking"
-    );
-
-  const offers =
-    document.getElementById(
-      "tradeOffers"
-    );
-
-  const loading =
-    `
-      <div class="empty-trade">
-        Loading trades...
-      </div>
-    `;
-
-  matches.innerHTML = loading;
-  looking.innerHTML = loading;
-  offers.innerHTML = loading;
-
-  try{
-
-    const result =
-      await supabaseClient
-        .from("user_cards")
-        .select(
-          `
-          user_id,
-          card_id,
-          quantity,
-          is_needed,
-          is_for_trade,
-          trade_quantity
-          `
-        )
-        .or(
-          "is_needed.eq.true,is_for_trade.eq.true"
-        );
-
-    if(result.error)
-      throw result.error;
-
-    const rows =
-      (result.data || [])
-        .filter(
-          row =>
-            row.user_id !==
-            currentUser.id
-        );
-
-    const ids = [
-      ...new Set(
-        rows.map(
-          row => row.user_id
-        )
-      )
-    ];
-
-    let profiles = [];
-
-    if(ids.length){
-
-      const profileResult =
-        await supabaseClient
-          .from("profiles")
-          .select(
-            "id,username,player_tag"
-          )
-          .in(
-            "id",
-            ids
-          );
-
-      if(profileResult.error)
-        throw profileResult.error;
-
-      profiles =
-        profileResult.data || [];
-
-    }
-
-    const profileMap =
-      new Map(
-        profiles.map(
-          profile => [
-            profile.id,
-            profile
-          ]
-        )
-      );
-
-    const matchRows = [];
-    const lookingRows = [];
-    const offerRows = [];
-
-    rows.forEach(
-      row => {
-
-        const card =
-          cardById(
-            row.card_id
-          );
-
-        if(!card)
-          return;
-
-        const profile =
-          profileMap.get(
-            row.user_id
-          ) || null;
-
-        const quantity =
-          Math.max(
-            0,
-            Math.min(
-              Number(
-                row.trade_quantity
-              ) || 0,
-              Math.max(
-                0,
-                (
-                  Number(
-                    row.quantity
-                  ) || 0
-                ) - 1
-              )
-            )
-          );
-
-        if(
-          row.is_for_trade &&
-          quantity > 0 &&
-          neededCards.has(
-            Number(row.card_id)
-          )
-        ){
-
-          matchRows.push({
-            card,
-            profile,
-            quantity
-          });
-
-        }
-
-        if(
-          row.is_needed &&
-          ownedCards.has(
-            Number(row.card_id)
-          )
-        ){
-
-          lookingRows.push({
-            card,
-            profile
-          });
-
-        }
-
-        if(
-          row.is_for_trade &&
-          quantity > 0
-        ){
-
-          offerRows.push({
-            card,
-            profile,
-            quantity
-          });
-
-        }
-
-      }
-    );
-
-    matches.innerHTML = "";
-
-    if(!matchRows.length){
-
-      matches.innerHTML = `
-        <div class="empty-trade">
-          No direct matches yet.<br>
-          When someone offers a card you need,
-          it will appear here.
-        </div>
-      `;
-
-    }else{
-
-      matchRows.forEach(
-        item => {
-
-          renderTradeItem(
-            matches,
-            item.card,
-            item.profile,
-            `${item.quantity} available for trade`,
-            "MATCH",
-            "match"
-          );
-
-        }
-      );
-
-    }
-
-    looking.innerHTML = "";
-
-    if(!lookingRows.length){
-
-      looking.innerHTML = `
-        <div class="empty-trade">
-          Nobody is currently looking
-          for cards you own.
-        </div>
-      `;
-
-    }else{
-
-      lookingRows.forEach(
-        item => {
-
-          renderTradeItem(
-            looking,
-            item.card,
-            item.profile,
-            "This player needs this card",
-            "YOU HAVE IT",
-            "want"
-          );
-
-        }
-      );
-
-    }
-
-    offers.innerHTML = "";
-
-    if(!offerRows.length){
-
-      offers.innerHTML = `
-        <div class="empty-trade">
-          No cards are currently offered
-          by other players.
-        </div>
-      `;
-
-    }else{
-
-      offerRows.forEach(
-        item => {
-
-          renderTradeItem(
-            offers,
-            item.card,
-            item.profile,
-            `${item.quantity} available for trade`,
-            "AVAILABLE",
-            "offer"
-          );
-
-        }
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "TRADE ERROR:",
-      error
-    );
-
-    const message = `
-      <div class="empty-trade">
-        Trade listings could not be loaded.<br><br>
-        Please check your
-        <strong>user_cards SELECT policy</strong>.
-      </div>
-    `;
-
-    matches.innerHTML = message;
-    looking.innerHTML = message;
-    offers.innerHTML = message;
-
-  }
-
-}
-
-/* ==============================
-   NAVIGATION
-============================== */
-
-function navigate(
-  section,
-  button
-){
-
-  [
-    "homeSection",
-    "collectionSection",
-    "tradeSection"
-  ].forEach(
-    id => {
-
-      document
-        .getElementById(id)
-        .classList
-        .add("hidden");
-
-    }
-  );
-
-  const target =
-    document.getElementById(
-      section + "Section"
-    );
-
-  if(target)
-    target.classList
-      .remove("hidden");
-
-  document
-    .querySelectorAll(
-      ".nav button"
-    )
-    .forEach(
-      btn =>
-        btn.classList
-          .remove("active")
-    );
-
-  if(button){
-
-    button.classList
-      .add("active");
-
-  }
-
-  if(section === "collection"){
-
-    renderAlbumTabs();
-
-    renderCollection(
-      selectedAlbum
-    );
-
-  }
-
-  if(section === "trade"){
-
-    loadTradeMarket();
-
-  }
-
-  if(section === "home"){
-
-    document
-      .querySelector(
-        ".nav button"
-      )
-      ?.classList
-      .add("active");
-
-  }
-
-}
-
-/* ==============================
-   LOGOUT
-============================== */
-
-async function logout(){
-
-  await supabaseClient
-    .auth
-    .signOut();
-
-  currentUser = null;
-  currentProfile = null;
-
-  ownedCards.clear();
-  neededCards.clear();
-  tradeCards.clear();
-
-  cardQuantities.clear();
-  tradeQuantities.clear();
-
-  document
-    .getElementById("app")
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById("nav")
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById("authSection")
-    .classList
-    .remove("hidden");
-
-}
-
-/* ==============================
-   BUTTONS
-============================== */
-
-document
-  .getElementById(
-    "loginButton"
-  )
-  .addEventListener(
-    "click",
-    login
-  );
-
-document
-  .getElementById(
-    "signupButton"
-  )
-  .addEventListener(
-    "click",
-    signup
-  );
-
-document
-  .getElementById(
-    "logoutButton"
-  )
-  .addEventListener(
-    "click",
-    logout
-  );
-
-document
-  .getElementById(
-    "tradeRefreshButton"
-  )
-  .addEventListener(
-    "click",
-    loadTradeMarket
-  );
-
-/* ==============================
-   ENTER KEY
-============================== */
-
-[
-  "loginUsername",
-  "loginTag",
-  "loginPassword"
-].forEach(
-  id => {
-
-    document
-      .getElementById(id)
-      .addEventListener(
-        "keydown",
-        event => {
-
-          if(
-            event.key === "Enter"
-          ){
-
-            event.preventDefault();
-
-            login();
-
-          }
-
-        }
-      );
-
-  }
+auth.classList.add(
+"hidden"
 );
 
-[
-  "signupUsername",
-  "signupTag",
-  "signupPassword"
-].forEach(
-  id => {
-
-    document
-      .getElementById(id)
-      .addEventListener(
-        "keydown",
-        event => {
-
-          if(
-            event.key === "Enter"
-          ){
-
-            event.preventDefault();
-
-            signup();
-
-          }
-
-        }
-      );
-
-  }
+app.classList.remove(
+"hidden"
 );
 
-/* ==============================
-   INITIALIZATION
-============================== */
+navEl.classList.remove(
+"hidden"
+);
 
 buildCards();
 
-async function initializeApp(){
+updateProfile();
 
-  try{
+renderAlbums();
 
-    const result =
-      await supabaseClient
-        .auth
-        .getSession();
+updateStats();
 
-    if(result.error)
-      throw result.error;
-
-    if(
-      result.data?.session
-    ){
-
-      currentUser =
-        result.data.session.user;
-
-      await loadPlayerData();
-
-      showApp();
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "INITIALIZATION ERROR:",
-      error
-    );
-
-  }
+updateAvatar();
 
 }
 
-supabaseClient
-  .auth
-  .onAuthStateChange(
-    async (
-      event,
-      session
-    ) => {
 
-      if(
-        event === "SIGNED_IN" &&
-        session
-      ){
+/* =========================================================
+   PROFILE
+========================================================= */
 
-        currentUser =
-          session.user;
+function updateProfile(){
 
-        await loadPlayerData();
+profileName.textContent =
+profile?.username ||
+user?.user_metadata?.username ||
+"Player";
 
-        showApp();
+profileTag.textContent =
+profile?.player_tag
+?
+"#" + profile.player_tag
+:
+"";
 
-      }
+}
 
-      if(
-        event === "SIGNED_OUT"
-      ){
 
-        currentUser = null;
-        currentProfile = null;
+/* =========================================================
+   STATS
+========================================================= */
 
-      }
+function updateStats(){
 
-    }
-  );
+ownedStat.textContent =
+owned.size;
 
-initializeApp();
+totalStat.textContent =
+cards.length;
+
+percentStat.textContent =
+(
+cards.length
+?
+Math.round(
+owned.size /
+cards.length *
+100
+)
+:
+0
+) + "%";
+
+}
+
+
+/* =========================================================
+   ALBUMS
+========================================================= */
+
+function renderAlbums(){
+
+albumsEl.innerHTML =
+"";
+
+albums.forEach(
+albumName => {
+
+const albumCards =
+cards.filter(
+card =>
+card.album === albumName
+);
+
+const ownedCount =
+albumCards.filter(
+card =>
+owned.has(card.id)
+).length;
+
+const percent =
+albumCards.length
+?
+Math.round(
+ownedCount /
+albumCards.length *
+100
+)
+:
+0;
+
+const colors =
+themes[albumName] ||
+[
+"#806c91",
+"#30263a"
+];
+
+const button =
+document.createElement(
+"button"
+);
+
+button.className =
+"album";
+
+button.style.setProperty(
+"--a",
+colors[0]
+);
+
+button.style.setProperty(
+"--b",
+colors[1]
+);
+
+button.innerHTML = `
+
+<div class="icon">
+${icons[albumName]}
+</div>
+
+<div class="name">
+${esc(albumName)}
+</div>
+
+<div class="bar">
+<i style="width:${percent}%"></i>
+</div>
+
+<div style="font-size:11px;margin-top:6px">
+${ownedCount}/${albumCards.length}
+collected
+</div>
+
+`;
+
+button.onclick =
+function(){
+
+album =
+albumName;
+
+nav(
+"collection"
+);
+
+};
+
+albumsEl.appendChild(
+button
+);
+
+});
+
+}
+
+
+/* =========================================================
+   ALBUM TABS
+========================================================= */
+
+function renderTabs(){
+
+albumTabs.innerHTML =
+"";
+
+albums.forEach(
+albumName => {
+
+const button =
+document.createElement(
+"button"
+);
+
+button.className =
+"tab2 " +
+(
+albumName === album
+?
+"active"
+:
+""
+);
+
+button.textContent =
+(
+icons[albumName] ||
+"📚"
+) +
+" " +
+albumName;
+
+button.onclick =
+function(){
+
+album =
+albumName;
+
+renderCollection();
+
+};
+
+albumTabs.appendChild(
+button
+);
+
+});
+
+}
+
+
+/* =========================================================
+   COLLECTION
+========================================================= */
+
+function renderCollection(){
+
+renderTabs();
+
+const albumCards =
+cards.filter(
+card =>
+card.album === album
+);
+
+const ownedCount =
+albumCards.filter(
+card =>
+owned.has(card.id)
+).length;
+
+const percent =
+albumCards.length
+?
+Math.round(
+ownedCount /
+albumCards.length *
+100
+)
+:
+0;
+
+const colors =
+themes[album] ||
+[
+"#806c91",
+"#30263a"
+];
+
+banner.style.setProperty(
+"--a",
+colors[0]
+);
+
+banner.style.setProperty(
+"--b",
+colors[1]
+);
+
+banner.innerHTML = `
+
+<h2>
+${icons[album]}
+${esc(album)}
+</h2>
+
+<p>
+${ownedCount}/${albumCards.length}
+collected
+</p>
+
+<div class="progress">
+
+<div class="bar">
+
+<i
+style="width:${percent}%"
+></i>
+
+</div>
+
+<b>
+${percent}%
+</b>
+
+</div>
+
+`;
+
+cardsEl.innerHTML =
+"";
+
+albumCards.forEach(
+card => {
+
+const have =
+owned.has(card.id);
+
+const need =
+needed.has(card.id);
+
+const trade =
+forTrade.has(card.id);
+
+const quantity =
+qty.get(card.id) || 0;
+
+const tradeQuantity =
+tradeQty.get(card.id) || 0;
+
+const element =
+document.createElement(
+"div"
+);
+
+element.className =
+"card " +
+(
+have
+?
+"owned"
+:
+""
+);
+
+let html = `
+
+<div class="cardin">
+
+<div class="cardimg">
+${icons[card.album] || "🃏"}
+</div>
+
+<div class="cardinfo">
+
+<div class="cardname">
+${esc(card.name)}
+</div>
+
+<div class="rarity">
+${card.rarity}
+</div>
+
+<div class="actions">
+
+<button
+class="action need ${need ? "active" : ""}"
+onclick="toggleNeed(${card.id})"
+>
+🔎 ${need ? "NEEDED" : "I NEED IT"}
+</button>
+
+<button
+class="action have ${have ? "active" : ""}"
+onclick="toggleHave(${card.id})"
+>
+✓ I HAVE IT
+</button>
+
+`;
+
+if(have){
+
+html += `
+
+<div
+class="qty"
+style="grid-column:1/-1"
+>
+Owned
+
+<button
+onclick="changeQty(${card.id},-1)"
+>
+−
+</button>
+
+<b>
+${quantity}
+</b>
+
+<button
+onclick="changeQty(${card.id},1)"
+>
++
+</button>
+
+</div>
+
+`;
+
+if(quantity >= 2){
+
+html += `
+
+<button
+class="action tradebtn ${trade ? "active" : ""}"
+onclick="toggleTrade(${card.id})"
+>
+🔄
+${trade
+?
+"OFFERING FOR TRADE"
+:
+"OFFER FOR TRADE"
+}
+</button>
+
+`;
+
+if(trade){
+
+html += `
+
+<div
+class="qty"
+style="grid-column:1/-1"
+>
+Trade
+
+<button
+onclick="changeTradeQty(${card.id},-1)"
+>
+−
+</button>
+
+<b>
+${tradeQuantity}
+</b>
+
+<button
+onclick="changeTradeQty(${card.id},1)"
+>
++
+</button>
+
+</div>
+
+`;
+
+}
+
+}
+
+}
+
+html += `
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+element.innerHTML =
+html;
+
+cardsEl.appendChild(
+element
+);
+
+});
+
+}
+
+
+/* =========================================================
+   SAVE CARD
+========================================================= */
+
+async function saveCard(
+cardId,
+changes = {}
+){
+
+if(!user)
+throw new Error(
+"Not logged in."
+);
+
+let quantity =
+changes.quantity !== undefined
+?
+changes.quantity
+:
+(
+qty.get(cardId) || 0
+);
+
+let isNeeded =
+changes.is_needed !== undefined
+?
+changes.is_needed
+:
+needed.has(cardId);
+
+let isForTrade =
+changes.is_for_trade !== undefined
+?
+changes.is_for_trade
+:
+forTrade.has(cardId);
+
+let tradeQuantity =
+changes.trade_quantity !== undefined
+?
+changes.trade_quantity
+:
+(
+tradeQty.get(cardId) || 0
+);
+
+
+/*
+ Never allow more trade copies
+ than quantity - 1.
+*/
+
+tradeQuantity =
+Math.min(
+Math.max(
+0,
+quantity - 1
+),
+Math.max(
+0,
+tradeQuantity
+)
+);
+
+
+if(
+quantity <= 0 &&
+!isNeeded
+){
+
+const result =
+await sb
+.from("user_cards")
+.delete()
+.eq(
+"user_id",
+user.id
+)
+.eq(
+"card_id",
+cardId
+);
+
+if(result.error)
+throw result.error;
+
+return;
+
+}
+
+
+const result =
+await sb
+.from("user_cards")
+.upsert(
+{
+
+user_id:
+user.id,
+
+card_id:
+cardId,
+
+quantity:
+quantity,
+
+is_needed:
+isNeeded,
+
+is_for_trade:
+isForTrade &&
+tradeQuantity > 0,
+
+trade_quantity:
+isForTrade
+?
+tradeQuantity
+:
+0
+
+},
+{
+onConflict:
+"user_id,card_id"
+}
+);
+
+if(result.error)
+throw result.error;
+
+}
+
+
+/* =========================================================
+   NEED
+========================================================= */
+
+async function toggleNeed(
+cardId
+){
+
+const old =
+needed.has(cardId);
+
+if(old)
+needed.delete(cardId);
+else
+needed.add(cardId);
+
+renderCollection();
+
+try{
+
+await saveCard(
+cardId,
+{
+is_needed:
+!old
+}
+);
+
+}catch(error){
+
+if(old)
+needed.add(cardId);
+else
+needed.delete(cardId);
+
+renderCollection();
+
+alert(
+error.message
+);
+
+}
+
+}
+
+
+/* =========================================================
+   HAVE
+========================================================= */
+
+async function toggleHave(
+cardId
+){
+
+const old =
+owned.has(cardId);
+
+const oldQuantity =
+qty.get(cardId) || 0;
+
+if(old){
+
+owned.delete(
+cardId
+);
+
+forTrade.delete(
+cardId
+);
+
+qty.set(
+cardId,
+0
+);
+
+tradeQty.set(
+cardId,
+0
+);
+
+}else{
+
+owned.add(
+cardId
+);
+
+qty.set(
+cardId,
+1
+);
+
+}
+
+renderCollection();
+
+updateStats();
+
+try{
+
+await saveCard(
+cardId,
+{
+
+quantity:
+old
+?
+0
+:
+1,
+
+is_for_trade:
+false,
+
+trade_quantity:
+0
+
+}
+);
+
+}catch(error){
+
+if(old){
+
+owned.add(
+cardId
+);
+
+qty.set(
+cardId,
+oldQuantity
+);
+
+}else{
+
+owned.delete(
+cardId
+);
+
+qty.set(
+cardId,
+0
+);
+
+}
+
+renderCollection();
+
+updateStats();
+
+alert(
+error.message
+);
+
+}
+
+}
+
+
+/* =========================================================
+   QUANTITY
+========================================================= */
+
+async function changeQty(
+cardId,
+delta
+){
+
+if(!owned.has(cardId))
+return;
+
+const old =
+qty.get(cardId) || 1;
+
+const oldTrade =
+tradeQty.get(cardId) || 0;
+
+const next =
+Math.max(
+1,
+old + delta
+);
+
+qty.set(
+cardId,
+next
+);
+
+tradeQty.set(
+cardId,
+Math.min(
+oldTrade,
+Math.max(
+0,
+next - 1
+)
+)
+);
+
+if(
+tradeQty.get(cardId) <= 0
+){
+
+forTrade.delete(
+cardId
+);
+
+}
+
+renderCollection();
+
+updateStats();
+
+try{
+
+await saveCard(
+cardId,
+{
+
+quantity:
+next,
+
+is_for_trade:
+forTrade.has(cardId),
+
+trade_quantity:
+tradeQty.get(cardId) || 0
+
+}
+);
+
+}catch(error){
+
+qty.set(
+cardId,
+old
+);
+
+tradeQty.set(
+cardId,
+oldTrade
+);
+
+if(oldTrade > 0)
+forTrade.add(
+cardId
+);
+
+renderCollection();
+
+updateStats();
+
+alert(
+error.message
+);
+
+}
+
+}
+
+
+/* =========================================================
+   TRADE TOGGLE
+========================================================= */
+
+async function toggleTrade(
+cardId
+){
+
+const quantity =
+qty.get(cardId) || 0;
+
+
+/*
+ 1 copy = no trade
+ 2 copies = 1 trade
+*/
+
+if(quantity < 2){
+
+alert(
+"You need at least 2 copies to offer one for trade."
+);
+
+return;
+
+}
+
+const old =
+forTrade.has(cardId);
+
+if(old){
+
+forTrade.delete(
+cardId
+);
+
+tradeQty.set(
+cardId,
+0
+);
+
+}else{
+
+forTrade.add(
+cardId
+);
+
+tradeQty.set(
+cardId,
+1
+);
+
+}
+
+renderCollection();
+
+try{
+
+await saveCard(
+cardId,
+{
+
+is_for_trade:
+!old,
+
+trade_quantity:
+old
+?
+0
+:
+1
+
+}
+);
+
+}catch(error){
+
+if(old){
+
+forTrade.add(
+cardId
+);
+
+tradeQty.set(
+cardId,
+1
+);
+
+}else{
+
+forTrade.delete(
+cardId
+);
+
+tradeQty.set(
+cardId,
+0
+);
+
+}
+
+renderCollection();
+
+alert(
+error.message
+);
+
+}
+
+}
+
+
+/* =========================================================
+   TRADE QUANTITY
+========================================================= */
+
+async function changeTradeQty(
+cardId,
+delta
+){
+
+if(
+!forTrade.has(cardId)
+)
+return;
+
+const quantity =
+qty.get(cardId) || 1;
+
+const maxTrade =
+Math.max(
+1,
+quantity - 1
+);
+
+const old =
+tradeQty.get(cardId) || 1;
+
+const next =
+Math.max(
+1,
+Math.min(
+maxTrade,
+old + delta
+)
+);
+
+tradeQty.set(
+cardId,
+next
+);
+
+renderCollection();
+
+try{
+
+await saveCard(
+cardId,
+{
+
+is_for_trade:
+true,
+
+trade_quantity:
+next
+
+}
+);
+
+}catch(error){
+
+tradeQty.set(
+cardId,
+old
+);
+
+renderCollection();
+
+alert(
+error.message
+);
+
+}
+
+}
+
+
+/* =========================================================
+   TRADE MARKET
+========================================================= */
+
+function renderTradeItem(
+container,
+card,
+player,
+detail,
+badge,
+badgeClass
+){
+
+const element =
+document.createElement(
+"div"
+);
+
+element.className =
+"tradeitem";
+
+element.innerHTML = `
+
+<div class="tradeleft">
+
+<div class="tradeicon">
+${icons[card.album] || "🃏"}
+</div>
+
+<div>
+
+<div class="tradename">
+${esc(card.name)}
+</div>
+
+<div class="tradeplayer">
+
+${esc(
+player?.username ||
+player?.player_tag ||
+"Player"
+)}
+
+${
+player?.player_tag
+?
+" • #" +
+esc(player.player_tag)
+:
+""
+}
+
+</div>
+
+<div class="tradedetail">
+${esc(detail)}
+</div>
+
+</div>
+
+</div>
+
+<div class="badge ${badgeClass}">
+${badge}
+</div>
+
+`;
+
+container.appendChild(
+element
+);
+
+}
+
+
+async function loadTrade(){
+
+if(!user)
+return;
+
+matches.innerHTML =
+looking.innerHTML =
+offers.innerHTML =
+'<div class="empty">Loading trades...</div>';
+
+try{
+
+const result =
+await sb
+.from("user_cards")
+.select(
+"user_id,card_id,quantity,is_needed,is_for_trade,trade_quantity"
+)
+.or(
+"is_needed.eq.true,is_for_trade.eq.true"
+);
+
+if(result.error)
+throw result.error;
+
+const rows =
+(result.data || [])
+.filter(
+row =>
+row.user_id !== user.id
+);
+
+const playerIds = [
+...new Set(
+rows.map(
+row =>
+row.user_id
+)
+)
+];
+
+let profiles = [];
+
+if(playerIds.length){
+
+const profileResult =
+await sb
+.from("profiles")
+.select(
+"id,username,player_tag"
+)
+.in(
+"id",
+playerIds
+);
+
+if(
+!profileResult.error
+){
+
+profiles =
+profileResult.data || [];
+
+}
+
+}
+
+const profileMap =
+new Map(
+profiles.map(
+player => [
+player.id,
+player
+]
+)
+);
+
+const directMatches = [];
+const lookingForMine = [];
+const tradeOffers = [];
+
+
+rows.forEach(
+row => {
+
+const card =
+cards.find(
+c =>
+c.id ===
+Number(row.card_id)
+);
+
+if(!card)
+return;
+
+const player =
+profileMap.get(
+row.user_id
+);
+
+const available =
+Math.min(
+Number(row.quantity) || 0,
+Math.max(
+0,
+Number(row.trade_quantity) || 0
+)
+);
+
+
+/*
+ Someone offers a card
+ that I need.
+*/
+
+if(
+row.is_for_trade &&
+available > 0 &&
+needed.has(
+Number(row.card_id)
+)
+){
+
+directMatches.push({
+
+card,
+player,
+available
+
+});
+
+}
+
+
+/*
+ Someone needs a card
+ that I own.
+*/
+
+if(
+row.is_needed &&
+owned.has(
+Number(row.card_id)
+)
+){
+
+lookingForMine.push({
+
+card,
+player
+
+});
+
+}
+
+
+/*
+ General trade offers.
+*/
+
+if(
+row.is_for_trade &&
+available > 0
+){
+
+tradeOffers.push({
+
+card,
+player,
+available
+
+});
+
+}
+
+});
+
+
+matches.innerHTML =
+"";
+
+looking.innerHTML =
+"";
+
+offers.innerHTML =
+"";
+
+
+if(!directMatches.length){
+
+matches.innerHTML = `
+<div class="empty">
+No direct matches yet.<br>
+When someone offers a card you need,
+it will appear here.
+</div>
+`;
+
+}
+
+directMatches.forEach(
+item => {
+
+renderTradeItem(
+matches,
+item.card,
+item.player,
+item.available +
+" available for trade",
+"MATCH",
+"match"
+);
+
+});
+
+
+if(!lookingForMine.length){
+
+looking.innerHTML = `
+<div class="empty">
+Nobody is currently looking
+for cards you own.
+</div>
+`;
+
+}
+
+lookingForMine.forEach(
+item => {
+
+renderTradeItem(
+looking,
+item.card,
+item.player,
+"You own " +
+(
+qty.get(item.card.id) || 0
+),
+"YOU HAVE IT",
+"want"
+);
+
+});
+
+
+if(!tradeOffers.length){
+
+offers.innerHTML = `
+<div class="empty">
+No cards are currently offered
+by other players.
+</div>
+`;
+
+}
+
+tradeOffers.forEach(
+item => {
+
+renderTradeItem(
+offers,
+item.card,
+item.player,
+item.available +
+" available for trade",
+"AVAILABLE",
+"offer"
+);
+
+});
+
+
+}catch(error){
+
+console.error(
+"TRADE ERROR:",
+error
+);
+
+const errorHTML = `
+<div class="empty">
+Trade listings could not be loaded.<br><br>
+Check your Supabase
+<strong>user_cards SELECT policy</strong>.
+</div>
+`;
+
+matches.innerHTML =
+errorHTML;
+
+looking.innerHTML =
+errorHTML;
+
+offers.innerHTML =
+errorHTML;
+
+}
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function nav(
+page,
+button
+){
+
+[
+"home",
+"collection",
+"trade"
+]
+.forEach(
+pageName => {
+
+document
+.getElementById(pageName)
+.classList
+.toggle(
+"hidden",
+pageName !== page
+);
+
+}
+);
+
+document
+.querySelectorAll(
+".nav button"
+)
+.forEach(
+buttonElement =>
+buttonElement.classList.remove(
+"active"
+)
+);
+
+if(button){
+
+button.classList.add(
+"active"
+);
+
+}else{
+
+const buttons =
+document.querySelectorAll(
+".nav button"
+);
+
+const index =
+page === "home"
+?
+0
+:
+page === "collection"
+?
+1
+:
+2;
+
+buttons[index]
+.classList.add(
+"active"
+);
+
+}
+
+if(
+page === "collection"
+){
+
+renderCollection();
+
+}
+
+if(
+page === "trade"
+){
+
+loadTrade();
+
+}
+
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+function avatarPath(){
+
+return (
+user.id +
+"/avatar.jpg"
+);
+
+}
+
+
+function avatarUrl(){
+
+return (
+SUPABASE_URL +
+"/storage/v1/object/public/" +
+BUCKET +
+"/" +
+avatarPath() +
+"?v=" +
+Date.now()
+);
+
+}
+
+
+function updateAvatar(){
+
+if(!user)
+return;
+
+const image =
+new Image();
+
+image.onload =
+function(){
+
+avatar.innerHTML =
+"";
+
+avatar.appendChild(
+image
+);
+
+};
+
+image.onerror =
+function(){
+
+avatar.innerHTML =
+"👤";
+
+};
+
+image.src =
+avatarUrl();
+
+}
+
+
+async function uploadPhoto(
+file
+){
+
+if(!user)
+throw new Error(
+"Please log in first."
+);
+
+const allowed = [
+
+"image/jpeg",
+"image/png",
+"image/webp"
+
+];
+
+if(
+!allowed.includes(
+file.type
+)
+){
+
+throw new Error(
+"Please choose a JPG, PNG or WebP image."
+);
+
+}
+
+if(
+file.size >
+2 * 1024 * 1024
+){
+
+throw new Error(
+"Maximum photo size is 2 MB."
+);
+
+}
+
+const result =
+await sb
+.storage
+.from(BUCKET)
+.upload(
+avatarPath(),
+file,
+{
+
+upsert:true,
+
+contentType:
+file.type,
+
+cacheControl:
+"3600"
+
+}
+);
+
+if(result.error)
+throw result.error;
+
+updateAvatar();
+
+}
+
+
+async function removePhoto(){
+
+if(!user)
+return;
+
+const result =
+await sb
+.storage
+.from(BUCKET)
+.remove([
+avatarPath()
+]);
+
+if(result.error)
+throw result.error;
+
+avatar.innerHTML =
+"👤";
+
+}
+
+
+/* =========================================================
+   AVATAR EVENTS
+========================================================= */
+
+avatarBtn.onclick =
+function(){
+
+avatarInput.click();
+
+};
+
+
+avatarInput.onchange =
+async function(event){
+
+const file =
+event.target
+.files?.[0];
+
+if(!file)
+return;
+
+avatarBtn.disabled =
+true;
+
+avatarBtn.textContent =
+"UPLOADING...";
+
+try{
+
+await uploadPhoto(
+file
+);
+
+}catch(error){
+
+console.error(
+"AVATAR UPLOAD ERROR:",
+error
+);
+
+alert(
+error.message ||
+"Could not upload the photo."
+);
+
+}finally{
+
+avatarBtn.disabled =
+false;
+
+avatarBtn.textContent =
+"📷 PHOTO";
+
+event.target.value =
+"";
+
+}
+
+};
+
+
+removeAvatar.onclick =
+async function(){
+
+if(
+!confirm(
+"Remove your profile photo?"
+)
+)
+return;
+
+removeAvatar.disabled =
+true;
+
+try{
+
+await removePhoto();
+
+}catch(error){
+
+console.error(
+"AVATAR DELETE ERROR:",
+error
+);
+
+alert(
+error.message ||
+"Could not remove the photo."
+);
+
+}finally{
+
+removeAvatar.disabled =
+false;
+
+}
+
+};
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+logout.onclick =
+async function(){
+
+await sb.auth.signOut();
+
+location.reload();
+
+};
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+loginPassword.onkeydown =
+function(event){
+
+if(
+event.key ===
+"Enter"
+){
+
+login();
+
+}
+
+};
+
+
+loginTag.onkeydown =
+function(event){
+
+if(
+event.key ===
+"Enter"
+){
+
+login();
+
+}
+
+};
+
+
+signupPassword.onkeydown =
+function(event){
+
+if(
+event.key ===
+"Enter"
+){
+
+signup();
+
+}
+
+};
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const albumsEl =
+document.getElementById(
+"albums"
+);
+
+const cardsEl =
+document.getElementById(
+"cards"
+);
+
+const albumTabs =
+document.getElementById(
+"albumTabs"
+);
+
+const banner =
+document.getElementById(
+"banner"
+);
+
+const navEl =
+document.getElementById(
+"nav"
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+async function start(){
+
+buildCards();
+
+try{
+
+const result =
+await sb.auth.getSession();
+
+if(
+result.data?.session
+){
+
+user =
+result.data.session.user;
+
+try{
+
+await loadData();
+
+}catch(error){
+
+console.warn(
+error
+);
+
+}
+
+showApp();
+
+}
+
+}catch(error){
+
+console.error(
+"SESSION ERROR:",
+error
+);
+
+}
+
+}
+
+
+start();
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+sb.auth.onAuthStateChange(
+async function(
+event,
+session
+){
+
+if(
+event ===
+"SIGNED_IN" &&
+session?.user
+){
+
+user =
+session.user;
+
+try{
+
+await loadData();
+
+}catch(error){
+
+console.warn(
+"AUTH DATA ERROR:",
+error
+);
+
+}
+
+showApp();
+
+}
+
+
+if(
+event ===
+"SIGNED_OUT"
+){
+
+user =
+null;
+
+}
+
+});
 
 </script>
 
 </body>
-</html> 
+</html>
